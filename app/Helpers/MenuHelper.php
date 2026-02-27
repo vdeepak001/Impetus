@@ -10,7 +10,7 @@ class MenuHelper
             [
                 'icon' => 'dashboard',
                 'name' => 'Dashboard',
-                'path' => '/dashboard',
+                'path' => auth()->user() && auth()->user()->role_type === 'superadmin' ? '/super-admin/dashboard' : '/dashboard',
             ],
             [
                 'icon' => 'user-profile',

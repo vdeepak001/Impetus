@@ -9,11 +9,14 @@
                 </h4>
 
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->name }}</p>
+                    <div>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">First Name</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->first_name ?? Auth::user()->name }}</p>
+                    </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Last Name</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Chowdhury</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->last_name }}</p>
                     </div>
 
                     <div>
@@ -26,13 +29,13 @@
                     </div>
 
                     <div>
-                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Phone</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">+09 363 398 46</p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Role</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ ucfirst(Auth::user()->role_type) }}</p>
                     </div>
 
                     <div>
-                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Bio</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">Team Manager</p>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Status</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->active_status ? 'Active' : 'Inactive' }}</p>
                     </div>
                 </div>
             </div>
