@@ -7,6 +7,7 @@ use App\Models\CourseDetail;
 use App\Models\CourseMaterial;
 use App\Models\CourseTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseMaterialController extends Controller
 {
@@ -45,6 +46,7 @@ class CourseMaterialController extends Controller
         }
 
         CourseMaterial::create([
+            'user_id' => Auth::id(),
             'course_id' => $validated['course_id'],
             'course_title_id' => $validated['course_title_id'],
             'description' => $validated['description'],

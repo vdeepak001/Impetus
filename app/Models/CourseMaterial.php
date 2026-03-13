@@ -13,6 +13,7 @@ class CourseMaterial extends Model
     protected $table = 'title_materials';
 
     protected $fillable = [
+        'user_id',
         'course_id',
         'course_title_id',
         'description',
@@ -22,6 +23,11 @@ class CourseMaterial extends Model
     protected $casts = [
         'attachment' => 'array',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function course()
     {

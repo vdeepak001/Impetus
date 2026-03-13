@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use App\Models\CourseQuestion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseQuestionController extends Controller
 {
@@ -46,6 +47,7 @@ class CourseQuestionController extends Controller
             $validated['choice_d'] = null;
         }
 
+        $validated['user_id'] = Auth::id();
         CourseQuestion::create($validated);
 
         return redirect()->route('course-questions.index')->with('success', 'Course question created successfully.');

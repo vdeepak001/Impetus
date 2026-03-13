@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseDetailController extends Controller
 {
@@ -38,6 +39,7 @@ class CourseDetailController extends Controller
             'final_test' => ['nullable', 'string', 'max:255'],
         ]);
 
+        $validated['user_id'] = Auth::id();
         CourseDetail::create($validated);
 
         return redirect()->route('course-details.index')->with('success', 'Course detail created successfully.');

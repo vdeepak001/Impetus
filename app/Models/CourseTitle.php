@@ -13,10 +13,16 @@ class CourseTitle extends Model
     protected $table = 'course_title';
 
     protected $fillable = [
+        'user_id',
         'course_id',
         'title_name',
         'title_description',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function course()
     {

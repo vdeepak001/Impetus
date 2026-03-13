@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use App\Models\CourseTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseTitleController extends Controller
 {
@@ -31,6 +32,7 @@ class CourseTitleController extends Controller
             'title_description' => ['nullable', 'string'],
         ]);
 
+        $validated['user_id'] = Auth::id();
         CourseTitle::create($validated);
 
         return redirect()->route('course-titles.index')->with('success', 'Course title created successfully.');

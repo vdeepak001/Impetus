@@ -13,6 +13,7 @@ class CourseQuestion extends Model
     protected $table = 'course_questions';
 
     protected $fillable = [
+        'user_id',
         'question_code',
         'course_id',
         'question_type',
@@ -25,6 +26,11 @@ class CourseQuestion extends Model
         'answer',
         'reason',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
     public function course()
     {

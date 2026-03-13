@@ -43,6 +43,9 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Question
                     </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
+                        Created By
+                    </th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Action
                     </th>
@@ -72,6 +75,10 @@
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 max-w-sm truncate">
                             {{ $question->question }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                            <div>{{ $question->user?->name ?? 'System' }}</div>
+                            <div class="text-xs text-gray-500 uppercase">{{ $question->user?->role_type ?? 'N/A' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <div class="flex justify-end gap-2">

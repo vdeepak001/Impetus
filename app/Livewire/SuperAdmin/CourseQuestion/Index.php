@@ -37,7 +37,7 @@ class Index extends Component
 
     public function render()
     {
-        $query = CourseQuestion::with('course');
+        $query = CourseQuestion::with(['course', 'user']);
 
         // Apply Search
         if ($this->search) {

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('question_code', 55)->nullable();
             $table->foreignId('course_id')->nullable()->constrained('course_details')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('question_type', 20)->default('mcq')->comment('mcq, text');
             $table->string('question_level', 20)->nullable();
             $table->text('question')->nullable();

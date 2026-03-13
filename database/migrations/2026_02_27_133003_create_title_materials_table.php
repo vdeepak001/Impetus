@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('course_id')->nullable()->constrained('course_details')->cascadeOnDelete();
             $table->foreignId('course_title_id')->nullable()->constrained('course_title')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->string('description')->nullable();
             $table->text('attachment')->nullable();
             $table->softDeletes();

@@ -13,6 +13,8 @@ class CourseDetail extends Model
     protected $table = 'course_details';
 
     protected $fillable = [
+        'user_id',
+        'course_id',
         'course_code',
         'couse_name',
         'course_url',
@@ -34,4 +36,9 @@ class CourseDetail extends Model
         'active_status' => 'integer',
         'sequence' => 'integer',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
