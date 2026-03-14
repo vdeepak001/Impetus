@@ -14,6 +14,9 @@ class Index extends Component
     #[Url(except: '')]
     public $search = '';
 
+    #[Url(except: 'all')]
+    public $filter = 'all';
+
     #[Url(except: 'id')]
     public $sortField = 'id';
 
@@ -22,7 +25,36 @@ class Index extends Component
 
     public $perPage = 10;
 
-    public function updatingSearch() { $this->resetPage(); }
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        $this->resetPage();
+    }
+
+    public function toggleStatus($questionId)
+    {
+        $question = CourseQuestion::findOrFail($questionId);
+        $question->active_status = ! $question->active_status;
+        $question->save();
+
+        $status = $question->active_status ? 'activated' : 'deactivated';
+
+        $this->dispatch('notify',
+            message: "Question {$status} successfully!",
+            title: 'Status Updated',
+            variant: 'success'
+        );
+    }
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function sortBy($field)
     {
@@ -41,22 +73,31 @@ class Index extends Component
 
         // Apply Search
         if ($this->search) {
-            $query->where(function($q) {
-                $q->where('question', 'like', '%' . $this->search . '%')
-                  ->orWhere('question_code', 'like', '%' . $this->search . '%')
-                  ->orWhereHas('course', function($cq) {
-                      $cq->where('couse_name', 'like', '%' . $this->search . '%');
-                  });
+            $query->where(function ($q) {
+                $q->where('question', 'like', '%'.$this->search.'%')
+                    ->orWhere('question_code', 'like', '%'.$this->search.'%')
+                    ->orWhereHas('course', function ($cq) {
+                        $cq->where('couse_name', 'like', '%'.$this->search.'%');
+                    });
             });
+        }
+
+        // Apply Status Filter
+        if ($this->filter === 'active') {
+            $query->where('active_status', true);
+        } elseif ($this->filter === 'inactive') {
+            $query->where('active_status', false);
         }
 
         // Apply Sorting
         $questions = $query->orderBy($this->sortField, $this->sortDirection)
-                          ->paginate($this->perPage);
+            ->paginate($this->perPage);
 
         return view('livewire.super-admin.course-question.index', [
             'questions' => $questions,
             'totalCount' => CourseQuestion::count(),
+            'activeCount' => CourseQuestion::where('active_status', true)->count(),
+            'inactiveCount' => CourseQuestion::where('active_status', false)->count(),
         ]);
     }
 }

@@ -17,7 +17,15 @@ class CourseTitle extends Model
         'course_id',
         'title_name',
         'title_description',
+        'active_status',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'active_status' => 'boolean',
+        ];
+    }
 
     public function user()
     {

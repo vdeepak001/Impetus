@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -28,11 +29,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if ($request->user()->role_type === 'superadmin') {
-            return redirect()->intended(route('super-admin.dashboard', absolute: false));
-        }
+        $prefix = MenuHelper::getPrefixForRole($request->user()->role_type);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        return redirect()->intended(route($prefix.'.dashboard', absolute: false));
     }
 
     /**

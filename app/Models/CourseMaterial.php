@@ -18,10 +18,12 @@ class CourseMaterial extends Model
         'course_title_id',
         'description',
         'attachment',
+        'active_status',
     ];
 
     protected $casts = [
         'attachment' => 'array',
+        'active_status' => 'boolean',
     ];
 
     public function user()

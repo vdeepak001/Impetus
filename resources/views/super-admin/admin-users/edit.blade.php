@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card title="User Information">
-            <form method="POST" action="{{ route('admin-users.update', $user) }}">
+            <form method="POST" action="{{ route('super-admin.admin-users.update', $user) }}">
                 @csrf
                 @method('PUT')
                 
@@ -91,7 +91,7 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-8">
-                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route('admin-users.index') }}'">
+                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route('super-admin.admin-users.index') }}'">
                         Cancel
                     </x-ui.button>
 

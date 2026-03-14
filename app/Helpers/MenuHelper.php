@@ -4,42 +4,111 @@ namespace App\Helpers;
 
 class MenuHelper
 {
-    public static function getMainNavItems()
+    /**
+     * URL prefix for each role_type (e.g. superadmin -> super-admin).
+     */
+    public static function getPrefixForRole(?string $roleType): ?string
     {
-        return [
+        return match ($roleType) {
+            'superadmin' => 'super-admin',
+            'admin' => 'admin',
+            'sme' => 'sme',
+            'support' => 'support',
+            default => null,
+        };
+    }
+
+    /**
+     * Current user's route prefix for URL generation.
+     */
+    public static function getCurrentPrefix(): ?string
+    {
+        $user = auth()->user();
+
+        return $user ? self::getPrefixForRole($user->role_type) : null;
+    }
+
+    public static function getMainNavItems(): array
+    {
+        $prefix = self::getCurrentPrefix();
+        if (! $prefix) {
+            return [];
+        }
+
+        $isSuperAdmin = auth()->user()?->role_type === 'superadmin';
+
+        $items = [
             [
                 'icon' => 'dashboard',
                 'name' => 'Dashboard',
-                'path' => auth()->user() && auth()->user()->role_type === 'superadmin' ? '/super-admin/dashboard' : '/dashboard',
+                'path' => '/'.$prefix.'/dashboard',
             ],
-            [
+        ];
+
+        if ($isSuperAdmin) {
+            $items[] = [
                 'icon' => 'user-profile',
                 'name' => 'Admin Users',
                 'path' => '/super-admin/users',
-            ],
-            [
-                'icon' => 'course',
-                'name' => 'Courses',
-                'subItems' => [
-                    [
-                        'name' => 'Course Details',
-                        'path' => '/super-admin/course-details',
-                    ],
-                    [
-                        'name' => 'Course Titles',
-                        'path' => '/super-admin/course-titles',
-                    ],
-                    [
-                        'name' => 'Course Materials',
-                        'path' => '/super-admin/title-materials',
-                    ],
-                    [
-                        'name' => 'Course Questions',
-                        'path' => '/super-admin/course-questions',
-                    ],
-                ]
+            ];
+        }
+
+        $items[] = [
+            'icon' => 'course',
+            'name' => 'Courses',
+            'subItems' => [
+                ['name' => 'Course Details', 'path' => '/'.$prefix.'/course-details'],
+                ['name' => 'Course Titles', 'path' => '/'.$prefix.'/course-titles'],
+                ['name' => 'Course Materials', 'path' => '/'.$prefix.'/title-materials'],
+                ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
             ],
         ];
+
+        $roleType = auth()->user()?->role_type;
+        if (in_array($roleType, ['superadmin', 'admin'], true)) {
+            $items[] = [
+                'icon' => 'tables',
+                'name' => 'State Councils',
+                'subItems' => [
+                    ['name' => 'State-wise Modules', 'path' => '/'.$prefix.'/state-councils/state-wise-modules'],
+                    ['name' => 'State-wise Pass Percentage', 'path' => '/'.$prefix.'/state-councils/state-wise-pass-percentage'],
+                ],
+            ];
+        }
+
+        if (in_array($roleType, ['superadmin', 'admin', 'support'], true)) {
+            $items[] = [
+                'icon' => 'user-profile',
+                'name' => 'Users List',
+                'path' => '/'.$prefix.'/users-list',
+            ];
+        }
+
+        if (in_array($roleType, ['superadmin', 'admin'], true)) {
+            $items[] = [
+                'icon' => 'charts',
+                'name' => 'Reports',
+                'path' => '/'.$prefix.'/reports',
+            ];
+        }
+
+        if (in_array($roleType, ['superadmin', 'admin', 'support'], true)) {
+            $items[] = [
+                'icon' => 'ecommerce',
+                'name' => 'Order Details',
+                'path' => '/'.$prefix.'/order-details',
+            ];
+        }
+
+        if (in_array($roleType, ['superadmin', 'admin'], true)) {
+            $items[] = [
+                'icon' => 'task',
+                'name' => 'Order Status',
+                'path' => '/'.$prefix.'/order-status',
+            ];
+        }
+
+        return $items;
     }
 
     public static function getOthersItems()
@@ -52,7 +121,7 @@ class MenuHelper
         return [
             [
                 'title' => 'Menu',
-                'items' => self::getMainNavItems()
+                'items' => self::getMainNavItems(),
             ],
         ];
     }
@@ -94,7 +163,7 @@ class MenuHelper
             'support-ticket' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 17.0518V12C20 7.58174 16.4183 4 12 4C7.58168 4 3.99994 7.58174 3.99994 12V17.0518M19.9998 14.041V19.75C19.9998 20.5784 19.3282 21.25 18.4998 21.25H13.9998M6.5 18.75H5.5C4.67157 18.75 4 18.0784 4 17.25V13.75C4 12.9216 4.67157 12.25 5.5 12.25H6.5C7.32843 12.25 8 12.9216 8 13.75V17.25C8 18.0784 7.32843 18.75 6.5 18.75ZM17.4999 18.75H18.4999C19.3284 18.75 19.9999 18.0784 19.9999 17.25V13.75C19.9999 12.9216 19.3284 12.25 18.4999 12.25H17.4999C16.6715 12.25 15.9999 12.9216 15.9999 13.75V17.25C15.9999 18.0784 16.6715 18.75 17.4999 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
 
             'email' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M3.5 8.187V17.25C3.5 17.6642 3.83579 18 4.25 18H19.75C20.1642 18 20.5 17.6642 20.5 17.25V8.18747L13.2873 13.2171C12.5141 13.7563 11.4866 13.7563 10.7134 13.2171L3.5 8.187ZM20.5 6.2286C20.5 6.23039 20.5 6.23218 20.5 6.23398V6.24336C20.4976 6.31753 20.4604 6.38643 20.3992 6.42905L12.4293 11.9867C12.1716 12.1664 11.8291 12.1664 11.5713 11.9867L3.60116 6.42885C3.538 6.38481 3.50035 6.31268 3.50032 6.23568C3.50028 6.10553 3.60577 6 3.73592 6H20.2644C20.3922 6 20.4963 6.10171 20.5 6.2286ZM22 6.25648V17.25C22 18.4926 20.9926 19.5 19.75 19.5H4.25C3.00736 19.5 2 18.4926 2 17.25V6.23398C2 6.22371 2.00021 6.2135 2.00061 6.20333C2.01781 5.25971 2.78812 4.5 3.73592 4.5H20.2644C21.2229 4.5 22 5.27697 22.0001 6.23549C22.0001 6.24249 22.0001 6.24949 22 6.25648Z" fill="currentColor"></path></svg>',
-            
+
             'course' => '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 6.252V20M12 6.252C10.5 4.5 7.5 4.5 6 4.5C4.5 4.5 2 4.5 2 7.75V17.25C2 20.5 4.5 20.5 6 20.5C7.5 20.5 10.5 20.5 12 18.75M12 6.252C13.5 4.5 16.5 4.5 18 4.5C19.5 4.5 22 4.5 22 7.75V17.25C22 20.5 19.5 20.5 18 20.5C16.5 20.5 13.5 20.5 12 18.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
         ];
 

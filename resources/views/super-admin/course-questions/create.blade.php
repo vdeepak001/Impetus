@@ -10,7 +10,7 @@
     <div>
     <div x-data="{ questionType: '{{ old('question_type', 'mcq') }}' }">
         <x-common.component-card title="Question Information">
-            <form method="POST" action="{{ route('course-questions.store') }}">
+            <form method="POST" action="{{ route($routePrefix . '.course-questions.store') }}">
                 @csrf
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -143,7 +143,7 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-8">
-                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route('course-questions.index') }}'">
+                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.course-questions.index') }}'">
                         Cancel
                     </x-ui.button>
 

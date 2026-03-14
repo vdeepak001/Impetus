@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use Illuminate\Http\Request;
@@ -42,14 +43,14 @@ class CourseDetailController extends Controller
         $validated['user_id'] = Auth::id();
         CourseDetail::create($validated);
 
-        return redirect()->route('course-details.index')->with('success', 'Course detail created successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail created successfully.');
     }
 
     public function edit(CourseDetail $course_detail)
     {
         return view('super-admin.course-details.edit', [
             'course' => $course_detail,
-            'title' => 'Edit Course Detail'
+            'title' => 'Edit Course Detail',
         ]);
     }
 
@@ -75,12 +76,13 @@ class CourseDetailController extends Controller
 
         $course_detail->update($validated);
 
-        return redirect()->route('course-details.index')->with('success', 'Course detail updated successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail updated successfully.');
     }
 
     public function destroy(CourseDetail $course_detail)
     {
         $course_detail->delete();
-        return redirect()->route('course-details.index')->with('success', 'Course detail deleted successfully.');
+
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail deleted successfully.');
     }
 }

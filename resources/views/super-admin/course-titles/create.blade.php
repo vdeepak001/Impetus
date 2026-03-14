@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card title="Title Information">
-            <form method="POST" action="{{ route('course-titles.store') }}">
+            <form method="POST" action="{{ route($routePrefix . '.course-titles.store') }}">
                 @csrf
                 
                 <div class="grid grid-cols-1 gap-6">
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-8">
-                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route('course-titles.index') }}'">
+                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.course-titles.index') }}'">
                         Cancel
                     </x-ui.button>
 

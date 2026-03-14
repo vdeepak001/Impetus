@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use App\Models\CourseMaterial;
@@ -21,11 +22,11 @@ class CourseMaterialController extends Controller
         $courses = CourseDetail::orderBy('couse_name')->get();
         // We'll load titles dynamically via Livewire or just pass all for simplicity in standard view
         $titles = CourseTitle::orderBy('title_name')->get();
-        
+
         return view('super-admin.course-materials.create', [
             'title' => 'Create Course Material',
             'courses' => $courses,
-            'titles' => $titles
+            'titles' => $titles,
         ]);
     }
 
@@ -53,7 +54,7 @@ class CourseMaterialController extends Controller
             'attachment' => $paths,
         ]);
 
-        return redirect()->route('title-materials.index')->with('success', 'Course material created successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material created successfully.');
     }
 
     public function edit(CourseMaterial $title_material)
@@ -65,7 +66,7 @@ class CourseMaterialController extends Controller
             'material' => $title_material,
             'courses' => $courses,
             'titles' => $titles,
-            'title' => 'Edit Course Material'
+            'title' => 'Edit Course Material',
         ]);
     }
 
@@ -105,12 +106,13 @@ class CourseMaterialController extends Controller
             'attachment' => $currentPaths,
         ]);
 
-        return redirect()->route('title-materials.index')->with('success', 'Course material updated successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material updated successfully.');
     }
 
     public function destroy(CourseMaterial $title_material)
     {
         $title_material->delete();
-        return redirect()->route('title-materials.index')->with('success', 'Course material deleted successfully.');
+
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material deleted successfully.');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use App\Models\CourseTitle;
@@ -18,9 +19,10 @@ class CourseTitleController extends Controller
     public function create()
     {
         $courses = CourseDetail::orderBy('couse_name')->get();
+
         return view('super-admin.course-titles.create', [
             'title' => 'Create Course Title',
-            'courses' => $courses
+            'courses' => $courses,
         ]);
     }
 
@@ -35,16 +37,17 @@ class CourseTitleController extends Controller
         $validated['user_id'] = Auth::id();
         CourseTitle::create($validated);
 
-        return redirect()->route('course-titles.index')->with('success', 'Course title created successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-titles.index')->with('success', 'Course title created successfully.');
     }
 
     public function edit(CourseTitle $course_title)
     {
         $courses = CourseDetail::orderBy('couse_name')->get();
+
         return view('super-admin.course-titles.edit', [
             'courseTitle' => $course_title,
             'courses' => $courses,
-            'title' => 'Edit Course Title'
+            'title' => 'Edit Course Title',
         ]);
     }
 
@@ -64,6 +67,7 @@ class CourseTitleController extends Controller
     public function destroy(CourseTitle $course_title)
     {
         $course_title->delete();
-        return redirect()->route('course-titles.index')->with('success', 'Course title deleted successfully.');
+
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-titles.index')->with('success', 'Course title deleted successfully.');
     }
 }

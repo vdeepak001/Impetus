@@ -14,6 +14,9 @@ class Index extends Component
     #[Url(except: '')]
     public $search = '';
 
+    #[Url(except: 'all')]
+    public $filter = 'all';
+
     #[Url(except: 'id')]
     public $sortField = 'id';
 
@@ -22,7 +25,36 @@ class Index extends Component
 
     public $perPage = 10;
 
-    public function updatingSearch() { $this->resetPage(); }
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        $this->resetPage();
+    }
+
+    public function toggleStatus($materialId)
+    {
+        $material = CourseMaterial::findOrFail($materialId);
+        $material->active_status = ! $material->active_status;
+        $material->save();
+
+        $status = $material->active_status ? 'activated' : 'deactivated';
+
+        $this->dispatch('notify',
+            message: "Material {$status} successfully!",
+            title: 'Status Updated',
+            variant: 'success'
+        );
+    }
+
+    public function updatingSearch(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter(): void
+    {
+        $this->resetPage();
+    }
 
     public function sortBy($field)
     {
@@ -41,24 +73,33 @@ class Index extends Component
 
         // Apply Search
         if ($this->search) {
-            $query->where(function($q) {
-                $q->where('description', 'like', '%' . $this->search . '%')
-                  ->orWhereHas('course', function($cq) {
-                      $cq->where('couse_name', 'like', '%' . $this->search . '%');
-                  })
-                  ->orWhereHas('courseTitle', function($tq) {
-                      $tq->where('title_name', 'like', '%' . $this->search . '%');
-                  });
+            $query->where(function ($q) {
+                $q->where('description', 'like', '%'.$this->search.'%')
+                    ->orWhereHas('course', function ($cq) {
+                        $cq->where('couse_name', 'like', '%'.$this->search.'%');
+                    })
+                    ->orWhereHas('courseTitle', function ($tq) {
+                        $tq->where('title_name', 'like', '%'.$this->search.'%');
+                    });
             });
+        }
+
+        // Apply Status Filter
+        if ($this->filter === 'active') {
+            $query->where('active_status', true);
+        } elseif ($this->filter === 'inactive') {
+            $query->where('active_status', false);
         }
 
         // Apply Sorting
         $materials = $query->orderBy($this->sortField, $this->sortDirection)
-                          ->paginate($this->perPage);
+            ->paginate($this->perPage);
 
         return view('livewire.super-admin.course-material.index', [
             'materials' => $materials,
             'totalCount' => CourseMaterial::count(),
+            'activeCount' => CourseMaterial::where('active_status', true)->count(),
+            'inactiveCount' => CourseMaterial::where('active_status', false)->count(),
         ]);
     }
 }

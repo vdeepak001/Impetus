@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\SuperAdmin;
 
+use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Models\CourseDetail;
 use App\Models\CourseQuestion;
@@ -18,9 +19,10 @@ class CourseQuestionController extends Controller
     public function create()
     {
         $courses = CourseDetail::orderBy('couse_name')->get();
+
         return view('super-admin.course-questions.create', [
             'title' => 'Create Course Question',
-            'courses' => $courses
+            'courses' => $courses,
         ]);
     }
 
@@ -50,16 +52,17 @@ class CourseQuestionController extends Controller
         $validated['user_id'] = Auth::id();
         CourseQuestion::create($validated);
 
-        return redirect()->route('course-questions.index')->with('success', 'Course question created successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-questions.index')->with('success', 'Course question created successfully.');
     }
 
     public function edit(CourseQuestion $course_question)
     {
         $courses = CourseDetail::orderBy('couse_name')->get();
+
         return view('super-admin.course-questions.edit', [
             'question' => $course_question,
             'courses' => $courses,
-            'title' => 'Edit Course Question'
+            'title' => 'Edit Course Question',
         ]);
     }
 
@@ -88,12 +91,13 @@ class CourseQuestionController extends Controller
 
         $course_question->update($validated);
 
-        return redirect()->route('course-questions.index')->with('success', 'Course question updated successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-questions.index')->with('success', 'Course question updated successfully.');
     }
 
     public function destroy(CourseQuestion $course_question)
     {
         $course_question->delete();
-        return redirect()->route('course-questions.index')->with('success', 'Course question deleted successfully.');
+
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-questions.index')->with('success', 'Course question deleted successfully.');
     }
 }

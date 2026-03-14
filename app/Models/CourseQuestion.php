@@ -25,7 +25,15 @@ class CourseQuestion extends Model
         'choice_d',
         'answer',
         'reason',
+        'active_status',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'active_status' => 'boolean',
+        ];
+    }
 
     public function user()
     {

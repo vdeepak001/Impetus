@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card title="Material Information">
-            <form method="POST" action="{{ route('title-materials.update', $material) }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route($routePrefix . '.title-materials.update', $material) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-8">
-                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route('title-materials.index') }}'">
+                    <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.title-materials.index') }}'">
                         Cancel
                     </x-ui.button>
 
