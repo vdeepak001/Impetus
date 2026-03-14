@@ -1,0 +1,9 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/f4cw7dzgaokn/impetus
+    - /usr/local/cpanel/3rdparty/bin/composer install --no-dev --optimize-autoloader
+    - /usr/local/bin/php artisan migrate --force
+    - /usr/local/bin/php artisan config:cache
+    - /usr/local/bin/php artisan route:cache
+    - /usr/local/bin/php artisan storage:link
