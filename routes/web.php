@@ -41,21 +41,49 @@ foreach ($prefixes as $prefix) {
             });
         }
 
-        Route::resource('course-details', CourseDetailController::class)
-            ->names($prefix.'.course-details')
-            ->parameters(['course-details' => 'course_detail']);
+        if ($prefix === 'super-admin') {
+            Route::resource('course-details', CourseDetailController::class)
+                ->names($prefix.'.course-details')
+                ->parameters(['course-details' => 'course_detail']);
+        } else {
+            Route::resource('course-details', CourseDetailController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-details')
+                ->parameters(['course-details' => 'course_detail']);
+        }
 
-        Route::resource('course-titles', CourseTitleController::class)
-            ->names($prefix.'.course-titles')
-            ->parameters(['course-titles' => 'course_title']);
+        if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            Route::resource('course-titles', CourseTitleController::class)
+                ->names($prefix.'.course-titles')
+                ->parameters(['course-titles' => 'course_title']);
+        } else {
+            Route::resource('course-titles', CourseTitleController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-titles')
+                ->parameters(['course-titles' => 'course_title']);
+        }
 
-        Route::resource('title-materials', CourseMaterialController::class)
-            ->names($prefix.'.title-materials')
-            ->parameters(['title-materials' => 'title_material']);
+        if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            Route::resource('title-materials', CourseMaterialController::class)
+                ->names($prefix.'.title-materials')
+                ->parameters(['title-materials' => 'title_material']);
+        } else {
+            Route::resource('title-materials', CourseMaterialController::class)
+                ->only(['index'])
+                ->names($prefix.'.title-materials')
+                ->parameters(['title-materials' => 'title_material']);
+        }
 
-        Route::resource('course-questions', CourseQuestionController::class)
-            ->names($prefix.'.course-questions')
-            ->parameters(['course-questions' => 'course_question']);
+        if (in_array($prefix, ['admin', 'sme'], true)) {
+            Route::resource('course-questions', CourseQuestionController::class)
+                ->names($prefix.'.course-questions')
+                ->parameters(['course-questions' => 'course_question']);
+        } else {
+            Route::resource('course-questions', CourseQuestionController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-questions')
+                ->parameters(['course-questions' => 'course_question']);
+        }
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
             Route::get('state-councils/state-wise-modules', [StateCouncilController::class, 'stateWiseModules'])

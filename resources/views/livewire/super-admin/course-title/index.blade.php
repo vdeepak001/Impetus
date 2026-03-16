@@ -30,11 +30,13 @@
                 </button>
             </div>
 
-            <!-- Add New Button -->
-            <a href="{{ route($routePrefix . '.course-titles.create') }}"
-               class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150 flex-shrink-0">
-                Add New Title
-            </a>
+            @if(in_array($routePrefix, ['super-admin', 'admin']))
+                <!-- Add New Button -->
+                <a href="{{ route($routePrefix . '.course-titles.create') }}"
+                   class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150 flex-shrink-0">
+                    Add New Title
+                </a>
+            @endif
         </div>
     </div>
 
@@ -59,9 +61,11 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('active_status')">
                         Status
                     </th>
-                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
-                        Action
-                    </th>
+                    @if(in_array($routePrefix, ['super-admin', 'admin']))
+                        <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
+                            Action
+                        </th>
+                    @endif
                 </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
@@ -83,7 +87,19 @@
                             <div class="text-xs text-gray-500 uppercase">{{ $title->user?->role_type ?? 'N/A' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <button wire:click="toggleStatus({{ $title->id }})" class="focus:outline-none">
+                            @if(in_array($routePrefix, ['super-admin', 'admin']))
+                                <button wire:click="toggleStatus({{ $title->id }})" class="focus:outline-none">
+                                    @if ($title->active_status)
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                            Active
+                                        </span>
+                                    @else
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                            Inactive
+                                        </span>
+                                    @endif
+                                </button>
+                            @else
                                 @if ($title->active_status)
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         Active
@@ -93,22 +109,24 @@
                                         Inactive
                                     </span>
                                 @endif
-                            </button>
+                            @endif
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                            <div class="flex justify-end gap-2">
-                                <a href="{{ route($routePrefix . '.course-titles.edit', $title) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</a>
-                                <form action="{{ route($routePrefix . '.course-titles.destroy', $title) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this title?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Delete</button>
-                                </form>
-                            </div>
-                        </td>
+                        @if(in_array($routePrefix, ['super-admin', 'admin']))
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <div class="flex justify-end gap-2">
+                                    <a href="{{ route($routePrefix . '.course-titles.edit', $title) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</a>
+                                    <form action="{{ route($routePrefix . '.course-titles.destroy', $title) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this title?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Delete</button>
+                                    </form>
+                                </div>
+                            </td>
+                        @endif
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
+                            <td colspan="{{ in_array($routePrefix, ['super-admin', 'admin']) ? 6 : 5 }}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
                             No titles found.
                         </td>
                     </tr>
