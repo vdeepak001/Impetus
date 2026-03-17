@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('state_name')->nullable();
             $table->string('council_name')->nullable();
-            $table->integer('sequence')->nullable();
             $table->json('courses')->nullable();
             $table->json('pass_percentage')->nullable();
             $table->json('mrp')->nullable();

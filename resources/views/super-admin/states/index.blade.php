@@ -7,7 +7,9 @@
         </h2>
     </div>
 
-    <div class="w-full">
-        <livewire:super-admin.state-council.index view-type="pass_percentage" />
+    <div>
+        <div class="w-full">
+            <livewire:super-admin.state.index />
+        </div>
     </div>
 @endsection

@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperAdmin\CourseTitleController;
 use App\Http\Controllers\SuperAdmin\OrderDetailsController;
 use App\Http\Controllers\SuperAdmin\OrderStatusController;
 use App\Http\Controllers\SuperAdmin\ReportsController;
+use App\Http\Controllers\SuperAdmin\StateController;
 use App\Http\Controllers\SuperAdmin\StateCouncilController;
 use App\Http\Controllers\SuperAdmin\UsersListController;
 use Illuminate\Support\Facades\Route;
@@ -86,10 +87,18 @@ foreach ($prefixes as $prefix) {
         }
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            Route::resource('states', StateController::class)
+                ->except(['show'])
+                ->names($prefix.'.states')
+                ->parameters(['states' => 'state']);
             Route::get('state-councils/state-wise-modules', [StateCouncilController::class, 'stateWiseModules'])
                 ->name($prefix.'.state-councils.state-wise-modules');
             Route::get('state-councils/state-wise-pass-percentage', [StateCouncilController::class, 'stateWisePassPercentage'])
                 ->name($prefix.'.state-councils.state-wise-pass-percentage');
+            Route::resource('state-councils', StateCouncilController::class)
+                ->except(['index', 'show'])
+                ->names($prefix.'.state-councils')
+                ->parameters(['state-councils' => 'state_council']);
         }
 
         if (in_array($prefix, ['super-admin', 'admin', 'support'], true)) {

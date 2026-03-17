@@ -7,12 +7,7 @@
         </h2>
     </div>
 
-    <div class="bg-white shadow-md rounded-lg p-12 text-center dark:bg-gray-800">
-        <p class="text-2xl font-semibold text-gray-600 dark:text-gray-300">
-            Coming Soon
-        </p>
-        <p class="mt-2 text-gray-500 dark:text-gray-400">
-            State-wise Modules will be available here.
-        </p>
+    <div class="w-full">
+        <livewire:super-admin.state-council.index view-type="modules" />
     </div>
 @endsection
