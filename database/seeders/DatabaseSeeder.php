@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin User',
             'email' => 'admin@impetus.com',
             'password' => bcrypt('password'),
-        ])->assignRole('superadmin');
+            'role_type' => 'superadmin',
+        ]);
     }
 }
