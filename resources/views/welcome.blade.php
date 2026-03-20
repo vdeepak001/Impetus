@@ -72,7 +72,6 @@
                 <div class="flex items-center justify-between">
                     <a href="#" class="-m-1.5 p-1.5 flex items-center gap-2">
                         <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-10 w-auto">
-                        <span class="text-xl font-bold font-serif text-teal-800">CareConnect</span>
                     </a>
                     <button type="button" @click="mobileMenuOpen = false" class="-m-2.5 rounded-md p-2.5 text-slate-700">
                         <span class="sr-only">Close menu</span>
@@ -181,10 +180,10 @@
                 <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
                     <div class="lg:pr-8 lg:pt-4">
                         <div class="lg:max-w-lg">
-                            <h2 class="text-base font-semibold leading-7 text-teal-600">About CareConnect</h2>
+                            <h2 class="text-base font-semibold leading-7 text-teal-600">About Venture</h2>
                             <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Dedicated to your health and well-being</p>
                             <p class="mt-6 text-lg leading-8 text-slate-600">
-                                Founded on the principles of empathy, integrity, and excellence, CareConnect has been serving the community for over a decade. We believe that healing happens best in a comfortable, familiar environment.
+                                Founded on the principles of empathy, integrity, and excellence, Venture has been serving the community for over a decade. We believe that healing happens best in a comfortable, familiar environment.
                             </p>
                             <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-slate-600 lg:max-w-none">
                                 <div class="relative pl-9">
@@ -254,10 +253,8 @@
 
                         <!-- Service 2 -->
                         <div class="flex flex-col bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow hover:-translate-y-1 transform duration-300">
-                            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-teal-100 text-teal-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                </svg>
+                            <div class="mb-6 h-48 w-full overflow-hidden rounded-xl">
+                                <img src="{{ asset('images/post_surgery.png') }}" onerror="this.src='https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Post-Surgery Recovery" class="w-full h-full object-cover">
                             </div>
                             <dt class="flex flex-col text-xl font-semibold leading-7 text-slate-900">
                                 Post-Surgery Recovery
@@ -272,10 +269,8 @@
 
                         <!-- Service 3 -->
                         <div class="flex flex-col bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-lg transition-shadow hover:-translate-y-1 transform duration-300">
-                            <div class="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-teal-100 text-teal-600">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6.004 9.6a2 2 0 11-3.998 0 2 2 0 013.998 0zm.652 3.013c.48 0 .937.14 1.32.385l3.872-2.32c-.08-.344-.127-.704-.127-1.078 0-2.761 2.239-5 5-5s5 2.239 5 5-2.239 5-5 5c-.374 0-.734-.047-1.078-.127l-2.32 3.872c.245.383.385.84.385 1.32 0 1.38-1.12 2.5-2.5 2.5s-2.5-1.12-2.5-2.5c0-.48.14-.937.385-1.32l-3.872-2.32c-.344.08-.704.127-1.078.127-2.761 0-5-2.239-5-5z" />
-                                </svg>
+                            <div class="mb-6 h-48 w-full overflow-hidden rounded-xl">
+                                <img src="{{ asset('images/therapy.png') }}" onerror="this.src='https://images.unsplash.com/photo-1576091160550-217359f42f8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Specialized Therapy" class="w-full h-full object-cover">
                             </div>
                             <dt class="flex flex-col text-xl font-semibold leading-7 text-slate-900">
                                 Specialized Therapy
@@ -300,55 +295,47 @@
                     <h2 class="text-lg font-semibold leading-8 tracking-tight text-teal-600">Testimonials</h2>
                     <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Hear from our patients</p>
                 </div>
-                <div class="mx-auto mt-16 flow-root max-w-2xl sm:mt-20 lg:mx-0 lg:max-w-none">
-                    <div class="-mt-8 sm:-mx-4 sm:columns-2 sm:text-[0] lg:columns-3">
-                        
-                        <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
-                            <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm">
-                                <blockquote class="text-slate-900">
-                                    <p>"The level of care and attention my mother received from CareConnect was outstanding. The nurses were not only highly skilled but incredibly compassionate."</p>
-                                </blockquote>
-                                <figcaption class="mt-6 flex items-center gap-x-4">
-                                    <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">SJ</div>
-                                    <div>
-                                        <div class="font-semibold text-slate-900">Sarah Jenkins</div>
-                                        <div class="text-slate-600">Family Member</div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
+                <div class="mx-auto mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-2xl lg:mx-0 lg:max-w-none">
+                    
+                    <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm h-full flex flex-col justify-between">
+                        <blockquote class="text-slate-900">
+                            <p>"The level of care and attention my mother received from Venture was outstanding. The nurses were not only highly skilled but incredibly compassionate."</p>
+                        </blockquote>
+                        <figcaption class="mt-6 flex items-center gap-x-4">
+                            <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">SJ</div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Sarah Jenkins</div>
+                                <div class="text-slate-600">Family Member</div>
+                            </div>
+                        </figcaption>
+                    </figure>
 
-                        <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
-                            <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm">
-                                <blockquote class="text-slate-900">
-                                    <p>"After my surgery, I was worried about my recovery at home. The daily visits from the nursing team gave me peace of mind and helped me heal faster than expected."</p>
-                                </blockquote>
-                                <figcaption class="mt-6 flex items-center gap-x-4">
-                                    <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">MR</div>
-                                    <div>
-                                        <div class="font-semibold text-slate-900">Michael Roberts</div>
-                                        <div class="text-slate-600">Patient</div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
+                    <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm h-full flex flex-col justify-between">
+                        <blockquote class="text-slate-900">
+                            <p>"After my surgery, I was worried about my recovery at home. The daily visits from the nursing team gave me peace of mind and helped me heal faster than expected."</p>
+                        </blockquote>
+                        <figcaption class="mt-6 flex items-center gap-x-4">
+                            <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">MR</div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Michael Roberts</div>
+                                <div class="text-slate-600">Patient</div>
+                            </div>
+                        </figcaption>
+                    </figure>
 
-                        <div class="pt-8 sm:inline-block sm:w-full sm:px-4">
-                            <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm">
-                                <blockquote class="text-slate-900">
-                                    <p>"Professional, punctual, and remarkably kind. The therapists and nurses truly focus on your holistic well-being. Highly recommended for any home care needs."</p>
-                                </blockquote>
-                                <figcaption class="mt-6 flex items-center gap-x-4">
-                                    <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">EL</div>
-                                    <div>
-                                        <div class="font-semibold text-slate-900">Emily Lawson</div>
-                                        <div class="text-slate-600">Patient</div>
-                                    </div>
-                                </figcaption>
-                            </figure>
-                        </div>
+                    <figure class="rounded-2xl bg-slate-50 p-8 text-sm leading-6 border border-slate-100 shadow-sm h-full flex flex-col justify-between">
+                        <blockquote class="text-slate-900">
+                            <p>"Professional, punctual, and remarkably kind. The therapists and nurses truly focus on your holistic well-being. Highly recommended for any home care needs."</p>
+                        </blockquote>
+                        <figcaption class="mt-6 flex items-center gap-x-4">
+                            <div class="h-10 w-10 rounded-full bg-teal-100 flex items-center justify-center font-bold text-teal-700">EL</div>
+                            <div>
+                                <div class="font-semibold text-slate-900">Emily Lawson</div>
+                                <div class="text-slate-600">Patient</div>
+                            </div>
+                        </figcaption>
+                    </figure>
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -462,7 +449,7 @@
                 </div>
             </div>
             <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-                <p class="text-xs leading-5 text-slate-400">&copy; {{ date('Y') }} CareConnect Nursing Services. All rights reserved.</p>
+                <p class="text-xs leading-5 text-slate-400">&copy; {{ date('Y') }} Venture Nursing Services. All rights reserved.</p>
             </div>
         </div>
     </footer>
