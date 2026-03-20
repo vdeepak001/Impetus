@@ -35,12 +35,7 @@
         <nav class="flex items-center justify-between p-6 lg:px-8 max-w-7xl mx-auto" aria-label="Global">
             <div class="flex lg:flex-1">
                 <a href="#" class="-m-1.5 p-1.5 flex items-center gap-2 group">
-                    <div class="bg-teal-600 text-white p-2 rounded-lg group-hover:bg-teal-700 transition-colors">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                        </svg>
-                    </div>
-                    <span class="text-xl font-bold font-serif text-teal-800">CareConnect</span>
+                    <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-10 w-auto">
                 </a>
             </div>
             <div class="flex lg:hidden">
@@ -76,11 +71,7 @@
             <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10">
                 <div class="flex items-center justify-between">
                     <a href="#" class="-m-1.5 p-1.5 flex items-center gap-2">
-                        <div class="bg-teal-600 text-white p-2 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-                        </div>
+                        <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-10 w-auto">
                         <span class="text-xl font-bold font-serif text-teal-800">CareConnect</span>
                     </a>
                     <button type="button" @click="mobileMenuOpen = false" class="-m-2.5 rounded-md p-2.5 text-slate-700">
@@ -391,12 +382,7 @@
             <div class="xl:grid xl:grid-cols-3 xl:gap-8">
                 <div class="space-y-8 xl:col-span-1">
                     <div class="flex items-center gap-2">
-                        <div class="bg-teal-600 text-white p-2 rounded-lg">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-                        </div>
-                        <span class="text-xl font-bold font-serif text-white">CareConnect</span>
+                        <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-10 w-auto brightness-0 invert">
                     </div>
                     <p class="text-sm leading-6 text-slate-300">Making professional and compassionate home nursing care accessible to everyone who needs it.</p>
                     <div class="flex space-x-6">
