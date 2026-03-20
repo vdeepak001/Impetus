@@ -63,9 +63,9 @@
                         <a href="{{ url('/dashboard') }}" class="text-sm font-medium leading-6 text-slate-900 hover:text-teal-600">Dashboard</a>
                     @else
                         <a href="{{ route('login') }}" class="text-sm font-medium leading-6 text-slate-900 hover:text-teal-600">Log in</a>
-                        @if (Route::has('register'))
+                        {{-- @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="rounded-full bg-teal-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 transition-all transform hover:-translate-y-0.5">Register</a>
-                        @endif
+                        @endif --}}
                     @endauth
                 @endif
             </div>
