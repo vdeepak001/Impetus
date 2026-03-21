@@ -73,6 +73,11 @@
   --color-blue-light-900: #0b4a6f;
   --color-blue-light-950: #062c41;
 
+  --color-logo-dark-green: #5a8b3d;
+  --color-logo-mid-green: #689b38;
+  --color-logo-light-green: #83ba2d;
+  --color-logo-blue: #0082c9;
+
   --color-gray-25: #fcfcfd;
   --color-gray-50: #f9fafb;
   --color-gray-100: #f2f4f7;
@@ -879,4 +884,26 @@ pre[class*='language-'] {
   .flatpickr-calendar.static {
     margin-right: -60px !important;
   }
+}
+
+/* Global Table & Header Styles */
+table thead {
+  background-color: var(--color-logo-blue) !important;
+}
+
+table thead th {
+  color: #ffffff !important;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #ffffff !important;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: var(--color-gray-50) !important;
+}
+
+/* Specific Section Headers */
+h2 {
+  color: var(--color-logo-mid-green) !important;
 }
