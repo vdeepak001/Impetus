@@ -94,7 +94,7 @@
             class="items-center justify-between w-full h-full gap-4 px-5 py-4 xl:flex shadow-theme-md xl:justify-end xl:px-6 xl:shadow-none">
             <div class="flex items-center gap-2 2xsm:gap-3">
                 <!-- Notification Dropdown -->
-                <x-header.notification-dropdown />
+                {{-- <x-header.notification-dropdown /> --}}
 
                 <!-- User Dropdown -->
                 <x-header.user-dropdown />
