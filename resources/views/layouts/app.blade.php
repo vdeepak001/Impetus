@@ -21,28 +21,18 @@
         document.addEventListener('alpine:init', () => {
             Alpine.store('theme', {
                 init() {
-                    const savedTheme = localStorage.getItem('theme');
-                    const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' :
-                        'light';
-                    this.theme = savedTheme || systemTheme;
+                    this.theme = 'light';
                     this.updateTheme();
                 },
                 theme: 'light',
                 toggle() {
-                    this.theme = this.theme === 'light' ? 'dark' : 'light';
-                    localStorage.setItem('theme', this.theme);
-                    this.updateTheme();
+                    // Theme switching disabled as per user request
                 },
                 updateTheme() {
                     const html = document.documentElement;
                     const body = document.body;
-                    if (this.theme === 'dark') {
-                        html.classList.add('dark');
-                        body.classList.add('dark', 'bg-gray-900');
-                    } else {
-                        html.classList.remove('dark');
-                        body.classList.remove('dark', 'bg-gray-900');
-                    }
+                    html.classList.remove('dark');
+                    body.classList.remove('dark', 'bg-gray-900');
                 }
             });
 
@@ -77,21 +67,6 @@
         });
     </script>
 
-    <!-- Apply dark mode immediately to prevent flash -->
-    <script>
-        (function() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-            const theme = savedTheme || systemTheme;
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-                if (document.body) document.body.classList.add('dark', 'bg-gray-900');
-            } else {
-                document.documentElement.classList.remove('dark');
-                if (document.body) document.body.classList.remove('dark', 'bg-gray-900');
-            }
-        })();
-    </script>
     
 </head>
 
@@ -126,7 +101,7 @@
             <!-- app header start -->
             @include('layouts.app-header')
             <!-- app header end -->
-            <div class="px-4 mx-auto max-w-(--breakpoint-2xl) md:px-6 pt-10 pb-12">
+            <div class="px-4 md:px-6 pt-10 pb-12">
                 @yield('content')
             </div>
         </div>
