@@ -76,6 +76,7 @@
   --color-logo-dark-green: #5a8b3d;
   --color-logo-mid-green: #689b38;
   --color-logo-light-green: #83ba2d;
+  --color-logo-light-green-bg: rgba(131, 186, 45, 0.2);
   --color-logo-blue: #0082c9;
 
   --color-gray-25: #fcfcfd;
@@ -900,7 +901,7 @@ table tbody tr:nth-child(odd) {
 }
 
 table tbody tr:nth-child(even) {
-  background-color: var(--color-gray-50) !important;
+  background-color: var(--color-logo-light-green-bg) !important;
 }
 
 /* Specific Section Headers */
