@@ -28,6 +28,20 @@ class User extends Authenticatable
         'role_type',
         'active_status',
         'password_raw',
+        'phone',
+        'designation',
+        'bio',
+        'profile_image',
+        'address',
+        'city',
+        'state',
+        'zip_code',
+        'country',
+        'facebook_url',
+        'twitter_url',
+        'linkedin_url',
+        'instagram_url',
+        'tax_id',
     ];
 
     /**
@@ -56,6 +70,13 @@ class User extends Authenticatable
             'email' => 'encrypted',
             'active_status' => 'boolean',
             'password_raw' => 'encrypted',
+            'phone' => 'encrypted',
+            'address' => 'encrypted',
+            'city' => 'encrypted',
+            'state' => 'encrypted',
+            'zip_code' => 'encrypted',
+            'country' => 'encrypted',
+            'tax_id' => 'encrypted',
         ];
     }
 }

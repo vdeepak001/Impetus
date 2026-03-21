@@ -29,6 +29,16 @@
                     </div>
 
                     <div>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Phone</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->phone ?? 'N/A' }}</p>
+                    </div>
+
+                    <div>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Bio</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->bio ?? 'N/A' }}</p>
+                    </div>
+
+                    <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Role</p>
                         <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ ucfirst(Auth::user()->role_type) }}</p>
                     </div>

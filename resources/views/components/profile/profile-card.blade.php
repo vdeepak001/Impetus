@@ -5,7 +5,7 @@
         <div class="flex flex-col gap-5 xl:flex-row xl:items-center xl:justify-between">
             <div class="flex w-full flex-col items-center gap-6 xl:flex-row">
                 <div class="h-20 w-20 overflow-hidden rounded-full border border-gray-200 dark:border-gray-800">
-                    <img src="./images/user/owner.jpg" alt="user" />
+                    <img src="{{ Auth::user()->profile_image ? asset(Auth::user()->profile_image) : asset('images/user/owner.jpg') }}" alt="user" />
                 </div>
                 <div class="order-3 xl:order-2">
                     <h4 class="mb-2 text-center text-lg font-semibold text-gray-800 xl:text-left dark:text-white/90">
@@ -13,11 +13,11 @@
                     </h4>
                     <div class="flex flex-col items-center gap-1 text-center xl:flex-row xl:gap-3 xl:text-left">
                         <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Team Manager
+                            {{ Auth::user()->designation ?? 'No designation set' }}
                         </p>
                         <div class="hidden h-3.5 w-px bg-gray-300 xl:block dark:bg-gray-700"></div>
                         <p class="text-sm text-gray-500 dark:text-gray-400">
-                            Arizona, United States.
+                            {{ Auth::user()->city ?? 'No city' }}, {{ Auth::user()->country ?? 'No country' }}
                         </p>
                     </div>
                 </div>
@@ -89,7 +89,9 @@
                     Update your details to keep your profile up-to-date.
                 </p>
             </div>
-            <form class="flex flex-col">
+            <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data" class="flex flex-col">
+                @csrf
+                @method('PATCH')
                 <div class="custom-scrollbar h-[458px] overflow-y-auto p-2">
                     <div>
                         <h5 class="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
@@ -101,7 +103,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Facebook
                                 </label>
-                                <input type="text" value="https://www.facebook.com/PimjoHQ"
+                                <input type="text" name="facebook_url" value="{{ Auth::user()->facebook_url }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -109,7 +111,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     X.com
                                 </label>
-                                <input type="text" value="https://x.com/PimjoHQ"
+                                <input type="text" name="twitter_url" value="{{ Auth::user()->twitter_url }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -117,7 +119,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Linkedin
                                 </label>
-                                <input type="text" value="https://www.linkedin.com/company/pimjo/posts/?feedView=all"
+                                <input type="text" name="linkedin_url" value="{{ Auth::user()->linkedin_url }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -125,7 +127,7 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Instagram
                                 </label>
-                                <input type="text" value="https://instagram.com/emirhan55"
+                                <input type="text" name="instagram_url" value="{{ Auth::user()->instagram_url }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
                         </div>
@@ -138,17 +140,50 @@
                         <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
                             <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                    Name
+                                    Profile Image
                                 </label>
-                                <input type="text" value="{{ Auth::user()->name }}"
-                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                                <input type="file" name="profile_image"
+                                    class="dark:bg-dark-900 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    First Name
+                                </label>
+                                <input type="text" name="first_name" value="{{ old('first_name', Auth::user()->first_name) }}"
+                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('first_name') border-red-500 @enderror" />
+                                @error('first_name')
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Last Name
+                                </label>
+                                <input type="text" name="last_name" value="{{ old('last_name', Auth::user()->last_name) }}"
+                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('last_name') border-red-500 @enderror" />
+                                @error('last_name')
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
+                            </div>
+
+                            <div class="col-span-2">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Full Name (Display Name)
+                                </label>
+                                <input type="text" name="name" value="{{ old('name', Auth::user()->name) }}"
+                                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('name') border-red-500 @enderror" />
+                                @error('name')
+                                    <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                                @enderror
                             </div>
 
                             <div class="col-span-2">
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Email Address
                                 </label>
-                                <input type="text" value="{{ Auth::user()->email }}"
+                                <input type="email" name="email" value="{{ Auth::user()->email }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -156,7 +191,15 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Phone
                                 </label>
-                                <input type="text" value="+09 363 398 46"
+                                <input type="text" name="phone" value="{{ Auth::user()->phone }}"
+                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            </div>
+
+                            <div class="col-span-2 lg:col-span-1">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Designation
+                                </label>
+                                <input type="text" name="designation" value="{{ Auth::user()->designation }}"
                                     class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
                             </div>
 
@@ -164,8 +207,8 @@
                                 <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                     Bio
                                 </label>
-                                <input type="text" value="Team Manager"
-                                    class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                                <textarea name="bio" rows="3"
+                                    class="dark:bg-dark-900 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800">{{ Auth::user()->bio }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -175,7 +218,7 @@
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         Close
                     </button>
-                    <button @click="saveProfile" type="button"
+                    <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
                         Save Changes
                     </button>

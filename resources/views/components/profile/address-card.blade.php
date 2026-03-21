@@ -8,14 +8,19 @@
 
                 <div class="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
                     <div>
+                        <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Street Address</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->address ?? 'N/A' }}</p>
+                    </div>
+
+                    <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">Country</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">United States</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->country ?? 'N/A' }}</p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">City/State</p>
                         <p class="text-sm font-medium text-gray-800 dark:text-white/90">
-                            Phoenix, United States
+                            {{ Auth::user()->city ?? 'N/A' }}, {{ Auth::user()->state ?? 'N/A' }}
                         </p>
                     </div>
 
@@ -23,12 +28,12 @@
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                             Postal Code
                         </p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">ERT 2489</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->zip_code ?? 'N/A' }}</p>
                     </div>
 
                     <div>
                         <p class="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">TAX ID</p>
-                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">AS4568384</p>
+                        <p class="text-sm font-medium text-gray-800 dark:text-white/90">{{ Auth::user()->tax_id ?? 'N/A' }}</p>
                     </div>
                 </div>
             </div>
@@ -56,39 +61,75 @@
                     Update your details to keep your profile up-to-date.
                 </p>
             </div>
-            <form class="flex flex-col">
+            <form action="{{ route('profile.update') }}" method="POST" class="flex flex-col">
+                @csrf
+                @method('PATCH')
                 <div class="px-2 overflow-y-auto custom-scrollbar">
                     <div class="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                        <div>
-                            <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                Country
+                        <div class="col-span-2">
+                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                Address
                             </label>
-                            <input type="text" value="United States"
-                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            <input type="text" name="address" value="{{ old('address', Auth::user()->address) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('address') border-red-500 @enderror" />
+                            @error('address')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                City/State
+                                Country
                             </label>
-                            <input type="text" value="Poenix, Arizona, United States"
-                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            <input type="text" name="country" value="{{ old('country', Auth::user()->country) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('country') border-red-500 @enderror" />
+                            @error('country')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                City
+                            </label>
+                            <input type="text" name="city" value="{{ old('city', Auth::user()->city) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('city') border-red-500 @enderror" />
+                            @error('city')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                State
+                            </label>
+                            <input type="text" name="state" value="{{ old('state', Auth::user()->state) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('state') border-red-500 @enderror" />
+                            @error('state')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Postal Code
                             </label>
-                            <input type="text" value="ERT 2489"
-                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            <input type="text" name="zip_code" value="{{ old('zip_code', Auth::user()->zip_code) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('zip_code') border-red-500 @enderror" />
+                            @error('zip_code')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 TAX ID
                             </label>
-                            <input type="text" value="AS4568384"
-                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800" />
+                            <input type="text" name="tax_id" value="{{ old('tax_id', Auth::user()->tax_id) }}"
+                                class="dark:bg-dark-900 h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent bg-none px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-800 @error('tax_id') border-red-500 @enderror" />
+                            @error('tax_id')
+                                <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
@@ -97,7 +138,7 @@
                         class="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto">
                         Close
                     </button>
-                    <button @click="saveProfile" type="button"
+                    <button type="submit"
                         class="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto">
                         Save Changes
                     </button>
