@@ -63,9 +63,9 @@
         :class="(!$store.sidebar.isExpanded && !$store.sidebar.isHovered && !$store.sidebar.isMobileOpen) ?
         'xl:justify-center' :
         'justify-start'">
-        <a href="/">
+        <a href="/" class="w-full">
             <img x-show="$store.sidebar.isExpanded || $store.sidebar.isHovered || $store.sidebar.isMobileOpen"
-                src="/images/venture.svg" alt="Venture" width="150" height="50" class="brightness-0 invert" />
+                src="/images/venture.svg" alt="Venture" class="w-[90%] h-auto brightness-0 invert" />
             <img x-show="!$store.sidebar.isExpanded && !$store.sidebar.isHovered && !$store.sidebar.isMobileOpen"
                 src="/images/venture.svg" alt="Venture" width="32" height="32" class="brightness-0 invert" />
 
