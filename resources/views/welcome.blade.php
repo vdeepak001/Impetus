@@ -54,7 +54,7 @@
     <!-- Navigation -->
     <header x-data="{ mobileMenuOpen: false, scrolled: true }" 
             @scroll.window="scrolled = (window.pageYOffset > 50)"
-            class="fixed top-4 inset-x-4 z-50 max-w-5xl mx-auto rounded-full bg-white/70 backdrop-blur-xl border border-slate-200/50 shadow-2xl py-2 px-6 transition-all duration-500">
+            class="fixed top-4 inset-x-4 z-50 max-w-7xl mx-auto rounded-full bg-white/70 backdrop-blur-xl border border-slate-200/50 shadow-2xl py-2 px-6 transition-all duration-500">
         <nav class="flex items-center justify-between mx-auto" aria-label="Global">
             <div class="flex lg:flex-1">
                 <a href="#" class="-m-1.5 p-1.5 flex items-center gap-2 group transition-transform hover:scale-105">
