@@ -198,7 +198,7 @@
                     </div>
                 </div>
                 <div class="mt-8">
-                    <a href="#online-exam" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
+                    <a href="{{ route('cpd.certifications') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
                         Start CPD Journey
                     </a>
                 </div>
@@ -252,36 +252,41 @@
             <div class="grid items-center gap-10 lg:grid-cols-2">
                 <div>
                     <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Practice Test</h2>
-                    <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Simulate exam conditions before the real test</p>
-                    <p class="mt-6 text-slate-600">Timed mock exams with score analytics, topic-wise feedback, and retry suggestions to improve weak areas quickly.</p>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">IHS practice MCQs at three levels</p>
+                    <p class="mt-6 text-slate-600">
+                        Build theoretical knowledge and exam readiness with multiple-choice questions, immediate rationale, and sets aligned to your specialty—before Mock and Final examinations.
+                    </p>
                     <ul class="mt-5 space-y-2 text-sm text-slate-600">
-                        <li>- Real exam-style interface with section timers</li>
-                        <li>- Smart feedback on weak topics after each attempt</li>
-                        <li>- Progress trends to track improvement over time</li>
+                        <li>- ~6,000 MCQs across Levels I–III</li>
+                        <li>- Eight sets per level, twenty questions per set</li>
+                        <li>- Up to three practice attempts per level</li>
                     </ul>
-                    <div class="mt-8">
-                        <a href="#online-exam" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
-                            Start Practice Test
+                    <div class="mt-8 flex flex-wrap gap-4">
+                        <a href="{{ route('practice.test') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
+                            View Practice Test details
+                        </a>
+                        <a href="{{ route('online.examination') }}" class="inline-flex items-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-800 transition-colors hover:border-logo-light-green hover:text-logo-light-green">
+                            Online Exam
                         </a>
                     </div>
                 </div>
                 <div class="rounded-3xl border border-slate-200/80 bg-white p-8 shadow-md shadow-slate-200/60">
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-5 shadow-sm shadow-slate-200/50">
-                            <p class="text-2xl font-bold text-brand-900">50</p>
-                            <p class="text-xs text-slate-500">Questions / test</p>
+                            <p class="text-2xl font-bold text-brand-900">~6,000</p>
+                            <p class="text-xs text-slate-500">MCQs</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-5 shadow-sm shadow-slate-200/50">
-                            <p class="text-2xl font-bold text-brand-900">60 min</p>
-                            <p class="text-xs text-slate-500">Timed session</p>
+                            <p class="text-2xl font-bold text-brand-900">3</p>
+                            <p class="text-xs text-slate-500">Levels</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-5 shadow-sm shadow-slate-200/50">
-                            <p class="text-2xl font-bold text-brand-900">Auto</p>
-                            <p class="text-xs text-slate-500">Instant scoring</p>
+                            <p class="text-2xl font-bold text-brand-900">20</p>
+                            <p class="text-xs text-slate-500">Questions / set</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/70 bg-slate-50 p-5 shadow-sm shadow-slate-200/50">
-                            <p class="text-2xl font-bold text-brand-900">AI</p>
-                            <p class="text-xs text-slate-500">Performance tips</p>
+                            <p class="text-2xl font-bold text-brand-900">3×</p>
+                            <p class="text-xs text-slate-500">Attempts / level</p>
                         </div>
                     </div>
                 </div>
@@ -295,8 +300,14 @@
             <p class="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl font-serif">Secure, proctored, and fully online</p>
             <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">Take your certification exam from anywhere with identity verification, browser monitoring, and immediate pass/fail status.</p>
             <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <a href="#" class="rounded-full bg-logo-light-green px-7 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5">Schedule Exam</a>
-                <a href="#" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-logo-light-green hover:text-logo-light-green">View Exam Guidelines</a>
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="rounded-full bg-logo-light-green px-7 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5">Go to dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="rounded-full bg-logo-light-green px-7 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5">Log in for exams</a>
+                    @endauth
+                @endif
+                <a href="{{ route('online.examination') }}" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-logo-light-green hover:text-logo-light-green">View Online Examination</a>
             </div>
         </div>
     </section>

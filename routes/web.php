@@ -14,9 +14,13 @@ use App\Http\Controllers\SuperAdmin\StateCouncilController;
 use App\Http\Controllers\SuperAdmin\UsersListController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome')->name('home');
+Route::view('/about-us', 'about')->name('about');
+Route::view('/cne-modules', 'cne-modules')->name('cne.modules');
+Route::view('/cpd-certifications', 'cpd-certifications')->name('cpd.certifications');
+Route::view('/learning-materials', 'learning-materials')->name('learning.materials');
+Route::view('/practice-test', 'practice-test')->name('practice.test');
+Route::view('/online-examination', 'online-examination')->name('online.examination');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 

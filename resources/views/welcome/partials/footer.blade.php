@@ -35,13 +35,16 @@
                         <h3 class="text-sm font-semibold leading-6 text-white">Company</h3>
                         <ul role="list" class="mt-6 space-y-4">
                             <li>
-                                <a href="#about" class="text-sm leading-6 text-slate-300 hover:text-white">About</a>
+                                    <a href="{{ route('about') }}" class="text-sm leading-6 text-slate-300 hover:text-white">About</a>
                             </li>
                             <li>
                                 <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Careers</a>
                             </li>
                             <li>
-                                <a href="#cne-modules" class="text-sm leading-6 text-slate-300 hover:text-white">CNE Modules</a>
+                                    <a href="{{ route('cne.modules') }}" class="text-sm leading-6 text-slate-300 hover:text-white">CNE Modules</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('cpd.certifications') }}" class="text-sm leading-6 text-slate-300 hover:text-white">CPD Certifications</a>
                             </li>
                             <li>
                                 <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Partners</a>

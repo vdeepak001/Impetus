@@ -1,0 +1,138 @@
+@extends('layouts.frontend.app')
+
+@section('title', 'Learning Resources')
+
+@section('content')
+    <main class="pb-12">
+        <div class="h-[100px]" aria-hidden="true"></div>
+
+        <section class="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 py-14 sm:py-20">
+            <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-logo-blue/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-logo-light-green/20 blur-3xl"></div>
+            <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                    <div class="min-w-0">
+                        <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
+                            Learning Materials
+                        </span>
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                            Learning Resources
+                        </h1>
+                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                            Learning Resources are information presented and accessible in a variety of formats, which facilitates the learner to comprehend and achieve their desired outcome. It is an independent platform for all the levels of nurses to enhance the professional knowledge and to excel in their clinical nursing practice.
+                        </p>
+                        <p class="mt-4 text-sm text-slate-500">
+                            <a href="{{ route('home') }}" class="text-logo-blue hover:underline">Home</a>
+                            <span class="mx-1">→</span>
+                            <span>Learning Resources</span>
+                        </p>
+                    </div>
+                    <div class="relative w-full min-w-0">
+                        <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
+                        <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
+                            <img
+                                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
+                                alt="Nurse reviewing online learning resources and study materials"
+                                class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
+                                width="1200"
+                                height="800"
+                                loading="eager"
+                                decoding="async"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-14 sm:py-20">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                    <div class="relative order-2 w-full min-w-0 lg:order-1">
+                        <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
+                        <div class="relative w-full overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
+                            <img
+                                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80"
+                                alt="Healthcare team collaboration and nursing education"
+                                class="aspect-[4/3] w-full object-cover lg:aspect-auto lg:h-[22rem]"
+                                width="1200"
+                                height="800"
+                                loading="lazy"
+                                decoding="async"
+                            >
+                        </div>
+                    </div>
+                    <div class="order-1 min-w-0 lg:order-2">
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Benefits of Learning Resources</h2>
+                        <ul class="mt-8 space-y-4 text-base leading-7 text-slate-700">
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>Learning Resources are customized for specific learning needs</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>The nursing information available in the learning resources are up to date</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>There is no limitation for accessing the learning resources</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>The resources are learner centered and self-directed</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>The learning resources are easily accessible and user friendly</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="border-t border-slate-200/80 bg-white py-14 sm:py-20">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
+                            <span class="text-brand-900">Impetus Healthcare Skills (IHS) Online Learning Resources</span>
+                        </h2>
+                        <p class="mt-6 text-base leading-8 text-slate-600">
+                            Impetus Healthcare Skills offers a diverse base of information for nurses. Resources are presented in a <strong class="font-semibold text-slate-800">Question and Answer format</strong> to help you complete modules. Topics include nursing terminologies and disease condition elements—such as definitions, causes, diagnostic evaluation, management, nursing care, and complications.
+                        </p>
+                        <p class="mt-5 text-base leading-8 text-slate-600">
+                            Answers typically consist of <strong class="font-semibold text-slate-800">100–200 words</strong> and may use paragraphs, tables, flow charts, or algorithms. There are approximately <strong class="font-semibold text-slate-800">700 questions and answers</strong> available, presented in <strong class="font-semibold text-slate-800">sets of 10</strong> questions.
+                        </p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
+                            <p class="text-sm font-semibold text-brand-900">Answer length</p>
+                            <p class="mt-2 text-2xl font-bold text-logo-blue">100–200</p>
+                            <p class="text-sm text-slate-600">words per answer</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
+                            <p class="text-sm font-semibold text-brand-900">Question bank</p>
+                            <p class="mt-2 text-2xl font-bold text-logo-blue">~700</p>
+                            <p class="text-sm text-slate-600">questions and answers</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
+                            <p class="text-sm font-semibold text-brand-900">Formats</p>
+                            <p class="mt-2 text-slate-700">Paragraphs, tables, flow charts, or algorithms</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
+                            <p class="text-sm font-semibold text-brand-900">Practice structure</p>
+                            <p class="mt-2 text-slate-700">Questions presented in sets of 10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
+                    <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
+                        There is no time limit for reading. We recommend using these resources to build knowledge before you attempt <strong class="font-semibold text-slate-900">Practice Tests</strong>, <strong class="font-semibold text-slate-900">Mock Exams</strong>, and the <strong class="font-semibold text-slate-900">Final exam</strong>.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+@endsection
