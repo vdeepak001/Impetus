@@ -47,7 +47,14 @@
 </head>
 <body class="antialiased bg-slate-50 text-slate-800">
     @include('welcome.partials.header')
+    @guest
+        @if (Route::has('login'))
+            @include('welcome.partials.login-modal')
+            @include('welcome.partials.register-modal')
+        @endif
+    @endguest
     @yield('content')
     @include('welcome.partials.footer')
+    <x-ui.toaster />
 </body>
 </html>

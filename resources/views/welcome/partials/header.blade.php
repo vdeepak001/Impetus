@@ -38,9 +38,62 @@
             <div class="hidden lg:flex items-center">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green">Dashboard</a>
+                        <div x-data="{ userMenuOpen: false }" class="relative">
+                            <button
+                                type="button"
+                                @click="userMenuOpen = !userMenuOpen"
+                                @click.outside="userMenuOpen = false"
+                                class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
+                            >
+                                <span>Hi, {{ auth()->user()->name }}</span>
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                </svg>
+                            </button>
+
+                            <div
+                                x-show="userMenuOpen"
+                                x-cloak
+                                class="absolute right-0 z-50 mt-2 w-48 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"
+                            >
+                                <a
+                                    href="{{ route('profile') }}"
+                                    @click="userMenuOpen = false"
+                                    class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                >
+                                    My Profile
+                                </a>
+                                <a
+                                    href="{{ route('profile.change-password') }}"
+                                    @click="userMenuOpen = false"
+                                    class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                >
+                                    Change Password
+                                </a>
+                                @if (auth()->user()?->role_type !== 'user')
+                                    <a
+                                        href="{{ url('/dashboard') }}"
+                                        @click="userMenuOpen = false"
+                                        class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                    >
+                                        Dashboard
+                                    </a>
+                                @endif
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="block w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green">
+                                        Logout
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     @else
-                        <a href="{{ route('login') }}" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green">Log in</a>
+                        <div class="flex items-center gap-2">
+
+                            <button type="button" @click="$dispatch('open-login-modal')" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green">
+                            Log in
+                            </button>
+                        </div>
                     @endauth
                 @endif
             </div>
@@ -76,12 +129,32 @@
                     <div class="py-6">
                         @if (Route::has('login'))
                             @auth
-                                <a href="{{ url('/dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Dashboard</a>
-                            @else
-                                <a href="{{ route('login') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Log in</a>
-                                @if (Route::has('register'))
-                                    <a href="{{ route('register') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Register</a>
+                                @if (auth()->user()?->role_type === 'user')
+                                    <span class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
+                                        Hi, {{ auth()->user()->name }}
+                                    </span>
+                                @else
+                                    <a href="{{ url('/dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Dashboard</a>
                                 @endif
+                                <a href="{{ route('profile') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                    My Profile
+                                </a>
+                                <a href="{{ route('profile.change-password') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                    Change Password
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                        Logout
+                                    </button>
+                                </form>
+                            @else
+                                <button type="button" @click="mobileMenuOpen = false; $dispatch('open-login-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                    Log in
+                                </button>
+                                <button type="button" @click="mobileMenuOpen = false; $dispatch('open-register-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                    Sign up
+                                </button>
                             @endauth
                         @endif
                     </div>

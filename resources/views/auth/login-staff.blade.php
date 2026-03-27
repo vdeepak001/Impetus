@@ -8,10 +8,10 @@
                     <div>
                         <div class="mb-5 sm:mb-8">
                             <h1 class="text-title-sm sm:text-title-md mb-2 font-semibold text-gray-800 dark:text-white/90">
-                                Sign In
+                                Staff sign in
                             </h1>
                             <p class="text-sm text-gray-500 dark:text-gray-400">
-                                Enter your email and password to sign in!
+                                Enter your email and password to access the admin dashboard.
                             </p>
                         </div>
                         <div>
@@ -83,12 +83,9 @@
                                     </div>
                                 </div>
                             </form>
-                            <div class="mt-5">
-                                <p class="text-center text-sm font-normal text-gray-700 sm:text-start dark:text-gray-400">
-                                    Don't have an account?
-                                    <a href="{{ route('register') }}" class="text-brand-500 hover:text-brand-600 dark:text-brand-400">Sign Up</a>
-                                </p>
-                            </div>
+                            <p class="mt-5 text-center text-sm text-gray-600 dark:text-gray-400">
+                                <a href="{{ route('home') }}" class="text-brand-500 hover:text-brand-600">Back to site</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -96,7 +93,7 @@
 
             <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
                 <div class="z-1 flex items-center justify-center">
-                    <x-common.common-grid-shape/>
+                    <x-common.common-grid-shape />
                     <div class="flex max-w-xs flex-col items-center">
                         <a href="/" class="mb-4 block">
                             <img src="{{ asset('images/venture.svg') }}" alt="Logo" class="w-48 h-auto brightness-0 invert" />

@@ -26,8 +26,16 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
+        if (auth()->user()?->role_type === 'user') {
+            return view('profile.frontend');
+        }
+
         return view('pages.profile', ['title' => 'Profile']);
     })->name('profile');
+
+    Route::get('/change-password', function () {
+        return view('profile.change-password');
+    })->name('profile.change-password');
 
     Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });

@@ -67,8 +67,10 @@ class Index extends Component
 
     public function render()
     {
-        // Get all users and filter in memory due to encryption
-        $allUsers = User::all();
+        // Get admin-facing users and filter in memory due to encryption
+        $allUsers = User::query()
+            ->where('role_type', '!=', 'user')
+            ->get();
 
         $filteredUsers = $allUsers->filter(function ($user) {
             // Apply Status Filter

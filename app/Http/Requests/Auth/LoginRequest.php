@@ -41,13 +41,15 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
+        $normalizedEmail = Str::lower(trim((string) $this->input('email')));
+
         // Since email is encrypted, we find the user manually from the collection
-        $user = \App\Models\User::all()->filter(function($u) {
-            return $u->email === $this->email;
+        $user = \App\Models\User::all()->filter(function ($user) use ($normalizedEmail) {
+            return Str::lower(trim((string) $user->email)) === $normalizedEmail;
         })->first();
 
         // First check credentials
-        if (! $user || ! \Illuminate\Support\Facades\Hash::check($this->password, $user->password)) {
+        if (! $user || ! \Illuminate\Support\Facades\Hash::check((string) $this->input('password'), $user->password)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

@@ -3,7 +3,6 @@
 @section('content')
     <div class="relative z-1 bg-white p-6 sm:p-0 dark:bg-gray-900">
         <div class="flex h-screen w-full flex-col justify-center sm:p-0 lg:flex-row dark:bg-gray-900">
-            <!-- Form -->
             <div class="flex w-full flex-1 flex-col lg:w-1/2">
                 <div class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center">
                     <div class="mb-5 sm:mb-8">
@@ -18,7 +17,6 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <div class="space-y-5">
-                                <!-- Name -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Full Name<span class="text-error-500">*</span>
@@ -28,8 +26,7 @@
                                         class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
-                                
-                                <!-- Email -->
+
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Email<span class="text-error-500">*</span>
@@ -40,7 +37,6 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
 
-                                <!-- Password -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Password<span class="text-error-500">*</span>
@@ -62,7 +58,6 @@
                                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                 </div>
 
-                                <!-- Confirm Password -->
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Confirm Password<span class="text-error-500">*</span>
@@ -73,7 +68,6 @@
                                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
                                 </div>
 
-                                <!-- Button -->
                                 <div>
                                     <button type="submit"
                                         class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 flex w-full items-center justify-center rounded-lg px-4 py-3 text-sm font-medium text-white transition">
@@ -91,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="bg-brand-950 relative hidden h-full w-full items-center lg:grid lg:w-1/2 dark:bg-white/5">
                 <div class="z-1 flex items-center justify-center">
                     <x-common.common-grid-shape />
