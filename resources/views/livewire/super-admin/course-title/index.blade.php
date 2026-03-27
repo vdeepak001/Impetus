@@ -114,11 +114,17 @@
                         @if(in_array($routePrefix, ['super-admin', 'admin']))
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end gap-2">
-                                    <a href="{{ route($routePrefix . '.course-titles.edit', $title) }}" class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300">Edit</a>
+                                    <a href="{{ route($routePrefix . '.course-titles.edit', $title) }}"
+                                       class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 dark:focus:ring-offset-gray-800">
+                                        Edit
+                                    </a>
                                     <form action="{{ route($routePrefix . '.course-titles.destroy', $title) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this title?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300">Delete</button>
+                                        <button type="submit"
+                                                class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 dark:focus:ring-offset-gray-800">
+                                            Delete
+                                        </button>
                                     </form>
                                 </div>
                             </td>

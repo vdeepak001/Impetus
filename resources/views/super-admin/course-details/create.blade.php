@@ -95,8 +95,8 @@
                             <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 QA Section
                             </label>
-                            <input id="qa_content" type="text" name="qa_content" value="{{ old('qa_content') }}"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                            <textarea id="qa_content" name="qa_content" rows="4"
+                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('qa_content') }}</textarea>
                             @error('qa_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
 
@@ -104,53 +104,62 @@
                             <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Practice Section
                             </label>
-                            <input id="practice_content" type="text" name="practice_content" value="{{ old('practice_content') }}"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                            <textarea id="practice_content" name="practice_content" rows="4"
+                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('practice_content') }}</textarea>
                             @error('practice_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
 
                         <div class="md:col-span-2">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
-                                    <label for="pre_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Pre Test
                                     </label>
-                                    <select id="pre_test" name="pre_test"
-                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                                        <option value="">Select Level</option>
-                                        <option value="1" @selected(old('pre_test') == '1')>Level 1</option>
-                                        <option value="2" @selected(old('pre_test') == '2')>Level 2</option>
-                                        <option value="3" @selected(old('pre_test') == '3')>Level 3</option>
-                                    </select>
-                                    @error('pre_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    <div class="space-y-3">
+                                        <input type="number" name="pre_test_level_1" value="{{ old('pre_test_level_1') }}" placeholder="Level 1"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="pre_test_level_2" value="{{ old('pre_test_level_2') }}" placeholder="Level 2"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="pre_test_level_3" value="{{ old('pre_test_level_3') }}" placeholder="Level 3"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                    </div>
+                                    @error('pre_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('pre_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('pre_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
-                                    <label for="mock_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Mock Test
                                     </label>
-                                    <select id="mock_test" name="mock_test"
-                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                                        <option value="">Select Level</option>
-                                        <option value="1" @selected(old('mock_test') == '1')>Level 1</option>
-                                        <option value="2" @selected(old('mock_test') == '2')>Level 2</option>
-                                        <option value="3" @selected(old('mock_test') == '3')>Level 3</option>
-                                    </select>
-                                    @error('mock_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    <div class="space-y-3">
+                                        <input type="number" name="mock_test_level_1" value="{{ old('mock_test_level_1') }}" placeholder="Level 1"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="mock_test_level_2" value="{{ old('mock_test_level_2') }}" placeholder="Level 2"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="mock_test_level_3" value="{{ old('mock_test_level_3') }}" placeholder="Level 3"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                    </div>
+                                    @error('mock_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('mock_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('mock_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                 </div>
 
                                 <div>
-                                    <label for="final_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                         Final Test
                                     </label>
-                                    <select id="final_test" name="final_test"
-                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                                        <option value="">Select Level</option>
-                                        <option value="1" @selected(old('final_test') == '1')>Level 1</option>
-                                        <option value="2" @selected(old('final_test') == '2')>Level 2</option>
-                                        <option value="3" @selected(old('final_test') == '3')>Level 3</option>
-                                    </select>
-                                    @error('final_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    <div class="space-y-3">
+                                        <input type="number" name="final_test_level_1" value="{{ old('final_test_level_1') }}" placeholder="Level 1"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="final_test_level_2" value="{{ old('final_test_level_2') }}" placeholder="Level 2"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                        <input type="number" name="final_test_level_3" value="{{ old('final_test_level_3') }}" placeholder="Level 3"
+                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                                    </div>
+                                    @error('final_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('final_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                    @error('final_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                 </div>
                             </div>
                         </div>

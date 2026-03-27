@@ -35,10 +35,31 @@ class CourseDetailController extends Controller
             'sequence' => ['nullable', 'integer'],
             'qa_content' => ['nullable', 'string'],
             'practice_content' => ['nullable', 'string'],
-            'pre_test' => ['nullable', 'string', 'max:50'],
-            'mock_test' => ['nullable', 'string', 'max:50'],
-            'final_test' => ['nullable', 'string', 'max:255'],
+            'pre_test_level_1' => ['nullable', 'integer'],
+            'pre_test_level_2' => ['nullable', 'integer'],
+            'pre_test_level_3' => ['nullable', 'integer'],
+            'mock_test_level_1' => ['nullable', 'integer'],
+            'mock_test_level_2' => ['nullable', 'integer'],
+            'mock_test_level_3' => ['nullable', 'integer'],
+            'final_test_level_1' => ['nullable', 'integer'],
+            'final_test_level_2' => ['nullable', 'integer'],
+            'final_test_level_3' => ['nullable', 'integer'],
         ]);
+
+        $validated['pre_test'] = $this->buildLevelPayload($request, 'pre_test');
+        $validated['mock_test'] = $this->buildLevelPayload($request, 'mock_test');
+        $validated['final_test'] = $this->buildLevelPayload($request, 'final_test');
+        unset(
+            $validated['pre_test_level_1'],
+            $validated['pre_test_level_2'],
+            $validated['pre_test_level_3'],
+            $validated['mock_test_level_1'],
+            $validated['mock_test_level_2'],
+            $validated['mock_test_level_3'],
+            $validated['final_test_level_1'],
+            $validated['final_test_level_2'],
+            $validated['final_test_level_3'],
+        );
 
         $validated['user_id'] = Auth::id();
         CourseDetail::create($validated);
@@ -69,10 +90,31 @@ class CourseDetailController extends Controller
             'sequence' => ['nullable', 'integer'],
             'qa_content' => ['nullable', 'string'],
             'practice_content' => ['nullable', 'string'],
-            'pre_test' => ['nullable', 'string', 'max:50'],
-            'mock_test' => ['nullable', 'string', 'max:50'],
-            'final_test' => ['nullable', 'string', 'max:255'],
+            'pre_test_level_1' => ['nullable', 'integer'],
+            'pre_test_level_2' => ['nullable', 'integer'],
+            'pre_test_level_3' => ['nullable', 'integer'],
+            'mock_test_level_1' => ['nullable', 'integer'],
+            'mock_test_level_2' => ['nullable', 'integer'],
+            'mock_test_level_3' => ['nullable', 'integer'],
+            'final_test_level_1' => ['nullable', 'integer'],
+            'final_test_level_2' => ['nullable', 'integer'],
+            'final_test_level_3' => ['nullable', 'integer'],
         ]);
+
+        $validated['pre_test'] = $this->buildLevelPayload($request, 'pre_test');
+        $validated['mock_test'] = $this->buildLevelPayload($request, 'mock_test');
+        $validated['final_test'] = $this->buildLevelPayload($request, 'final_test');
+        unset(
+            $validated['pre_test_level_1'],
+            $validated['pre_test_level_2'],
+            $validated['pre_test_level_3'],
+            $validated['mock_test_level_1'],
+            $validated['mock_test_level_2'],
+            $validated['mock_test_level_3'],
+            $validated['final_test_level_1'],
+            $validated['final_test_level_2'],
+            $validated['final_test_level_3'],
+        );
 
         $course_detail->update($validated);
 
@@ -84,5 +126,14 @@ class CourseDetailController extends Controller
         $course_detail->delete();
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail deleted successfully.');
+    }
+
+    private function buildLevelPayload(Request $request, string $prefix): string
+    {
+        return json_encode([
+            'level_1' => $request->input($prefix.'_level_1'),
+            'level_2' => $request->input($prefix.'_level_2'),
+            'level_3' => $request->input($prefix.'_level_3'),
+        ]);
     }
 }
