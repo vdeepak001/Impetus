@@ -90,36 +90,70 @@
                 </div>
 
                 <div class="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">SEO Information</h3>
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Course Levels</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                         <!-- SEO Key -->
                         <div>
-                            <label for="seo_key" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                SEO Keywords
+                            <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                QA Section
                             </label>
-                            <input id="seo_key" type="text" name="seo_key" value="{{ old('seo_key', $course->seo_key) }}"
+                            <input id="qa_content" type="text" name="qa_content" value="{{ old('qa_content', $course->qa_content) }}"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                            @error('seo_key') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                            @error('qa_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
 
-                         <!-- SEO Title -->
-                         <div>
-                            <label for="seo_title" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                SEO Title
+                        <div>
+                            <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                Practice Section
                             </label>
-                            <input id="seo_title" type="text" name="seo_title" value="{{ old('seo_title', $course->seo_title) }}"
+                            <input id="practice_content" type="text" name="practice_content" value="{{ old('practice_content', $course->practice_content) }}"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                            @error('seo_title') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                            @error('practice_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
 
-                        <!-- SEO Description -->
                         <div class="md:col-span-2">
-                            <label for="seo_des" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                SEO Description
-                            </label>
-                            <textarea id="seo_des" name="seo_des" rows="3"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('seo_des', $course->seo_des) }}</textarea>
-                            @error('seo_des') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div>
+                                    <label for="pre_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Pre Test
+                                    </label>
+                                    <select id="pre_test" name="pre_test"
+                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                                        <option value="">Select Level</option>
+                                        <option value="1" @selected(old('pre_test', $course->pre_test) == '1')>Level 1</option>
+                                        <option value="2" @selected(old('pre_test', $course->pre_test) == '2')>Level 2</option>
+                                        <option value="3" @selected(old('pre_test', $course->pre_test) == '3')>Level 3</option>
+                                    </select>
+                                    @error('pre_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                </div>
+
+                                <div>
+                                    <label for="mock_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Mock Test
+                                    </label>
+                                    <select id="mock_test" name="mock_test"
+                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                                        <option value="">Select Level</option>
+                                        <option value="1" @selected(old('mock_test', $course->mock_test) == '1')>Level 1</option>
+                                        <option value="2" @selected(old('mock_test', $course->mock_test) == '2')>Level 2</option>
+                                        <option value="3" @selected(old('mock_test', $course->mock_test) == '3')>Level 3</option>
+                                    </select>
+                                    @error('mock_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                </div>
+
+                                <div>
+                                    <label for="final_test" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                        Final Test
+                                    </label>
+                                    <select id="final_test" name="final_test"
+                                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                                        <option value="">Select Level</option>
+                                        <option value="1" @selected(old('final_test', $course->final_test) == '1')>Level 1</option>
+                                        <option value="2" @selected(old('final_test', $course->final_test) == '2')>Level 2</option>
+                                        <option value="3" @selected(old('final_test', $course->final_test) == '3')>Level 3</option>
+                                    </select>
+                                    @error('final_test') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
