@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card title="Course Information">
-            <form method="POST" action="{{ route($routePrefix . '.course-details.update', $course) }}">
+            <form method="POST" action="{{ route($routePrefix . '.course-details.update', $course) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 
@@ -57,24 +57,54 @@
                     @error('description') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                    <!-- Sequence -->
-                    <div>
+                <div class="mt-6 grid grid-cols-12 gap-3 sm:gap-6 items-end">
+                    <div class="col-span-6 min-w-0">
+                        <label for="attachment" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Attachment
+                        </label>
+                        @if ($course->attachment && $course->attachmentPublicUrl())
+                            <div class="mb-3 flex flex-wrap items-start gap-3 sm:gap-4">
+                                @if ($course->attachmentIsImage())
+                                    <a href="{{ $course->attachmentPublicUrl() }}" target="_blank" rel="noopener noreferrer" class="inline-block shrink-0" title="{{ basename($course->attachment) }}">
+                                        <img src="{{ $course->attachmentPublicUrl() }}" alt="" loading="lazy" width="128" height="128"
+                                            class="h-24 w-24 sm:h-28 sm:w-28 rounded-lg object-cover border border-gray-200 shadow-sm dark:border-gray-600 hover:opacity-90" />
+                                    </a>
+                                @else
+                                    <a href="{{ $course->attachmentPublicUrl() }}" target="_blank" rel="noopener noreferrer"
+                                        class="inline-flex max-w-full min-w-0 items-center truncate px-2 sm:px-3 py-1.5 rounded-lg text-xs font-medium bg-blue-100 text-blue-800 hover:bg-blue-200 dark:bg-blue-900 dark:text-blue-200 dark:hover:bg-blue-800">
+                                        <svg class="mr-1.5 h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                                        </svg>
+                                        <span class="truncate">{{ basename($course->attachment) }}</span>
+                                    </a>
+                                @endif
+                                <label class="inline-flex cursor-pointer items-center gap-2 text-xs sm:text-sm text-gray-700 dark:text-gray-400 shrink-0 pt-1">
+                                    <input type="checkbox" name="remove_attachment" value="1" class="rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800" />
+                                    Remove file
+                                </label>
+                            </div>
+                        @endif
+                        <input id="attachment" type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 block w-full min-w-0 text-sm text-gray-800 file:mr-2 sm:file:mr-4 file:rounded-lg file:border-0 file:bg-brand-500 file:px-2 sm:file:px-4 file:py-2 file:text-xs sm:file:text-sm file:font-semibold file:text-white hover:file:bg-brand-600 dark:file:bg-brand-600 dark:text-white/90" />
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Upload a new file to replace the current attachment. PDF, Word, or image. Max 10 MB.</p>
+                        @error('attachment') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-span-3 min-w-0">
                         <label for="sequence" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Sequence
                         </label>
                         <input id="sequence" type="number" name="sequence" value="{{ old('sequence', $course->sequence) }}"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-2 sm:px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                         @error('sequence') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Active Status -->
-                    <div class="flex items-end h-11">
+                    <div class="col-span-3 flex justify-end min-w-0">
                         <div x-data="{ switcherToggle: {{ $course->active_status == 1 ? 'true' : 'false' }} }">
                             <input type="hidden" name="active_status" value="0">
-                            <label for="active_status" class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
+                            <label for="active_status" class="flex cursor-pointer items-center gap-2 sm:gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400 whitespace-nowrap">
                                 <div class="relative">
-                                    <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only" 
+                                    <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only"
                                         x-model="switcherToggle" />
                                     <div class="block h-6 w-11 rounded-full bg-gray-200 dark:bg-white/10"
                                         :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">

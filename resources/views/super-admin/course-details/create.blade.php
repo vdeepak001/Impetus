@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card title="Course Information">
-            <form method="POST" action="{{ route($routePrefix . '.course-details.store') }}">
+            <form method="POST" action="{{ route($routePrefix . '.course-details.store') }}" enctype="multipart/form-data">
                 @csrf
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -56,24 +56,32 @@
                     @error('description') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                    <!-- Sequence -->
-                    <div>
+                <div class="mt-6 grid grid-cols-12 gap-3 sm:gap-6 items-end">
+                    <div class="col-span-6 min-w-0">
+                        <label for="attachment" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Attachment
+                        </label>
+                        <input id="attachment" type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 block w-full min-w-0 text-sm text-gray-800 file:mr-2 sm:file:mr-4 file:rounded-lg file:border-0 file:bg-brand-500 file:px-2 sm:file:px-4 file:py-2 file:text-xs sm:file:text-sm file:font-semibold file:text-white hover:file:bg-brand-600 dark:file:bg-brand-600 dark:text-white/90" />
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">PDF, Word, or image. Max 10 MB.</p>
+                        @error('attachment') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="col-span-3 min-w-0">
                         <label for="sequence" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Sequence
                         </label>
                         <input id="sequence" type="number" name="sequence" value="{{ old('sequence', 0) }}"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-2 sm:px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                         @error('sequence') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Active Status -->
-                    <div class="flex items-end h-11">
+                    <div class="col-span-3 flex justify-end min-w-0">
                         <div x-data="{ switcherToggle: true }">
                             <input type="hidden" name="active_status" value="0">
-                            <label for="active_status" class="flex cursor-pointer items-center gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400">
+                            <label for="active_status" class="flex cursor-pointer items-center gap-2 sm:gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400 whitespace-nowrap">
                                 <div class="relative">
-                                    <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only" 
+                                    <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only"
                                         x-model="switcherToggle" />
                                     <div class="block h-6 w-11 rounded-full bg-gray-200 dark:bg-white/10"
                                         :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">

@@ -41,4 +41,31 @@ class CourseDetail extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    /**
+     * URL for the attachment: prefers file under public_path(), falls back to legacy storage symlink path.
+     */
+    public function attachmentPublicUrl(): ?string
+    {
+        if (! $this->attachment) {
+            return null;
+        }
+
+        if (is_file(public_path($this->attachment))) {
+            return asset($this->attachment);
+        }
+
+        return asset('storage/'.$this->attachment);
+    }
+
+    public function attachmentIsImage(): bool
+    {
+        if (! $this->attachment) {
+            return false;
+        }
+
+        $ext = strtolower(pathinfo($this->attachment, PATHINFO_EXTENSION));
+
+        return in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'avif'], true);
+    }
 }
