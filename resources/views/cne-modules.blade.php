@@ -9,7 +9,7 @@
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Type of Module</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Type of Course</h1>
                     <p class="text-sm text-slate-500">
                         <a href="{{ route('home') }}" class="text-logo-blue hover:underline">CNE Home</a>
                         <span class="mx-1">→</span>
