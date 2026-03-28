@@ -3,8 +3,8 @@
 @section('title', 'CNE Modules')
 
 @section('content')
-    <main class="pb-12">
-        <div style="height: 100px;"></div>
+    <main class="pb-16">
+        <div class="h-[100px]" aria-hidden="true"></div>
 
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -13,31 +13,60 @@
                     <p class="text-sm text-slate-500">
                         <a href="{{ route('home') }}" class="text-logo-blue hover:underline">CNE Home</a>
                         <span class="mx-1">→</span>
-                        <span>Type of Module</span>
+                        <span>Type of Course</span>
                     </p>
                 </div>
 
-                <div class="grid gap-8 lg:grid-cols-2">
-                    <article class="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
-                        <div class="h-56 w-full overflow-hidden rounded-2xl border border-slate-200/60">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=80" alt="Knowledge based nursing module" class="h-full w-full object-cover">
-                        </div>
-                        <h2 class="mt-5 text-center text-xl font-bold tracking-wide text-logo-blue">KNOWLEDGE BASED MODULE (KBM)</h2>
-                        <p class="mt-6 text-lg leading-8 text-slate-700">
-                            Knowledge based modules are designed for nurses to enhance theoretical and skill-based knowledge in basic and advanced nursing care. It is an independent platform for all levels of nurses to enhance professional knowledge and improve clinical nursing practice. This learning mode helps nurses keep up to date with new healthcare concepts and developments while increasing their level of cognition.
-                        </p>
-                    </article>
-
-                    <article class="rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
-                        <div class="h-56 w-full overflow-hidden rounded-2xl border border-slate-200/60">
-                            <img src="https://images.unsplash.com/photo-1579154204601-01588f351e67?auto=format&fit=crop&w=1200&q=80" alt="Skill based nursing module" class="h-full w-full object-cover">
-                        </div>
-                        <h2 class="mt-5 text-center text-xl font-bold tracking-wide text-logo-blue">SKILL BASED MODULE (SBM)</h2>
-                        <p class="mt-6 text-lg leading-8 text-slate-700">
-                            Skill based learning modules are designed for healthcare professionals, especially nurses, to develop and enhance basic and advanced nursing competencies through skill-based training. This training type enables participants to practice in different clinical scenarios and is customized according to individual needs for skilling, reskilling, and upskilling.
-                        </p>
-                    </article>
-                </div>
+                @if ($courses->isEmpty())
+                    <div class="rounded-3xl border border-slate-200/80 bg-white px-8 py-14 text-center shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
+                        <p class="text-lg text-slate-600">No modules are available yet. Please check back later.</p>
+                    </div>
+                @else
+                    <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
+                        @foreach ($courses as $course)
+                            @php
+                                $imgUrl = $course->attachmentPublicUrl();
+                                $isImage = $course->attachmentIsImage();
+                                $title = $course->couse_name;
+                                $detailUrl = route('cne.modules.show', $course);
+                            @endphp
+                            <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
+                                <a href="{{ $detailUrl }}" class="flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">
+                                    <div class="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-gradient-to-br from-slate-100 to-slate-50">
+                                        <div class="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition group-hover:opacity-100"></div>
+                                        @if ($imgUrl && $isImage)
+                                            <img
+                                                src="{{ $imgUrl }}"
+                                                alt="{{ $title ?? 'Course module' }}"
+                                                class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                            >
+                                        @elseif ($imgUrl)
+                                            <div class="flex h-full w-full flex-col items-center justify-center gap-2 p-4 text-center">
+                                                <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-logo-blue shadow-sm ring-1 ring-slate-200/80">Document</span>
+                                                <span class="text-xs text-slate-500">Open module for details</span>
+                                            </div>
+                                        @else
+                                            <div class="flex h-full w-full flex-col items-center justify-center text-slate-400">
+                                                <svg class="mb-2 h-10 w-10 text-logo-light-green/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3A1.5 1.5 0 001.5 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008H12V8.25z" />
+                                                </svg>
+                                                <span class="text-xs font-medium">No image</span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <div class="flex flex-1 flex-col bg-gradient-to-b from-white to-slate-50/90 p-4">
+                                        <div class="rounded-xl border-2 border-logo-blue/70 bg-white px-3 py-3.5 text-center shadow-sm transition group-hover:border-logo-blue group-hover:shadow-md">
+                                            <h2 class="text-xs font-bold uppercase tracking-wide text-logo-blue sm:text-sm">
+                                                {{ $title ?? '—' }}
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </a>
+                            </article>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
     </main>

@@ -6,10 +6,13 @@
         ? '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-logo-light-green bg-logo-light-green/10'
         : '-mx-3 block rounded-lg px-3 py-2 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50';
 @endphp
-<!-- Navigation -->
-<header x-data="{ mobileMenuOpen: false, scrolled: true }"
-        @scroll.window="scrolled = (window.pageYOffset > 50)"
-        class="fixed top-4 inset-x-4 z-50 max-w-7xl mx-auto rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/70 shadow-2xl py-3 px-6 transition-all duration-500">
+<!-- Navigation: mobile menu is a sibling of <header> so position:fixed overlays are not trapped by backdrop-blur (containing block). -->
+<div
+    x-data="{ mobileMenuOpen: false, scrolled: true }"
+    @scroll.window="scrolled = (window.pageYOffset > 50)"
+    @keydown.escape.window="mobileMenuOpen = false"
+>
+<header class="fixed top-4 inset-x-4 z-50 max-w-7xl mx-auto rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/70 shadow-2xl py-3 px-6 transition-all duration-500">
     <nav class="mx-auto w-full" aria-label="Global">
         <div class="flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-2 group transition-transform hover:scale-105">
@@ -100,66 +103,68 @@
         </div>
 
     </nav>
-    <!-- Mobile menu -->
-    <div x-show="mobileMenuOpen" class="lg:hidden" role="dialog" aria-modal="true">
-        <div class="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" @click="mobileMenuOpen = false"></div>
-        <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-slate-900/10">
-            <div class="flex items-center justify-between">
-                <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-2">
+</header>
+    <!-- Mobile menu: outside header so fixed layers cover the viewport (not clipped by header blur) -->
+    <div x-show="mobileMenuOpen" x-cloak class="lg:hidden" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 z-[100] bg-black/20 backdrop-blur-sm" @click="mobileMenuOpen = false"></div>
+        <div
+            class="fixed inset-y-0 right-0 z-[101] flex w-full max-w-sm flex-col bg-white shadow-2xl ring-1 ring-slate-900/10"
+            style="max-height: 100dvh; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);"
+        >
+            <div class="flex shrink-0 items-center justify-between border-b border-slate-100 px-6 py-5">
+                <a href="{{ route('home') }}" class="-m-1.5 flex items-center gap-2 p-1.5" @click="mobileMenuOpen = false">
                     <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-10 w-auto">
                 </a>
-                <button type="button" @click="mobileMenuOpen = false" class="-m-2.5 rounded-md p-2.5 text-slate-700">
+                <button type="button" @click="mobileMenuOpen = false" class="-m-2.5 rounded-md p-2.5 text-slate-700 hover:bg-slate-100">
                     <span class="sr-only">Close menu</span>
                     <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
-            <div class="mt-6 flow-root">
-                <div class="-my-6 divide-y divide-slate-500/10">
-                    <div class="space-y-2 py-6">
-                        <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
-                        <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us</a>
-                        <a href="{{ route('cne.modules') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CNE Modules</a>
-                        <a href="{{ route('cpd.certifications') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
-                        <a href="{{ route('learning.materials') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
-                        <a href="{{ route('practice.test') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
-                        <a href="{{ route('online.examination') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Exam</a>
-                    </div>
-                    <div class="py-6">
-                        @if (Route::has('login'))
-                            @auth
-                                @if (auth()->user()?->role_type === 'user')
-                                    <span class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
-                                        Hi, {{ auth()->user()->name }}
-                                    </span>
-                                @else
-                                    <a href="{{ url('/dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Dashboard</a>
-                                @endif
-                                <a href="{{ route('profile') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
-                                    My Profile
-                                </a>
-                                <a href="{{ route('profile.change-password') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
-                                    Change Password
-                                </a>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
-                                        Logout
-                                    </button>
-                                </form>
-                            @else
-                                <button type="button" @click="mobileMenuOpen = false; $dispatch('open-login-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
-                                    Log in
-                                </button>
-                                <button type="button" @click="mobileMenuOpen = false; $dispatch('open-register-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
-                                    Sign up
-                                </button>
-                            @endauth
-                        @endif
-                    </div>
+            <nav class="flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-y-contain px-6 py-6" aria-label="Mobile">
+                <div class="space-y-1">
+                    <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
+                    <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us</a>
+                    <a href="{{ route('cne.modules') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CNE Modules</a>
+                    <a href="{{ route('cpd.certifications') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
+                    <a href="{{ route('learning.materials') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
+                    <a href="{{ route('practice.test') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
+                    <a href="{{ route('online.examination') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Exam</a>
                 </div>
-            </div>
+                @if (Route::has('login'))
+                    <div class="mt-8 border-t border-slate-200 pt-6">
+                        @auth
+                            @if (auth()->user()?->role_type === 'user')
+                                <span class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
+                                    Hi, {{ auth()->user()->name }}
+                                </span>
+                            @else
+                                <a href="{{ url('/dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Dashboard</a>
+                            @endif
+                            <a href="{{ route('profile') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                My Profile
+                            </a>
+                            <a href="{{ route('profile.change-password') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                Change Password
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                    Logout
+                                </button>
+                            </form>
+                        @else
+                            <button type="button" @click="mobileMenuOpen = false; $dispatch('open-login-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                Log in
+                            </button>
+                            <button type="button" @click="mobileMenuOpen = false; $dispatch('open-register-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                Sign up
+                            </button>
+                        @endauth
+                    </div>
+                @endif
+            </nav>
         </div>
     </div>
-</header>
+</div>
