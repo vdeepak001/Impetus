@@ -74,10 +74,13 @@
                         <h3 class="text-sm font-semibold leading-6 text-white">Legal</h3>
                         <ul role="list" class="mt-6 space-y-4">
                             <li>
-                                <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Privacy Policy</a>
+                                <a href="{{ route('faq') }}" class="text-sm leading-6 text-slate-300 hover:text-white">FAQ</a>
                             </li>
                             <li>
-                                <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Terms of Service</a>
+                                <a href="{{ route('privacy.policy') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="{{ route('terms.conditions') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Terms &amp; Conditions</a>
                             </li>
                             <li>
                                 <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Patient Rights</a>
@@ -89,9 +92,10 @@
         </div>
         <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24 flex flex-col md:flex-row justify-between items-center gap-4">
             <p class="text-xs leading-5 text-slate-400 font-medium tracking-wider uppercase">&copy; {{ date('Y') }} Venture Nursing Services. All rights reserved.</p>
-            <div class="flex items-center gap-6">
-                <a href="#" class="text-xs text-slate-400 hover:text-white transition-colors">Privacy Policy</a>
-                <a href="#" class="text-xs text-slate-400 hover:text-white transition-colors">Terms of Service</a>
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                <a href="{{ route('faq') }}" class="text-xs text-slate-400 hover:text-white transition-colors">FAQ</a>
+                <a href="{{ route('privacy.policy') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Privacy Policy</a>
+                <a href="{{ route('terms.conditions') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Terms &amp; Conditions</a>
             </div>
         </div>
     </div>

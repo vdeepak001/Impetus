@@ -300,13 +300,7 @@
             <p class="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl font-serif">Secure, proctored, and fully online</p>
             <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">Take your certification exam from anywhere with identity verification, browser monitoring, and immediate pass/fail status.</p>
             <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                @if (Route::has('login'))
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="rounded-full bg-logo-light-green px-7 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5">Go to dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="rounded-full bg-logo-light-green px-7 py-3 text-sm font-semibold text-white transition-all hover:-translate-y-0.5">Log in for exams</a>
-                    @endauth
-                @endif
+
                 <a href="{{ route('online.examination') }}" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-logo-light-green hover:text-logo-light-green">View Online Examination</a>
             </div>
         </div>

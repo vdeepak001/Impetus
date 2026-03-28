@@ -157,19 +157,7 @@
                     <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
                         Log in to access practice tests in your learning module. We recommend completing them before your <strong class="font-semibold text-slate-900">Mock</strong> and <strong class="font-semibold text-slate-900">Final</strong> examinations.
                     </p>
-                    @if (Route::has('login'))
-                        <div class="mt-6 flex justify-center">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
-                                    Go to dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
-                                    Log in to start
-                                </a>
-                            @endauth
-                        </div>
-                    @endif
+
                 </div>
             </div>
         </section>

@@ -22,6 +22,10 @@ Route::view('/learning-materials', 'learning-materials')->name('learning.materia
 Route::view('/practice-test', 'practice-test')->name('practice.test');
 Route::view('/online-examination', 'online-examination')->name('online.examination');
 
+Route::view('/faq', 'faq')->name('faq');
+Route::view('/privacy-policy', 'privacy-policy')->name('privacy.policy');
+Route::view('/terms-and-conditions', 'terms-and-conditions')->name('terms.conditions');
+
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

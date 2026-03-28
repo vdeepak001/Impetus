@@ -184,19 +184,6 @@
                     <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
                         Log in to your module to access Pre-Test, Mock, and Final examinations as part of your CPD pathway.
                     </p>
-                    @if (Route::has('login'))
-                        <div class="mt-6 flex justify-center">
-                            @auth
-                                <a href="{{ url('/dashboard') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
-                                    Go to dashboard
-                                </a>
-                            @else
-                                <a href="{{ route('login') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
-                                    Log in to continue
-                                </a>
-                            @endauth
-                        </div>
-                    @endif
                 </div>
             </div>
         </section>
