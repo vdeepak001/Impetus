@@ -28,6 +28,7 @@ it('shows an active course detail page with module content', function () {
     $response->assertSee('Learning resources', false);
     $response->assertSee('Practice test', false);
     $response->assertSee('Questions and answers for deeper learning', false);
+    $response->assertSee('Buy now', false);
 });
 
 it('returns not found for inactive course detail', function () {
@@ -39,11 +40,10 @@ it('returns not found for inactive course detail', function () {
     $this->get(route('cne.modules.show', $course))->assertNotFound();
 });
 
-it('shows buy now as login trigger for guests when course has a purchase url', function () {
+it('shows buy now as login trigger for guests even without a purchase url', function () {
     $course = CourseDetail::create([
         'couse_name' => 'Purchasable',
         'description' => 'Test',
-        'course_url' => 'https://example.com/purchase',
         'active_status' => 1,
     ]);
 
@@ -52,7 +52,22 @@ it('shows buy now as login trigger for guests when course has a purchase url', f
     $response->assertSuccessful();
     $response->assertSee('Buy now', false);
     $response->assertSee('open-login-modal', false);
-    $response->assertDontSee('https://example.com/purchase', false);
+});
+
+it('shows buy now as disabled for authenticated users when course has no purchase url', function () {
+    $user = User::factory()->create(['role_type' => 'user']);
+
+    $course = CourseDetail::create([
+        'couse_name' => 'No URL',
+        'description' => 'Test',
+        'active_status' => 1,
+    ]);
+
+    $response = $this->actingAs($user)->get(route('cne.modules.show', $course));
+
+    $response->assertSuccessful();
+    $response->assertSee('Buy now', false);
+    $response->assertSee('disabled', false);
 });
 
 it('shows buy now as external link for authenticated users when course has a purchase url', function () {

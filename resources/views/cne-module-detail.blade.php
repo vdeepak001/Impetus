@@ -38,37 +38,56 @@
                             <span class="text-slate-600">{{ $title }}</span>
                         </p>
                     </div>
-                    @if ($buyUrl)
+                    @php
+                        $buyButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2';
+                    @endphp
+                    <div class="shrink-0">
                         @auth
-                            <a
-                                href="{{ $buyUrl }}"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class="inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
-                            >
-                                Buy now
-                            </a>
-                        @else
-                            @if (Route::has('login'))
-                                <button
-                                    type="button"
-                                    @click="$dispatch('open-login-modal')"
-                                    class="inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
-                                >
-                                    Buy now
-                                </button>
-                            @else
+                            @if ($buyUrl)
                                 <a
                                     href="{{ $buyUrl }}"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
+                                    class="{{ $buyButtonClass }}"
                                 >
                                     Buy now
                                 </a>
+                            @else
+                                <button
+                                    type="button"
+                                    disabled
+                                    class="{{ $buyButtonClass }} cursor-not-allowed opacity-90 hover:bg-logo-blue"
+                                    title="Purchase link is not set for this module in the admin yet."
+                                >
+                                    Buy now
+                                </button>
+                            @endif
+                        @else
+                            @if (Route::has('login'))
+                                <button type="button" @click="$dispatch('open-login-modal')" class="{{ $buyButtonClass }}">
+                                    Buy now
+                                </button>
+                            @elseif ($buyUrl)
+                                <a
+                                    href="{{ $buyUrl }}"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="{{ $buyButtonClass }}"
+                                >
+                                    Buy now
+                                </a>
+                            @else
+                                <button
+                                    type="button"
+                                    disabled
+                                    class="{{ $buyButtonClass }} cursor-not-allowed opacity-90"
+                                    title="Purchase link is not set for this module."
+                                >
+                                    Buy now
+                                </button>
                             @endif
                         @endauth
-                    @endif
+                    </div>
                 </div>
 
                 <div class="mt-12 grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
