@@ -16,15 +16,18 @@
                             Online Examination
                         </span>
                         <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
-                            Online Examination
+                            Online Test
                         </h1>
                         <p class="mt-6 text-lg leading-8 text-slate-600">
-                            The Online Examination System (OES) is a fully automated, multiple-choice question (MCQ) platform designed for nursing assessments. Unlike traditional paper-based tests, it delivers a more effective, reliable, and standardized experience with strong integration across your learning path.
+                            An online test for Continuing Professional Development (CPD) for nurses is a structured assessment designed to evaluate and reinforce the knowledge, skills, and clinical judgement of nursing professionals as part of their ongoing learning. These tests help nurses maintain competence, meet regulatory requirements, and deliver safe, evidence-based patient care.
+                        </p>
+                        <p class="mt-4 text-base leading-8 text-slate-600">
+                            The CPD online test typically covers a wide range of topics including clinical skills, patient safety, infection prevention, medication administration, ethical practices, and emerging healthcare trends. Questions may include multiple-choice, case-based scenarios, and application-oriented formats to assess both theoretical understanding and practical decision-making abilities.
                         </p>
                         <p class="mt-4 text-sm text-slate-500">
                             <a href="{{ route('home') }}" class="text-logo-blue hover:underline">Home</a>
                             <span class="mx-1">→</span>
-                            <span>Online Examination</span>
+                            <span>Online Test</span>
                         </p>
                     </div>
                     <div class="relative w-full min-w-0">
@@ -63,27 +66,30 @@
                         </div>
                     </div>
                     <div class="order-1 min-w-0 lg:order-2">
-                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Benefits</h2>
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Flexible Online Assessment</h2>
+                        <p class="mt-5 text-base leading-8 text-slate-600">
+                            Accessible anytime and anywhere, the online format offers flexibility for working nurses to complete assessments at their convenience. Instant feedback, performance analysis, and detailed explanations help learners identify strengths and areas for improvement, promoting continuous learning and professional development.
+                        </p>
                         <ul class="mt-8 space-y-4 text-base leading-7 text-slate-700">
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Easy accessibility.</span>
+                                <span>Accessible anytime and anywhere for working nurses</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Accuracy, increased efficiency, and time-saving.</span>
+                                <span>Multiple-choice, case-based, and application-oriented formats</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>24/7 availability for user convenience.</span>
+                                <span>Instant feedback and performance analysis after completion</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Instant result generation.</span>
+                                <span>Supports continuous learning and professional development</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Cost-effectiveness and user-friendliness.</span>
+                                <span>May contribute to CPD credits, certification, and career advancement</span>
                             </li>
                         </ul>
                     </div>
@@ -95,10 +101,10 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-3xl text-center">
                     <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
-                        <span class="text-brand-900">Impetus Healthcare Skills (IHS)</span> exam types
+                        <span class="text-brand-900">Level of Questions</span>
                     </h2>
                     <p class="mt-4 text-base leading-8 text-slate-600">
-                        The IHS online examination pathway has three stages: Pre-Test, Mock Exam, and Final Exam. Each plays a distinct role in measuring progress and meeting certification requirements.
+                        There are three levels of questions in the online test portal to evaluate the comprehensive knowledge of the participant.
                     </p>
                 </div>
 
@@ -117,13 +123,13 @@
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/35 via-transparent to-transparent"></div>
                         </div>
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
-                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Pre-Test</h3>
+                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Level - 1</h3>
                             <div class="mt-4 flex-1 space-y-4 text-base leading-7 text-slate-600">
                                 <p>
-                                    A preliminary test is used to determine a user's baseline knowledge in a specific online nursing module. A pretest is administered with <strong class="font-semibold text-slate-800">30 questions</strong> relating to the module, which comprises questions from all three levels of multiple choice questions.
+                                    Level - 1 questions focus on the assessment of factual knowledge and help evaluate the participant's foundational understanding of essential nursing concepts.
                                 </p>
                                 <p>
-                                    This helps the user to do self-assessment and aids the user to prepare adequately for final examination. It is <strong class="font-semibold text-slate-800">mandatory</strong> to take the pretest for initiating the module.
+                                    Each Level - 1 question carries <strong class="font-semibold text-slate-800">1 mark</strong>, supporting accurate evaluation of basic theoretical knowledge.
                                 </p>
                             </div>
                         </div>
@@ -142,13 +148,13 @@
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/35 via-transparent to-transparent"></div>
                         </div>
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
-                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Mock Exam</h3>
+                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Level - 2</h3>
                             <div class="mt-4 flex-1 space-y-4 text-base leading-7 text-slate-600">
                                 <p>
-                                    Mock examination emulates the real online examination experience. It introduces you to the final exam format and highlights knowledge gaps to address before the final online examination.
+                                    Level - 2 questions focus on the assessment of functional knowledge, measuring how well participants can apply learned concepts in practical nursing situations.
                                 </p>
                                 <p>
-                                    The examination consists of <strong class="font-semibold text-slate-800">30 questions</strong> which are randomly chosen from all the levels of MCQ and the duration of completing the exam is <strong class="font-semibold text-slate-800">forty-five minutes</strong>.
+                                    Each Level - 2 question carries <strong class="font-semibold text-slate-800">2 marks</strong>, reflecting a deeper level of understanding and application.
                                 </p>
                             </div>
                         </div>
@@ -167,13 +173,13 @@
                             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/35 via-transparent to-transparent"></div>
                         </div>
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
-                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Final Exam</h3>
+                            <h3 class="text-xl font-semibold text-slate-900 font-serif">Level - 3</h3>
                             <div class="mt-4 flex-1 space-y-4 text-base leading-7 text-slate-600">
                                 <p>
-                                    Final examination is taken at the end of study to earn the score needed for credit points or hours toward nursing license renewal. Questions are chosen randomly and proportionately from all levels; the same question is <strong class="font-semibold text-slate-800">never repeated</strong> for the same user. Once started, the exam <strong class="font-semibold text-slate-800">cannot be saved or paused</strong> mid-way.
+                                    Level - 3 questions focus on the assessment of problem-solving ability, challenging participants to use clinical judgement and decision-making in more complex scenarios.
                                 </p>
                                 <p>
-                                    Results appear immediately after the exam. If you meet the score required by your state nursing council, a <strong class="font-semibold text-slate-800">digital certificate</strong> can be downloaded instantly.
+                                    Each Level - 3 question carries <strong class="font-semibold text-slate-800">3 marks</strong>, recognizing higher-order reasoning and advanced clinical application.
                                 </p>
                             </div>
                         </div>
@@ -182,7 +188,7 @@
 
                 <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
                     <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
-                        Log in to your module to access Pre-Test, Mock, and Final examinations as part of your CPD pathway.
+                        <strong class="font-semibold text-slate-900">Scoring and Feedback:</strong> Immediate scoring and grading will be provided upon completion of the test, allowing test-takers to identify areas of strength and weakness. This feedback is valuable for further learning and improvement.
                     </p>
                 </div>
             </div>

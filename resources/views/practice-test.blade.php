@@ -13,21 +13,21 @@
                 <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
                     <div class="min-w-0">
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
-                            Practice Test
+                            Practice Tests
                         </span>
                         <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
-                            Practice Test
+                            Practice Tests
                         </h1>
                         <p class="mt-6 text-lg leading-8 text-slate-600">
-                            Practice tests are an established strategy for improving nurses’ learning ability and theoretical knowledge. The platform helps optimize skill-based knowledge and problem-solving through clinical scenarios, incorporating the latest trends and technological advancements.
+                            The <strong>Practice Tests for CPD in Nursing</strong> are designed to reinforce learning, assess knowledge, and enhance clinical decision-making skills. These tests provide nurses the opportunity to evaluate their understanding of key concepts and prepare effectively for certification and professional practice.
                         </p>
                         <p class="mt-4 text-lg leading-8 text-slate-600">
-                            The practice test helps you familiarize yourself with the look, feel, and navigation of the final online exam. It also gives you an opportunity to revise different sets of questions within your specialty.
+                            Aligned with current clinical guidelines and course objectives, the practice tests cover a wide range of topics relevant to contemporary nursing care. They are structured to simulate real-life scenarios, encouraging critical thinking and the application of knowledge in practical situations.
                         </p>
                         <p class="mt-4 text-sm text-slate-500">
                             <a href="{{ route('home') }}" class="text-logo-blue hover:underline">Home</a>
                             <span class="mx-1">→</span>
-                            <span>Practice Test</span>
+                            <span>Practice Tests</span>
                         </p>
                     </div>
                     <div class="relative w-full min-w-0">
@@ -66,27 +66,27 @@
                         </div>
                     </div>
                     <div class="order-1 min-w-0 lg:order-2">
-                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Benefits</h2>
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Key Features</h2>
                         <ul class="mt-8 space-y-4 text-base leading-7 text-slate-700">
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Helps identify the strengths and weaknesses of the learner.</span>
+                                <span><strong>Comprehensive question bank</strong> covering clinical skills, patient safety, infection control, medication management, and more.</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Repetitive practice reinforces learning and aids the learner in mastering the topic.</span>
+                                <span><strong>Case-based questions</strong> using realistic clinical scenarios to assess problem-solving and decision-making abilities.</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Provides immediate feedback to the learners.</span>
+                                <span><strong>Instant feedback</strong> with immediate explanations and rationales to correct misunderstandings.</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Helps to improve the performance of learners in the final examination.</span>
+                                <span><strong>Self-assessment tools</strong> that help identify strengths and areas for further improvement.</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Learner centered, easily accessible and user friendly.</span>
+                                <span><strong>Flexible online access</strong> and exam-oriented preparation for CPD certification assessments and competency evaluations.</span>
                             </li>
                         </ul>
                     </div>
@@ -99,63 +99,60 @@
                 <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">
                     <div>
                         <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
-                            <span class="text-brand-900">Impetus Healthcare Skills (IHS)</span> — MCQ levels
+                            <span class="text-brand-900">Benefits</span>
                         </h2>
                         <p class="mt-6 text-base leading-8 text-slate-600">
-                            <strong class="font-semibold text-slate-800">Impetus Healthcare Skills (IHS)</strong> offers tests in the form of Multiple Choice Questions (MCQs) categorized into three levels:
+                            Practice tests strengthen knowledge retention and recall while helping nurses build confidence for assessments and real-world practice.
                         </p>
                         <ul class="mt-6 space-y-3 text-base leading-7 text-slate-700">
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span><strong class="font-semibold text-slate-800">Level I:</strong> Questions related to factual knowledge.</span>
+                                <span>Strengthens knowledge retention and recall</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span><strong class="font-semibold text-slate-800">Level II:</strong> Questions related to functional knowledge.</span>
+                                <span>Builds confidence for assessments and real-world practice</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span><strong class="font-semibold text-slate-800">Level III:</strong> Questions related to problem-solving approaches.</span>
+                                <span>Enhances critical thinking and clinical judgement</span>
+                            </li>
+                            <li class="flex gap-3">
+                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
+                                <span>Supports continuous improvement and lifelong learning</span>
                             </li>
                         </ul>
                         <p class="mt-6 text-base leading-8 text-slate-600">
-                            Each level of MCQs has about <strong class="font-semibold text-slate-800">eight sets</strong> of questions. Each set contains <strong class="font-semibold text-slate-800">twenty questions</strong>. All MCQs have <strong class="font-semibold text-slate-800">four options</strong> to answer. <strong class="font-semibold text-slate-800">Rationale</strong> is provided immediately after choosing an answer for each question. Results are displayed at the end of the test. You can practice each level <strong class="font-semibold text-slate-800">three times</strong> to familiarize yourself with the module.
-                        </p>
-                        <p class="mt-5 text-base leading-8 text-slate-600">
-                            There are approximately <strong class="font-semibold text-slate-800">6,000 MCQs</strong> in the practice test section. We recommend practicing before taking the Mock and Final Examination to obtain better results.
+                            The purpose of these practice tests is to ensure that nurses gain theoretical knowledge and develop the ability to apply it effectively in clinical settings. Regular self-assessment enables nurses to maintain high standards of care and achieve professional excellence.
                         </p>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Question bank</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">~6,000</p>
-                            <p class="text-sm text-slate-600">MCQs in practice</p>
+                            <p class="text-sm font-semibold text-brand-900">Question Bank</p>
+                            <p class="mt-2 text-slate-700">Comprehensive topic coverage across essential nursing areas</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Levels</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">3</p>
-                            <p class="text-sm text-slate-600">I, II &amp; III</p>
+                            <p class="text-sm font-semibold text-brand-900">Clinical Scenarios</p>
+                            <p class="mt-2 text-slate-700">Case-based practice for decision-making and application of knowledge</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Per set</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">20</p>
-                            <p class="text-sm text-slate-600">questions</p>
+                            <p class="text-sm font-semibold text-brand-900">Instant Feedback</p>
+                            <p class="mt-2 text-slate-700">Immediate explanations and rationales for better learning</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Sets per level</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">~8</p>
-                            <p class="text-sm text-slate-600">question sets</p>
+                            <p class="text-sm font-semibold text-brand-900">Flexible Access</p>
+                            <p class="mt-2 text-slate-700">Practice anytime online at your own convenience</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
-                            <p class="text-sm font-semibold text-brand-900">Practice attempts</p>
-                            <p class="mt-2 text-slate-700">Each level can be practiced up to three times.</p>
+                            <p class="text-sm font-semibold text-brand-900">Purpose</p>
+                            <p class="mt-2 text-slate-700">Regular self-assessment helps nurses maintain high standards of care and achieve professional excellence.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
                     <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
-                        Log in to access practice tests in your learning module. We recommend completing them before your <strong class="font-semibold text-slate-900">Mock</strong> and <strong class="font-semibold text-slate-900">Final</strong> examinations.
+                        <strong class="font-semibold text-slate-900">Purpose:</strong> These practice tests are designed to ensure that nurses gain theoretical knowledge and develop the ability to apply it effectively in clinical settings.
                     </p>
 
                 </div>

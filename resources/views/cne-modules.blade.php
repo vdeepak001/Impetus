@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'CNE Modules')
+@section('title', 'CPD Modules')
 
 @section('content')
     <main class="pb-16">
@@ -9,11 +9,21 @@
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Type of Course</h1>
+                    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">CPD Modules</h1>
                     <p class="text-sm text-slate-500">
                         <a href="{{ route('home') }}" class="text-logo-blue hover:underline">CNE Home</a>
                         <span class="mx-1">→</span>
-                        <span>Type of Course</span>
+                        <span>CPD Modules</span>
+                    </p>
+                </div>
+
+                <div class="mb-10 rounded-3xl border border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 p-6 shadow-md shadow-slate-200/50 sm:p-8">
+                    <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Continuing Professional Development Modules</h2>
+                    <p class="mt-4 text-base leading-8 text-slate-600">
+                        Continuing Professional Development (CPD) modules for nurses are structured, topic-focused learning units designed to enhance clinical knowledge, professional skills, and evidence-based practice. These modules support lifelong learning and help nurses stay current with evolving healthcare standards, technologies, and patient care practices.
+                    </p>
+                    <p class="mt-4 text-base leading-8 text-slate-600">
+                        Each CPD module is carefully developed to address key areas of nursing practice such as clinical skills, patient assessment, infection control, medication administration, emergency care, ethical decision-making, and specialized fields like critical care, maternal health, and mental health nursing.
                     </p>
                 </div>
 

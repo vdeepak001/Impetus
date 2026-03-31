@@ -1,6 +1,6 @@
 @extends('layouts.frontend.app')
 
-@section('title', 'Learning Resources')
+@section('title', 'Learning Materials')
 
 @section('content')
     <main class="pb-12">
@@ -16,15 +16,18 @@
                             Learning Materials
                         </span>
                         <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
-                            Learning Resources
+                            CPD Learning Materials
                         </h1>
                         <p class="mt-6 text-lg leading-8 text-slate-600">
-                            Learning Resources are information presented and accessible in a variety of formats, which facilitates the learner to comprehend and achieve their desired outcome. It is an independent platform for all the levels of nurses to enhance the professional knowledge and to excel in their clinical nursing practice.
+                            The Continuous Professional Development (CPD) learning materials in Nursing are delivered through well-structured PowerPoint presentations and comprehensive PDF resources, designed to provide clear, concise, and practical knowledge for nursing professionals.
+                        </p>
+                        <p class="mt-4 text-base leading-8 text-slate-600">
+                            These materials are designed to support effective learning by combining visual clarity with detailed explanations, enabling nurses to understand, retain, and apply knowledge in clinical practice.
                         </p>
                         <p class="mt-4 text-sm text-slate-500">
                             <a href="{{ route('home') }}" class="text-logo-blue hover:underline">Home</a>
                             <span class="mx-1">→</span>
-                            <span>Learning Resources</span>
+                            <span>Learning Materials</span>
                         </p>
                     </div>
                     <div class="relative w-full min-w-0">
@@ -63,27 +66,30 @@
                         </div>
                     </div>
                     <div class="order-1 min-w-0 lg:order-2">
-                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">Benefits of Learning Resources</h2>
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">PowerPoint Slide Materials</h2>
+                        <p class="mt-5 text-base leading-8 text-slate-600">
+                            Our PowerPoint presentations simplify complex concepts with visually engaging structured content. Each slide highlights key learning points, making it ideal for quick understanding and revision.
+                        </p>
                         <ul class="mt-8 space-y-4 text-base leading-7 text-slate-700">
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Learning Resources are customized for specific learning needs</span>
+                                <span>Clear and concise bullet-points</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>The nursing information available in the learning resources are up to date</span>
+                                <span>Use of diagrams, flowcharts, and clinical illustrations</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>There is no limitation for accessing the learning resources</span>
+                                <span>Step-by-step explanations of procedures and protocols</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>The resources are learner centered and self-directed</span>
+                                <span>Case-based scenarios for practical understanding</span>
                             </li>
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>The learning resources are easily accessible and user friendly</span>
+                                <span>Ideal for online sessions, and self-learning</span>
                             </li>
                         </ul>
                     </div>
@@ -96,40 +102,38 @@
                 <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">
                     <div>
                         <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
-                            <span class="text-brand-900">Impetus Healthcare Skills (IHS) Online Learning Resources</span>
+                            <span class="text-brand-900">PDF Learning Resources</span>
                         </h2>
                         <p class="mt-6 text-base leading-8 text-slate-600">
-                            Impetus Healthcare Skills offers a diverse base of information for nurses. Resources are presented in a <strong class="font-semibold text-slate-800">Question and Answer format</strong> to help you complete modules. Topics include nursing terminologies and disease condition elements—such as definitions, causes, diagnostic evaluation, management, nursing care, and complications.
+                            The PDF materials offer comprehensive explanations to supplement the slide presentations. These resources serve as reliable references for ongoing study and practice.
                         </p>
                         <p class="mt-5 text-base leading-8 text-slate-600">
-                            Answers typically consist of <strong class="font-semibold text-slate-800">100–200 words</strong> and may use paragraphs, tables, flow charts, or algorithms. There are approximately <strong class="font-semibold text-slate-800">700 questions and answers</strong> available, presented in <strong class="font-semibold text-slate-800">sets of 10</strong> questions.
+                            These learning materials are designed to enhance knowledge retention, clinical competence, and evidence-based practice. They help nurses meet CPD requirements and enable continuous learning in a flexible, accessible format.
                         </p>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Answer length</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">100–200</p>
-                            <p class="text-sm text-slate-600">words per answer</p>
+                            <p class="text-sm font-semibold text-brand-900">Structured Coverage</p>
+                            <p class="mt-2 text-slate-700">Comprehensive topic coverage with structured content</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Question bank</p>
-                            <p class="mt-2 text-2xl font-bold text-logo-blue">~700</p>
-                            <p class="text-sm text-slate-600">questions and answers</p>
+                            <p class="text-sm font-semibold text-brand-900">Evidence-Based</p>
+                            <p class="mt-2 text-slate-700">Evidence-based guidelines and clinical protocols</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
-                            <p class="text-sm font-semibold text-brand-900">Formats</p>
-                            <p class="mt-2 text-slate-700">Paragraphs, tables, flow charts, or algorithms</p>
+                            <p class="text-sm font-semibold text-brand-900">Detailed Explanations</p>
+                            <p class="mt-2 text-slate-700">Detailed explanations of nursing procedures and concepts</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
-                            <p class="text-sm font-semibold text-brand-900">Practice structure</p>
-                            <p class="mt-2 text-slate-700">Questions presented in sets of 10</p>
+                            <p class="text-sm font-semibold text-brand-900">Quick Reference</p>
+                            <p class="mt-2 text-slate-700">Tables, charts, and summary points for quick reference, suitable for offline access and long-term learning</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
                     <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
-                        There is no time limit for reading. We recommend using these resources to build knowledge before you attempt <strong class="font-semibold text-slate-900">Practice Tests</strong>, <strong class="font-semibold text-slate-900">Mock Exams</strong>, and the <strong class="font-semibold text-slate-900">Final exam</strong>.
+                        <strong class="font-semibold text-slate-900">Purpose:</strong> These learning materials are designed to enhance knowledge retention, clinical competence, and evidence-based practice. They support CPD requirements while enabling continuous learning in a flexible and accessible format.
                     </p>
                 </div>
             </div>

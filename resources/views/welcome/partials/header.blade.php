@@ -22,7 +22,7 @@
             <div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2 xl:gap-3">
                 <a href="{{ route('home') }}" class="{{ $navDesktopClass('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
                 <a href="{{ route('about') }}" class="{{ $navDesktopClass('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us</a>
-                <a href="{{ route('cne.modules') }}" class="{{ $navDesktopClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CNE Modules</a>
+                <a href="{{ route('cne.modules') }}" class="{{ $navDesktopClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CPD Modules</a>
                 <a href="{{ route('cpd.certifications') }}" class="{{ $navDesktopClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
                 <a href="{{ route('learning.materials') }}" class="{{ $navDesktopClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                 <a href="{{ route('practice.test') }}" class="{{ $navDesktopClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
@@ -126,7 +126,7 @@
                 <div class="space-y-1">
                     <a href="{{ route('home') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
                     <a href="{{ route('about') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us</a>
-                    <a href="{{ route('cne.modules') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CNE Modules</a>
+                    <a href="{{ route('cne.modules') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CPD Modules</a>
                     <a href="{{ route('cpd.certifications') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
                     <a href="{{ route('learning.materials') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                     <a href="{{ route('practice.test') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>

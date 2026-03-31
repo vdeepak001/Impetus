@@ -7,7 +7,8 @@ it('returns a successful response for the CNE modules listing', function () {
     $response = $this->get(route('cne.modules'));
 
     $response->assertSuccessful();
-    $response->assertSee('Type of Module', false);
+    $response->assertSee('CPD Modules', false);
+    $response->assertSee('Continuing Professional Development Modules', false);
 });
 
 it('shows an active course detail page with module content', function () {

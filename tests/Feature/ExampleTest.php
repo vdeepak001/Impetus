@@ -3,7 +3,9 @@
 it('returns a successful response', function () {
     $response = $this->get('/');
 
-    $response->assertStatus(200);
+    $response->assertSuccessful();
+    $response->assertSee('Empowering Nurses Through', false);
+    $response->assertSee('Ventura Learning Solutions', false);
 });
 
 it('shows login for exams CTA that opens the login modal instead of linking to the admin dashboard', function () {

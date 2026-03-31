@@ -12,16 +12,19 @@
             <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
                 <div class="lg:col-span-6 text-center lg:text-left">
                     <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-3 py-1 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20 mb-6">
-                        #1 Rated Nursing Care Provider
+                        Ventura Learning Solutions
                     </span>
                     <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl font-serif">
-                        Compassionate care <br class="hidden lg:block"> you can trust.
+                        Empowering Nurses Through <br class="hidden lg:block"> Continuous Learning!
                     </h1>
                     <p class="mt-6 text-lg leading-8 text-slate-600">
-                        Our team of highly-trained, dedicated nurses provides personalized medical care right in the comfort of your home. We treat every patient like family.
+                        At <b>Ventura Learning Solutions</b>, we are committed to advancing the knowledge, skills, and confidence of nurses through high-quality <strong>Continuous Professional Development (CPD)</strong> programs. In today's rapidly evolving healthcare environment, staying updated is not merely an option, it is a professional responsibility.
+                    </p>
+                    <p class="mt-4 text-base leading-8 text-slate-600">
+                        Our platform offers flexible, evidence-based, and clinically relevant online courses designed to support nurses at every stage of their career. Whether you are enhancing core competencies, exploring specialized fields, or meeting regulatory requirements, Ventura provides learning solutions that fit seamlessly into your busy schedule.
                     </p>
                     <div class="mt-10 flex items-center justify-center lg:justify-start gap-x-8">
-                        <a href="#cne-modules" class="rounded-full bg-logo-light-green px-8 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(131,186,45,0.4)] hover:shadow-[0_15px_40px_rgba(131,186,45,0.6)] hover:-translate-y-1 transition-all transform duration-300">Explore Services</a>
+                        <a href="#cne-modules" class="rounded-full bg-logo-light-green px-8 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(131,186,45,0.4)] hover:shadow-[0_15px_40px_rgba(131,186,45,0.6)] hover:-translate-y-1 transition-all transform duration-300">Explore CPD Modules</a>
                         <a href="#about" class="text-base font-bold leading-6 text-brand-900 group flex items-center gap-3 hover:text-logo-light-green transition-colors">
                             <div class="bg-logo-light-green/10 p-2 rounded-full group-hover:bg-logo-light-green/20 transition-colors">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
@@ -34,16 +37,16 @@
 
                     <div class="mt-12 grid grid-cols-3 gap-4 border-t border-slate-200 pt-8 sm:mt-16 text-left">
                         <div>
+                            <h3 class="text-3xl font-bold tracking-tight text-slate-900">CPD</h3>
+                            <p class="text-sm text-slate-500 mt-1">Focused Learning</p>
+                        </div>
+                        <div>
                             <h3 class="text-3xl font-bold tracking-tight text-slate-900">24/7</h3>
-                            <p class="text-sm text-slate-500 mt-1">Available Care</p>
+                            <p class="text-sm text-slate-500 mt-1">Online Access</p>
                         </div>
                         <div>
-                            <h3 class="text-3xl font-bold tracking-tight text-slate-900">98%</h3>
-                            <p class="text-sm text-slate-500 mt-1">Patient Satisfaction</p>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-bold tracking-tight text-slate-900">500+</h3>
-                            <p class="text-sm text-slate-500 mt-1">Certified Nurses</p>
+                            <h3 class="text-3xl font-bold tracking-tight text-slate-900">100%</h3>
+                            <p class="text-sm text-slate-500 mt-1">Career Growth Focus</p>
                         </div>
                     </div>
                 </div>
@@ -59,8 +62,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-brand-900 text-lg">Emergency Response</h4>
-                                <p class="text-sm text-slate-600 font-medium tracking-wide">Fast, reliable medical attention.</p>
+                                <h4 class="font-bold text-brand-900 text-lg">Professional Development</h4>
+                                <p class="text-sm text-slate-600 font-medium tracking-wide">Flexible, practical, evidence-based learning.</p>
                             </div>
                         </div>
                     </div>
@@ -77,10 +80,10 @@
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
                 <div class="lg:pr-8 lg:pt-4">
                     <div class="lg:max-w-lg">
-                        <h2 class="text-base font-semibold leading-7 text-logo-light-green">About Venture</h2>
-                        <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Dedicated to your health and well-being</p>
+                        <h2 class="text-base font-semibold leading-7 text-logo-light-green">Why Choose Ventura Learning Solutions?</h2>
+                        <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Built to support lifelong nursing excellence</p>
                         <p class="mt-6 text-lg leading-8 text-slate-600">
-                            Founded on the principles of empathy, integrity, and excellence, Venture has been serving the community for over a decade. We believe that healing happens best in a comfortable, familiar environment.
+                            Ventura supports nurses with accessible, practical, and professionally relevant learning experiences that strengthen daily clinical practice and long-term career development.
                         </p>
                         <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-slate-600 lg:max-w-none">
                             <div class="relative pl-9">
@@ -88,27 +91,36 @@
                                     <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
                                     </svg>
-                                    Licensed Professionals.
+                                    Nurse-Centric Curriculum.
                                 </dt>
-                                <dd class="inline">Every nurse in our team is fully licensed, background-checked, and continuously trained on modern medical practices.</dd>
+                                <dd class="inline">Courses developed by experienced nursing professionals, aligned with current clinical standards and best practices.</dd>
                             </div>
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
                                     <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path d="M10 1a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 1zM5.05 3.05a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06L5.05 4.11a.75.75 0 010-1.06zM16.95 3.05a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM19 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 0119 10zM1 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 011 10zm15.95 6.95a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM3.99 16.95a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM10 19a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 19zM10 5a5 5 0 100 10 5 5 0 000-10z" />
                                     </svg>
-                                    Holistic Approach.
+                                    Flexible Online Learning.
                                 </dt>
-                                <dd class="inline">We focus on physical, emotional, and social well-being to ensure comprehensive recovery and comfort.</dd>
+                                <dd class="inline">Learn anytime, anywhere with self-paced modules designed for working nurses.</dd>
                             </div>
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
                                     <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                         <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm.75 5a.75.75 0 011.5 0v4.279l3.02 1.745a.75.75 0 11-.75 1.3L11 12.28V7z" clip-rule="evenodd" />
                                     </svg>
-                                    Flexible Schedules.
+                                    Career Advancement.
                                 </dt>
-                                <dd class="inline">Whether you need hourly, daily, or live-in care, we customize our plans to fit your family's unique lifestyle.</dd>
+                                <dd class="inline">Enhance your clinical expertise, improve patient outcomes, and access new professional opportunities.</dd>
+                            </div>
+                            <div class="relative pl-9">
+                                <dt class="inline font-semibold text-slate-900">
+                                    <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 00-1.408-1.42l-6.39 6.34-2.2-2.18A1 1 0 005.3 9.45l2.9 2.87a1 1 0 001.407-.004l7.097-7.025z" clip-rule="evenodd" />
+                                    </svg>
+                                    Accredited &amp; Relevant Content.
+                                </dt>
+                                <dd class="inline">Remain compliant with CPD requirements while acquiring practical, real-world knowledge.</dd>
                             </div>
                         </dl>
                     </div>
@@ -290,6 +302,48 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="vision-mission" class="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-24 sm:py-28">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-logo-light-green/10 to-transparent"></div>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Our Foundation</h2>
+                <p class="mt-2 text-4xl font-bold tracking-tight text-brand-900 sm:text-5xl font-serif">Vision and mission that guide every learning experience</p>
+                <p class="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                    Ventura Learning Solutions is committed to creating meaningful continuing education experiences that support lifelong learning, professional excellence, and better healthcare outcomes.
+                </p>
+            </div>
+
+            <div class="mt-14 grid gap-8 lg:grid-cols-2">
+                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(131,186,45,0.14)] sm:p-10">
+                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-light-green/10 blur-3xl transition duration-300 group-hover:bg-logo-light-green/20"></div>
+                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-light-green/10 text-logo-light-green ring-1 ring-logo-light-green/20">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l7.5-7.5 7.5 7.5M5.25 12v7.125c0 .621.504 1.125 1.125 1.125h3.375V16.5c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v3.75h3.375c.621 0 1.125-.504 1.125-1.125V12" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Vision</h3>
+                    <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
+                        To be a trusted partner in nursing education by fostering lifelong learning and empowering nurses to deliver safe, effective, and compassionate care.
+                    </p>
+                </article>
+
+                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(59,130,246,0.14)] sm:p-10">
+                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-blue/10 blur-3xl transition duration-300 group-hover:bg-logo-blue/20"></div>
+                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-blue/10 text-logo-blue ring-1 ring-logo-blue/20">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-2.844-.813a4.5 4.5 0 01-1.614-7.509l7.636-7.636a3.375 3.375 0 114.773 4.773l-7.636 7.636a4.5 4.5 0 01-.502.435z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 5.25l6 6" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Mission</h3>
+                    <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
+                        To provide accessible, innovative, and high-quality continuing education that supports professional excellence and improves healthcare outcomes.
+                    </p>
+                </article>
             </div>
         </div>
     </section>
