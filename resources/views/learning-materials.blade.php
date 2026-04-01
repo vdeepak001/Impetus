@@ -15,10 +15,10 @@
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
                             Learning Materials
                         </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                        <h1 class="mt-6  font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                             CPD Learning Materials
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                             The Continuous Professional Development (CPD) learning materials in Nursing are delivered through well-structured PowerPoint presentations and comprehensive PDF resources, designed to provide clear, concise, and practical knowledge for nursing professionals.
                         </p>
                         <p class="mt-4 text-base leading-8 text-slate-600">

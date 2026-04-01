@@ -7,8 +7,8 @@
         $title = $course->couse_name ?? 'Module';
         $imgUrl = $course->attachmentPublicUrl();
         $isImage = $course->attachmentIsImage();
-        $buyUrl = $course->course_url
-            ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
+        $buyUrl = $course->couse_name
+            ? (\Illuminate\Support\Str::isUrl($course->couse_name) ? $course->couse_name : url($course->couse_name))
             : null;
     @endphp
 

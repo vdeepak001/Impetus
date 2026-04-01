@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome')->name('home');
 Route::view('/about-us', 'about')->name('about');
 Route::get('/cne-modules', [CneModulesController::class, 'index'])->name('cne.modules');
-Route::get('/cne-modules/{course_detail}', [CneModulesController::class, 'show'])->name('cne.modules.show');
+Route::get('/cne-modules/{course_detail:couse_name}', [CneModulesController::class, 'show'])->name('cne.modules.show');
 Route::view('/cpd-certifications', 'cpd-certifications')->name('cpd.certifications');
 Route::view('/learning-materials', 'learning-materials')->name('learning.materials');
 Route::view('/practice-test', 'practice-test')->name('practice.test');

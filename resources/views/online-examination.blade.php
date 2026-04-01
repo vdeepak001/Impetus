@@ -15,10 +15,10 @@
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
                             Online Examination
                         </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                             Online Test
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                             An online test for Continuing Professional Development (CPD) for nurses is a structured assessment designed to evaluate and reinforce the knowledge, skills, and clinical judgement of nursing professionals as part of their ongoing learning. These tests help nurses maintain competence, meet regulatory requirements, and deliver safe, evidence-based patient care.
                         </p>
                         <p class="mt-4 text-base leading-8 text-slate-600">

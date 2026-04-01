@@ -14,10 +14,10 @@
                     <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-3 py-1 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20 mb-6">
                         Ventura Learning Solutions
                     </span>
-                    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl font-serif">
+                    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                         Empowering Nurses Through <br class="hidden lg:block"> Continuous Learning!
                     </h1>
-                    <p class="mt-6 text-lg leading-8 text-slate-600">
+                    <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                         At <b>Ventura Learning Solutions</b>, we are committed to advancing the knowledge, skills, and confidence of nurses through high-quality <strong>Continuous Professional Development (CPD)</strong> programs. In today's rapidly evolving healthcare environment, staying updated is not merely an option, it is a professional responsibility.
                     </p>
                     <p class="mt-4 text-base leading-8 text-slate-600">

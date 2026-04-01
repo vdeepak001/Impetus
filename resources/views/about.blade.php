@@ -12,10 +12,10 @@
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-3 py-1 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
                             About Ventura Learning Solutions
                         </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                             Empowering nurses through practical, skill-based learning.
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                            <strong>Ventura Learning Solutions</strong> is a forward-thinking educational company dedicated to enhancing nurses' professional capabilities through <strong>innovative short-term, skill-based programs</strong>. We deliver concise, practical, and knowledge-oriented courses that help nurses stay current, competent, and confident in their practice.
                         </p>
                         <p class="mt-4 text-base leading-8 text-slate-600">

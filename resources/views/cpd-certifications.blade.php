@@ -16,10 +16,10 @@
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
                             Continuing Professional Development
                         </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                             CPD Certification
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                             The Continuous Professional Development (CPD) Certification for Nurses is designed to support lifelong learning and ensure that nursing professionals remain competent, confident, and up to date with evolving healthcare practices. This certification provides structured learning opportunities to enhance clinical knowledge, strengthen critical thinking, and promote evidence-based practice.
                         </p>
                         <p class="mt-5 text-lg leading-8 text-slate-600">

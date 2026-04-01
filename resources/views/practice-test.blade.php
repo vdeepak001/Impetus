@@ -15,10 +15,10 @@
                         <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
                             Practice Tests
                         </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
                             Practice Tests
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
                             The <strong>Practice Tests for CPD in Nursing</strong> are designed to reinforce learning, assess knowledge, and enhance clinical decision-making skills. These tests provide nurses the opportunity to evaluate their understanding of key concepts and prepare effectively for certification and professional practice.
                         </p>
                         <p class="mt-4 text-lg leading-8 text-slate-600">
