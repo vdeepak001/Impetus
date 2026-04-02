@@ -14,10 +14,10 @@
 
         <div class="mx-auto max-w-6xl px-6 pt-28 sm:pt-32 lg:px-8">
             <div class="text-center">
-                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
+                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-lg font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
                     Legal
                 </span>
-                <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl font-serif">
+                <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-3xl font-serif">
                     Terms and conditions
                 </h1>
                 <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-500 shadow-sm backdrop-blur-sm">
@@ -55,8 +55,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 class="font-serif text-xl font-bold text-slate-900 sm:text-2xl">Please read carefully</h2>
-                                    <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                                    <h2 class="font-serif text-3xl font-bold text-slate-900 sm:text-3xl">Please read carefully</h2>
+                                    <p class="mt-2 text-lg leading-relaxed text-slate-600 text-justify">
                                         These terms govern your use of our website and services. By continuing to use the platform, you confirm that you understand and accept them.
                                     </p>
                                 </div>
@@ -68,8 +68,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-900 text-xs font-bold text-white">01</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Agreement</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Agreement</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             By accessing or using the website and services operated by Venture Nursing Services (“we,” “us,” or “our”), you agree to these terms and conditions. If you do not agree, do not use the Services.
                                         </p>
                                     </div>
@@ -80,8 +80,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">02</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Eligibility and accounts</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Eligibility and accounts</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             You must provide accurate registration information and keep your credentials confidential. You are responsible for activity under your account. We may suspend or terminate accounts that violate these terms or pose a risk to the Services or other users.
                                         </p>
                                     </div>
@@ -92,8 +92,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">03</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Courses and digital content</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Courses and digital content</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             Access to courses, materials, and assessments is granted according to your purchase or enrollment. Unless expressly stated, content is licensed for your personal, non-commercial educational use and may not be copied, redistributed, or reverse engineered except as allowed by applicable law.
                                         </p>
                                     </div>
@@ -104,8 +104,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">04</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Fees and payments</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Fees and payments</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             Prices and payment terms are displayed at checkout. You authorize us and our payment processors to charge applicable fees. Refunds, if any, are handled according to the refund policy stated at the time of purchase.
                                         </p>
                                     </div>
@@ -116,8 +116,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">05</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Disclaimer of warranties</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Disclaimer of warranties</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             The Services are provided “as is” and “as available” without warranties of any kind, express or implied, to the fullest extent permitted by law. We do not guarantee uninterrupted or error-free operation or that content will meet every licensing or regulatory requirement in your jurisdiction; you remain responsible for your professional compliance.
                                         </p>
                                     </div>
@@ -128,8 +128,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">06</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Limitation of liability</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Limitation of liability</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or for loss of profits, data, or goodwill, arising from your use of the Services.
                                         </p>
                                     </div>
@@ -140,8 +140,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">07</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Changes</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Changes</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             We may update these terms from time to time. Continued use of the Services after changes constitutes acceptance of the revised terms. Material changes will be indicated on this page with an updated date.
                                         </p>
                                     </div>
@@ -152,8 +152,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-logo-blue/15 text-xs font-bold text-brand-900">08</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Contact</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Contact</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             Questions about these terms may be sent to <a href="mailto:info@careconnect.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">info@careconnect.com</a>.
                                         </p>
                                     </div>

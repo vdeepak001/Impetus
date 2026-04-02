@@ -16,7 +16,7 @@
     <nav class="mx-auto w-full" aria-label="Global">
         <div class="flex items-center justify-between gap-4">
             <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-2 group transition-transform hover:scale-105">
-                <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-12 w-auto">
+                <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-16 w-auto">
             </a>
 
             <div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2 xl:gap-3">
@@ -26,7 +26,7 @@
                 <a href="{{ route('cpd.certifications') }}" class="{{ $navDesktopClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
                 <a href="{{ route('learning.materials') }}" class="{{ $navDesktopClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                 <a href="{{ route('practice.test') }}" class="{{ $navDesktopClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
-                <a href="{{ route('online.examination') }}" class="{{ $navDesktopClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Exam</a>
+                <a href="{{ route('online.examination') }}" class="{{ $navDesktopClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Test</a>
             </div>
 
             <div class="flex lg:hidden">
@@ -130,7 +130,7 @@
                     <a href="{{ route('cpd.certifications') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('cpd.certifications') }}" @if (request()->routeIs('cpd.certifications')) aria-current="page" @endif>CPD Certification</a>
                     <a href="{{ route('learning.materials') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                     <a href="{{ route('practice.test') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
-                    <a href="{{ route('online.examination') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Exam</a>
+                    <a href="{{ route('online.examination') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Test</a>
                 </div>
                 @if (Route::has('login'))
                     <div class="mt-8 border-t border-slate-200 pt-6">

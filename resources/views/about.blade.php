@@ -5,20 +5,20 @@
 @section('content')
     <main class="pb-12">
         <div style="height: 100px;"></div>
-        <section class="py-12 sm:py-16">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+        <section class="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 py-14 sm:py-20">
+            <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-logo-blue/10 blur-3xl"></div>
+            <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-logo-light-green/20 blur-3xl"></div>
+            <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="grid items-center gap-12 lg:grid-cols-2">
                     <div>
-                        <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-3 py-1 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
-                            About Ventura Learning Solutions
-                        </span>
-                        <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
+                       
+                        <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             Empowering nurses through practical, skill-based learning.
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                            <strong>Ventura Learning Solutions</strong> is a forward-thinking educational company dedicated to enhancing nurses' professional capabilities through <strong>innovative short-term, skill-based programs</strong>. We deliver concise, practical, and knowledge-oriented courses that help nurses stay current, competent, and confident in their practice.
                         </p>
-                        <p class="mt-4 text-base leading-8 text-slate-600">
+                        <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                             Our programs are carefully designed to address real-world clinical challenges and evolving patient care needs. By combining evidence-based content with flexible online learning, Ventura ensures that nurses can update their knowledge without disrupting their professional commitments.
                         </p>
                         <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -40,8 +40,9 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Nursing team" class="h-[500px] w-full rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
+                    <div class="relative">
+                        <div class="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/20 via-transparent to-logo-blue/20 blur-2xl"></div>
+                        <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Nursing team" class="relative h-[500px] w-full rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
                     </div>
                 </div>
             </div>
@@ -61,10 +62,10 @@
                         <h3 class="text-lg font-semibold text-slate-900">Trusted Certification Path</h3>
                         <p class="mt-3 text-sm leading-6 text-slate-600">From CPD tracking to downloadable certificates, we simplify your compliance journey end-to-end.</p>
                     </article>
-                    <article class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60">
-                        <h3 class="text-lg font-semibold text-slate-900">Continuous Support</h3>
-                        <p class="mt-3 text-sm leading-6 text-slate-600">Our learning platform gives you on-demand resources, practice tests, and progress tracking anytime.</p>
-                    </article>
+                    <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
+                    <p class="text-center text-lg leading-8 text-slate-700 text-justify sm:text-lg">
+                        <strong class="font-semibold text-slate-900">Our Goal:</strong> To empower nurses with continuous learning opportunities that promote excellence in practice, improve healthcare outcomes, and support professional advancement.
+                    </p>
                 </div>
             </div>
         </section> --}}
@@ -72,8 +73,8 @@
         <section class="pt-28 pb-20 sm:pt-32 sm:pb-24">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mx-auto max-w-3xl text-center">
-                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">What We Offer</h2>
-                    <p class="mt-4 text-slate-600">Focused, practical learning solutions designed to support nurses in everyday clinical practice.</p>
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">What We Offer</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">Focused, practical learning solutions designed to support nurses in everyday clinical practice.</p>
                 </div>
 
                 <div class="mt-12 space-y-8">
@@ -81,7 +82,7 @@
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div>
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Short-Term Certification Programs</h3>
-                                <p class="mt-4 text-base leading-8 text-slate-600">
+                                <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                                     Our courses are designed for online delivery and focused learning in minimal time, making them ideal for busy healthcare professionals. Each program is structured to deliver relevant knowledge efficiently without interrupting professional commitments.
                                 </p>
                             </div>
@@ -98,7 +99,7 @@
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Skill-Based Training</h3>
-                                <p class="mt-4 text-base leading-8 text-slate-600">
+                                <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                                     Ventura provides practical and clinically relevant modules that strengthen the knowledge nurses need in day-to-day practice. Our training is built around real-world clinical challenges and evolving patient care needs.
                                 </p>
                             </div>
@@ -109,7 +110,7 @@
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div>
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Specialized Learning Areas</h3>
-                                <p class="mt-4 text-base leading-8 text-slate-600">
+                                <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                                     We cover essential domains such as nursing assessment, lifesaving skills, critical care, infection control, emergency nursing, patient safety, and more.
                                 </p>
                             </div>
@@ -126,7 +127,7 @@
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Flexible Learning Approach</h3>
-                                <p class="mt-4 text-base leading-8 text-slate-600">
+                                <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                                     Our self-paced and accessible programs are designed to fit demanding work schedules, making learning practical for nurses balancing professional and personal responsibilities.
                                 </p>
                             </div>
@@ -140,8 +141,8 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="rounded-3xl border border-slate-200/70 bg-white p-8 shadow-md shadow-slate-200/60 sm:p-10">
                     <div class="mx-auto max-w-4xl text-center">
-                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Our Commitment</h2>
-                        <p class="mt-6 text-base leading-8 text-slate-600">
+                        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">Our Commitment</h2>
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                             At Ventura Learning Solutions, we are committed to supporting nurses in their <strong>continuous learning</strong> and <strong>professional growth</strong>. Our aim is to equip healthcare professionals with the knowledge and skills required to improve patient outcomes and maintain the highest standards of care.
                         </p>
                     </div>

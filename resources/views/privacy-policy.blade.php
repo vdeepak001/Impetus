@@ -14,10 +14,10 @@
 
         <div class="mx-auto max-w-6xl px-6 pt-28 sm:pt-32 lg:px-8">
             <div class="text-center">
-                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
+                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-lg font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
                     Legal
                 </span>
-                <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl font-serif">
+                <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-3xl font-serif">
                     Privacy policy
                 </h1>
                 <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-500 shadow-sm backdrop-blur-sm">
@@ -54,8 +54,8 @@
                                     </svg>
                                 </div>
                                 <div>
-                                    <h2 class="font-serif text-xl font-bold text-slate-900 sm:text-2xl">Your privacy matters</h2>
-                                    <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                                    <h2 class="font-serif text-3xl font-bold text-slate-900 sm:text-3xl">Your privacy matters</h2>
+                                    <p class="mt-2 text-lg leading-relaxed text-slate-600 text-justify">
                                         We are committed to protecting personal information you share with us. This policy explains what we collect and how we use it in clear, plain language.
                                     </p>
                                 </div>
@@ -67,8 +67,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-900 text-xs font-bold text-white">01</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Introduction</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Introduction</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             Venture Nursing Services (“we,” “us,” or “our”) respects your privacy. This policy describes how we collect, use, disclose, and safeguard information when you use our website and related services (the “Services”).
                                         </p>
                                     </div>
@@ -79,8 +79,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">02</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Information we collect</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Information we collect</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             We may collect information you provide directly, such as name, email address, phone number, professional credentials, and payment details when you register, purchase courses, or contact us. We also collect technical data such as IP address, browser type, device identifiers, and usage logs to operate and improve the Services.
                                         </p>
                                     </div>
@@ -91,8 +91,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">03</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">How we use information</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">How we use information</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             We use information to provide and personalize the Services, process transactions, communicate with you, maintain security, comply with legal obligations, and analyze usage to improve our platform and content.
                                         </p>
                                     </div>
@@ -103,8 +103,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">04</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Sharing and disclosure</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Sharing and disclosure</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             We may share information with service providers who assist us (for example, hosting, payment processing, and email delivery) under appropriate agreements. We may disclose information if required by law or to protect our rights, users, or the public.
                                         </p>
                                     </div>
@@ -115,8 +115,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">05</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Data retention and security</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Data retention and security</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             We retain information as long as needed to fulfill the purposes described in this policy unless a longer period is required by law. We implement reasonable technical and organizational measures to protect personal information; however, no method of transmission or storage is completely secure.
                                         </p>
                                     </div>
@@ -127,8 +127,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">06</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Your choices</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Your choices</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             Depending on your location, you may have rights to access, correct, delete, or restrict processing of your personal information, or to object to certain processing. Contact us using the details below to make a request.
                                         </p>
                                     </div>
@@ -139,8 +139,8 @@
                                 <div class="flex gap-5">
                                     <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-logo-light-green/20 text-xs font-bold text-brand-900">07</span>
                                     <div>
-                                        <h2 class="text-lg font-semibold text-slate-900">Contact</h2>
-                                        <p class="mt-3 text-sm leading-7 text-slate-600">
+                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Contact</h2>
+                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                             For questions about this privacy policy, email <a href="mailto:info@careconnect.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">info@careconnect.com</a> or write to us at 123 Health Avenue, New York, NY 10001.
                                         </p>
                                     </div>

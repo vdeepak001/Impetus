@@ -15,13 +15,13 @@
 
         <div class="mx-auto w-full max-w-2xl px-5 pt-28 sm:px-6 sm:pt-32 lg:px-8">
             <div class="text-center">
-                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
+                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-4 py-1.5 text-lg font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
                     Help center
                 </span>
-                <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl font-serif">
+                <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                     Frequently asked questions
                 </h1>
-                <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600">
+                <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-600 text-justify">
                     Quick answers about courses, accounts, certifications, and using our platform.
                 </p>
             </div>
@@ -35,7 +35,7 @@
                             </svg>
                         </span>
                         <span class="min-w-0 flex-1">
-                            <span class="block text-base font-semibold text-slate-900 sm:text-lg">How do I create an account?</span>
+                            <span class="block text-lg font-semibold text-slate-900 sm:text-lg">How do I create an account?</span>
                         </span>
                         <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-200" :class="open === 0 ? 'rotate-180 bg-logo-light-green/15 text-logo-light-green' : ''">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
@@ -53,7 +53,7 @@
                         x-transition:leave-end="opacity-0 -translate-y-1"
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
-                        <p class="pl-0 text-sm leading-7 text-slate-600 sm:pl-14">
+                        <p class="pl-0 text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
                             Use the Register option in the site header, complete the form with a valid email address, and verify your account when prompted. You can then sign in to access your dashboard and enrolled materials.
                         </p>
                     </div>
@@ -67,7 +67,7 @@
                             </svg>
                         </span>
                         <span class="min-w-0 flex-1">
-                            <span class="block text-base font-semibold text-slate-900 sm:text-lg">How do CNE modules and credit hours work?</span>
+                            <span class="block text-lg font-semibold text-slate-900 sm:text-lg">How do CNE modules and credit hours work?</span>
                         </span>
                         <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-200" :class="open === 1 ? 'rotate-180 bg-logo-light-green/15 text-logo-light-green' : ''">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
@@ -85,7 +85,7 @@
                         x-transition:leave-end="opacity-0 -translate-y-1"
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
-                        <p class="text-sm leading-7 text-slate-600 sm:pl-14">
+                        <p class="text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
                             Each module lists its credit value and learning objectives. Complete the required content and any assessments. Approved completion is reflected in your account and may be used toward your continuing education requirements as applicable to your license.
                         </p>
                     </div>
@@ -99,7 +99,7 @@
                             </svg>
                         </span>
                         <span class="min-w-0 flex-1">
-                            <span class="block text-base font-semibold text-slate-900 sm:text-lg">Can I access courses on a phone or tablet?</span>
+                            <span class="block text-lg font-semibold text-slate-900 sm:text-lg">Can I access courses on a phone or tablet?</span>
                         </span>
                         <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-200" :class="open === 2 ? 'rotate-180 bg-logo-light-green/15 text-logo-light-green' : ''">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
@@ -117,7 +117,7 @@
                         x-transition:leave-end="opacity-0 -translate-y-1"
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
-                        <p class="text-sm leading-7 text-slate-600 sm:pl-14">
+                        <p class="text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
                             Yes. The platform is designed to work in modern browsers on desktop and mobile devices. For the best experience during timed activities or exams, use a stable connection and avoid switching apps mid-session.
                         </p>
                     </div>
@@ -131,7 +131,7 @@
                             </svg>
                         </span>
                         <span class="min-w-0 flex-1">
-                            <span class="block text-base font-semibold text-slate-900 sm:text-lg">How do I reset my password?</span>
+                            <span class="block text-lg font-semibold text-slate-900 sm:text-lg">How do I reset my password?</span>
                         </span>
                         <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-200" :class="open === 3 ? 'rotate-180 bg-logo-light-green/15 text-logo-light-green' : ''">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
@@ -149,7 +149,7 @@
                         x-transition:leave-end="opacity-0 -translate-y-1"
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
-                        <p class="text-sm leading-7 text-slate-600 sm:pl-14">
+                        <p class="text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
                             From the login screen, use the password reset link and follow the instructions sent to your registered email. If you do not see the message, check spam or junk folders.
                         </p>
                     </div>
@@ -163,7 +163,7 @@
                             </svg>
                         </span>
                         <span class="min-w-0 flex-1">
-                            <span class="block text-base font-semibold text-slate-900 sm:text-lg">Who do I contact for support?</span>
+                            <span class="block text-lg font-semibold text-slate-900 sm:text-lg">Who do I contact for support?</span>
                         </span>
                         <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-500 transition-transform duration-200" :class="open === 4 ? 'rotate-180 bg-logo-light-green/15 text-logo-light-green' : ''">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5">
@@ -181,7 +181,7 @@
                         x-transition:leave-end="opacity-0 -translate-y-1"
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
-                        <p class="text-sm leading-7 text-slate-600 sm:pl-14">
+                        <p class="text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
                             Email us at <a href="mailto:info@careconnect.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">info@careconnect.com</a> or call <a href="tel:+18001234567" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">1-800-123-4567</a>. Include your account email and a short description of the issue so we can help faster.
                         </p>
                     </div>
@@ -189,8 +189,8 @@
             </div>
 
             <div class="mt-14 rounded-3xl border border-slate-200/80 bg-gradient-to-br from-brand-900 via-brand-900 to-brand-800 p-8 text-center shadow-2xl shadow-brand-900/25 sm:p-10">
-                <h2 class="font-serif text-2xl font-bold text-white sm:text-3xl">Still have questions?</h2>
-                <p class="mx-auto mt-3 max-w-lg text-sm leading-7 text-slate-300">
+                <h2 class="font-serif text-3xl font-bold text-white sm:text-3xl">Still have questions?</h2>
+                <p class="mx-auto mt-3 max-w-lg text-lg leading-8 text-slate-300 text-justify">
                     Our team is happy to help with account access, course selection, or technical issues.
                 </p>
                 <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">

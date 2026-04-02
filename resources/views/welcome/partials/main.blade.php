@@ -11,16 +11,14 @@
         <div class="max-w-7xl mx-auto px-6 py-24 sm:py-32 lg:px-8 lg:py-40">
             <div class="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
                 <div class="lg:col-span-6 text-center lg:text-left">
-                    <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-3 py-1 text-sm font-medium text-logo-light-green ring-1 ring-inset ring-logo-light-green/20 mb-6">
-                        Ventura Learning Solutions
-                    </span>
-                    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
+
+                    <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                         Empowering Nurses Through <br class="hidden lg:block"> Continuous Learning!
                     </h1>
-                    <p class="mt-6 text-lg leading-8 text-slate-600 justify">
+                    <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                         At <b>Ventura Learning Solutions</b>, we are committed to advancing the knowledge, skills, and confidence of nurses through high-quality <strong>Continuous Professional Development (CPD)</strong> programs. In today's rapidly evolving healthcare environment, staying updated is not merely an option, it is a professional responsibility.
                     </p>
-                    <p class="mt-4 text-base leading-8 text-slate-600">
+                    <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                         Our platform offers flexible, evidence-based, and clinically relevant online courses designed to support nurses at every stage of their career. Whether you are enhancing core competencies, exploring specialized fields, or meeting regulatory requirements, Ventura provides learning solutions that fit seamlessly into your busy schedule.
                     </p>
                     <div class="mt-10 flex items-center justify-center lg:justify-start gap-x-8">
@@ -80,47 +78,47 @@
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
                 <div class="lg:pr-8 lg:pt-4">
                     <div class="lg:max-w-lg">
-                        <h2 class="text-base font-semibold leading-7 text-logo-light-green">Why Choose Ventura Learning Solutions?</h2>
-                        <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Built to support lifelong nursing excellence</p>
-                        <p class="mt-6 text-lg leading-8 text-slate-600">
+                        <h2 class="text-lg font-semibold leading-7 text-logo-light-green">Why Choose Ventura Learning Solutions?</h2>
+                        <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">Built to support lifelong nursing excellence</p>
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                             Ventura supports nurses with accessible, practical, and professionally relevant learning experiences that strengthen daily clinical practice and long-term career development.
                         </p>
-                        <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-slate-600 lg:max-w-none">
+                        <dl class="mt-10 max-w-xl space-y-8 text-lg leading-8 text-slate-600 lg:max-w-none">
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clip-rule="evenodd" />
+                                    <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
                                     Nurse-Centric Curriculum.
                                 </dt>
-                                <dd class="inline">Courses developed by experienced nursing professionals, aligned with current clinical standards and best practices.</dd>
+                                <dd class="inline text-justify">Courses developed by experienced nursing professionals, aligned with current clinical standards and best practices.</dd>
                             </div>
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path d="M10 1a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 1zM5.05 3.05a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06L5.05 4.11a.75.75 0 010-1.06zM16.95 3.05a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM19 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 0119 10zM1 10a.75.75 0 01.75-.75h1.5a.75.75 0 010 1.5h-1.5A.75.75 0 011 10zm15.95 6.95a.75.75 0 011.06 0l1.06 1.06a.75.75 0 11-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zM3.99 16.95a.75.75 0 010 1.06l-1.06 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zM10 19a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 0110 19zM10 5a5 5 0 100 10 5 5 0 000-10z" />
+                                    <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
                                     Flexible Online Learning.
                                 </dt>
-                                <dd class="inline">Learn anytime, anywhere with self-paced modules designed for working nurses.</dd>
+                                <dd class="inline text-justify">Learn anytime, anywhere with self-paced modules designed for working nurses.</dd>
                             </div>
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zm.75 5a.75.75 0 011.5 0v4.279l3.02 1.745a.75.75 0 11-.75 1.3L11 12.28V7z" clip-rule="evenodd" />
+                                    <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
                                     Career Advancement.
                                 </dt>
-                                <dd class="inline">Enhance your clinical expertise, improve patient outcomes, and access new professional opportunities.</dd>
+                                <dd class="inline text-justify">Enhance your clinical expertise, improve patient outcomes, and access new professional opportunities.</dd>
                             </div>
                             <div class="relative pl-9">
                                 <dt class="inline font-semibold text-slate-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-logo-light-green" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                        <path fill-rule="evenodd" d="M16.704 5.29a1 1 0 00-1.408-1.42l-6.39 6.34-2.2-2.18A1 1 0 005.3 9.45l2.9 2.87a1 1 0 001.407-.004l7.097-7.025z" clip-rule="evenodd" />
+                                    <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
-                                    Accredited &amp; Relevant Content.
+                                    Accredited & Relevant Content.
                                 </dt>
-                                <dd class="inline">Remain compliant with CPD requirements while acquiring practical, real-world knowledge.</dd>
+                                <dd class="inline text-justify">Remain compliant with CPD requirements while acquiring practical, real-world knowledge.</dd>
                             </div>
                         </dl>
                     </div>
@@ -133,49 +131,108 @@
         </div>
     </section>
 
-    <section id="cne-modules" class="py-24 sm:py-28">
+    <style>
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-1 * (350px * {{ count($latestCourses) }} + 2rem * {{ count($latestCourses) }}))); }
+        }
+        .carousel-track {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 60s linear infinite;
+            width: max-content;
+        }
+        .carousel-track:hover {
+            animation-play-state: paused;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+
+    <section id="cne-modules" class="py-24 sm:py-28 overflow-hidden bg-white">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
-                <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">CNE Modules</h2>
-                <p class="mt-2 text-4xl font-bold tracking-tight text-brand-900 sm:text-5xl font-serif">Structured Continuing Nursing Education</p>
-                <p class="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">CPD Modules</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-brand-900 sm:text-3xl font-serif">Structured Continuing Nursing Education</p>
+                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
                     Choose from clinically focused modules designed by expert educators. Each module combines lessons, case-based practice, and short assessments to build real-world confidence.
                 </p>
             </div>
-            <div class="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <article class="flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                    <div class="h-56 w-full overflow-hidden rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1530026405186-ed1f139313f8?auto=format&fit=crop&w=1200&q=80" alt="Critical care module" class="h-full w-full object-cover object-center">
+            
+            <div class="mt-16 relative">
+                {{-- Side fades --}}
+                <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
+
+                <div class="flex overflow-x-auto hide-scrollbar cursor-grab active:cursor-grabbing">
+                    <div class="carousel-track">
+                        {{-- Set 1 --}}
+                        @foreach ($latestCourses as $course)
+                            <a href="{{ route('cne.modules.show', $course->couse_name) }}" class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
+                                <div class="h-56 w-full overflow-hidden rounded-2xl">
+                                    @if($course->attachment && $course->attachmentIsImage())
+                                        <img src="{{ $course->attachmentPublicUrl() }}" 
+                                             alt="{{ $course->couse_name }}" 
+                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                                    @else
+                                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" 
+                                             alt="{{ $course->couse_name }}" 
+                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                                    @endif
+                                </div>
+                                <div class="mt-5 flex items-center justify-between">
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-logo-blue transition-colors">
+                                        {{ $course->couse_name }}
+                                    </h3>
+                                    <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
+                                        Module
+                                    </span>
+                                </div>
+                                <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
+                                    {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
+                                </p>
+                                <p class="mt-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    Duration: 4-6 Weeks
+                                </p>
+                            </a>
+                        @endforeach
+                        {{-- Set 2 --}}
+                         @foreach ($latestCourses as $course)
+                            <a href="{{ route('cne.modules.show', $course->couse_name) }}" class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
+                                <div class="h-56 w-full overflow-hidden rounded-2xl">
+                                    @if($course->attachment && $course->attachmentIsImage())
+                                        <img src="{{ $course->attachmentPublicUrl() }}" 
+                                             alt="{{ $course->couse_name }}" 
+                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                                    @else
+                                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" 
+                                             alt="{{ $course->couse_name }}" 
+                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
+                                    @endif
+                                </div>
+                                <div class="mt-5 flex items-center justify-between">
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-logo-blue transition-colors">
+                                        {{ $course->couse_name }}
+                                    </h3>
+                                    <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
+                                        Module
+                                    </span>
+                                </div>
+                                <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
+                                    {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
+                                </p>
+                                <p class="mt-4 text-xs font-bold uppercase tracking-wider text-slate-500">
+                                    Duration: 4-6 Weeks
+                                </p>
+                            </a>
+                        @endforeach
                     </div>
-                    <div class="mt-5 flex items-center justify-between">
-                        <h3 class="text-xl font-semibold text-slate-900">Critical Care Nursing</h3>
-                        <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">Beginner</span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">18 lessons, case studies, ICU protocols, and emergency care updates for bedside decision-making.</p>
-                    <p class="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">Duration: 6 Weeks</p>
-                </article>
-                <article class="flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                    <div class="h-56 w-full overflow-hidden rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80" alt="Pediatric module" class="h-full w-full object-cover object-center">
-                    </div>
-                    <div class="mt-5 flex items-center justify-between">
-                        <h3 class="text-xl font-semibold text-slate-900">Pediatric Nursing</h3>
-                        <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">Intermediate</span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">14 focused lessons on child safety, dosage guidelines, and acute pediatric response pathways.</p>
-                    <p class="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">Duration: 4 Weeks</p>
-                </article>
-                <article class="flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                    <div class="h-56 w-full overflow-hidden rounded-2xl">
-                        <img src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?auto=format&fit=crop&w=1200&q=80" alt="Geriatric module" class="h-full w-full object-cover object-center">
-                    </div>
-                    <div class="mt-5 flex items-center justify-between">
-                        <h3 class="text-xl font-semibold text-slate-900">Geriatric Care</h3>
-                        <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">Advanced</span>
-                    </div>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">20 lessons covering long-term care planning, chronic disease support, and aging patient workflows.</p>
-                    <p class="mt-4 text-xs font-medium uppercase tracking-wider text-slate-500">Duration: 8 Weeks</p>
-                </article>
+                </div>
             </div>
         </div>
     </section>
@@ -183,17 +240,42 @@
     <section id="cpd-certification" class="bg-white/50 py-24 sm:py-28">
         <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-8">
             <div>
-                <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">CPD Certification</h2>
-                <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">Track CPD points and download certificates instantly</p>
-                <p class="mt-5 text-base leading-7 text-slate-600">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">CPD Certification</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">Track CPD points and download certificates instantly</p>
+                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
                     Our CPD certification workflow is built for working professionals. Complete modules at your own pace, monitor your progress in real time, and keep all compliance-ready records in one place.
                 </p>
-                <ul class="mt-6 space-y-3 text-slate-600">
-                    <li>- Auto-tracked completed modules with timestamps</li>
-                    <li>- Verified CPD credit dashboard by category</li>
-                    <li>- One-click downloadable certificate (PDF)</li>
-                    <li>- Certificate ID and issue-date verification support</li>
-                    <li>- Central archive for renewal and audit purposes</li>
+                <ul class="mt-6 space-y-4 text-lg text-slate-600">
+                    <li class="flex items-start gap-3">
+                        <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="text-justify">Auto-tracked completed modules with timestamps</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="text-justify">Verified CPD credit dashboard by category</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="text-justify">One-click downloadable certificate (PDF)</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="text-justify">Certificate ID and issue-date verification support</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                        <span class="text-justify">Central archive for renewal and audit purposes</span>
+                    </li>
                 </ul>
                 <div class="mt-8 grid grid-cols-3 gap-3 text-center sm:max-w-md">
                     <div class="rounded-xl border border-slate-200/80 bg-white p-3 shadow-md shadow-slate-200/60">
@@ -221,40 +303,95 @@
         </div>
     </section>
 
-    <section id="learning-materials" class="py-24 sm:py-28">
+    <section id="learning-materials" class="py-24 sm:py-28 bg-slate-50/50">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-2xl text-center">
-                <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Learning Materials</h2>
-                <p class="mt-2 text-4xl font-bold tracking-tight text-brand-900 sm:text-5xl font-serif">Study notes, videos, and quick references</p>
+            <div class="mx-auto max-w-3xl text-center">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Learning Materials</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-brand-900 sm:text-3xl font-serif">Clear, concise, and practical knowledge resources</p>
+                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
+                    Our CPD learning materials are designed to support effective learning by combining visual clarity with detailed explanations, enabling nurses to understand, retain, and apply knowledge in clinical practice.
+                </p>
             </div>
-            <div class="mt-14 grid gap-6 md:grid-cols-3">
-                <div class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60">
-                    <h3 class="text-lg font-semibold text-slate-900">Video Lectures</h3>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">Short, focused sessions by experienced nurse educators with practical demonstrations and concept recaps.</p>
-                    <ul class="mt-4 space-y-2 text-xs text-slate-500">
-                        <li>- Module-wise HD lessons with timestamps</li>
-                        <li>- Clinical scenario walkthroughs</li>
-                        <li>- End-of-video quick quiz summaries</li>
+            <div class="mt-14 grid gap-8 md:grid-cols-3">
+                <div class="rounded-3xl border border-slate-200/80 bg-white p-8 shadow-md shadow-slate-200/60 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-300/50">
+                    <h3 class="text-xl font-bold text-slate-900 font-serif">PowerPoint Slide Materials</h3>
+                    <p class="mt-4 text-lg leading-7 text-slate-600 text-justify">Visually engaging structured content that simplifies complex concepts and highlights key learning points for quick revision.</p>
+                    <ul class="mt-6 space-y-3 text-lg text-slate-500">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Clear and concise bullet-points</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Step-by-step clinical protocols</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Case-based learning scenarios</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60">
-                    <h3 class="text-lg font-semibold text-slate-900">PDF Guides</h3>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">Topic-wise downloadable notes and checklists designed for quick revision before tests and exams.</p>
-                    <ul class="mt-4 space-y-2 text-xs text-slate-500">
-                        <li>- Printable concept sheets by chapter</li>
-                        <li>- Procedure and dosage quick-reference charts</li>
-                        <li>- Exam-day readiness checklists</li>
+
+                <div class="rounded-3xl border border-slate-200/80 bg-white p-8 shadow-md shadow-slate-200/60 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-300/50">
+                    <h3 class="text-xl font-bold text-slate-900 font-serif">PDF Learning Resources</h3>
+                    <p class="mt-4 text-lg leading-7 text-slate-600 text-justify">Comprehensive explanations that supplement slide presentations and serve as reliable references for ongoing study.</p>
+                    <ul class="mt-6 space-y-3 text-lg text-slate-500">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Structured evidence-based coverage</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Detailed procedure explanations</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Quick reference tables and charts</span>
+                        </li>
                     </ul>
                 </div>
-                <div class="rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60">
-                    <h3 class="text-lg font-semibold text-slate-900">Clinical Flashcards</h3>
-                    <p class="mt-2 text-sm leading-6 text-slate-600">Quick revision cards for symptoms, meds, and procedures to support daily practice and exam recall.</p>
-                    <ul class="mt-4 space-y-2 text-xs text-slate-500">
-                        <li>- High-yield terminology and condition cards</li>
-                        <li>- Drug classes, effects, and safety alerts</li>
-                        <li>- Rapid review mode for last-minute prep</li>
+
+                <div class="rounded-3xl border border-slate-200/80 bg-white p-8 shadow-md shadow-slate-200/60 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-300/50">
+                    <h3 class="text-xl font-bold text-slate-900 font-serif">Clinical Competence</h3>
+                    <p class="mt-4 text-lg leading-7 text-slate-600 text-justify">Evidence-based practice resources that enhance clinical competence and meet strict CPD requirements.</p>
+                    <ul class="mt-6 space-y-3 text-lg text-slate-500">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Verified knowledge retention sets</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Professional excellence indicators</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Flexible and accessible formats</span>
+                        </li>
                     </ul>
                 </div>
+            </div>
+            <div class="mt-12 text-center">
+                <a href="{{ route('learning.materials') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-8 py-4 text-base font-bold text-white shadow-[0_10px_30px_rgba(131,186,45,0.4)] hover:shadow-[0_15px_40px_rgba(131,186,45,0.6)] hover:-translate-y-1 transition-all duration-300">
+                    Explore All Resources
+                </a>
             </div>
         </div>
     </section>
@@ -263,15 +400,30 @@
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="grid items-center gap-10 lg:grid-cols-2">
                 <div>
-                    <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Practice Test</h2>
-                    <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">IHS practice MCQs at three levels</p>
-                    <p class="mt-6 text-slate-600">
+                    <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Practice Test</h2>
+                    <p class="mt-2 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">IHS practice MCQs at three levels</p>
+                    <p class="mt-6 text-lg text-slate-600 text-justify">
                         Build theoretical knowledge and exam readiness with multiple-choice questions, immediate rationale, and sets aligned to your specialty—before Mock and Final examinations.
                     </p>
-                    <ul class="mt-5 space-y-2 text-sm text-slate-600">
-                        <li>- ~6,000 MCQs across Levels I–III</li>
-                        <li>- Eight sets per level, twenty questions per set</li>
-                        <li>- Up to three practice attempts per level</li>
+                    <ul class="mt-5 space-y-3 text-lg text-slate-600">
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">~6,000 MCQs across Levels I–III</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Eight sets per level, twenty questions per set</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="h-6 w-6 flex-none text-logo-light-green mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            <span class="text-justify">Up to three practice attempts per level</span>
+                        </li>
                     </ul>
                     <div class="mt-8 flex flex-wrap gap-4">
                         <a href="{{ route('practice.test') }}" class="inline-flex items-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(131,186,45,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_15px_40px_rgba(131,186,45,0.5)]">
@@ -310,9 +462,9 @@
         <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-logo-light-green/10 to-transparent"></div>
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
-                <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Our Foundation</h2>
-                <p class="mt-2 text-4xl font-bold tracking-tight text-brand-900 sm:text-5xl font-serif">Vision and mission that guide every learning experience</p>
-                <p class="mt-5 text-base leading-7 text-slate-600 sm:text-lg">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Our Foundation</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-brand-900 sm:text-3xl font-serif">Vision and mission that guide every learning experience</p>
+                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
                     Ventura Learning Solutions is committed to creating meaningful continuing education experiences that support lifelong learning, professional excellence, and better healthcare outcomes.
                 </p>
             </div>
@@ -326,7 +478,7 @@
                         </svg>
                     </div>
                     <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Vision</h3>
-                    <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
+                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
                         To be a trusted partner in nursing education by fostering lifelong learning and empowering nurses to deliver safe, effective, and compassionate care.
                     </p>
                 </article>
@@ -340,7 +492,7 @@
                         </svg>
                     </div>
                     <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Mission</h3>
-                    <p class="mt-5 max-w-xl text-base leading-8 text-slate-600">
+                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
                         To provide accessible, innovative, and high-quality continuing education that supports professional excellence and improves healthcare outcomes.
                     </p>
                 </article>
@@ -350,9 +502,9 @@
 
     <section id="online-exam" class="bg-brand-900 py-24 sm:py-28">
         <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
-            <h2 class="text-base font-semibold uppercase tracking-wider text-logo-light-green">Online Exam</h2>
-            <p class="mt-2 text-4xl font-bold tracking-tight text-white sm:text-5xl font-serif">Secure, proctored, and fully online</p>
-            <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300">Take your certification exam from anywhere with identity verification, browser monitoring, and immediate pass/fail status.</p>
+            <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Online Exam</h2>
+            <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-3xl font-serif">Secure, proctored, and fully online</p>
+            <p class="mx-auto mt-6 max-w-2xl text-lg text-slate-300 text-justify">Take your certification exam from anywhere with identity verification, browser monitoring, and immediate pass/fail status.</p>
             <div class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
 
                 <a href="{{ route('online.examination') }}" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:border-logo-light-green hover:text-logo-light-green">View Online Examination</a>

@@ -22,21 +22,11 @@
             <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
                     <div class="min-w-0 flex-1">
-                        <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
-                            CNE module
-                        </span>
-                        <h1 class="mt-5 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl font-serif">
+                       
+                        <h1 class="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             {{ $title }}
                         </h1>
-                        <p class="mt-4 text-sm text-slate-500">
-                            <a href="{{ route('home') }}" class="text-logo-blue hover:underline">CNE Home</a>
-                            <span class="mx-1.5 text-slate-300">→</span>
-                            <a href="{{ route('cne.modules') }}" class="text-logo-blue hover:underline">Type of Module</a>
-                            <span class="mx-1.5 text-slate-300">→</span>
-                            <a href="{{ route('cne.modules') }}" class="text-logo-blue hover:underline">CNE Modules</a>
-                            <span class="mx-1.5 text-slate-300">→</span>
-                            <span class="text-slate-600">{{ $title }}</span>
-                        </p>
+                       
                     </div>
                     @php
                         $buyButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2';
@@ -96,11 +86,11 @@
                             What you will learn in {{ $title }}?
                         </h2>
                         @if (filled($course->description))
-                            <div class="mt-6 text-lg leading-8 text-slate-600">
+                            <div class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                                 {!! nl2br(e($course->description)) !!}
                             </div>
                         @else
-                            <p class="mt-6 text-lg leading-8 text-slate-500">Details for this module will be available soon.</p>
+                            <p class="mt-6 text-lg leading-8 text-slate-500 text-justify">Details for this module will be available soon.</p>
                         @endif
                     </div>
                     <div class="relative order-1 w-full min-w-0 lg:order-2">
@@ -171,7 +161,7 @@
                                 </h2>
                                 <p class="text-sm font-medium text-slate-500">Question &amp; answer format for deeper understanding</p>
                             </div>
-                            <div class="mt-8 max-w-3xl text-base leading-relaxed text-slate-800 lg:text-lg lg:leading-8">
+                            <div class="mt-8 max-w-3xl text-lg leading-8 text-slate-800 text-justify">
                                 {!! nl2br(e($course->qa_content)) !!}
                             </div>
                         </div>
@@ -190,7 +180,7 @@
                                 Practice test
                             </h2>
                             <p class="mt-2 text-sm font-medium text-slate-500">Levels I–III · Multiple choice</p>
-                            <div class="mt-8 space-y-4 text-base leading-relaxed text-slate-700">
+                            <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>
                         </div>

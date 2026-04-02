@@ -12,23 +12,17 @@
             <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
                     <div class="min-w-0">
-                        <span class="inline-flex items-center rounded-full bg-logo-light-green/15 px-4 py-1.5 text-sm font-medium text-brand-900 ring-1 ring-inset ring-logo-light-green/25">
-                            Learning Materials
-                        </span>
-                        <h1 class="mt-6  font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">
+                        
+                        <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             CPD Learning Materials
                         </h1>
-                        <p class="mt-6 text-lg leading-8 text-slate-600 justify">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                             The Continuous Professional Development (CPD) learning materials in Nursing are delivered through well-structured PowerPoint presentations and comprehensive PDF resources, designed to provide clear, concise, and practical knowledge for nursing professionals.
                         </p>
-                        <p class="mt-4 text-base leading-8 text-slate-600">
+                        <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                             These materials are designed to support effective learning by combining visual clarity with detailed explanations, enabling nurses to understand, retain, and apply knowledge in clinical practice.
                         </p>
-                        <p class="mt-4 text-sm text-slate-500">
-                            <a href="{{ route('home') }}" class="text-logo-blue hover:underline">Home</a>
-                            <span class="mx-1">→</span>
-                            <span>Learning Materials</span>
-                        </p>
+                        
                     </div>
                     <div class="relative w-full min-w-0">
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
@@ -67,10 +61,10 @@
                     </div>
                     <div class="order-1 min-w-0 lg:order-2">
                         <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">PowerPoint Slide Materials</h2>
-                        <p class="mt-5 text-base leading-8 text-slate-600">
+                        <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
                             Our PowerPoint presentations simplify complex concepts with visually engaging structured content. Each slide highlights key learning points, making it ideal for quick understanding and revision.
                         </p>
-                        <ul class="mt-8 space-y-4 text-base leading-7 text-slate-700">
+                        <ul class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                             <li class="flex gap-3">
                                 <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
                                 <span>Clear and concise bullet-points</span>
@@ -104,35 +98,35 @@
                         <h2 class="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             <span class="text-brand-900">PDF Learning Resources</span>
                         </h2>
-                        <p class="mt-6 text-base leading-8 text-slate-600">
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                             The PDF materials offer comprehensive explanations to supplement the slide presentations. These resources serve as reliable references for ongoing study and practice.
                         </p>
-                        <p class="mt-5 text-base leading-8 text-slate-600">
+                        <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
                             These learning materials are designed to enhance knowledge retention, clinical competence, and evidence-based practice. They help nurses meet CPD requirements and enable continuous learning in a flexible, accessible format.
                         </p>
                     </div>
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Structured Coverage</p>
-                            <p class="mt-2 text-slate-700">Comprehensive topic coverage with structured content</p>
+                            <p class="text-lg font-semibold text-brand-900">Structured Coverage</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Comprehensive topic coverage with structured content</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
-                            <p class="text-sm font-semibold text-brand-900">Evidence-Based</p>
-                            <p class="mt-2 text-slate-700">Evidence-based guidelines and clinical protocols</p>
+                            <p class="text-lg font-semibold text-brand-900">Evidence-Based</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Evidence-based guidelines and clinical protocols</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
-                            <p class="text-sm font-semibold text-brand-900">Detailed Explanations</p>
-                            <p class="mt-2 text-slate-700">Detailed explanations of nursing procedures and concepts</p>
+                            <p class="text-lg font-semibold text-brand-900">Detailed Explanations</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Detailed explanations of nursing procedures and concepts</p>
                         </div>
                         <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
-                            <p class="text-sm font-semibold text-brand-900">Quick Reference</p>
-                            <p class="mt-2 text-slate-700">Tables, charts, and summary points for quick reference, suitable for offline access and long-term learning</p>
+                            <p class="text-lg font-semibold text-brand-900">Quick Reference</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Tables, charts, and summary points for quick reference, suitable for offline access and long-term learning</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="mt-12 rounded-2xl border border-brand-900/10 bg-brand-900/[0.03] px-5 py-6 sm:px-8">
-                    <p class="text-center text-base leading-7 text-slate-700 sm:text-lg">
+                    <p class="text-center text-lg leading-8 text-slate-700 text-justify sm:text-lg">
                         <strong class="font-semibold text-slate-900">Purpose:</strong> These learning materials are designed to enhance knowledge retention, clinical competence, and evidence-based practice. They support CPD requirements while enabling continuous learning in a flexible and accessible format.
                     </p>
                 </div>

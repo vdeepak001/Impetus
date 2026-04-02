@@ -41,7 +41,7 @@
                                 <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Careers</a>
                             </li>
                             <li>
-                                    <a href="{{ route('cne.modules') }}" class="text-sm leading-6 text-slate-300 hover:text-white">CNE Modules</a>
+                                    <a href="{{ route('cne.modules') }}" class="text-sm leading-6 text-slate-300 hover:text-white">CPD Modules</a>
                             </li>
                             <li>
                                 <a href="{{ route('cpd.certifications') }}" class="text-sm leading-6 text-slate-300 hover:text-white">CPD Certifications</a>

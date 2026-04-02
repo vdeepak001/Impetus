@@ -9,27 +9,22 @@
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl font-serif">CPD Modules</h1>
-                    <p class="text-sm text-slate-500">
-                        <a href="{{ route('home') }}" class="text-logo-blue hover:underline">CNE Home</a>
-                        <span class="mx-1">→</span>
-                        <span>CPD Modules</span>
-                    </p>
+                  
                 </div>
 
                 <div class="mb-10 rounded-3xl border border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 p-6 shadow-md shadow-slate-200/50 sm:p-8">
-                    <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Continuing Professional Development Modules</h2>
-                    <p class="mt-4 text-base leading-8 text-slate-600">
+                    <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">Continuing Professional Development Modules</h2>
+                    <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                         Continuing Professional Development (CPD) modules for nurses are structured, topic-focused learning units designed to enhance clinical knowledge, professional skills, and evidence-based practice. These modules support lifelong learning and help nurses stay current with evolving healthcare standards, technologies, and patient care practices.
                     </p>
-                    <p class="mt-4 text-base leading-8 text-slate-600">
+                    <p class="mt-4 text-lg leading-8 text-slate-600 text-justify">
                         Each CPD module is carefully developed to address key areas of nursing practice such as clinical skills, patient assessment, infection control, medication administration, emergency care, ethical decision-making, and specialized fields like critical care, maternal health, and mental health nursing.
                     </p>
                 </div>
 
                 @if ($courses->isEmpty())
                     <div class="rounded-3xl border border-slate-200/80 bg-white px-8 py-14 text-center shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
-                        <p class="text-lg text-slate-600">No modules are available yet. Please check back later.</p>
+                        <p class="text-lg leading-8 text-slate-600 text-justify">No modules are available yet. Please check back later.</p>
                     </div>
                 @else
                     <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
