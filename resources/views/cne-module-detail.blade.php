@@ -16,7 +16,7 @@
         <div class="h-[100px]" aria-hidden="true"></div>
 
         {{-- Hero + overview (aligned with Practice Test / site theme) --}}
-        <section class="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 pb-14 sm:pb-20">
+        <section class="relative overflow-hidden border-b border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 py-14 sm:py-20">
             <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-logo-blue/10 blur-3xl"></div>
             <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-logo-light-green/20 blur-3xl"></div>
             <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
