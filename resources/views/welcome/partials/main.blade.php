@@ -181,7 +181,7 @@
                                          loading="lazy"
                                          decoding="async">
                                     <div class="absolute inset-0 flex items-center justify-center p-4">
-                                        <span class="block max-w-full text-balance text-center text-xl font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-2xl">
+                                        <span class="block max-w-full text-balance text-center text-xl font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
                                             {{ $course->couse_name }}
                                         </span>
                                     </div>
