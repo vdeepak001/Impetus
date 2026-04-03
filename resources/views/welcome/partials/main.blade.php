@@ -186,11 +186,11 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="mt-5 flex items-center justify-end">
+                                {{-- <div class="mt-5 flex items-center justify-end">
                                     <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
                                         Module
                                     </span>
-                                </div>
+                                </div> --}}
                                 <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
                                     {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
                                 </p>
