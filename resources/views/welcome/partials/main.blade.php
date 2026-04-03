@@ -194,9 +194,7 @@
                                 <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
                                     {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
                                 </p>
-                                <p class="mt-4 text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Duration: 4-6 Weeks
-                                </p>
+                               
                             </a>
                         @endforeach
                         {{-- Set 2 --}}
