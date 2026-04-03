@@ -139,8 +139,8 @@
                 <div class="pointer-events-none absolute bottom-10 right-1/4 h-32 w-32 rounded-full bg-logo-blue/10 blur-2xl"></div>
 
                 <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-                    <div class="flex flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
-                        <div class="flex shrink-0 justify-center lg:w-52 lg:justify-start">
+                    <div class="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,13.5rem)_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
+                        <div class="flex shrink-0 justify-center lg:justify-start">
                             <div class="relative h-36 w-44 sm:h-40 sm:w-52">
                                 <div class="absolute left-0 top-3 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-light-green to-[#6fa828] text-white shadow-lg shadow-logo-light-green/30 ring-2 ring-white/40">
                                     <svg class="h-11 w-11 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -154,8 +154,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="inline-flex flex-col gap-2 border-l-4 border-logo-light-green pl-5 sm:pl-6">
+                        <div class="min-w-0 pl-0 sm:pl-2 lg:pl-4">
+                            <div class="flex flex-col gap-2 border-l-4 border-logo-light-green pl-5 sm:pl-6">
                                 <h2 class="text-2xl font-bold tracking-tight text-emerald-900 font-serif sm:text-3xl">
                                     Learning resources
                                 </h2>
