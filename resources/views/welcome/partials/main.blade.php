@@ -85,7 +85,7 @@
                         </p>
                         <dl class="mt-10 max-w-xl space-y-8 text-lg leading-8 text-slate-600 lg:max-w-none">
                             <div class="relative pl-9">
-                                <dt class="inline font-semibold text-slate-900">
+                                <dt class="inline font-semibold text-slate-900 text-justify">
                                     <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
@@ -94,7 +94,7 @@
                                 <dd class="inline text-justify">Courses developed by experienced nursing professionals, aligned with current clinical standards and best practices.</dd>
                             </div>
                             <div class="relative pl-9">
-                                <dt class="inline font-semibold text-slate-900">
+                                <dt class="inline font-semibold text-slate-900 text-justify">
                                     <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
@@ -103,7 +103,7 @@
                                 <dd class="inline text-justify">Learn anytime, anywhere with self-paced modules designed for working nurses.</dd>
                             </div>
                             <div class="relative pl-9">
-                                <dt class="inline font-semibold text-slate-900">
+                                <dt class="inline font-semibold text-slate-900 text-justify">
                                     <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
@@ -112,7 +112,7 @@
                                 <dd class="inline text-justify">Enhance your clinical expertise, improve patient outcomes, and access new professional opportunities.</dd>
                             </div>
                             <div class="relative pl-9">
-                                <dt class="inline font-semibold text-slate-900">
+                                <dt class="inline font-semibold text-slate-900 text-justify">
                                     <svg class="absolute left-1 top-1 h-6 w-6 text-logo-light-green" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg>
@@ -163,7 +163,7 @@
                     Choose from clinically focused modules designed by expert educators. Each module combines lessons, case-based practice, and short assessments to build real-world confidence.
                 </p>
             </div>
-            
+
             <div class="mt-16 relative">
                 {{-- Side fades --}}
                 <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white via-white/80 to-transparent z-10 pointer-events-none"></div>
@@ -174,21 +174,19 @@
                         {{-- Set 1 --}}
                         @foreach ($latestCourses as $course)
                             <a href="{{ route('cne.modules.show', $course->couse_name) }}" class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                                <div class="h-56 w-full overflow-hidden rounded-2xl">
-                                    @if($course->attachment && $course->attachmentIsImage())
-                                        <img src="{{ $course->attachmentPublicUrl() }}" 
-                                             alt="{{ $course->couse_name }}" 
-                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
-                                    @else
-                                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" 
-                                             alt="{{ $course->couse_name }}" 
-                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
-                                    @endif
+                                <div class="relative h-56 w-full overflow-hidden rounded-2xl bg-slate-100">
+                                    <img src="{{ asset('images/course.jpeg') }}"
+                                         alt=""
+                                         class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                         loading="lazy"
+                                         decoding="async">
+                                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                                        <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-lg">
+                                            {{ $course->couse_name }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="mt-5 flex items-center justify-between">
-                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-logo-blue transition-colors">
-                                        {{ $course->couse_name }}
-                                    </h3>
+                                <div class="mt-5 flex items-center justify-end">
                                     <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
                                         Module
                                     </span>
@@ -204,21 +202,19 @@
                         {{-- Set 2 --}}
                          @foreach ($latestCourses as $course)
                             <a href="{{ route('cne.modules.show', $course->couse_name) }}" class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                                <div class="h-56 w-full overflow-hidden rounded-2xl">
-                                    @if($course->attachment && $course->attachmentIsImage())
-                                        <img src="{{ $course->attachmentPublicUrl() }}" 
-                                             alt="{{ $course->couse_name }}" 
-                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
-                                    @else
-                                        <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" 
-                                             alt="{{ $course->couse_name }}" 
-                                             class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105">
-                                    @endif
+                                <div class="relative h-56 w-full overflow-hidden rounded-2xl bg-slate-100">
+                                    <img src="{{ asset('images/course.jpeg') }}"
+                                         alt=""
+                                         class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                         loading="lazy"
+                                         decoding="async">
+                                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                                        <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-lg">
+                                            {{ $course->couse_name }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="mt-5 flex items-center justify-between">
-                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-logo-blue transition-colors">
-                                        {{ $course->couse_name }}
-                                    </h3>
+                                <div class="mt-5 flex items-center justify-end">
                                     <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
                                         Module
                                     </span>

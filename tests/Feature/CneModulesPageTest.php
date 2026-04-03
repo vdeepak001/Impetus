@@ -11,6 +11,20 @@ it('returns a successful response for the CNE modules listing', function () {
     $response->assertSee('Continuing Professional Development Modules', false);
 });
 
+it('lists active courses with static course card imagery and course titles', function () {
+    CourseDetail::create([
+        'couse_name' => 'Listing Test Course',
+        'description' => 'Test description for listing.',
+        'active_status' => 1,
+    ]);
+
+    $response = $this->get(route('cne.modules'));
+
+    $response->assertSuccessful();
+    $response->assertSee('images/course.jpeg', false);
+    $response->assertSee('Listing Test Course', false);
+});
+
 it('shows an active course detail page with module content', function () {
     $course = CourseDetail::create([
         'couse_name' => 'First Aid',
