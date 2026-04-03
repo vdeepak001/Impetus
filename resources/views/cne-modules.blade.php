@@ -9,7 +9,7 @@
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  
+
                 </div>
 
                 <div class="mb-10 rounded-3xl border border-slate-200/80 bg-gradient-to-br from-white via-slate-50 to-logo-light-green/5 p-6 shadow-md shadow-slate-200/50 sm:p-8">
