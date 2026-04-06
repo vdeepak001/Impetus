@@ -35,57 +35,100 @@
                             <p class="text-xs font-medium text-gray-500 uppercase tracking-tight">{{ $v['code'] }}</p>
                         </div>
                     </div>
-                    <button type="button" wire:click="removeCourse({{ $courseId }})"
-                        class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all dark:hover:bg-red-900/20">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                    </button>
+                    <div class="flex items-center gap-2">
+                        @if($savedCourseId == $courseId)
+                            <span class="text-xs font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2.5 py-1 rounded-full animate-fade-in-out" 
+                                  x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show">
+                                Saved Successfully
+                            </span>
+                        @endif
+                        <button type="button" wire:click="saveCourse({{ $courseId }})" wire:loading.attr="disabled"
+                            class="flex items-center gap-1.5 px-4 py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition-colors shadow-sm disabled:opacity-50">
+                            <svg wire:loading.remove wire:target="saveCourse({{ $courseId }})" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <svg wire:loading wire:target="saveCourse({{ $courseId }})" class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            Save Settings
+                        </button>
+                        <button type="button" wire:click="removeCourse({{ $courseId }})"
+                            class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all dark:hover:bg-red-900/20">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
                 </div>
 
                 {{-- Course Settings --}}
                 <div class="p-6">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @php $roman = [0 => 'I', 1 => 'II', 2 => 'III']; @endphp
-                        @for($i = 0; $i < 3; $i++)
-                            <div class="p-4 rounded-2xl border border-gray-100 bg-gray-50/30 dark:border-gray-800 dark:bg-gray-800/10 space-y-4">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="text-xs font-bold uppercase tracking-widest text-gray-400">Level {{ $roman[$i] }}</span>
-                                    <span class="text-[10px] px-2 py-0.5 rounded-full bg-white border border-gray-100 text-gray-400 dark:bg-gray-900 dark:border-gray-700">Step {{ $i+1 }}</span>
-                                </div>
-                                
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Pass %</label>
-                                        <input type="number" name="courses[{{ $courseId }}][pass_percentage][]" value="{{ $v['pass_percentage'][$i] ?? '' }}"
-                                            placeholder="40"
-                                            class="h-9 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 focus:ring-3 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90" />
-                                    </div>
-                                    <div>
-                                        <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">MRP</label>
-                                        <input type="number" name="courses[{{ $courseId }}][mrp][]" value="{{ $v['mrp'][$i] ?? '' }}"
-                                            placeholder="100"
-                                            class="h-9 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 focus:ring-3 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90" />
-                                    </div>
-                                    <div>
-                                        <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Offer Price</label>
-                                        <input type="number" name="courses[{{ $courseId }}][offer_price][]" value="{{ $v['offer_price'][$i] ?? '' }}"
-                                            placeholder="99"
-                                            class="h-9 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 focus:ring-3 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90" />
-                                    </div>
-                                    <div>
-                                        <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Points</label>
-                                        <input type="number" name="courses[{{ $courseId }}][points][]" value="{{ $v['points'][$i] ?? '' }}"
-                                            placeholder="10"
-                                            class="h-9 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 focus:ring-3 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90" />
-                                    </div>
-                                    <div>
-                                        <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Validity (Days)</label>
-                                        <input type="number" name="courses[{{ $courseId }}][valid_days][]" value="{{ $v['valid_days'][$i] ?? '' }}"
-                                            placeholder="30"
-                                            class="h-9 w-full rounded-lg border border-gray-200 bg-white px-3 text-sm text-gray-800 focus:ring-3 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90" />
-                                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Pass %</label>
+                                <input type="number" name="courses[{{ $courseId }}][pass_percentage]" wire:model.defer="selectedCourses.{{ $courseId }}.pass_percentage"
+                                    placeholder="40"
+                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                            </div>
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">MRP</label>
+                                <input type="number" name="courses[{{ $courseId }}][mrp]" wire:model.defer="selectedCourses.{{ $courseId }}.mrp"
+                                    placeholder="100"
+                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Offer Price</label>
+                                <input type="number" name="courses[{{ $courseId }}][offer_price]" wire:model.defer="selectedCourses.{{ $courseId }}.offer_price"
+                                    placeholder="99"
+                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                            </div>
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Mock Test Qns (L1, L2, L3)</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    @for($i = 0; $i < 3; $i++)
+                                        <input type="number" name="courses[{{ $courseId }}][mock_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.mock_test_questions.{{ $i }}"
+                                            placeholder="{{ [20, 10, 4][$i] }}"
+                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                                    @endfor
                                 </div>
                             </div>
-                        @endfor
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Validity (Days)</label>
+                                <input type="number" name="courses[{{ $courseId }}][valid_days]" wire:model.defer="selectedCourses.{{ $courseId }}.valid_days"
+                                    placeholder="30"
+                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                            </div>
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Pre-Test Qns (L1, L2, L3)</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    @for($i = 0; $i < 3; $i++)
+                                        <input type="number" name="courses[{{ $courseId }}][pre_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.pre_test_questions.{{ $i }}"
+                                            placeholder="{{ [10, 15, 30][$i] }}"
+                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Points</label>
+                                <input type="number" name="courses[{{ $courseId }}][points]" wire:model.defer="selectedCourses.{{ $courseId }}.points"
+                                    placeholder="10"
+                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                            </div>
+                            <div>
+                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Final Test Qns (L1, L2, L3)</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    @for($i = 0; $i < 3; $i++)
+                                        <input type="number" name="courses[{{ $courseId }}][final_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.final_test_questions.{{ $i }}"
+                                            placeholder="{{ [1, 34, 56][$i] }}"
+                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                                    @endfor
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

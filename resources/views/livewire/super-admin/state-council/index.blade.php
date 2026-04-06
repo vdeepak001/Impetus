@@ -30,14 +30,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Council</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Course</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Sequence</th>
-                    @if($viewType === 'modules')
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">MRP</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Price</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Points</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Valid Days</th>
-                    @else
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Pass %</th>
-                    @endif
+                  
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Status</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Action</th>
                 </tr>
@@ -60,101 +53,8 @@
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             {{ $stateCouncil->courseDetails->pluck('sequence')->filter()->join(', ') ?: '—' }}
                         </td>
-                        @if($viewType === 'modules')
-                            <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 align-top">
-                                @forelse($stateCouncil->courseDetails as $course)
-                                    <div class="mb-3 last:mb-0 pb-3 last:pb-0 border-b last:border-0 border-gray-50 dark:border-gray-800">
-                                        <div class="text-[9px] font-bold text-gray-400 mb-1 uppercase tracking-tight">{{ $course->course_code }}</div>
-                                        @if(is_array($course->pivot->mrp) && count($course->pivot->mrp) > 0)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach($course->pivot->mrp as $idx => $val)
-                                                    <span class="px-1.5 py-0.5 rounded bg-slate-50 text-slate-600 dark:bg-slate-700 dark:text-slate-300 text-[9px] font-extrabold border border-slate-100 dark:border-slate-600">
-                                                        L{{ $idx + 1 }}: {{ $val }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-[9px] text-gray-400 italic">No settings</span>
-                                        @endif
-                                    </div>
-                                @empty
-                                    <span class="text-gray-400">—</span>
-                                @endforelse
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 align-top">
-                                @foreach($stateCouncil->courseDetails as $course)
-                                    <div class="mb-3 last:mb-0 pb-3 last:pb-0 border-b last:border-0 border-gray-50 dark:border-gray-800">
-                                        <div class="text-[9px] font-bold text-gray-400 mb-1 uppercase tracking-tight invisible h-3">{{ $course->course_code }}</div>
-                                        @if(is_array($course->pivot->offer_price) && count($course->pivot->offer_price) > 0)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach($course->pivot->offer_price as $idx => $val)
-                                                    <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 text-[9px] font-extrabold border border-emerald-100 dark:border-emerald-800">
-                                                        L{{ $idx + 1 }}: {{ $val }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-[9px] text-gray-400 italic">No settings</span>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 align-top">
-                                @foreach($stateCouncil->courseDetails as $course)
-                                    <div class="mb-3 last:mb-0 pb-3 last:pb-0 border-b last:border-0 border-gray-50 dark:border-gray-800">
-                                        <div class="text-[9px] font-bold text-gray-400 mb-1 uppercase tracking-tight invisible h-3">{{ $course->course_code }}</div>
-                                        @if(is_array($course->pivot->points) && count($course->pivot->points) > 0)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach($course->pivot->points as $idx => $val)
-                                                    <span class="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-[9px] font-extrabold border border-amber-100 dark:border-amber-800">
-                                                        L{{ $idx + 1 }}: {{ $val }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-[9px] text-gray-400 italic">No settings</span>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 align-top">
-                                @foreach($stateCouncil->courseDetails as $course)
-                                    <div class="mb-3 last:mb-0 pb-3 last:pb-0 border-b last:border-0 border-gray-50 dark:border-gray-800">
-                                        <div class="text-[9px] font-bold text-gray-400 mb-1 uppercase tracking-tight invisible h-3">{{ $course->course_code }}</div>
-                                        @if(is_array($course->pivot->valid_days) && count($course->pivot->valid_days) > 0)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach($course->pivot->valid_days as $idx => $val)
-                                                    <span class="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-400 text-[9px] font-extrabold border border-indigo-100 dark:border-indigo-800">
-                                                        L{{ $idx + 1 }}: {{ $val }}
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-[9px] text-gray-400 italic">No settings</span>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </td>
-                        @else
-                            <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100 align-top">
-                                @foreach($stateCouncil->courseDetails as $course)
-                                    <div class="mb-3 last:mb-0 pb-3 last:pb-0 border-b last:border-0 border-gray-50 dark:border-gray-800">
-                                        <div class="text-[9px] font-bold text-gray-400 mb-1 uppercase tracking-tight">{{ $course->course_code }}</div>
-                                        @if(is_array($course->pivot->pass_percentage) && count($course->pivot->pass_percentage) > 0)
-                                            <div class="flex flex-wrap gap-1">
-                                                @foreach($course->pivot->pass_percentage as $idx => $val)
-                                                    <span class="px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400 text-[9px] font-extrabold border border-brand-100 dark:border-brand-800">
-                                                        L{{ $idx + 1 }}: {{ $val }}%
-                                                    </span>
-                                                @endforeach
-                                            </div>
-                                        @else
-                                            <span class="text-[9px] text-gray-400 italic">No settings</span>
-                                        @endif
-                                    </div>
-                                @endforeach
-                            </td>
-                        @endif
+                       
+
                         <td class="px-6 py-4 whitespace-nowrap">
                             <button type="button" wire:click="toggleStatus({{ $stateCouncil->id }})" class="focus:outline-none" wire:loading.attr="disabled">
                                 @if ($stateCouncil->active_status)

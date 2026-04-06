@@ -16,6 +16,9 @@ class StoreStateCouncilRequest extends FormRequest
                 $courses[$id]['offer_price'] = $this->parseArrayInput($settings['offer_price'] ?? []);
                 $courses[$id]['points'] = $this->parseArrayInput($settings['points'] ?? []);
                 $courses[$id]['valid_days'] = $this->parseArrayInput($settings['valid_days'] ?? [], 'intval');
+                $courses[$id]['pre_test_questions'] = $this->parseArrayInput($settings['pre_test_questions'] ?? [], 'intval');
+                $courses[$id]['mock_test_questions'] = $this->parseArrayInput($settings['mock_test_questions'] ?? [], 'intval');
+                $courses[$id]['final_test_questions'] = $this->parseArrayInput($settings['final_test_questions'] ?? [], 'intval');
             }
         }
 
@@ -31,16 +34,15 @@ class StoreStateCouncilRequest extends FormRequest
      */
     private function parseArrayInput(mixed $value, ?callable $cast = null): array
     {
+        // If it's already an array (old behavior or multi-select), process each element
         if (is_array($value)) {
-            // Keep indices but filter out truly empty strings. 
-            // We want to keep 3 levels even if some are empty, or filter them?
-            // Existing logic was array_filter($value), which removes empty values and shifts indices.
-            $value = array_filter($value, fn($v) => $v !== '' && $v !== null);
+            $value = array_map(fn($v) => ($v === '' || $v === null) ? null : $v, $value);
         } else {
-            $value = $value ? array_filter(array_map('trim', explode(',', (string) $value))) : [];
+            // If it's a scalar (new simplified UI), wrap it in a single-element array
+            $value = ($value === '' || $value === null) ? [null] : [$value];
         }
 
-        return $cast ? array_map($cast, $value) : array_values($value);
+        return $cast ? array_map(fn($v) => $v === null ? null : $cast($v), $value) : $value;
     }
 
     /**
@@ -62,16 +64,17 @@ class StoreStateCouncilRequest extends FormRequest
             'state_id' => ['required', 'exists:states,id'],
             'council_name' => ['nullable', 'string', 'max:255'],
             'courses' => ['required', 'array', 'min:1'],
-            'courses.*.pass_percentage' => ['nullable', 'array'],
-            'courses.*.pass_percentage.*' => ['nullable', 'numeric'],
-            'courses.*.mrp' => ['nullable', 'array'],
-            'courses.*.mrp.*' => ['nullable', 'numeric'],
-            'courses.*.offer_price' => ['nullable', 'array'],
-            'courses.*.offer_price.*' => ['nullable', 'numeric'],
-            'courses.*.points' => ['nullable', 'array'],
-            'courses.*.points.*' => ['nullable', 'numeric'],
-            'courses.*.valid_days' => ['nullable', 'array'],
-            'courses.*.valid_days.*' => ['nullable', 'integer'],
+            'courses.*.pass_percentage' => ['nullable', 'numeric'],
+            'courses.*.mrp' => ['nullable', 'numeric'],
+            'courses.*.offer_price' => ['nullable', 'numeric'],
+            'courses.*.points' => ['nullable', 'numeric'],
+            'courses.*.valid_days' => ['nullable', 'integer'],
+            'courses.*.pre_test_questions' => ['nullable', 'array'],
+            'courses.*.pre_test_questions.*' => ['nullable', 'integer'],
+            'courses.*.mock_test_questions' => ['nullable', 'array'],
+            'courses.*.mock_test_questions.*' => ['nullable', 'integer'],
+            'courses.*.final_test_questions' => ['nullable', 'array'],
+            'courses.*.final_test_questions.*' => ['nullable', 'integer'],
             'active_status' => ['boolean'],
         ];
     }

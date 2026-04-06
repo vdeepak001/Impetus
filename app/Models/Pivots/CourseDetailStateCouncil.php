@@ -12,5 +12,8 @@ class CourseDetailStateCouncil extends Pivot
         'offer_price' => 'array',
         'points' => 'array',
         'valid_days' => 'array',
+        'pre_test_questions' => 'array',
+        'mock_test_questions' => 'array',
+        'final_test_questions' => 'array',
     ];
 }
