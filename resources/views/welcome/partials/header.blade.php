@@ -91,10 +91,10 @@
                             </div>
                         </div>
                     @else
-                        <div class="flex items-center gap-2">
-
+                        <div class="flex flex-wrap items-center justify-end gap-2">
+                            {{-- @include('welcome.partials.google-sign-in-button') --}}
                             <button type="button" @click="$dispatch('open-login-modal')" class="rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green">
-                            Log in
+                                Log in
                             </button>
                         </div>
                     @endauth
@@ -155,6 +155,9 @@
                                 </button>
                             </form>
                         @else
+                            <div class="-mx-3 px-3 py-1">
+                                @include('welcome.partials.google-sign-in-button', ['asBlock' => true])
+                            </div>
                             <button type="button" @click="mobileMenuOpen = false; $dispatch('open-login-modal')" class="-mx-3 block w-full rounded-lg px-3 py-2.5 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
                                 Log in
                             </button>

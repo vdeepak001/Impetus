@@ -40,6 +40,20 @@
             </button>
         </div>
 
+        @if (config('services.google.client_id'))
+            <div class="mb-5">
+                @include('welcome.partials.google-sign-in-button', ['asBlock' => true])
+            </div>
+            <div class="relative mb-5">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-slate-200"></div>
+                </div>
+                <div class="relative flex justify-center text-xs font-medium uppercase tracking-wide">
+                    <span class="bg-white px-2 text-slate-500">Or continue with email</span>
+                </div>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('frontend.login') }}" class="space-y-4">
             @csrf
             <div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Pivots\CourseDetailStateCouncil;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class StateCouncil extends Model
@@ -38,6 +39,9 @@ class StateCouncil extends Model
 
     public function courseDetails(): BelongsToMany
     {
-        return $this->belongsToMany(CourseDetail::class, 'course_detail_state_council');
+        return $this->belongsToMany(CourseDetail::class, 'course_detail_state_council')
+            ->using(CourseDetailStateCouncil::class)
+            ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days'])
+            ->withTimestamps();
     }
 }

@@ -42,9 +42,9 @@ class StateCouncilController extends Controller
 
     public function store(StoreStateCouncilRequest $request): RedirectResponse
     {
-        $data = collect($request->validated())->except('course_detail_ids')->all();
+        $data = collect($request->validated())->except('courses')->all();
         $stateCouncil = StateCouncil::create($data);
-        $stateCouncil->courseDetails()->sync($request->validated('course_detail_ids', []));
+        $stateCouncil->courseDetails()->sync($request->validated('courses', []));
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.state-councils.state-wise-modules')
             ->with('success', 'State council created successfully.');
@@ -65,9 +65,9 @@ class StateCouncilController extends Controller
 
     public function update(UpdateStateCouncilRequest $request, StateCouncil $state_council): RedirectResponse
     {
-        $data = collect($request->validated())->except('course_detail_ids')->all();
-        $state_council->update($data);
-        $state_council->courseDetails()->sync($request->validated('course_detail_ids', []));
+        $data = collect($request->validated())->except('courses')->all();
+        $stateCouncil->update($data);
+        $stateCouncil->courseDetails()->sync($request->validated('courses', []));
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.state-councils.state-wise-modules')
             ->with('success', 'State council updated successfully.');

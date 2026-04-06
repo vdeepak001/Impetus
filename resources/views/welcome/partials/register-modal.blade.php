@@ -48,6 +48,21 @@
             </button>
         </div>
 
+        @if (config('services.google.client_id'))
+            <div class="mb-5">
+                @include('welcome.partials.google-sign-in-button', ['asBlock' => true])
+                <p class="mt-2 text-center text-xs text-slate-500">Quick sign-in with Google. You can complete your profile later from My Profile.</p>
+            </div>
+            <div class="relative mb-5">
+                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                    <div class="w-full border-t border-slate-200"></div>
+                </div>
+                <div class="relative flex justify-center text-xs font-medium uppercase tracking-wide">
+                    <span class="bg-white px-2 text-slate-500">Or register with details</span>
+                </div>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('frontend.register') }}" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             @csrf
             <div class="sm:col-span-2">

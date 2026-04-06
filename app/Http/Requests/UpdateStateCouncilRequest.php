@@ -11,17 +11,19 @@ class UpdateStateCouncilRequest extends FormRequest
      */
     protected function prepareForValidation(): void
     {
-        $courseDetailIds = $this->input('course_detail_ids');
-        if (is_string($courseDetailIds)) {
-            $courseDetailIds = array_filter(array_map('intval', explode(',', $courseDetailIds)));
+        $courses = $this->input('courses', []);
+        if (is_array($courses)) {
+            foreach ($courses as $id => $settings) {
+                $courses[$id]['pass_percentage'] = $this->parseArrayInput($settings['pass_percentage'] ?? []);
+                $courses[$id]['mrp'] = $this->parseArrayInput($settings['mrp'] ?? []);
+                $courses[$id]['offer_price'] = $this->parseArrayInput($settings['offer_price'] ?? []);
+                $courses[$id]['points'] = $this->parseArrayInput($settings['points'] ?? []);
+                $courses[$id]['valid_days'] = $this->parseArrayInput($settings['valid_days'] ?? [], 'intval');
+            }
         }
+
         $this->merge([
-            'course_detail_ids' => $courseDetailIds ?: [],
-            'pass_percentage' => $this->parseArrayInput($this->input('pass_percentage')),
-            'mrp' => $this->parseArrayInput($this->input('mrp')),
-            'price' => $this->parseArrayInput($this->input('price')),
-            'points' => $this->parseArrayInput($this->input('points')),
-            'valid_days' => $this->parseArrayInput($this->input('valid_days'), 'intval'),
+            'courses' => $courses,
             'active_status' => $this->boolean('active_status'),
         ]);
     }
@@ -33,7 +35,7 @@ class UpdateStateCouncilRequest extends FormRequest
     private function parseArrayInput(mixed $value, ?callable $cast = null): array
     {
         if (is_array($value)) {
-            $value = array_filter($value);
+            $value = array_filter($value, fn($v) => $v !== '' && $v !== null);
         } else {
             $value = $value ? array_filter(array_map('trim', explode(',', (string) $value))) : [];
         }
@@ -56,18 +58,17 @@ class UpdateStateCouncilRequest extends FormRequest
         return [
             'state_id' => ['required', 'exists:states,id'],
             'council_name' => ['nullable', 'string', 'max:255'],
-            'course_detail_ids' => ['required', 'array', 'min:1'],
-            'course_detail_ids.*' => ['required', 'exists:course_details,id'],
-            'pass_percentage' => ['nullable', 'array'],
-            'pass_percentage.*' => ['nullable', 'numeric'],
-            'mrp' => ['nullable', 'array'],
-            'mrp.*' => ['nullable', 'numeric'],
-            'price' => ['nullable', 'array'],
-            'price.*' => ['nullable', 'numeric'],
-            'points' => ['nullable', 'array'],
-            'points.*' => ['nullable', 'numeric'],
-            'valid_days' => ['nullable', 'array'],
-            'valid_days.*' => ['nullable', 'integer'],
+            'courses' => ['required', 'array', 'min:1'],
+            'courses.*.pass_percentage' => ['nullable', 'array'],
+            'courses.*.pass_percentage.*' => ['nullable', 'numeric'],
+            'courses.*.mrp' => ['nullable', 'array'],
+            'courses.*.mrp.*' => ['nullable', 'numeric'],
+            'courses.*.offer_price' => ['nullable', 'array'],
+            'courses.*.offer_price.*' => ['nullable', 'numeric'],
+            'courses.*.points' => ['nullable', 'array'],
+            'courses.*.points.*' => ['nullable', 'numeric'],
+            'courses.*.valid_days' => ['nullable', 'array'],
+            'courses.*.valid_days.*' => ['nullable', 'integer'],
             'active_status' => ['boolean'],
         ];
     }

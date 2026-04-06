@@ -32,58 +32,13 @@
                         @error('council_name') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
-                    <div>
-                        <label for="course_detail_ids" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Courses (hold Ctrl/Cmd to select multiple)</label>
-                        <select id="course_detail_ids" name="course_detail_ids[]" multiple required
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 min-h-[120px] w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                            @foreach($courses as $course)
-                                <option value="{{ $course->id }}" {{ in_array($course->id, old('course_detail_ids', [])) ? 'selected' : '' }}>
-                                    {{ $course->couse_name }} ({{ $course->course_code }})
-                                </option>
-                            @endforeach
-                        </select>
-                        @error('course_detail_ids') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                        @error('course_detail_ids.*') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
+                    <div class="col-span-full border-t border-gray-200 pt-8 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4 uppercase tracking-wider">Courses & Pricing</h3>
+                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 font-medium">Add courses to this council and configure their specific Pass Percentage, MRP, Offer Price, Points, and Validity for each level.</p>
 
-                    <div>
-                        <label for="pass_percentage" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Pass Percentage (comma-separated)</label>
-                        <input id="pass_percentage" type="text" name="pass_percentage" value="{{ is_array(old('pass_percentage')) ? implode(', ', old('pass_percentage')) : old('pass_percentage') }}"
-                            placeholder="e.g. 40, 50, 60"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
-                        @error('pass_percentage') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="mrp" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">MRP (comma-separated)</label>
-                        <input id="mrp" type="text" name="mrp" value="{{ is_array(old('mrp')) ? implode(', ', old('mrp')) : old('mrp') }}"
-                            placeholder="e.g. 100, 200"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
-                        @error('mrp') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="price" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Price (comma-separated)</label>
-                        <input id="price" type="text" name="price" value="{{ is_array(old('price')) ? implode(', ', old('price')) : old('price') }}"
-                            placeholder="e.g. 99, 199"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
-                        @error('price') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="points" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Points (comma-separated)</label>
-                        <input id="points" type="text" name="points" value="{{ is_array(old('points')) ? implode(', ', old('points')) : old('points') }}"
-                            placeholder="e.g. 10, 20"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
-                        @error('points') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div>
-                        <label for="valid_days" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Valid Days (comma-separated)</label>
-                        <input id="valid_days" type="text" name="valid_days" value="{{ is_array(old('valid_days')) ? implode(', ', old('valid_days')) : old('valid_days') }}"
-                            placeholder="e.g. 30, 60, 90"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
-                        @error('valid_days') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        <livewire:super-admin.state-council.course-manager />
+                        
+                        @error('courses') <span class="text-red-600 text-sm mt-4 block font-bold tracking-tight">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="flex items-center gap-2">

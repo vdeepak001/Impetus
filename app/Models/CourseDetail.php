@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Pivots\CourseDetailStateCouncil;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CourseDetail extends Model
@@ -67,5 +69,12 @@ class CourseDetail extends Model
         $ext = strtolower(pathinfo($this->attachment, PATHINFO_EXTENSION));
 
         return in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg', 'bmp', 'avif'], true);
+    }
+    public function stateCouncils(): BelongsToMany
+    {
+        return $this->belongsToMany(StateCouncil::class, 'course_detail_state_council')
+            ->using(CourseDetailStateCouncil::class)
+            ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days'])
+            ->withTimestamps();
     }
 }
