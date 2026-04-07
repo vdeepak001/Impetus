@@ -61,6 +61,7 @@ class MenuHelper
                 ['name' => 'Course Titles', 'path' => '/'.$prefix.'/course-titles'],
                 ['name' => 'Course Materials', 'path' => '/'.$prefix.'/title-materials'],
                 ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
+                ['name' => 'Question Split Up', 'path' => '/'.$prefix.'/question-split-up'],
             ],
         ];
 

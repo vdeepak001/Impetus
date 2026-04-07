@@ -57,77 +57,36 @@
 
                 {{-- Course Settings --}}
                 <div class="p-6">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-6">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Pass %</label>
-                                <input type="number" name="courses[{{ $courseId }}][pass_percentage]" wire:model.defer="selectedCourses.{{ $courseId }}.pass_percentage"
-                                    placeholder="40"
-                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                            </div>
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">MRP</label>
-                                <input type="number" name="courses[{{ $courseId }}][mrp]" wire:model.defer="selectedCourses.{{ $courseId }}.mrp"
-                                    placeholder="100"
-                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                            </div>
+                    <div class="grid grid-cols-5 gap-x-3 gap-y-4">
+                        <div>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">MRP</label>
+                            <input type="number" name="courses[{{ $courseId }}][mrp]" wire:model.defer="selectedCourses.{{ $courseId }}.mrp"
+                                placeholder="100"
+                                class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
                         </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Offer Price</label>
-                                <input type="number" name="courses[{{ $courseId }}][offer_price]" wire:model.defer="selectedCourses.{{ $courseId }}.offer_price"
-                                    placeholder="99"
-                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                            </div>
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Mock Test Qns (L1, L2, L3)</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    @for($i = 0; $i < 3; $i++)
-                                        <input type="number" name="courses[{{ $courseId }}][mock_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.mock_test_questions.{{ $i }}"
-                                            placeholder="{{ [20, 10, 4][$i] }}"
-                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                                    @endfor
-                                </div>
-                            </div>
+                        <div>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Offer Price</label>
+                            <input type="number" name="courses[{{ $courseId }}][offer_price]" wire:model.defer="selectedCourses.{{ $courseId }}.offer_price"
+                                placeholder="99"
+                                class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
                         </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Validity (Days)</label>
-                                <input type="number" name="courses[{{ $courseId }}][valid_days]" wire:model.defer="selectedCourses.{{ $courseId }}.valid_days"
-                                    placeholder="30"
-                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                            </div>
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Pre-Test Qns (L1, L2, L3)</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    @for($i = 0; $i < 3; $i++)
-                                        <input type="number" name="courses[{{ $courseId }}][pre_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.pre_test_questions.{{ $i }}"
-                                            placeholder="{{ [10, 15, 30][$i] }}"
-                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                                    @endfor
-                                </div>
-                            </div>
+                        <div>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Validate Days</label>
+                            <input type="number" name="courses[{{ $courseId }}][valid_days]" wire:model.defer="selectedCourses.{{ $courseId }}.valid_days"
+                                placeholder="30"
+                                class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
                         </div>
-
-                        <div class="space-y-4">
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Points</label>
-                                <input type="number" name="courses[{{ $courseId }}][points]" wire:model.defer="selectedCourses.{{ $courseId }}.points"
-                                    placeholder="10"
-                                    class="h-10 w-full rounded-xl border border-gray-200 bg-white px-4 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                            </div>
-                            <div>
-                                <label class="mb-1.5 block text-xs font-bold text-gray-400 uppercase tracking-tight">Final Test Qns (L1, L2, L3)</label>
-                                <div class="grid grid-cols-3 gap-2">
-                                    @for($i = 0; $i < 3; $i++)
-                                        <input type="number" name="courses[{{ $courseId }}][final_test_questions][]" wire:model.defer="selectedCourses.{{ $courseId }}.final_test_questions.{{ $i }}"
-                                            placeholder="{{ [1, 34, 56][$i] }}"
-                                            class="h-10 w-full rounded-xl border border-gray-200 bg-white px-2 text-center text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
-                                    @endfor
-                                </div>
-                            </div>
+                        <div>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Pass %</label>
+                            <input type="number" name="courses[{{ $courseId }}][pass_percentage]" wire:model.defer="selectedCourses.{{ $courseId }}.pass_percentage"
+                                placeholder="40"
+                                class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
+                        </div>
+                        <div>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Credit Points</label>
+                            <input type="number" name="courses[{{ $courseId }}][points]" wire:model.defer="selectedCourses.{{ $courseId }}.points"
+                                placeholder="10"
+                                class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
                         </div>
                     </div>
                 </div>

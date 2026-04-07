@@ -30,9 +30,6 @@ class CourseManager extends Component
                     'offer_price' => $course->pivot->offer_price[0] ?? '',
                     'points' => $course->pivot->points[0] ?? '',
                     'valid_days' => $course->pivot->valid_days[0] ?? '',
-                    'pre_test_questions' => $course->pivot->pre_test_questions ?? ['', '', ''],
-                    'mock_test_questions' => $course->pivot->mock_test_questions ?? ['', '', ''],
-                    'final_test_questions' => $course->pivot->final_test_questions ?? ['', '', ''],
                 ];
             }
         }
@@ -55,9 +52,6 @@ class CourseManager extends Component
                 'offer_price' => '',
                 'points' => '',
                 'valid_days' => '',
-                'pre_test_questions' => ['', '', ''],
-                'mock_test_questions' => ['', '', ''],
-                'final_test_questions' => ['', '', ''],
             ];
         }
 
@@ -87,9 +81,6 @@ class CourseManager extends Component
             'offer_price' => $this->parseSettingsArray($settings['offer_price']),
             'points' => $this->parseSettingsArray($settings['points']),
             'valid_days' => $this->parseSettingsArray($settings['valid_days'], 'intval'),
-            'pre_test_questions' => $this->parseSettingsArray($settings['pre_test_questions'], 'intval'),
-            'mock_test_questions' => $this->parseSettingsArray($settings['mock_test_questions'], 'intval'),
-            'final_test_questions' => $this->parseSettingsArray($settings['final_test_questions'], 'intval'),
         ];
 
         $this->stateCouncil->courseDetails()->updateExistingPivot($courseId, $pivotData);

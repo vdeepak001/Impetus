@@ -74,7 +74,7 @@ class CourseDetail extends Model
     {
         return $this->belongsToMany(StateCouncil::class, 'course_detail_state_council')
             ->using(CourseDetailStateCouncil::class)
-            ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days', 'pre_test_questions', 'mock_test_questions', 'final_test_questions'])
+            ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days'])
             ->withTimestamps();
     }
 }

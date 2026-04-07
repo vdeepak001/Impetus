@@ -8,7 +8,7 @@
     </div>
 
     <div>
-        <x-common.component-card title="State Council Information">
+        <x-common.component-card>
             <form method="POST" action="{{ route($routePrefix . '.state-councils.update', $stateCouncil) }}">
                 @csrf
                 @method('PUT')
@@ -35,8 +35,7 @@
                     </div>
 
                     <div class="border-t border-gray-200 pt-8 dark:border-gray-700">
-                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4 uppercase tracking-wider">Courses & Pricing</h3>
-                        <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 font-medium">Add courses to this council and configure their specific Pass Percentage, MRP, Offer Price, Points, and Validity for each level.</p>
+                      
 
                         <livewire:super-admin.state-council.course-manager :state-council="$stateCouncil" />
                         
