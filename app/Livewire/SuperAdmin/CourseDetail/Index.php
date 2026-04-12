@@ -17,13 +17,13 @@ class Index extends Component
     #[Url(except: 'all')]
     public $filter = 'all';
 
-    #[Url(except: 'id')]
-    public $sortField = 'id';
+    #[Url(except: 'sequence')]
+    public $sortField = 'sequence';
 
-    #[Url(except: 'desc')]
-    public $sortDirection = 'desc';
+    #[Url(except: 'asc')]
+    public $sortDirection = 'asc';
 
-    public $perPage = 10;
+    public $perPage = 20;
 
     public function setFilter($filter)
     {
@@ -38,8 +38,8 @@ class Index extends Component
         $course->save();
 
         $status = $course->active_status == 1 ? 'activated' : 'deactivated';
-        
-        $this->dispatch('notify', 
+
+        $this->dispatch('notify',
             message: "Course {$status} successfully!",
             title: 'Status Updated',
             variant: 'success'
