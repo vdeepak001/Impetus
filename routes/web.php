@@ -100,7 +100,9 @@ foreach ($prefixes as $prefix) {
                 ->parameters(['title-materials' => 'title_material']);
         }
 
-        if (in_array($prefix, ['admin', 'sme'], true)) {
+        if (in_array($prefix, ['super-admin', 'admin', 'sme'], true)) {
+            Route::get('course-questions/get-next-code', [CourseQuestionController::class, 'getNextCode'])
+                ->name($prefix.'.course-questions.get-next-code');
             Route::resource('course-questions', CourseQuestionController::class)
                 ->names($prefix.'.course-questions')
                 ->parameters(['course-questions' => 'course_question']);

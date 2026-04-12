@@ -8,7 +8,30 @@
     </div>
 
     <div>
-    <div x-data="{ questionType: '{{ old('question_type', $question->question_type) }}' }">
+    <div x-data="{
+        questionType: '{{ old('question_type', $question->question_type) }}',
+        courseId: '{{ old('course_id', $question->course_id) }}',
+        questionLevel: '{{ old('question_level', $question->question_level) }}',
+        questionCode: '{{ old('question_code', $question->question_code) }}',
+        async fetchNextCode() {
+            // Only fetch if course or level has changed from original
+            if (this.courseId != '{{ $question->course_id }}' || this.questionLevel != '{{ $question->question_level }}') {
+                if (this.courseId && this.questionLevel) {
+                    try {
+                        const response = await fetch(`{{ route($routePrefix . '.course-questions.get-next-code') }}?course_id=${this.courseId}&level=${this.questionLevel}`);
+                        const data = await response.json();
+                        this.questionCode = data.code;
+                    } catch (error) {
+                        console.error('Error fetching question code:', error);
+                    }
+                } else {
+                    this.questionCode = '';
+                }
+            } else {
+                this.questionCode = '{{ $question->question_code }}';
+            }
+        }
+    }">
         <x-common.component-card title="Question Information">
             <form method="POST" action="{{ route($routePrefix . '.course-questions.update', $question) }}">
                 @csrf
@@ -21,6 +44,7 @@
                             Select Course
                         </label>
                         <select id="course_id" name="course_id" required
+                            x-model="courseId" @change="fetchNextCode()"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}" {{ old('course_id', $question->course_id) == $course->id ? 'selected' : '' }}>
@@ -44,22 +68,13 @@
                         @error('question_type') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Question Code -->
-                    <div>
-                        <label for="question_code" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Question Code
-                        </label>
-                        <input id="question_code" type="text" name="question_code" value="{{ old('question_code', $question->question_code) }}"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('question_code') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
                     <!-- Question Level -->
                     <div>
                         <label for="question_level" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Question Level
                         </label>
                         <select id="question_level" name="question_level" required
+                            x-model="questionLevel" @change="fetchNextCode()"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             <option value="Level 1" {{ old('question_level', $question->question_level) == 'Level 1' ? 'selected' : '' }}>Level 1</option>
                             <option value="Level 2" {{ old('question_level', $question->question_level) == 'Level 2' ? 'selected' : '' }}>Level 2</option>
@@ -67,6 +82,18 @@
                         </select>
                         @error('question_level') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
+
+                    <!-- Question Code -->
+                    <div>
+                        <label for="question_code" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Question Code (Auto Generated)
+                        </label>
+                        <input id="question_code" type="text" name="question_code" x-model="questionCode" readonly
+                            class="dark:bg-dark-900 shadow-theme-xs bg-gray-50 dark:bg-gray-800 cursor-not-allowed focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        @error('question_code') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+
+
 
                     <!-- Question Text (Full Width) -->
                     <div class="md:col-span-2">
