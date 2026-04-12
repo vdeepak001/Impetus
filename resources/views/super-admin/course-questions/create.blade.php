@@ -12,7 +12,7 @@
         <x-common.component-card title="Question Information">
             <form method="POST" action="{{ route($routePrefix . '.course-questions.store') }}">
                 @csrf
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Course Selection -->
                     <div>
@@ -24,7 +24,7 @@
                             <option value="">Select a Course</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
-                                    {{ $course->couse_name }}
+                                    {{ $course->couse_name }}-{{ $course->course_code }}
                                 </option>
                             @endforeach
                         </select>
@@ -112,7 +112,7 @@
                     <!-- Answer Field -->
                     <div class="md:col-span-2">
                         <label for="answer" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Correct Answer</label>
-                        
+
                         <!-- Show dropdown for MCQ -->
                         <div x-show="questionType === 'mcq'">
                             <select id="answer_mcq" name="answer" :required="questionType === 'mcq'" :disabled="questionType !== 'mcq'"
