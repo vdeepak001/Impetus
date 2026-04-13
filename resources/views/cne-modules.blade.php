@@ -31,7 +31,7 @@
                         @foreach ($courses as $course)
                             @php
                                 $title = $course->couse_name;
-                                $detailUrl = route('cne.modules.show', $course);
+                                $detailUrl = route('cne.modules.show', $course->couse_name);
                             @endphp
                             <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
                                 <a href="{{ $detailUrl }}" class="flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">

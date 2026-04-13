@@ -7,8 +7,8 @@
         $title = $course->couse_name ?? 'Module';
         $imgUrl = $course->attachmentPublicUrl();
         $isImage = $course->attachmentIsImage();
-        $buyUrl = $course->couse_name
-            ? (\Illuminate\Support\Str::isUrl($course->couse_name) ? $course->couse_name : url($course->couse_name))
+        $buyUrl = $course->course_url
+            ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
             : null;
     @endphp
 
@@ -22,18 +22,25 @@
             <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
                     <div class="min-w-0 flex-1">
-                       
+
                         <h1 class="mt-5 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             {{ $title }}
                         </h1>
-                       
+
                     </div>
                     @php
                         $buyButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2';
                     @endphp
                     <div class="shrink-0">
                         @auth
-                            @if ($buyUrl)
+                            @if (auth()->user()?->role_type === 'user')
+                                <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
+                                    @csrf
+                                    <button type="submit" class="{{ $buyButtonClass }}">
+                                        Buy now
+                                    </button>
+                                </form>
+                            @elseif ($buyUrl)
                                 <a
                                     href="{{ $buyUrl }}"
                                     target="_blank"

@@ -5,6 +5,10 @@
     $navMobileClass = fn (string $routeName): string => request()->routeIs($routeName)
         ? '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-logo-light-green bg-logo-light-green/10'
         : '-mx-3 block rounded-lg px-3 py-2 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50';
+    $cartCount = 0;
+    if (auth()->check() && auth()->user()?->role_type === 'user') {
+        $cartCount = \App\Models\CartItem::query()->where('user_id', auth()->id())->count();
+    }
 @endphp
 <!-- Navigation: mobile menu is a sibling of <header> so position:fixed overlays are not trapped by backdrop-blur (containing block). -->
 <div
@@ -41,53 +45,67 @@
             <div class="hidden lg:flex items-center">
                 @if (Route::has('login'))
                     @auth
-                        <div x-data="{ userMenuOpen: false }" class="relative">
-                            <button
-                                type="button"
-                                @click="userMenuOpen = !userMenuOpen"
-                                @click.outside="userMenuOpen = false"
-                                class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
-                            >
-                                <span>Hi, {{ auth()->user()->name }}</span>
-                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                </svg>
-                            </button>
+                        <div class="flex items-center gap-3">
+                            @if ($cartCount > 0)
+                                <a href="{{ route('cart.index') }}" class="relative inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-800 transition hover:border-logo-light-green hover:text-logo-light-green">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.5l1.5 13.5h13.5l2.25-9H6.375" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm10.5 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                    </svg>
+                                    <span class="absolute -right-1 -top-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full bg-logo-blue px-1 text-xs font-bold text-white">
+                                        {{ $cartCount }}
+                                    </span>
+                                </a>
+                            @endif
 
-                            <div
-                                x-show="userMenuOpen"
-                                x-cloak
-                                class="absolute right-0 z-50 mt-2 w-48 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"
-                            >
-                                <a
-                                    href="{{ route('profile') }}"
-                                    @click="userMenuOpen = false"
-                                    class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                            <div x-data="{ userMenuOpen: false }" class="relative">
+                                <button
+                                    type="button"
+                                    @click="userMenuOpen = !userMenuOpen"
+                                    @click.outside="userMenuOpen = false"
+                                    class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
                                 >
-                                    My Profile
-                                </a>
-                                <a
-                                    href="{{ route('profile.change-password') }}"
-                                    @click="userMenuOpen = false"
-                                    class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                    <span>Hi, {{ auth()->user()->name }}</span>
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                    </svg>
+                                </button>
+
+                                <div
+                                    x-show="userMenuOpen"
+                                    x-cloak
+                                    class="absolute right-0 z-50 mt-2 w-48 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl"
                                 >
-                                    Change Password
-                                </a>
-                                @if (auth()->user()?->role_type !== 'user')
                                     <a
-                                        href="{{ url('/dashboard') }}"
+                                        href="{{ route('profile') }}"
                                         @click="userMenuOpen = false"
                                         class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
                                     >
-                                        Dashboard
+                                        My Profile
                                     </a>
-                                @endif
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="block w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green">
-                                        Logout
-                                    </button>
-                                </form>
+                                    <a
+                                        href="{{ route('profile.change-password') }}"
+                                        @click="userMenuOpen = false"
+                                        class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                    >
+                                        Change Password
+                                    </a>
+                                    @if (auth()->user()?->role_type !== 'user')
+                                        <a
+                                            href="{{ url('/dashboard') }}"
+                                            @click="userMenuOpen = false"
+                                            class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green"
+                                        >
+                                            Dashboard
+                                        </a>
+                                    @endif
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="block w-full rounded-xl px-3 py-2 text-left text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @else
@@ -139,6 +157,14 @@
                                 <span class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
                                     Hi, {{ auth()->user()->name }}
                                 </span>
+                                @if ($cartCount > 0)
+                                    <a href="{{ route('cart.index') }}" class="-mx-3 flex items-center justify-between rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                                        <span>Cart</span>
+                                        <span class="inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded-full bg-logo-blue px-2 text-xs font-bold text-white">
+                                            {{ $cartCount }}
+                                        </span>
+                                    </a>
+                                @endif
                             @else
                                 <a href="{{ url('/dashboard') }}" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">Dashboard</a>
                             @endif

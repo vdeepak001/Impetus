@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CneModulesController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuperAdmin\AdminUserController;
@@ -21,6 +22,7 @@ Route::get('/', function () {
         ->orderBy('sequence')
         ->orderBy('id')
         ->get();
+
     return view('welcome', compact('latestCourses'));
 })->name('home');
 Route::view('/about-us', 'about')->name('about');
@@ -45,6 +47,10 @@ Route::middleware('auth')->group(function () {
 
         return view('pages.profile', ['title' => 'Profile']);
     })->name('profile');
+
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/items/{course_detail:couse_name}', [CartController::class, 'store'])->name('cart.items.store');
+    Route::delete('/cart/items/{course_detail:couse_name}', [CartController::class, 'destroy'])->name('cart.items.destroy');
 
     Route::get('/change-password', function () {
         return view('profile.change-password');
