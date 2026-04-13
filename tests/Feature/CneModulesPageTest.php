@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\CourseDetail;
+use App\Models\State;
+use App\Models\StateCouncil;
 use App\Models\User;
 
 it('returns a successful response for the CNE modules listing', function () {
@@ -23,6 +25,57 @@ it('lists active courses with static course card imagery and course titles', fun
     $response->assertSuccessful();
     $response->assertSee('images/course.jpeg', false);
     $response->assertSee('Listing Test Course', false);
+});
+
+it('shows only state council assigned courses for authenticated frontend users', function () {
+    $mp = State::query()->create([
+        'name' => 'Madhya Pradesh',
+        'status' => 'active',
+    ]);
+
+    $tn = State::query()->create([
+        'name' => 'Tamil Nadu',
+        'status' => 'active',
+    ]);
+
+    $mpCourse = CourseDetail::create([
+        'couse_name' => 'MP Course',
+        'description' => 'Test',
+        'active_status' => 1,
+        'sequence' => 1,
+    ]);
+
+    $tnCourse = CourseDetail::create([
+        'couse_name' => 'TN Course',
+        'description' => 'Test',
+        'active_status' => 1,
+        'sequence' => 2,
+    ]);
+
+    $mpCouncil = StateCouncil::query()->create([
+        'state_id' => $mp->id,
+        'council_name' => 'MP Nursing Council',
+        'active_status' => true,
+    ]);
+    $mpCouncil->courseDetails()->attach($mpCourse->id);
+
+    $tnCouncil = StateCouncil::query()->create([
+        'state_id' => $tn->id,
+        'council_name' => 'TN Nursing Council',
+        'active_status' => true,
+    ]);
+    $tnCouncil->courseDetails()->attach($tnCourse->id);
+
+    $user = User::factory()->create([
+        'role_type' => 'user',
+        'state' => 'Madhya Pradesh',
+    ]);
+
+    $response = $this->actingAs($user)->get(route('cne.modules'));
+
+    $response->assertSuccessful();
+    $response->assertSee('MP Course', false);
+    $response->assertDontSee('TN Course', false);
 });
 
 it('shows an active course detail page with module content', function () {

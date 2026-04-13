@@ -158,3 +158,66 @@
         </form>
     </div>
 </div>
+
+@if(session('registered_user'))
+<div x-data="{ open: true }"
+     x-show="open"
+     x-cloak
+     id="register-success-modal"
+     role="dialog"
+     aria-modal="true"
+     class="fixed inset-0 z-[9999] grid place-items-center p-4 sm:p-6"
+     @keydown.escape.window="open = false">
+    <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
+         x-transition:enter="ease-out duration-200"
+         x-transition:enter-start="opacity-0"
+         x-transition:enter-end="opacity-100"
+         x-transition:leave="ease-in duration-150"
+         x-transition:leave-start="opacity-100"
+         x-transition:leave-end="opacity-0"
+         @click="open = false"></div>
+
+    <div class="relative z-10 w-full max-w-md rounded-3xl border border-slate-200/80 bg-white p-6 shadow-2xl shadow-slate-900/10 sm:p-7"
+         x-transition:enter="ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95"
+         x-transition:enter-end="opacity-100 scale-100"
+         x-transition:leave="ease-in duration-150"
+         x-transition:leave-start="opacity-100 scale-100"
+         x-transition:leave-end="opacity-0 scale-95"
+         @click.stop>
+        
+        <div class="text-center">
+            <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
+                <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+            </div>
+            <h2 class="mt-4 font-serif text-xl font-semibold text-slate-900">Registration Successful!</h2>
+            <p class="mt-2 text-sm text-slate-600">Your account has been created. Please keep your login details safe.</p>
+        </div>
+
+        <div class="mt-6 rounded-xl bg-slate-50 p-4 border border-slate-200">
+            <div class="grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 text-sm">
+                <div class="text-slate-500">Name:</div>
+                <div class="font-medium text-slate-900 break-all">{{ session('registered_user')['name'] }}</div>
+                
+                <div class="text-slate-500">Email:</div>
+                <div class="font-medium text-slate-900 break-all">{{ session('registered_user')['email'] }}</div>
+                
+                <div class="text-slate-500 flex items-center">Password:</div>
+                <div>
+                    <span class="font-mono font-bold text-logo-blue bg-blue-50 px-2 py-1 rounded inline-block">{{ session('registered_user')['password'] }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex flex-col gap-3">
+            <button type="button"
+                    @click="open = false; $dispatch('open-login-modal')"
+                    class="w-full rounded-full bg-logo-light-green px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-logo-light-green/90 focus:outline-none focus:ring-2 focus:ring-logo-light-green focus:ring-offset-2">
+                Proceed to Login
+            </button>
+        </div>
+    </div>
+</div>
+@endif

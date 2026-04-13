@@ -83,6 +83,12 @@ class FrontendRegisteredUserController extends Controller
 
         Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword));
 
-        return back()->with('success', 'Your account has been created. We sent a login password to your email.');
+        return back()
+            ->with('success', 'Your account has been created. We sent a login password to your email.')
+            ->with('registered_user', [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $generatedPassword,
+            ]);
     }
 }
