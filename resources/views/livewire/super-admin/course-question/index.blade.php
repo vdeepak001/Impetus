@@ -14,6 +14,26 @@
                 </div>
             </div>
 
+            <div class="min-w-[220px] flex-shrink-0">
+                <select wire:model.live="courseId"
+                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                    <option value="all">All Courses</option>
+                    @foreach($courses as $course)
+                        <option value="{{ $course->id }}">{{ $course->couse_name }}-{{ $course->course_code }}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="min-w-[160px] flex-shrink-0">
+                <select wire:model.live="level"
+                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                    <option value="all">All Levels</option>
+                    @foreach($levels as $lvl)
+                        <option value="{{ $lvl }}">{{ $lvl }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <!-- Filter Buttons -->
             <div class="flex items-center gap-2 flex-shrink-0">
                 <button type="button" wire:click="setFilter('all')" wire:key="filter-all" wire:loading.attr="disabled"

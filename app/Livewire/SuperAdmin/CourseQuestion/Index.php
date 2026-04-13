@@ -2,6 +2,7 @@
 
 namespace App\Livewire\SuperAdmin\CourseQuestion;
 
+use App\Models\CourseDetail;
 use App\Models\CourseQuestion;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -17,11 +18,17 @@ class Index extends Component
     #[Url(except: 'all')]
     public $filter = 'all';
 
+    #[Url(except: 'all')]
+    public $courseId = 'all';
+
+    #[Url(except: 'all')]
+    public $level = 'all';
+
     #[Url(except: 'id')]
     public $sortField = 'id';
 
-    #[Url(except: 'desc')]
-    public $sortDirection = 'desc';
+    #[Url(except: 'asc')]
+    public $sortDirection = 'asc';
 
     public $perPage = 10;
 
@@ -56,6 +63,16 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function updatingCourseId(): void
+    {
+        $this->resetPage();
+    }
+
+    public function updatingLevel(): void
+    {
+        $this->resetPage();
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -82,6 +99,20 @@ class Index extends Component
             });
         }
 
+        // Apply Course Filter
+        if ($this->courseId !== 'all' && $this->courseId !== '' && $this->courseId !== null) {
+            $query->where('course_id', $this->courseId);
+        }
+
+        // Apply Level Filter
+        if ($this->level !== 'all' && $this->level !== '' && $this->level !== null) {
+            $query->where('question_level', $this->level);
+        }
+
+        $totalCount = (clone $query)->count();
+        $activeCount = (clone $query)->where('active_status', true)->count();
+        $inactiveCount = (clone $query)->where('active_status', false)->count();
+
         // Apply Status Filter
         if ($this->filter === 'active') {
             $query->where('active_status', true);
@@ -95,9 +126,11 @@ class Index extends Component
 
         return view('livewire.super-admin.course-question.index', [
             'questions' => $questions,
-            'totalCount' => CourseQuestion::count(),
-            'activeCount' => CourseQuestion::where('active_status', true)->count(),
-            'inactiveCount' => CourseQuestion::where('active_status', false)->count(),
+            'courses' => CourseDetail::orderBy('couse_name')->get(['id', 'couse_name', 'course_code']),
+            'levels' => ['Level 1', 'Level 2', 'Level 3'],
+            'totalCount' => $totalCount,
+            'activeCount' => $activeCount,
+            'inactiveCount' => $inactiveCount,
         ]);
     }
 }
