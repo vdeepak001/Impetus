@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CourseDetail;
+use App\Models\Order;
 use Illuminate\Contracts\View\View;
 
 class CneModulesController extends Controller
@@ -33,8 +34,15 @@ class CneModulesController extends Controller
             ->orderBy('id')
             ->get();
 
+        $purchasedCourseIds = collect();
+
+        if ($user && $user->role_type === 'user') {
+            $purchasedCourseIds = Order::purchasedCourseDetailIdsFor($user);
+        }
+
         return view('cne-modules', [
             'courses' => $courses,
+            'purchasedCourseIds' => $purchasedCourseIds,
         ]);
     }
 
@@ -47,8 +55,17 @@ class CneModulesController extends Controller
             abort(404);
         }
 
+        $isPurchased = false;
+
+        $viewer = auth()->user();
+
+        if ($viewer && $viewer->role_type === 'user') {
+            $isPurchased = Order::userHasActivePurchaseForCourse($viewer, $course_detail);
+        }
+
         return view('cne-module-detail', [
             'course' => $course_detail,
+            'isPurchased' => $isPurchased,
         ]);
     }
 }

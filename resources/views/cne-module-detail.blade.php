@@ -10,6 +10,7 @@
         $buyUrl = $course->course_url
             ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
             : null;
+        $isPurchased = $isPurchased ?? false;
     @endphp
 
     <main class="pb-16" x-data="{}">
@@ -30,16 +31,23 @@
                     </div>
                     @php
                         $buyButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-logo-blue px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2';
+                        $purchasedButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-emerald-600/25 ring-2 ring-emerald-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2';
                     @endphp
                     <div class="shrink-0">
                         @auth
                             @if (auth()->user()?->role_type === 'user')
-                                <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
-                                    @csrf
-                                    <button type="submit" class="{{ $buyButtonClass }}">
-                                        Buy now
-                                    </button>
-                                </form>
+                                @if ($isPurchased)
+                                    <span class="{{ $purchasedButtonClass }} cursor-default select-none" role="status">
+                                        Purchased
+                                    </span>
+                                @else
+                                    <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
+                                        @csrf
+                                        <button type="submit" class="{{ $buyButtonClass }}">
+                                            Buy now
+                                        </button>
+                                    </form>
+                                @endif
                             @elseif ($buyUrl)
                                 <a
                                     href="{{ $buyUrl }}"

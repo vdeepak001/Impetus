@@ -13,6 +13,7 @@ use App\Http\Controllers\SuperAdmin\OrderStatusController;
 use App\Http\Controllers\SuperAdmin\ReportsController;
 use App\Http\Controllers\SuperAdmin\StateController;
 use App\Http\Controllers\SuperAdmin\StateCouncilController;
+use App\Http\Controllers\SuperAdmin\UserCourseOrderController;
 use App\Http\Controllers\SuperAdmin\UsersListController;
 use Illuminate\Support\Facades\Route;
 
@@ -139,6 +140,12 @@ foreach ($prefixes as $prefix) {
         if (in_array($prefix, ['super-admin', 'admin', 'support'], true)) {
             Route::get('users-list', [UsersListController::class, 'index'])
                 ->name($prefix.'.users-list.index');
+            Route::get('users-list/{userId}/state-courses', [UserCourseOrderController::class, 'courses'])
+                ->whereNumber('userId')
+                ->name($prefix.'.users-list.state-courses');
+            Route::post('users-list/{userId}/orders', [UserCourseOrderController::class, 'store'])
+                ->whereNumber('userId')
+                ->name($prefix.'.users-list.orders.store');
         }
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {

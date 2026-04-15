@@ -194,7 +194,7 @@
                                 <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
                                     {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
                                 </p>
-                               
+
                             </a>
                         @endforeach
                         {{-- Set 2 --}}

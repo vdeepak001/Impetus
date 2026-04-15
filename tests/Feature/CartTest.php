@@ -38,7 +38,7 @@ it('allows frontend user to add a state assigned module to cart', function () {
         'state' => 'Madhya Pradesh',
     ]);
 
-    $response = $this->actingAs($user)->post(route('cart.items.store', $course));
+    $response = $this->actingAs($user)->post(route('cart.items.store', $course->couse_name));
 
     $response->assertRedirect(route('cart.index'));
 
@@ -82,7 +82,7 @@ it('prevents frontend user from adding a module that is not assigned to their st
         'state' => 'Madhya Pradesh',
     ]);
 
-    $response = $this->actingAs($user)->post(route('cart.items.store', $course));
+    $response = $this->actingAs($user)->post(route('cart.items.store', $course->couse_name));
 
     $response->assertStatus(302);
     $response->assertSessionHas('error');
@@ -114,13 +114,13 @@ it('allows frontend user to remove module from cart', function () {
         'state' => 'Madhya Pradesh',
     ]);
 
-    $item = CartItem::query()->create([
+    CartItem::query()->create([
         'user_id' => $user->id,
         'course_detail_id' => $course->id,
         'state_council_id' => $council->id,
     ]);
 
-    $response = $this->actingAs($user)->delete(route('cart.items.destroy', $item));
+    $response = $this->actingAs($user)->delete(route('cart.items.destroy', $course->couse_name));
 
     $response->assertStatus(302);
     expect(CartItem::query()->count())->toBe(0);
