@@ -15,8 +15,8 @@ class DashboardController extends Controller
     {
         $stats = [
             // User Stats
-            'total_users' => User::count(),
-            'active_users' => User::where('active_status', 1)->count(),
+            'total_users' => User::where('role_type', 'user')->count(),
+            'active_users' => User::where('role_type', 'user')->where('active_status', 1)->count(),
             
             // Course Stats
             'total_courses' => CourseDetail::count(),
