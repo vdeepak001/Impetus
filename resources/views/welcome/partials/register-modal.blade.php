@@ -97,7 +97,7 @@
                         required
                         class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-logo-light-green focus:outline-none focus:ring-2 focus:ring-logo-light-green/25">
                     <option value="">Select qualification</option>
-                    @foreach (['GNM', 'ANM', 'PB BSC Nursing', 'BSC Nursing', 'MSC Nursing', 'PHD Nursing'] as $qualification)
+                    @foreach (['GNM', 'ANM', 'PB BSc Nursing', 'BSc Nursing', 'MSc Nursing', 'PhD Nursing'] as $qualification)
                         <option value="{{ $qualification }}" @selected(old('qualification') === $qualification)>{{ $qualification }}</option>
                     @endforeach
                 </select>
