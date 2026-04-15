@@ -63,9 +63,9 @@
                                     type="button"
                                     @click="userMenuOpen = !userMenuOpen"
                                     @click.outside="userMenuOpen = false"
-                                    class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
+                                    class="inline-flex max-w-[19rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
                                 >
-                                    <span>Hi, {{ auth()->user()->name }}</span>
+                                    <span class="truncate">Hi, {{ auth()->user()->name }}</span>
                                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
@@ -154,7 +154,7 @@
                     <div class="mt-8 border-t border-slate-200 pt-6">
                         @auth
                             @if (auth()->user()?->role_type === 'user')
-                                <span class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
+                                <span class="-mx-3 block truncate rounded-lg px-3 py-2.5 text-base font-medium leading-7 text-slate-900">
                                     Hi, {{ auth()->user()->name }}
                                 </span>
                                 @if ($cartCount > 0)
