@@ -61,8 +61,9 @@ class MenuHelper
                 ['name' => 'Course Details', 'path' => '/'.$prefix.'/course-details'],
                 ['name' => 'Course Sub-Title', 'path' => '/'.$prefix.'/course-sub-titles'],
                 ['name' => 'Learning Material', 'path' => '/'.$prefix.'/title-materials'],
-                ['name' => 'Level Score', 'path' => '/'.$prefix.'/level-scores'],
                 ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
+                ['name' => 'Level Score', 'path' => '/'.$prefix.'/level-scores'],
+
             ],
         ];
 
