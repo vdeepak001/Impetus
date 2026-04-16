@@ -95,13 +95,13 @@
                         </td> --}}
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             @if($material->attachment && count($material->attachment) > 0)
-                                <ul class="flex items-center gap-3 whitespace-nowrap">
+                                <ul class="flex items-center gap-2 whitespace-nowrap">
                                     @foreach($material->attachment as $path)
                                         @php
                                             $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
                                         @endphp
                                         <li class="inline-flex">
-                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" class="inline-flex items-center gap-2 rounded-md border border-slate-200 bg-slate-100 px-2.5 py-1 text-blue-600 hover:bg-slate-200 hover:text-blue-900 dark:border-gray-600 dark:bg-gray-700 dark:text-blue-400 dark:hover:bg-gray-600 dark:hover:text-blue-300">
                                                 @if($extension === 'pdf')
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-15A2.25 2.25 0 016.75 2.25h7.5L19.5 8.25z" />
