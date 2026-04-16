@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Livewire\SuperAdmin\CourseTitle;
+namespace App\Livewire\SuperAdmin\CourseSubTitle;
 
-use App\Models\CourseDetail;
+use App\Models\CourseTitle;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -31,16 +31,16 @@ class Index extends Component
         $this->resetPage();
     }
 
-    public function toggleStatus($courseId)
+    public function toggleStatus($titleId)
     {
-        $course = CourseDetail::findOrFail($courseId);
-        $course->active_status = $course->active_status == 1 ? 0 : 1;
-        $course->save();
+        $title = CourseTitle::findOrFail($titleId);
+        $title->active_status = ! $title->active_status;
+        $title->save();
 
-        $status = $course->active_status == 1 ? 'activated' : 'deactivated';
+        $status = $title->active_status ? 'activated' : 'deactivated';
 
         $this->dispatch('notify',
-            message: "Course {$status} successfully!",
+            message: "Sub-title {$status} successfully!",
             title: 'Status Updated',
             variant: 'success'
         );
@@ -69,32 +69,35 @@ class Index extends Component
 
     public function render()
     {
-        $query = CourseDetail::with(['user']);
+        $query = CourseTitle::with(['course', 'user']);
 
         // Apply Search
         if ($this->search) {
             $query->where(function ($q) {
-                $q->where('couse_name', 'like', '%'.$this->search.'%')
-                    ->orWhere('course_code', 'like', '%'.$this->search.'%');
+                $q->where('title_name', 'like', '%'.$this->search.'%')
+                    ->orWhere('title_description', 'like', '%'.$this->search.'%')
+                    ->orWhereHas('course', function ($cq) {
+                        $cq->where('couse_name', 'like', '%'.$this->search.'%');
+                    });
             });
         }
 
         // Apply Status Filter
         if ($this->filter === 'active') {
-            $query->where('active_status', 1);
+            $query->where('active_status', true);
         } elseif ($this->filter === 'inactive') {
-            $query->where('active_status', 0);
+            $query->where('active_status', false);
         }
 
         // Apply Sorting
-        $titles = $query->orderBy($this->sortField, $this->sortDirection)
+        $subTitles = $query->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        return view('livewire.super-admin.course-title.index', [
-            'titles' => $titles,
-            'totalCount' => CourseDetail::count(),
-            'activeCount' => CourseDetail::where('active_status', 1)->count(),
-            'inactiveCount' => CourseDetail::where('active_status', 0)->count(),
+        return view('livewire.super-admin.course-sub-title.index', [
+            'subTitles' => $subTitles,
+            'totalCount' => CourseTitle::count(),
+            'activeCount' => CourseTitle::where('active_status', true)->count(),
+            'inactiveCount' => CourseTitle::where('active_status', false)->count(),
         ]);
     }
 }

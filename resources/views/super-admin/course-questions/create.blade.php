@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="mb-6">
+    <div class="mb-6 flex items-center justify-between">
         <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
             {{ $title }}
         </h2>
+        <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.course-questions.index') }}'">
+            Back to List
+        </x-ui.button>
     </div>
 
     <div>

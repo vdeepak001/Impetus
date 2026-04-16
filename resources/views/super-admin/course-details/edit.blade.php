@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="mb-6">
+    <div class="mb-6 flex items-center justify-between">
         <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
             {{ $title }}
         </h2>
+        <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.course-details.index') }}'">
+            Back to List
+        </x-ui.button>
     </div>
 
     <div>
@@ -14,25 +17,27 @@
                 @method('PUT')
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Course Name -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
+                    <!-- Course Name (Static) -->
                     <div>
-                        <label for="couse_name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                             Course Name
                         </label>
-                        <input id="couse_name" type="text" name="couse_name" value="{{ old('couse_name', $course->couse_name) }}" required autofocus
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('couse_name') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        <div class="text-base font-medium text-gray-900 dark:text-gray-100">
+                            {{ $course->couse_name }}
+                        </div>
                     </div>
 
-                    <!-- Course Code -->
+                    <!-- Course Code (Static) -->
                     <div>
-                        <label for="course_code" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
                             Course Code
                         </label>
-                        <input id="course_code" type="text" name="course_code" value="{{ old('course_code', $course->course_code) }}" required
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('course_code') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        <div class="text-base font-medium text-gray-900 dark:text-gray-100 uppercase tracking-widest">
+                            {{ $course->course_code }}
+                        </div>
                     </div>
+                </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
@@ -197,6 +202,38 @@
                                     @error('final_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                     @error('final_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
+                        <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">SEO Settings</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="seo_title" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    SEO Title
+                                </label>
+                                <input id="seo_title" type="text" name="seo_title" value="{{ old('seo_title', $course->seo_title) }}"
+                                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                                @error('seo_title') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div>
+                                <label for="seo_key" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    SEO Keywords
+                                </label>
+                                <input id="seo_key" type="text" name="seo_key" value="{{ old('seo_key', $course->seo_key) }}"
+                                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                                @error('seo_key') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                            </div>
+
+                            <div class="md:col-span-2">
+                                <label for="seo_des" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    SEO Description
+                                </label>
+                                <textarea id="seo_des" name="seo_des" rows="3"
+                                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">{{ old('seo_des', $course->seo_des) }}</textarea>
+                                @error('seo_des') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                             </div>
                         </div>
                     </div>

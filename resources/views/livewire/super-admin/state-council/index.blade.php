@@ -29,7 +29,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">State</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Council</th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Course</th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Sequence</th>
+                    {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Sequence</th> --}}
                   
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Status</th>
                     <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">Action</th>
@@ -50,9 +50,9 @@
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             {{ $stateCouncil->courseDetails->pluck('couse_name')->join(', ') ?: '—' }}
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                        {{-- <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             {{ $stateCouncil->courseDetails->pluck('sequence')->filter()->join(', ') ?: '—' }}
-                        </td>
+                        </td> --}}
                        
 
                         <td class="px-6 py-4 whitespace-nowrap">

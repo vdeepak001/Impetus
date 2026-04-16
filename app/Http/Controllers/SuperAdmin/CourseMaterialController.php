@@ -24,7 +24,7 @@ class CourseMaterialController extends Controller
         $titles = CourseTitle::orderBy('title_name')->get();
 
         return view('super-admin.course-materials.create', [
-            'title' => 'Create Course Material',
+            'title' => 'Create Sub-Title Course Material',
             'courses' => $courses,
             'titles' => $titles,
         ]);
@@ -35,14 +35,15 @@ class CourseMaterialController extends Controller
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
-            'description' => ['nullable', 'string'],
-            'attachments.*' => ['required', 'file', 'mimes:pdf,doc,docx,jpg,jpeg,png,webp', 'max:10240'], // 10MB max per file
+            // 'description' => ['nullable', 'string'],
+            'attachments.*' => ['required', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'], // 10MB max per file
         ]);
 
         $paths = [];
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
-                $paths[] = $file->store('materials', 'public');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $paths[] = $file->storeAs('materials', $filename, 'public');
             }
         }
 
@@ -50,7 +51,7 @@ class CourseMaterialController extends Controller
             'user_id' => Auth::id(),
             'course_id' => $validated['course_id'],
             'course_title_id' => $validated['course_title_id'],
-            'description' => $validated['description'],
+            // 'description' => $validated['description'],
             'attachment' => $paths,
         ]);
 
@@ -66,7 +67,7 @@ class CourseMaterialController extends Controller
             'material' => $title_material,
             'courses' => $courses,
             'titles' => $titles,
-            'title' => 'Edit Course Material',
+            'title' => 'Edit Sub-Title Course Material',
         ]);
     }
 
@@ -75,8 +76,8 @@ class CourseMaterialController extends Controller
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
-            'description' => ['nullable', 'string'],
-            'attachments.*' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,jpeg,png,webp', 'max:10240'],
+            // 'description' => ['nullable', 'string'],
+            'attachments.*' => ['nullable', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'],
         ]);
 
         $currentPaths = $title_material->attachment ?? [];
@@ -84,7 +85,8 @@ class CourseMaterialController extends Controller
         // Handle adding new files
         if ($request->hasFile('attachments')) {
             foreach ($request->file('attachments') as $file) {
-                $currentPaths[] = $file->store('materials', 'public');
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $currentPaths[] = $file->storeAs('materials', $filename, 'public');
             }
         }
 
@@ -102,7 +104,7 @@ class CourseMaterialController extends Controller
         $title_material->update([
             'course_id' => $validated['course_id'],
             'course_title_id' => $validated['course_title_id'],
-            'description' => $validated['description'],
+            // 'description' => $validated['description'],
             'attachment' => $currentPaths,
         ]);
 
@@ -114,5 +116,31 @@ class CourseMaterialController extends Controller
         $title_material->delete();
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material deleted successfully.');
+    }
+
+    public function getExistingAttachments(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required',
+            'course_title_id' => 'required',
+        ]);
+
+        $materials = CourseMaterial::where('course_id', $request->course_id)
+            ->where('course_title_id', $request->course_title_id)
+            ->get();
+
+        $attachments = [];
+        foreach ($materials as $material) {
+            if ($material->attachment) {
+                foreach ($material->attachment as $path) {
+                    $attachments[] = [
+                        'name' => preg_replace('/^\d+_/', '', basename($path)),
+                        'url' => asset('storage/' . $path),
+                    ];
+                }
+            }
+        }
+
+        return response()->json($attachments);
     }
 }

@@ -30,7 +30,7 @@
                 </button>
             </div>
 
-            @if(in_array($routePrefix, ['super-admin', 'admin']))
+            @if($routePrefix === 'super-admin')
                 <!-- Add New Button -->
                 <a href="{{ route($routePrefix . '.course-titles.create') }}"
                    class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:border-indigo-900 focus:ring ring-indigo-300 disabled:opacity-25 transition ease-in-out duration-150 flex-shrink-0">
@@ -49,11 +49,11 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('id')">
                         ID
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
-                        Course
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('couse_name')">
+                        Course Name
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('title_name')">
-                        Title Name
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('course_code')">
+                        Course Code
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Created By
@@ -61,7 +61,7 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('active_status')">
                         Status
                     </th>
-                    @if(in_array($routePrefix, ['super-admin', 'admin']))
+                    @if($routePrefix === 'super-admin')
                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                             Action
                         </th>
@@ -74,22 +74,20 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             {{ ($titles->currentPage() - 1) * $titles->perPage() + $loop->iteration }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap">
-                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                {{ $title->course->couse_name ?? 'N/A' }}
-                            </div>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                            {{ $title->couse_name }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                            {{ $title->title_name }}
+                            {{ $title->course_code }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             <div>{{ $title->user?->name ?? 'System' }}</div>
                             <div class="text-xs text-gray-500 uppercase">{{ $title->user?->role_type ?? 'N/A' }}</div>
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            @if(in_array($routePrefix, ['super-admin', 'admin']))
+                            @if($routePrefix === 'super-admin')
                                 <button wire:click="toggleStatus({{ $title->id }})" class="focus:outline-none">
-                                    @if ($title->active_status)
+                                    @if ($title->active_status == 1)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                             Active
                                         </span>
@@ -100,7 +98,7 @@
                                     @endif
                                 </button>
                             @else
-                                @if ($title->active_status)
+                                @if ($title->active_status == 1)
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                         Active
                                     </span>
@@ -111,14 +109,14 @@
                                 @endif
                             @endif
                         </td>
-                        @if(in_array($routePrefix, ['super-admin', 'admin']))
+                        @if($routePrefix === 'super-admin')
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end gap-2">
                                     <a href="{{ route($routePrefix . '.course-titles.edit', $title) }}"
                                        class="inline-flex items-center px-3 py-1.5 rounded-md text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 dark:focus:ring-offset-gray-800">
                                         Edit
                                     </a>
-                                    <form action="{{ route($routePrefix . '.course-titles.destroy', $title) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this title?');">
+                                    <form action="{{ route($routePrefix . '.course-titles.destroy', $title) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure you want to delete this course?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -132,8 +130,8 @@
                     </tr>
                 @empty
                     <tr>
-                            <td colspan="{{ in_array($routePrefix, ['super-admin', 'admin']) ? 6 : 5 }}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
-                            No titles found.
+                            <td colspan="{{ $routePrefix === 'super-admin' ? 6 : 5 }}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
+                            No courses found.
                         </td>
                     </tr>
                 @endforelse

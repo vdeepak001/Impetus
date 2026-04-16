@@ -77,4 +77,19 @@ class CourseDetail extends Model
             ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days'])
             ->withTimestamps();
     }
+
+    public function subTitles()
+    {
+        return $this->hasMany(CourseTitle::class, 'course_id');
+    }
+
+    public function materials()
+    {
+        return $this->hasMany(CourseMaterial::class, 'course_id');
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(CourseQuestion::class, 'course_id');
+    }
 }

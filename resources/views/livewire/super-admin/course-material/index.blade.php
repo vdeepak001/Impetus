@@ -52,9 +52,9 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Course / Title
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
+                    {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Description
-                    </th>
+                    </th> --}}
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Attachment
                     </th>
@@ -85,9 +85,9 @@
                                 {{ $material->courseTitle->title_name ?? 'N/A' }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                        {{-- <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             <div class="truncate max-w-xs">{{ $material->description }}</div>
-                        </td>
+                        </td> --}}
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             @if($material->attachment && count($material->attachment) > 0)
                                 <div class="flex flex-wrap gap-2">

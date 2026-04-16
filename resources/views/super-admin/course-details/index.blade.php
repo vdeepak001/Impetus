@@ -3,7 +3,7 @@
 @section('content')
     <div class="mb-6">
         <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
-            {{ $title }}
+            Course Details
         </h2>
     </div>
 

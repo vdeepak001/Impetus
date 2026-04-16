@@ -7,6 +7,7 @@ use App\Http\Controllers\SuperAdmin\AdminUserController;
 use App\Http\Controllers\SuperAdmin\CourseDetailController;
 use App\Http\Controllers\SuperAdmin\CourseMaterialController;
 use App\Http\Controllers\SuperAdmin\CourseQuestionController;
+use App\Http\Controllers\SuperAdmin\CourseSubTitleController;
 use App\Http\Controllers\SuperAdmin\CourseTitleController;
 use App\Http\Controllers\SuperAdmin\OrderDetailsController;
 use App\Http\Controllers\SuperAdmin\OrderStatusController;
@@ -75,21 +76,53 @@ foreach ($prefixes as $prefix) {
         }
 
         if ($prefix === 'super-admin') {
-            Route::resource('course-details', CourseDetailController::class)
-                ->names($prefix.'.course-details')
-                ->parameters(['course-details' => 'course_detail']);
-        } else {
+            // Course Title (Basic Info) - Super Admin ONLY Add/Edit
+            Route::resource('course-titles', CourseTitleController::class)
+                ->names($prefix.'.course-titles')
+                ->parameters(['course-titles' => 'course_title']);
+
+            // Course Details (Extended Info) - Super Admin View Only
             Route::resource('course-details', CourseDetailController::class)
                 ->only(['index'])
                 ->names($prefix.'.course-details')
                 ->parameters(['course-details' => 'course_detail']);
-        }
 
-        if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            // Course Sub-titles - Super Admin View Only
+            Route::resource('course-sub-titles', CourseSubTitleController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-sub-titles')
+                ->parameters(['course-sub-titles' => 'course_sub_title']);
+        } elseif ($prefix === 'admin') {
+            // Course Title (Basic Info) - Admin View Only
             Route::resource('course-titles', CourseTitleController::class)
+                ->only(['index'])
                 ->names($prefix.'.course-titles')
                 ->parameters(['course-titles' => 'course_title']);
+
+            // Course Details (Extended Info) - Admin ONLY Edit/Update
+            Route::resource('course-details', CourseDetailController::class)
+                ->except(['create', 'store'])
+                ->names($prefix.'.course-details')
+                ->parameters(['course-details' => 'course_detail']);
+
+            // Course Sub-titles - Admin ONLY Add/Edit
+            Route::resource('course-sub-titles', CourseSubTitleController::class)
+                ->names($prefix.'.course-sub-titles')
+                ->parameters(['course-sub-titles' => 'course_sub_title']);
         } else {
+            // Other roles (sme, support) - view only or subset
+            Route::resource('course-details', CourseDetailController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-details')
+                ->parameters(['course-details' => 'course_detail']);
+                
+            Route::resource('course-sub-titles', CourseSubTitleController::class)
+                ->only(['index'])
+                ->names($prefix.'.course-sub-titles')
+                ->parameters(['course-sub-titles' => 'course_sub_title']);
+        }
+
+        if (!in_array($prefix, ['super-admin'], true)) {
             Route::resource('course-titles', CourseTitleController::class)
                 ->only(['index'])
                 ->names($prefix.'.course-titles')
@@ -97,6 +130,9 @@ foreach ($prefixes as $prefix) {
         }
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            Route::get('title-materials/get-existing-attachments', [CourseMaterialController::class, 'getExistingAttachments'])
+                ->name($prefix.'.title-materials.get-existing-attachments');
+                
             Route::resource('title-materials', CourseMaterialController::class)
                 ->names($prefix.'.title-materials')
                 ->parameters(['title-materials' => 'title_material']);
@@ -119,8 +155,8 @@ foreach ($prefixes as $prefix) {
                 ->names($prefix.'.course-questions')
                 ->parameters(['course-questions' => 'course_question']);
         }
-        Route::get('question-split-up', \App\Livewire\SuperAdmin\CourseQuestion\QuestionSplitUp::class)
-            ->name($prefix.'.question-split-up');
+        Route::get('score-split-up', \App\Livewire\SuperAdmin\CourseQuestion\QuestionSplitUp::class)
+            ->name($prefix.'.score-split-up');
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
             Route::resource('states', StateController::class)

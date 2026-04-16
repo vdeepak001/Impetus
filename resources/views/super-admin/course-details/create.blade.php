@@ -1,10 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="mb-6">
+    <div class="mb-6 flex items-center justify-between">
         <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
             {{ $title }}
         </h2>
+        <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.course-details.index') }}'">
+            Back to List
+        </x-ui.button>
     </div>
 
     <div>
@@ -13,30 +16,26 @@
                 @csrf
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Course Name -->
-                    <div>
-                        <label for="couse_name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Course Name
-                        </label>
-                        <input id="couse_name" type="text" name="couse_name" value="{{ old('couse_name') }}" required autofocus
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('couse_name') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-
-                    <!-- Course Code -->
-                    <div>
-                        <label for="course_code" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Course Code
-                        </label>
-                        <input id="course_code" type="text" name="course_code" value="{{ old('course_code') }}" required
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('course_code') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                    <!-- Course URL -->
+                    <!-- Course Selection -->
                     <div class="md:col-span-2">
+                        <label for="course_id" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Select Course
+                        </label>
+                        <select id="course_id" name="course_id" required autofocus
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
+                            <option value="">Select a Course to add details</option>
+                            @foreach($courses as $course)
+                                <option value="{{ $course->id }}" {{ old('course_id') == $course->id ? 'selected' : '' }}>
+                                    {{ $course->couse_name }} ({{ $course->course_code }})
+                                </option>
+                            @endforeach
+                        </select>
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Only courses created in the 'Course Titles' section are listed here.</p>
+                        @error('course_id') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+
+                    <!-- Course URL -->
+                    <div>
                         <label for="course_url" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Course URL
                         </label>
@@ -44,10 +43,20 @@
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
                         @error('course_url') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
+
+                    <!-- Sequence -->
+                    <div>
+                        <label for="sequence" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Sequence
+                        </label>
+                        <input id="sequence" type="number" name="sequence" value="{{ old('sequence', 0) }}"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        @error('sequence') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
                 </div>
 
+                <!-- Description -->
                 <div class="mt-6">
-                    <!-- Description -->
                     <label for="description" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                         Description
                     </label>
@@ -56,121 +65,108 @@
                     @error('description') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                 </div>
 
-                <div class="mt-6 grid grid-cols-12 gap-3 sm:gap-6 items-end">
-                    <div class="col-span-6 min-w-0">
-                        <label for="attachment" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Attachment
-                        </label>
-                        <input id="attachment" type="file" name="attachment" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 block w-full min-w-0 text-sm text-gray-800 file:mr-2 sm:file:mr-4 file:rounded-lg file:border-0 file:bg-brand-500 file:px-2 sm:file:px-4 file:py-2 file:text-xs sm:file:text-sm file:font-semibold file:text-white hover:file:bg-brand-600 dark:file:bg-brand-600 dark:text-white/90" />
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">PDF, Word, or image. Max 10 MB.</p>
-                        @error('attachment') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                <!-- Attachment -->
+                <div class="mt-6">
+                    <label for="attachment" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        Attachment (PDF, Image, etc.)
+                    </label>
+                    <input id="attachment" type="file" name="attachment"
+                        class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                    @error('attachment') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                </div>
+
+                <hr class="my-8 border-gray-200 dark:border-gray-700" />
+
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">SEO Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="seo_title" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">SEO Title</label>
+                        <input id="seo_title" type="text" name="seo_title" value="{{ old('seo_title') }}"
+                            class="dark:bg-dark-900 shadow-theme-xs h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                    </div>
+                    <div>
+                        <label for="seo_key" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">SEO Keywords</label>
+                        <input id="seo_key" type="text" name="seo_key" value="{{ old('seo_key') }}"
+                            class="dark:bg-dark-900 shadow-theme-xs h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="seo_des" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">SEO Description</label>
+                        <textarea id="seo_des" name="seo_des" rows="3"
+                            class="dark:bg-dark-900 shadow-theme-xs w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">{{ old('seo_des') }}</textarea>
+                    </div>
+                </div>
+
+                <hr class="my-8 border-gray-200 dark:border-gray-700" />
+
+                <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Test Settings</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Pre Test -->
+                    <div class="space-y-4">
+                        <h4 class="font-medium text-gray-700 dark:text-gray-300 border-b pb-2">Pre Test</h4>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 1</label>
+                            <input type="number" name="pre_test_level_1" value="{{ old('pre_test_level_1', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 2</label>
+                            <input type="number" name="pre_test_level_2" value="{{ old('pre_test_level_2', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 3</label>
+                            <input type="number" name="pre_test_level_3" value="{{ old('pre_test_level_3', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
                     </div>
 
-                    <div class="col-span-3 min-w-0">
-                        <label for="sequence" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                            Sequence
-                        </label>
-                        <input id="sequence" type="number" name="sequence" value="{{ old('sequence', 0) }}"
-                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-2 sm:px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                        @error('sequence') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    <!-- Mock Test -->
+                    <div class="space-y-4">
+                        <h4 class="font-medium text-gray-700 dark:text-gray-300 border-b pb-2">Mock Test</h4>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 1</label>
+                            <input type="number" name="mock_test_level_1" value="{{ old('mock_test_level_1', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 2</label>
+                            <input type="number" name="mock_test_level_2" value="{{ old('mock_test_level_2', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 3</label>
+                            <input type="number" name="mock_test_level_3" value="{{ old('mock_test_level_3', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
                     </div>
 
-                    <div class="col-span-3 flex justify-end min-w-0">
-                        <div x-data="{ switcherToggle: true }">
-                            <input type="hidden" name="active_status" value="0">
-                            <label for="active_status" class="flex cursor-pointer items-center gap-2 sm:gap-3 text-sm font-medium text-gray-700 select-none dark:text-gray-400 whitespace-nowrap">
-                                <div class="relative">
-                                    <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only"
-                                        x-model="switcherToggle" />
-                                    <div class="block h-6 w-11 rounded-full bg-gray-200 dark:bg-white/10"
-                                        :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">
-                                    </div>
-                                    <div class="shadow-theme-sm absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white duration-300 ease-linear"
-                                        :class="switcherToggle ? 'translate-x-full' : 'translate-x-0'">
-                                    </div>
-                                </div>
-                                Active
-                            </label>
+                    <!-- Final Test -->
+                    <div class="space-y-4">
+                        <h4 class="font-medium text-gray-700 dark:text-gray-300 border-b pb-2">Final Test</h4>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 1</label>
+                            <input type="number" name="final_test_level_1" value="{{ old('final_test_level_1', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 2</label>
+                            <input type="number" name="final_test_level_2" value="{{ old('final_test_level_2', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+                        </div>
+                        <div>
+                            <label class="text-xs text-gray-500 uppercase">Level 3</label>
+                            <input type="number" name="final_test_level_3" value="{{ old('final_test_level_3', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                         </div>
                     </div>
                 </div>
 
-                <div class="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Course Levels</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                QA Section
-                            </label>
-                            <textarea id="qa_content" name="qa_content" rows="4"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('qa_content') }}</textarea>
-                            @error('qa_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                        </div>
+                <hr class="my-8 border-gray-200 dark:border-gray-700" />
 
-                        <div>
-                            <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                Practice Section
-                            </label>
-                            <textarea id="practice_content" name="practice_content" rows="4"
-                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('practice_content') }}</textarea>
-                            @error('practice_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                        </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q&A Content -->
+                    <div>
+                        <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Q&A Content</label>
+                        <textarea id="qa_content" name="qa_content" rows="4"
+                            class="dark:bg-dark-900 shadow-theme-xs w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('qa_content') }}</textarea>
+                    </div>
 
-                        <div class="md:col-span-2">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <div>
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Pre Test
-                                    </label>
-                                    <div class="space-y-3">
-                                        <input type="number" name="pre_test_level_1" value="{{ old('pre_test_level_1') }}" placeholder="Level 1"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="pre_test_level_2" value="{{ old('pre_test_level_2') }}" placeholder="Level 2"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="pre_test_level_3" value="{{ old('pre_test_level_3') }}" placeholder="Level 3"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                    </div>
-                                    @error('pre_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('pre_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('pre_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                </div>
-
-                                <div>
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Mock Test
-                                    </label>
-                                    <div class="space-y-3">
-                                        <input type="number" name="mock_test_level_1" value="{{ old('mock_test_level_1') }}" placeholder="Level 1"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="mock_test_level_2" value="{{ old('mock_test_level_2') }}" placeholder="Level 2"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="mock_test_level_3" value="{{ old('mock_test_level_3') }}" placeholder="Level 3"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                    </div>
-                                    @error('mock_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('mock_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('mock_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                </div>
-
-                                <div>
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Final Test
-                                    </label>
-                                    <div class="space-y-3">
-                                        <input type="number" name="final_test_level_1" value="{{ old('final_test_level_1') }}" placeholder="Level 1"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="final_test_level_2" value="{{ old('final_test_level_2') }}" placeholder="Level 2"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                        <input type="number" name="final_test_level_3" value="{{ old('final_test_level_3') }}" placeholder="Level 3"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full md:w-3/4 rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
-                                    </div>
-                                    @error('final_test_level_1') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('final_test_level_2') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                    @error('final_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
-                                </div>
-                            </div>
-                        </div>
+                    <!-- Practice Content -->
+                    <div>
+                        <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Practice Content</label>
+                        <textarea id="practice_content" name="practice_content" rows="4"
+                            class="dark:bg-dark-900 shadow-theme-xs w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('practice_content') }}</textarea>
                     </div>
                 </div>
 

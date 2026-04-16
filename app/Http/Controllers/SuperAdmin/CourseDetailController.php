@@ -13,65 +13,7 @@ class CourseDetailController extends Controller
 {
     public function index()
     {
-        return view('super-admin.course-details.index', ['title' => 'Course List']);
-    }
-
-    public function create()
-    {
-        return view('super-admin.course-details.create', ['title' => 'Create Course Detail']);
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'course_code' => ['nullable', 'string', 'max:55'],
-            'couse_name' => ['nullable', 'string', 'max:100'],
-            'course_url' => ['nullable', 'string'],
-            'description' => ['nullable', 'string'],
-            'attachment' => ['nullable', 'file', 'mimes:pdf,doc,docx,jpg,jpeg,png,webp', 'max:10240'],
-            'seo_key' => ['nullable', 'string', 'max:255'],
-            'seo_title' => ['nullable', 'string', 'max:255'],
-            'seo_des' => ['nullable', 'string'],
-            'active_status' => ['nullable', 'integer'],
-            'sequence' => ['nullable', 'integer'],
-            'qa_content' => ['nullable', 'string'],
-            'practice_content' => ['nullable', 'string'],
-            'pre_test_level_1' => ['nullable', 'integer'],
-            'pre_test_level_2' => ['nullable', 'integer'],
-            'pre_test_level_3' => ['nullable', 'integer'],
-            'mock_test_level_1' => ['nullable', 'integer'],
-            'mock_test_level_2' => ['nullable', 'integer'],
-            'mock_test_level_3' => ['nullable', 'integer'],
-            'final_test_level_1' => ['nullable', 'integer'],
-            'final_test_level_2' => ['nullable', 'integer'],
-            'final_test_level_3' => ['nullable', 'integer'],
-        ]);
-
-        $validated['pre_test'] = $this->buildLevelPayload($request, 'pre_test');
-        $validated['mock_test'] = $this->buildLevelPayload($request, 'mock_test');
-        $validated['final_test'] = $this->buildLevelPayload($request, 'final_test');
-        unset(
-            $validated['pre_test_level_1'],
-            $validated['pre_test_level_2'],
-            $validated['pre_test_level_3'],
-            $validated['mock_test_level_1'],
-            $validated['mock_test_level_2'],
-            $validated['mock_test_level_3'],
-            $validated['final_test_level_1'],
-            $validated['final_test_level_2'],
-            $validated['final_test_level_3'],
-        );
-
-        if ($request->hasFile('attachment')) {
-            $validated['attachment'] = $this->storeAttachmentUnderPublicPath($request->file('attachment'));
-        } else {
-            unset($validated['attachment']);
-        }
-
-        $validated['user_id'] = Auth::id();
-        CourseDetail::create($validated);
-
-        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail created successfully.');
+        return view('super-admin.course-details.index', ['title' => 'Course Details']);
     }
 
     public function edit(CourseDetail $course_detail)
@@ -145,9 +87,13 @@ class CourseDetailController extends Controller
     {
         $this->deleteStoredAttachment($course_detail->attachment);
 
+        $course_detail->subTitles()->delete();
+        $course_detail->materials()->delete();
+        $course_detail->questions()->delete();
+
         $course_detail->delete();
 
-        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail deleted successfully.');
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.course-details.index')->with('success', 'Course detail and its related data deleted successfully.');
     }
 
     private function buildLevelPayload(Request $request, string $prefix): string

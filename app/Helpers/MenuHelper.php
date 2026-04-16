@@ -57,11 +57,11 @@ class MenuHelper
             'icon' => 'course',
             'name' => 'Courses',
             'subItems' => [
+                ['name' => 'Course Title', 'path' => '/'.$prefix.'/course-titles'],
                 ['name' => 'Course Details', 'path' => '/'.$prefix.'/course-details'],
-                ['name' => 'Course Titles', 'path' => '/'.$prefix.'/course-titles'],
-                ['name' => 'Course Materials', 'path' => '/'.$prefix.'/title-materials'],
+                ['name' => 'Course Sub-Title', 'path' => '/'.$prefix.'/course-sub-titles'],
+                ['name' => 'Sub-Title Course Materials', 'path' => '/'.$prefix.'/title-materials'],
                 ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
-                ['name' => 'Question Split Up', 'path' => '/'.$prefix.'/question-split-up'],
             ],
         ];
 
@@ -74,6 +74,7 @@ class MenuHelper
                     ['name' => 'States', 'path' => '/'.$prefix.'/states'],
                     ['name' => 'State-wise Modules', 'path' => '/'.$prefix.'/state-councils/state-wise-modules'],
                     ['name' => 'State-wise Pass Percentage', 'path' => '/'.$prefix.'/state-councils/state-wise-pass-percentage'],
+                    ['name' => 'Score Split Up', 'path' => '/'.$prefix.'/score-split-up'],
                 ],
             ];
         }
