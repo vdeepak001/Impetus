@@ -51,7 +51,7 @@
                                     @auth
                                         @if (auth()->user()?->role_type === 'user')
                                             <div
-                                                class="absolute -left-10 top-6 z-20 w-40 -rotate-45 transform text-center py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-md {{ $isPurchased ? 'bg-emerald-500' : 'bg-slate-500' }}"
+                                                class="absolute -left-10 top-6 z-20 w-40 -rotate-45 transform text-center py-1.5 text-[11px] font-bold tracking-wider text-white shadow-md {{ $isPurchased ? 'bg-emerald-500' : 'bg-slate-500' }}"
                                             >
                                                 {{ $isPurchased ? 'Purchased' : 'Not Purchased' }}
                                             </div>
@@ -72,7 +72,7 @@
                                         </div>
                                         @auth
                                             @if (auth()->user()?->role_type === 'user')
-                                                <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+                                                <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
                                                     Credit Point: {{ $creditPoints }}
                                                 </div>
                                             @endif
