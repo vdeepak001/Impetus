@@ -61,7 +61,7 @@
                     </div> --}}
 
                     <!-- Existing Attachments -->
-                    <div id="existing-attachments-container" class="md:col-span-1 hidden">
+                    <div id="existing-attachments-container" class="hidden">
                         <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                             Existing Attachments
                         </label>
@@ -80,6 +80,7 @@
                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">You can select multiple files.</p>
                         @error('attachments.*') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
+
                 </div>
 
                 <div class="flex items-center justify-end gap-3 mt-8">

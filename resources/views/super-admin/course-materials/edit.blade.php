@@ -92,6 +92,7 @@
                     </div>
                 </div>
 
+
                 <div class="flex items-center justify-end gap-3 mt-8">
                     <x-ui.button variant="outline" type="button" onclick="window.location='{{ route($routePrefix . '.title-materials.index') }}'">
                         Cancel
