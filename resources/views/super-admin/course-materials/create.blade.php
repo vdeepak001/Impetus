@@ -42,12 +42,28 @@
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             <option value="">Select a Title</option>
                             @foreach($titles as $title)
-                                <option value="{{ $title->id }}" {{ old('course_title_id') == $title->id ? 'selected' : '' }}>
-                                    {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
-                                </option>
+                                @php
+                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $title->title_name))
+                                        ->map(fn ($part) => trim($part))
+                                        ->filter()
+                                        ->values();
+                                @endphp
+                                @forelse($titleParts as $titlePart)
+                                    <option value="{{ $title->id }}" data-title-label="{{ $titlePart }}"
+                                        {{ old('course_title_id') == $title->id && old('description') === $titlePart ? 'selected' : '' }}>
+                                        {{ $titlePart }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    </option>
+                                @empty
+                                    <option value="{{ $title->id }}" data-title-label="{{ $title->title_name }}"
+                                        {{ old('course_title_id') == $title->id && old('description') === $title->title_name ? 'selected' : '' }}>
+                                        {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    </option>
+                                @endforelse
                             @endforeach
                         </select>
+                        <input type="hidden" id="selected_title_label" name="description" value="{{ old('description') }}">
                         @error('course_title_id') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        @error('description') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
                     <!-- Description -->
@@ -102,15 +118,21 @@
     document.addEventListener('DOMContentLoaded', function() {
         const courseSelect = document.getElementById('course_id');
         const titleSelect = document.getElementById('course_title_id');
+        const selectedTitleLabel = document.getElementById('selected_title_label');
         const container = document.getElementById('existing-attachments-container');
         const list = document.getElementById('existing-attachments-list');
+
+        function syncSelectedTitleLabel() {
+            selectedTitleLabel.value = titleSelect.selectedOptions[0]?.dataset.titleLabel ?? '';
+        }
 
         function fetchAttachments() {
             const courseId = courseSelect.value;
             const titleId = titleSelect.value;
+            const titleLabel = selectedTitleLabel.value;
 
-            if (courseId && titleId) {
-                fetch(`{{ route($routePrefix . '.title-materials.get-existing-attachments') }}?course_id=${courseId}&course_title_id=${titleId}`)
+            if (courseId && titleId && titleLabel) {
+                fetch(`{{ route($routePrefix . '.title-materials.get-existing-attachments') }}?course_id=${courseId}&course_title_id=${titleId}&description=${encodeURIComponent(titleLabel)}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.length > 0) {
@@ -150,10 +172,16 @@
                     if (titleSelect.value === option.value) titleSelect.value = "";
                 }
             });
+            syncSelectedTitleLabel();
             fetchAttachments();
         });
 
-        titleSelect.addEventListener('change', fetchAttachments);
+        titleSelect.addEventListener('change', function() {
+            syncSelectedTitleLabel();
+            fetchAttachments();
+        });
+
+        syncSelectedTitleLabel();
 
         // File name preview
         const attachmentInput = document.getElementById('attachments');

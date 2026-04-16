@@ -9,6 +9,7 @@ use App\Http\Controllers\SuperAdmin\CourseMaterialController;
 use App\Http\Controllers\SuperAdmin\CourseQuestionController;
 use App\Http\Controllers\SuperAdmin\CourseSubTitleController;
 use App\Http\Controllers\SuperAdmin\CourseTitleController;
+use App\Http\Controllers\SuperAdmin\LevelScoreController;
 use App\Http\Controllers\SuperAdmin\OrderDetailsController;
 use App\Http\Controllers\SuperAdmin\OrderStatusController;
 use App\Http\Controllers\SuperAdmin\ReportsController;
@@ -136,11 +137,19 @@ foreach ($prefixes as $prefix) {
             Route::resource('title-materials', CourseMaterialController::class)
                 ->names($prefix.'.title-materials')
                 ->parameters(['title-materials' => 'title_material']);
+
+            Route::get('level-scores', [LevelScoreController::class, 'index'])
+                ->name($prefix.'.level-scores.index');
+            Route::post('level-scores', [LevelScoreController::class, 'store'])
+                ->name($prefix.'.level-scores.store');
         } else {
             Route::resource('title-materials', CourseMaterialController::class)
                 ->only(['index'])
                 ->names($prefix.'.title-materials')
                 ->parameters(['title-materials' => 'title_material']);
+
+            Route::get('level-scores', [LevelScoreController::class, 'index'])
+                ->name($prefix.'.level-scores.index');
         }
 
         if (in_array($prefix, ['super-admin', 'admin', 'sme'], true)) {

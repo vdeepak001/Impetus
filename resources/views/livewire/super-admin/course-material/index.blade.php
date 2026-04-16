@@ -87,7 +87,7 @@
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
                             <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
-                                {{ $material->courseTitle->title_name ?? 'N/A' }}
+                                {{ $material->description ?: ($material->courseTitle->title_name ?? 'N/A') }}
                             </div>
                         </td>
                         {{-- <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
@@ -95,11 +95,32 @@
                         </td> --}}
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             @if($material->attachment && count($material->attachment) > 0)
-                                <ul class="list-disc pl-4 space-y-1">
+                                <ul class="space-y-1">
                                     @foreach($material->attachment as $path)
+                                        @php
+                                            $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+                                        @endphp
                                         <li>
-                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
-                                                {{ preg_replace('/^\d+_/', '', basename($path)) }}
+                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                                @if($extension === 'pdf')
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600 dark:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-15A2.25 2.25 0 016.75 2.25h7.5L19.5 8.25z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 2.25V8.25H19.5" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 16.5h7.5M8.25 13.5h4.5" />
+                                                    </svg>
+                                                @elseif(in_array($extension, ['ppt', 'pptx']))
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-600 dark:text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-15A2.25 2.25 0 016.75 2.25h7.5L19.5 8.25z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 2.25V8.25H19.5" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 16.5v-4.5h3a2.25 2.25 0 010 4.5H9zM15.75 12v4.5" />
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-600 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25V19.5a2.25 2.25 0 01-2.25 2.25H6.75A2.25 2.25 0 014.5 19.5v-15A2.25 2.25 0 016.75 2.25h7.5L19.5 8.25z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 2.25V8.25H19.5" />
+                                                    </svg>
+                                                @endif
+                                                <span>File {{ $loop->iteration }}</span>
                                             </a>
                                         </li>
                                     @endforeach

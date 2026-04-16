@@ -30,12 +30,20 @@ class CourseSubTitleController extends Controller
     {
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
-            'title_name' => ['required', 'string', 'max:255'],
-            'title_description' => ['nullable', 'string'],
+            'title_name' => ['required', 'array', 'min:1'],
+            'title_name.*' => ['required', 'string', 'max:255'],
         ]);
 
-        $validated['user_id'] = Auth::id();
-        CourseTitle::create($validated);
+        $subTitles = collect($validated['title_name'])
+            ->map(fn ($titleName) => trim($titleName))
+            ->filter()
+            ->values();
+
+        CourseTitle::create([
+            'course_id' => $validated['course_id'],
+            'title_name' => $subTitles->implode(' | '),
+            'user_id' => Auth::id(),
+        ]);
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.course-sub-titles.index')->with('success', 'Course sub-title created successfully.');
     }
@@ -55,11 +63,19 @@ class CourseSubTitleController extends Controller
     {
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
-            'title_name' => ['required', 'string', 'max:255'],
-            'title_description' => ['nullable', 'string'],
+            'title_name' => ['required', 'array', 'min:1'],
+            'title_name.*' => ['required', 'string', 'max:255'],
         ]);
 
-        $course_sub_title->update($validated);
+        $subTitles = collect($validated['title_name'])
+            ->map(fn ($titleName) => trim($titleName))
+            ->filter()
+            ->values();
+
+        $course_sub_title->update([
+            'course_id' => $validated['course_id'],
+            'title_name' => $subTitles->implode(' | '),
+        ]);
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.course-sub-titles.index')->with('success', 'Course sub-title updated successfully.');
     }

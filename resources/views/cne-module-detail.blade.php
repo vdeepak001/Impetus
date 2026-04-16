@@ -194,7 +194,6 @@
                             <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
                                 Practice test
                             </h2>
-                            <p class="mt-2 text-sm font-medium text-slate-500">Levels I–III · Multiple choice</p>
                             <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>

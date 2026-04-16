@@ -41,12 +41,28 @@
                         <select id="course_title_id" name="course_title_id" required
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             @foreach($titles as $title)
-                                <option value="{{ $title->id }}" {{ old('course_title_id', $material->course_title_id) == $title->id ? 'selected' : '' }}>
-                                    {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
-                                </option>
+                                @php
+                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $title->title_name))
+                                        ->map(fn ($part) => trim($part))
+                                        ->filter()
+                                        ->values();
+                                @endphp
+                                @forelse($titleParts as $titlePart)
+                                    <option value="{{ $title->id }}" data-title-label="{{ $titlePart }}"
+                                        {{ old('course_title_id', $material->course_title_id) == $title->id && old('description', $material->description) === $titlePart ? 'selected' : '' }}>
+                                        {{ $titlePart }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    </option>
+                                @empty
+                                    <option value="{{ $title->id }}" data-title-label="{{ $title->title_name }}"
+                                        {{ old('course_title_id', $material->course_title_id) == $title->id && old('description', $material->description) === $title->title_name ? 'selected' : '' }}>
+                                        {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    </option>
+                                @endforelse
                             @endforeach
                         </select>
+                        <input type="hidden" id="selected_title_label" name="description" value="{{ old('description', $material->description) }}">
                         @error('course_title_id') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        @error('description') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
                     <!-- Description -->
@@ -112,6 +128,11 @@
     document.addEventListener('DOMContentLoaded', function() {
         const courseSelect = document.getElementById('course_id');
         const titleSelect = document.getElementById('course_title_id');
+        const selectedTitleLabel = document.getElementById('selected_title_label');
+
+        function syncSelectedTitleLabel() {
+            selectedTitleLabel.value = titleSelect.selectedOptions[0]?.dataset.titleLabel ?? '';
+        }
 
         courseSelect.addEventListener('change', function() {
             const selectedText = this.options[this.selectedIndex].text;
@@ -126,7 +147,12 @@
                     if (titleSelect.value === option.value) titleSelect.value = "";
                 }
             });
+            syncSelectedTitleLabel();
         });
+
+        titleSelect.addEventListener('change', syncSelectedTitleLabel);
+
+        syncSelectedTitleLabel();
 
         // File name preview
         const attachmentInput = document.getElementById('attachments');

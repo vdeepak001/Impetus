@@ -9,12 +9,13 @@ use App\Models\CourseMaterial;
 use App\Models\CourseTitle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class CourseMaterialController extends Controller
 {
     public function index()
     {
-        return view('super-admin.course-materials.index', ['title' => 'Course Materials']);
+        return view('super-admin.course-materials.index', ['title' => 'Learning Materials']);
     }
 
     public function create()
@@ -24,7 +25,7 @@ class CourseMaterialController extends Controller
         $titles = CourseTitle::orderBy('title_name')->get();
 
         return view('super-admin.course-materials.create', [
-            'title' => 'Create Sub-Title Course Material',
+            'title' => 'Create Learning Material',
             'courses' => $courses,
             'titles' => $titles,
         ]);
@@ -35,7 +36,7 @@ class CourseMaterialController extends Controller
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
-            // 'description' => ['nullable', 'string'],
+            'description' => ['required', 'string', 'max:255'],
             'attachments.*' => ['required', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'], // 10MB max per file
         ]);
 
@@ -49,6 +50,7 @@ class CourseMaterialController extends Controller
 
         $material = CourseMaterial::where('course_id', $validated['course_id'])
             ->where('course_title_id', $validated['course_title_id'])
+            ->where('description', $validated['description'])
             ->first();
 
         if ($material) {
@@ -61,6 +63,7 @@ class CourseMaterialController extends Controller
                 'user_id' => Auth::id(),
                 'course_id' => $validated['course_id'],
                 'course_title_id' => $validated['course_title_id'],
+                'description' => $validated['description'],
                 'attachment' => $paths,
             ]);
         }
@@ -77,7 +80,7 @@ class CourseMaterialController extends Controller
             'material' => $title_material,
             'courses' => $courses,
             'titles' => $titles,
-            'title' => 'Edit Sub-Title Course Material',
+            'title' => 'Edit Learning Material',
         ]);
     }
 
@@ -86,7 +89,7 @@ class CourseMaterialController extends Controller
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
-            // 'description' => ['nullable', 'string'],
+            'description' => ['required', 'string', 'max:255'],
             'attachments.*' => ['nullable', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'],
         ]);
 
@@ -104,7 +107,7 @@ class CourseMaterialController extends Controller
         if ($request->has('remove_attachments')) {
             foreach ($request->remove_attachments as $pathToRemove) {
                 if (($key = array_search($pathToRemove, $currentPaths)) !== false) {
-                    \Storage::disk('public')->delete($pathToRemove);
+                    Storage::disk('public')->delete($pathToRemove);
                     unset($currentPaths[$key]);
                 }
             }
@@ -114,6 +117,7 @@ class CourseMaterialController extends Controller
         // Check if another record exists for the new course/title combination
         $existingMaterial = CourseMaterial::where('course_id', $validated['course_id'])
             ->where('course_title_id', $validated['course_title_id'])
+            ->where('description', $validated['description'])
             ->where('id', '!=', $title_material->id)
             ->first();
 
@@ -128,7 +132,7 @@ class CourseMaterialController extends Controller
         $title_material->update([
             'course_id' => $validated['course_id'],
             'course_title_id' => $validated['course_title_id'],
-            // 'description' => $validated['description'],
+            'description' => $validated['description'],
             'attachment' => $currentPaths,
         ]);
 
@@ -147,10 +151,14 @@ class CourseMaterialController extends Controller
         $request->validate([
             'course_id' => 'required',
             'course_title_id' => 'required',
+            'description' => 'nullable|string',
         ]);
 
         $materials = CourseMaterial::where('course_id', $request->course_id)
             ->where('course_title_id', $request->course_title_id)
+            ->when($request->filled('description'), function ($query) use ($request) {
+                $query->where('description', $request->description);
+            })
             ->get();
 
         $attachments = [];

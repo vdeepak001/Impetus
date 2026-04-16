@@ -121,15 +121,13 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
                                     </svg>
                                 </span>
-                                <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold text-white backdrop-blur-md">Actual Knowledge</span>
+                                <span class="rounded-full bg-white/20 px-3 py-0.5 text-xs font-semibold text-white backdrop-blur-md">Factual  Knowledge</span>
                             </div>
                         </div>
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl font-bold text-slate-900 font-serif">Level - 1</h3>
-                                <span class="inline-flex items-center rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-bold text-logo-light-green ring-1 ring-inset ring-logo-light-green/20">
-                                    1 MARK
-                                </span>
+
                             </div>
                             <div class="mt-4 flex-1 space-y-4 text-lg leading-7 text-slate-600 text-justify">
                                 <p>
@@ -165,9 +163,7 @@
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl font-bold text-slate-900 font-serif">Level - 2</h3>
-                                <span class="inline-flex items-center rounded-full bg-logo-blue/10 px-2.5 py-1 text-xs font-bold text-logo-blue ring-1 ring-inset ring-logo-blue/20">
-                                    2 MARKS
-                                </span>
+
                             </div>
                             <div class="mt-4 flex-1 space-y-4 text-lg leading-7 text-slate-600 text-justify">
                                 <p>
@@ -203,9 +199,7 @@
                         <div class="flex min-h-0 flex-1 flex-col p-6 sm:p-8">
                             <div class="flex items-center justify-between">
                                 <h3 class="text-xl font-bold text-slate-900 font-serif">Level - 3</h3>
-                                <span class="inline-flex items-center rounded-full bg-[#7a5af8]/10 px-2.5 py-1 text-xs font-bold text-[#7a5af8] ring-1 ring-inset ring-[#7a5af8]/20">
-                                    3 MARKS
-                                </span>
+
                             </div>
                             <div class="mt-4 flex-1 space-y-4 text-lg leading-7 text-slate-600 text-justify">
                                 <p>

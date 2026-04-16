@@ -70,9 +70,13 @@
                                                 {{ $title ?? '—' }}
                                             </span>
                                         </div>
-                                        <div class="absolute bottom-4 right-4 z-10 flex items-center bg-green-500 text-white px-2.5 py-1 text-xs font-bold shadow-sm rounded-sm uppercase tracking-wide">
-                                            Points: {{ $creditPoints }}
-                                        </div>
+                                        @auth
+                                            @if (auth()->user()?->role_type === 'user')
+                                                <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold uppercase tracking-wide text-white shadow-sm">
+                                                    Points: {{ $creditPoints }}
+                                                </div>
+                                            @endif
+                                        @endauth
                                     </div>
                                 </a>
                             </article>

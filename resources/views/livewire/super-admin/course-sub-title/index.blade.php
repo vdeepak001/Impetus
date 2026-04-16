@@ -84,8 +84,16 @@
                                 {{ $title->course->couse_name ?? 'N/A' }}
                             </div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                            {{ $title->title_name }}
+                        <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                            @php
+                                $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $title->title_name))
+                                    ->map(fn ($part) => trim($part))
+                                    ->filter()
+                                    ->values();
+                            @endphp
+                            @foreach($titleParts as $titlePart)
+                                <div class="leading-6">{{ $titlePart }}</div>
+                            @endforeach
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             <div>{{ $title->user?->name ?? 'System' }}</div>
