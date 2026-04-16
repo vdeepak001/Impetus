@@ -19,7 +19,13 @@ class CneModulesController extends Controller
         $user = auth()->user();
         if ($user && $user->role_type === 'user' && filled($user->state)) {
             $stateName = trim((string) $user->state);
-            $query->whereHas('stateCouncils', function ($stateCouncilQuery) use ($stateName) {
+            $query->with(['stateCouncils' => function ($stateCouncilQuery) use ($stateName) {
+                $stateCouncilQuery
+                    ->where('active_status', true)
+                    ->whereHas('state', function ($stateQuery) use ($stateName) {
+                        $stateQuery->where('name', $stateName)->where('status', 'active');
+                    });
+            }])->whereHas('stateCouncils', function ($stateCouncilQuery) use ($stateName) {
                 $stateCouncilQuery
                     ->where('active_status', true)
                     ->whereHas('state', function ($stateQuery) use ($stateName) {

@@ -47,15 +47,25 @@ class CourseMaterialController extends Controller
             }
         }
 
-        CourseMaterial::create([
-            'user_id' => Auth::id(),
-            'course_id' => $validated['course_id'],
-            'course_title_id' => $validated['course_title_id'],
-            // 'description' => $validated['description'],
-            'attachment' => $paths,
-        ]);
+        $material = CourseMaterial::where('course_id', $validated['course_id'])
+            ->where('course_title_id', $validated['course_title_id'])
+            ->first();
 
-        return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material created successfully.');
+        if ($material) {
+            $currentPaths = $material->attachment ?? [];
+            $material->update([
+                'attachment' => array_merge($currentPaths, $paths)
+            ]);
+        } else {
+            CourseMaterial::create([
+                'user_id' => Auth::id(),
+                'course_id' => $validated['course_id'],
+                'course_title_id' => $validated['course_title_id'],
+                'attachment' => $paths,
+            ]);
+        }
+
+        return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material updated/created successfully.');
     }
 
     public function edit(CourseMaterial $title_material)
@@ -99,6 +109,20 @@ class CourseMaterialController extends Controller
                 }
             }
             $currentPaths = array_values($currentPaths); // Re-index
+        }
+
+        // Check if another record exists for the new course/title combination
+        $existingMaterial = CourseMaterial::where('course_id', $validated['course_id'])
+            ->where('course_title_id', $validated['course_title_id'])
+            ->where('id', '!=', $title_material->id)
+            ->first();
+
+        if ($existingMaterial) {
+            // Merge this record into the existing one
+            $mergedPaths = array_merge($existingMaterial->attachment ?? [], $currentPaths);
+            $existingMaterial->update(['attachment' => $mergedPaths]);
+            $title_material->delete();
+            return redirect()->route(MenuHelper::getCurrentPrefix().'.title-materials.index')->with('success', 'Course material merged into existing record.');
         }
 
         $title_material->update([

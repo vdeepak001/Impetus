@@ -35,16 +35,26 @@
                             @endphp
                             @php
                                 $isPurchased = isset($purchasedCourseIds) && $purchasedCourseIds->contains($course->id);
+                                $creditPoints = 'NA';
+                                if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
+                                    $rawPoints = $course->stateCouncils->first()->pivot->points;
+                                    if (is_array($rawPoints)) {
+                                        $creditPoints = array_sum($rawPoints);
+                                    } else {
+                                        $creditPoints = $rawPoints;
+                                    }
+                                    $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+                                }
                             @endphp
                             <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
                                 <a href="{{ $detailUrl }}" class="relative flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">
                                     @auth
                                         @if (auth()->user()?->role_type === 'user')
-                                            <span
-                                                class="absolute right-3 top-3 z-10 rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm ring-1 {{ $isPurchased ? 'bg-emerald-50 text-emerald-800 ring-emerald-200' : 'bg-amber-50 text-amber-900 ring-amber-200' }}"
+                                            <div
+                                                class="absolute -left-10 top-6 z-20 w-40 -rotate-45 transform text-center py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-md {{ $isPurchased ? 'bg-emerald-500' : 'bg-[#FA6E28]' }}"
                                             >
                                                 {{ $isPurchased ? 'Purchased' : 'Not purchased' }}
-                                            </span>
+                                            </div>
                                         @endif
                                     @endauth
                                     <div class="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-slate-100">
@@ -59,6 +69,9 @@
                                             <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
                                                 {{ $title ?? '—' }}
                                             </span>
+                                        </div>
+                                        <div class="absolute bottom-4 right-4 z-10 flex items-center bg-[#FA6E28] text-white px-2.5 py-1 text-xs font-bold shadow-sm rounded-sm uppercase tracking-wide">
+                                            Points: {{ $creditPoints }}
                                         </div>
                                     </div>
                                 </a>

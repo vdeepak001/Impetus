@@ -33,15 +33,15 @@
                             @error('council_name') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
                     </div>
-
+                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                        @include('super-admin.state-councils._split_up_fields', ['splitUp' => $stateCouncil->questionSplitUp])
+                    </div>
                     <div class="border-t border-gray-200 pt-8 dark:border-gray-700">
                         <livewire:super-admin.state-council.course-manager :state-council="$stateCouncil" />
                         @error('courses') <span class="text-red-600 text-sm mt-4 block font-bold tracking-tight">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
-                        @include('super-admin.state-councils._split_up_fields', ['splitUp' => $stateCouncil->questionSplitUp])
-                    </div>
+                  
 
                     <div class="flex items-center gap-2 mt-8">
                         <input id="active_status" type="checkbox" name="active_status" value="1" {{ old('active_status', $stateCouncil->active_status) ? 'checked' : '' }}

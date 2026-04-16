@@ -50,7 +50,10 @@
                         ID
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
-                        Course / Title
+                        Course
+                    </th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
+                        Sub Title
                     </th>
                     {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Description
@@ -58,12 +61,12 @@
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Files
                     </th>
-                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
+                    {{-- <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                         Created By
                     </th>
                     <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 cursor-pointer" wire:click="sortBy('active_status')">
                         Status
-                    </th>
+                    </th> --}}
                     @if(in_array($routePrefix, ['super-admin', 'admin']))
                         <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                             Action
@@ -81,7 +84,9 @@
                             <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                 {{ $material->course->couse_name ?? 'N/A' }}
                             </div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <div class="text-sm font-medium text-gray-900 dark:text-gray-100">
                                 {{ $material->courseTitle->title_name ?? 'N/A' }}
                             </div>
                         </td>
@@ -90,14 +95,20 @@
                         </td> --}}
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             @if($material->attachment && count($material->attachment) > 0)
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">
-                                    {{ count($material->attachment) }} {{ str('file')->plural(count($material->attachment)) }}
-                                </span>
+                                <ul class="list-disc pl-4 space-y-1">
+                                    @foreach($material->attachment as $path)
+                                        <li>
+                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" class="text-blue-600 hover:text-blue-900 dark:text-blue-400 dark:hover:text-blue-300">
+                                                {{ preg_replace('/^\d+_/', '', basename($path)) }}
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                </ul>
                             @else
                                 <span class="text-gray-400 dark:text-gray-500 italic text-xs">No files</span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                        {{-- <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                             <div>{{ $material->user?->name ?? 'System' }}</div>
                             <div class="text-xs text-gray-500 uppercase">{{ $material->user?->role_type ?? 'N/A' }}</div>
                         </td>
@@ -125,7 +136,7 @@
                                     </span>
                                 @endif
                             @endif
-                        </td>
+                        </td> --}}
                         @if(in_array($routePrefix, ['super-admin', 'admin']))
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                 <div class="flex justify-end gap-2">
@@ -147,7 +158,7 @@
                     </tr>
                 @empty
                     <tr>
-                            <td colspan="{{ in_array($routePrefix, ['super-admin', 'admin']) ? 7 : 6 }}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
+                            <td colspan="{{ in_array($routePrefix, ['super-admin', 'admin']) ? 6 : 5 }}" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center dark:text-gray-400">
                             No materials found.
                         </td>
                     </tr>

@@ -3,18 +3,6 @@
 @endphp
 
 <div class="space-y-6">
-    <div class="flex items-center gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-200 dark:bg-gray-800/30 dark:border-gray-700">
-        <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-500 text-white shadow-lg shadow-brand-500/20">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-        </div>
-        <div>
-            <h4 class="text-base font-bold text-gray-800 dark:text-white/90">Test Question Difficulty Distribution</h4>
-            <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mt-1">Configure the difficult level split up for Mock, Pre and Final tests.</p>
-            @error('split_up') <span class="text-red-600 text-xs mt-2 block font-bold">{{ $message }}</span> @enderror
-            @error('split_up.*') <span class="text-red-600 text-xs mt-2 block font-bold">Please check all difficulty level values.</span> @enderror
-        </div>
-    </div>
-
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Mock Test Configuration -->
