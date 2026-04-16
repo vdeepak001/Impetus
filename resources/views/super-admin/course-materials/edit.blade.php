@@ -40,22 +40,22 @@
                         </label>
                         <select id="course_title_id" name="course_title_id" required
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
-                            @foreach($titles as $title)
+                            @foreach($titles as $courseTitle)
                                 @php
-                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $title->title_name))
+                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $courseTitle->title_name))
                                         ->map(fn ($part) => trim($part))
                                         ->filter()
                                         ->values();
                                 @endphp
                                 @forelse($titleParts as $titlePart)
-                                    <option value="{{ $title->id }}" data-title-label="{{ $titlePart }}"
-                                        {{ old('course_title_id', $material->course_title_id) == $title->id && old('description', $material->description) === $titlePart ? 'selected' : '' }}>
-                                        {{ $titlePart }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    <option value="{{ $courseTitle->id }}" data-title-label="{{ $titlePart }}"
+                                        {{ old('course_title_id', $material->course_title_id) == $courseTitle->id && old('description', $material->description) === $titlePart ? 'selected' : '' }}>
+                                        {{ $titlePart }} ({{ $courseTitle->course->couse_name ?? 'No Course' }})
                                     </option>
                                 @empty
-                                    <option value="{{ $title->id }}" data-title-label="{{ $title->title_name }}"
-                                        {{ old('course_title_id', $material->course_title_id) == $title->id && old('description', $material->description) === $title->title_name ? 'selected' : '' }}>
-                                        {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    <option value="{{ $courseTitle->id }}" data-title-label="{{ $courseTitle->title_name }}"
+                                        {{ old('course_title_id', $material->course_title_id) == $courseTitle->id && old('description', $material->description) === $courseTitle->title_name ? 'selected' : '' }}>
+                                        {{ $courseTitle->title_name }} ({{ $courseTitle->course->couse_name ?? 'No Course' }})
                                     </option>
                                 @endforelse
                             @endforeach
@@ -77,20 +77,23 @@
 
                     <!-- Existing Attachments -->
                     @if($material->attachment && count($material->attachment) > 0)
-                        <div class="md:col-span-2">
+                        <div>
                             <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
                                 Existing Attachments
                             </label>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
+                            <div class="space-y-2 border border-brand-100 dark:border-brand-900/30 rounded-lg p-3 bg-brand-50/50 dark:bg-brand-900/10">
                                 @foreach($material->attachment as $path)
-                                    <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded-md">
-                                        <a href="{{ asset('storage/' . $path) }}" target="_blank" class="text-sm text-blue-600 dark:text-blue-400 truncate max-w-[150px]">
+                                    <div class="flex items-center gap-2 p-2 bg-white dark:bg-gray-800 rounded border border-gray-100 dark:border-gray-700 shadow-sm transition-all hover:border-brand-200">
+                                        <svg class="w-4 h-4 text-brand-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                                        </svg>
+                                        <a href="{{ asset('storage/' . $path) }}" target="_blank" class="text-xs text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 truncate font-medium flex-1">
                                             {{ preg_replace('/^\d+_/', '', basename($path)) }}
                                         </a>
-                                        <div class="flex items-center ml-2">
+                                        <label class="inline-flex items-center gap-1 text-xs text-red-600 dark:text-red-400 whitespace-nowrap">
                                             <input type="checkbox" name="remove_attachments[]" value="{{ $path }}" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                                            <span class="ml-1 text-xs text-red-600">Delete</span>
-                                        </div>
+                                            Delete
+                                        </label>
                                     </div>
                                 @endforeach
                             </div>

@@ -41,22 +41,22 @@
                         <select id="course_title_id" name="course_title_id" required
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             <option value="">Select a Title</option>
-                            @foreach($titles as $title)
+                            @foreach($titles as $courseTitle)
                                 @php
-                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $title->title_name))
+                                    $titleParts = collect(preg_split('/\s*(?:\||!)\s*/', (string) $courseTitle->title_name))
                                         ->map(fn ($part) => trim($part))
                                         ->filter()
                                         ->values();
                                 @endphp
                                 @forelse($titleParts as $titlePart)
-                                    <option value="{{ $title->id }}" data-title-label="{{ $titlePart }}"
-                                        {{ old('course_title_id') == $title->id && old('description') === $titlePart ? 'selected' : '' }}>
-                                        {{ $titlePart }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    <option value="{{ $courseTitle->id }}" data-title-label="{{ $titlePart }}"
+                                        {{ old('course_title_id') == $courseTitle->id && old('description') === $titlePart ? 'selected' : '' }}>
+                                        {{ $titlePart }} ({{ $courseTitle->course->couse_name ?? 'No Course' }})
                                     </option>
                                 @empty
-                                    <option value="{{ $title->id }}" data-title-label="{{ $title->title_name }}"
-                                        {{ old('course_title_id') == $title->id && old('description') === $title->title_name ? 'selected' : '' }}>
-                                        {{ $title->title_name }} ({{ $title->course->couse_name ?? 'No Course' }})
+                                    <option value="{{ $courseTitle->id }}" data-title-label="{{ $courseTitle->title_name }}"
+                                        {{ old('course_title_id') == $courseTitle->id && old('description') === $courseTitle->title_name ? 'selected' : '' }}>
+                                        {{ $courseTitle->title_name }} ({{ $courseTitle->course->couse_name ?? 'No Course' }})
                                     </option>
                                 @endforelse
                             @endforeach
