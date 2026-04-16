@@ -36,18 +36,6 @@
                         </div>
                     </div>
                     <div class="flex items-center gap-2">
-                        @if($savedCourseId == $courseId)
-                            <span class="text-xs font-medium text-green-600 dark:text-green-400 bg-green-50 dark:bg-green-900/20 px-2.5 py-1 rounded-full animate-fade-in-out" 
-                                  x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show">
-                                Saved Successfully
-                            </span>
-                        @endif
-                        <button type="button" wire:click="saveCourse({{ $courseId }})" wire:loading.attr="disabled"
-                            class="flex items-center gap-1.5 px-4 py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition-colors shadow-sm disabled:opacity-50">
-                            <svg wire:loading.remove wire:target="saveCourse({{ $courseId }})" class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <svg wire:loading wire:target="saveCourse({{ $courseId }})" class="w-3.5 h-3.5 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                            Save Settings
-                        </button>
                         <button type="button" wire:click="removeCourse({{ $courseId }})"
                             class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all dark:hover:bg-red-900/20">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
@@ -90,6 +78,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         @empty
             <div class="flex flex-col items-center justify-center p-12 bg-white rounded-3xl border border-dashed border-gray-300 text-center dark:bg-gray-900 dark:border-gray-700 transition-all">

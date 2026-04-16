@@ -3,10 +3,13 @@
 namespace App\Livewire\SuperAdmin\CourseQuestion;
 
 use App\Models\QuestionSplitUp as SplitUpModel;
+use App\Models\StateCouncil;
 use Livewire\Component;
 
 class QuestionSplitUp extends Component
 {
+    public ?StateCouncil $stateCouncil = null;
+
     // Mock Test Split Up
     public $mock_l1 = 0, $mock_l2 = 0, $mock_l3 = 0;
 
@@ -28,13 +31,25 @@ class QuestionSplitUp extends Component
         'final_l3' => 'required|integer|min:0',
     ];
 
-    public function mount()
+    public function mount(?StateCouncil $stateCouncil = null)
     {
-        $settings = SplitUpModel::first();
-        if ($settings) {
-            $this->mock_l1 = $settings->mock_l1; $this->mock_l2 = $settings->mock_l2; $this->mock_l3 = $settings->mock_l3;
-            $this->pre_l1 = $settings->pre_l1; $this->pre_l2 = $settings->pre_l2; $this->pre_l3 = $settings->pre_l3;
-            $this->final_l1 = $settings->final_l1; $this->final_l2 = $settings->final_l2; $this->final_l3 = $settings->final_l3;
+        $this->stateCouncil = $stateCouncil;
+        
+        if ($this->stateCouncil && $this->stateCouncil->exists) {
+            $settings = SplitUpModel::where('state_council_id', $this->stateCouncil->id)->first();
+            if ($settings) {
+                $this->mock_l1 = $settings->mock_l1; $this->mock_l2 = $settings->mock_l2; $this->mock_l3 = $settings->mock_l3;
+                $this->pre_l1 = $settings->pre_l1; $this->pre_l2 = $settings->pre_l2; $this->pre_l3 = $settings->pre_l3;
+                $this->final_l1 = $settings->final_l1; $this->final_l2 = $settings->final_l2; $this->final_l3 = $settings->final_l3;
+            }
+        } else {
+            // Load global defaults if needed, or leave as 0
+            $settings = SplitUpModel::whereNull('state_council_id')->first();
+            if ($settings) {
+                $this->mock_l1 = $settings->mock_l1; $this->mock_l2 = $settings->mock_l2; $this->mock_l3 = $settings->mock_l3;
+                $this->pre_l1 = $settings->pre_l1; $this->pre_l2 = $settings->pre_l2; $this->pre_l3 = $settings->pre_l3;
+                $this->final_l1 = $settings->final_l1; $this->final_l2 = $settings->final_l2; $this->final_l3 = $settings->final_l3;
+            }
         }
     }
 
@@ -54,10 +69,17 @@ class QuestionSplitUp extends Component
             'final_l3' => $this->final_l3,
         ];
 
-        SplitUpModel::updateOrCreate(['id' => 1], $data);
+        if ($this->stateCouncil && $this->stateCouncil->exists) {
+            SplitUpModel::updateOrCreate(['state_council_id' => $this->stateCouncil->id], $data);
+        } else {
+            // This case handles global settings or create view where ID isn't known yet
+            // If it's the Create view, we might need a different handling or just save globally
+            // But the instructions say "with state_id", so we'll assume it's for specific councils.
+            SplitUpModel::updateOrCreate(['state_council_id' => null], $data);
+        }
 
         $this->dispatch('notify', 
-            message: "Global settings updated successfully!",
+            message: "Difficulty distribution updated successfully!",
             title: 'Success!',
             variant: 'success'
         );
@@ -65,8 +87,6 @@ class QuestionSplitUp extends Component
 
     public function render()
     {
-        return view('livewire.super-admin.course-question.question-split-up')
-            ->extends('layouts.app')
-            ->section('content');
+        return view('livewire.super-admin.course-question.question-split-up');
     }
 }

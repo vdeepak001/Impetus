@@ -12,6 +12,7 @@ class QuestionSplitUp extends Model
     protected $table = 'question_split_ups';
 
     protected $fillable = [
+        'state_council_id',
         'mock_l1',
         'mock_l2',
         'mock_l3',
@@ -22,4 +23,9 @@ class QuestionSplitUp extends Model
         'final_l2',
         'final_l3',
     ];
+
+    public function stateCouncil()
+    {
+        return $this->belongsTo(StateCouncil::class);
+    }
 }

@@ -155,8 +155,7 @@ foreach ($prefixes as $prefix) {
                 ->names($prefix.'.course-questions')
                 ->parameters(['course-questions' => 'course_question']);
         }
-        Route::get('score-split-up', \App\Livewire\SuperAdmin\CourseQuestion\QuestionSplitUp::class)
-            ->name($prefix.'.score-split-up');
+
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
             Route::resource('states', StateController::class)

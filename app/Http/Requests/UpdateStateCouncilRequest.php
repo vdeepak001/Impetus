@@ -14,11 +14,12 @@ class UpdateStateCouncilRequest extends FormRequest
         $courses = $this->input('courses', []);
         if (is_array($courses)) {
             foreach ($courses as $id => $settings) {
-                $courses[$id]['pass_percentage'] = $this->parseArrayInput($settings['pass_percentage'] ?? []);
-                $courses[$id]['mrp'] = $this->parseArrayInput($settings['mrp'] ?? []);
-                $courses[$id]['offer_price'] = $this->parseArrayInput($settings['offer_price'] ?? []);
-                $courses[$id]['points'] = $this->parseArrayInput($settings['points'] ?? []);
-                $courses[$id]['valid_days'] = $this->parseArrayInput($settings['valid_days'] ?? [], 'intval');
+                // Ensure values are treated as scalars for validation
+                $courses[$id]['pass_percentage'] = isset($settings['pass_percentage']) ? $settings['pass_percentage'] : null;
+                $courses[$id]['mrp'] = isset($settings['mrp']) ? $settings['mrp'] : null;
+                $courses[$id]['offer_price'] = isset($settings['offer_price']) ? $settings['offer_price'] : null;
+                $courses[$id]['points'] = isset($settings['points']) ? $settings['points'] : null;
+                $courses[$id]['valid_days'] = isset($settings['valid_days']) ? $settings['valid_days'] : null;
             }
         }
 
@@ -28,22 +29,8 @@ class UpdateStateCouncilRequest extends FormRequest
         ]);
     }
 
-    /**
-     * @param  array<int, mixed>|string|null  $value
-     * @return array<int, mixed>
-     */
-    private function parseArrayInput(mixed $value, ?callable $cast = null): array
-    {
-        // If it's already an array (old behavior or multi-select), process each element
-        if (is_array($value)) {
-            $value = array_map(fn($v) => ($v === '' || $v === null) ? null : $v, $value);
-        } else {
-            // If it's a scalar (new simplified UI), wrap it in a single-element array
-            $value = ($value === '' || $value === null) ? [null] : [$value];
-        }
 
-        return $cast ? array_map(fn($v) => $v === null ? null : $cast($v), $value) : $value;
-    }
+
 
     public function authorize(): bool
     {
@@ -66,8 +53,9 @@ class UpdateStateCouncilRequest extends FormRequest
             'courses.*.offer_price' => ['nullable', 'numeric'],
             'courses.*.points' => ['nullable', 'numeric'],
             'courses.*.valid_days' => ['nullable', 'integer'],
-            'courses.*.valid_days' => ['nullable', 'integer'],
             'active_status' => ['boolean'],
+            'split_up' => ['required', 'array'],
+            'split_up.*' => ['nullable', 'integer', 'min:0'],
         ];
     }
 }

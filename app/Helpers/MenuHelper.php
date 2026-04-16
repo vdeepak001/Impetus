@@ -74,7 +74,6 @@ class MenuHelper
                     ['name' => 'States', 'path' => '/'.$prefix.'/states'],
                     ['name' => 'State-wise Modules', 'path' => '/'.$prefix.'/state-councils/state-wise-modules'],
                     ['name' => 'State-wise Pass Percentage', 'path' => '/'.$prefix.'/state-councils/state-wise-pass-percentage'],
-                    ['name' => 'Score Split Up', 'path' => '/'.$prefix.'/score-split-up'],
                 ],
             ];
         }

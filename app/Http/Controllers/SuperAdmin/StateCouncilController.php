@@ -42,9 +42,21 @@ class StateCouncilController extends Controller
 
     public function store(StoreStateCouncilRequest $request): RedirectResponse
     {
-        $data = collect($request->validated())->except('courses')->all();
+        $validated = $request->validated();
+        $data = collect($validated)->except(['courses', 'split_up'])->all();
         $stateCouncil = StateCouncil::create($data);
-        $stateCouncil->courseDetails()->sync($request->validated('courses', []));
+        
+        // Wrap pivot data into arrays [value] for JSON casting in DB
+        $courses = $validated['courses'] ?? [];
+        foreach ($courses as $id => $settings) {
+            $courses[$id] = array_map(fn($v) => [$v], $settings);
+        }
+        $stateCouncil->courseDetails()->sync($courses);
+
+        // Save split up settings
+        if (isset($validated['split_up'])) {
+            $stateCouncil->questionSplitUp()->create($validated['split_up']);
+        }
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.state-councils.state-wise-modules')
             ->with('success', 'State council created successfully.');
@@ -65,13 +77,30 @@ class StateCouncilController extends Controller
 
     public function update(UpdateStateCouncilRequest $request, StateCouncil $state_council): RedirectResponse
     {
-        $data = collect($request->validated())->except('courses')->all();
-        $stateCouncil->update($data);
-        $stateCouncil->courseDetails()->sync($request->validated('courses', []));
+        $validated = $request->validated();
+        $data = collect($validated)->except(['courses', 'split_up'])->all();
+        $state_council->update($data);
+        
+        // Wrap pivot data into arrays [value] for JSON casting in DB
+        $courses = $validated['courses'] ?? [];
+        foreach ($courses as $id => $settings) {
+            $courses[$id] = array_map(fn($v) => [$v], $settings);
+        }
+        $state_council->courseDetails()->sync($courses);
+
+        // Update split up settings
+        if (isset($validated['split_up'])) {
+            $state_council->questionSplitUp()->updateOrCreate(
+                ['state_council_id' => $state_council->id],
+                $validated['split_up']
+            );
+        }
 
         return redirect()->route(MenuHelper::getCurrentPrefix().'.state-councils.state-wise-modules')
             ->with('success', 'State council updated successfully.');
     }
+
+
 
     public function destroy(StateCouncil $state_council): RedirectResponse
     {

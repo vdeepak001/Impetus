@@ -44,4 +44,9 @@ class StateCouncil extends Model
             ->withPivot(['pass_percentage', 'mrp', 'offer_price', 'points', 'valid_days'])
             ->withTimestamps();
     }
+
+    public function questionSplitUp()
+    {
+        return $this->hasOne(QuestionSplitUp::class);
+    }
 }

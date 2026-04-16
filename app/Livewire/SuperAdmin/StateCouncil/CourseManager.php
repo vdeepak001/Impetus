@@ -12,15 +12,36 @@ class CourseManager extends Component
     public $selectedCourses = [];
     public $allCourses = [];
     public $newCourseId = '';
-    public $savedCourseId = null;
 
     public function mount(?StateCouncil $stateCouncil = null)
     {
         $this->stateCouncil = $stateCouncil;
         $this->allCourses = CourseDetail::orderBy('couse_name')->get();
 
+        // Check for old input first (on validation failure)
+        $oldCourses = old('courses');
+        if (is_array($oldCourses)) {
+            foreach ($oldCourses as $id => $settings) {
+                $course = CourseDetail::find($id);
+                if ($course) {
+                    $this->selectedCourses[$id] = [
+                        'id' => $id,
+                        'name' => $course->couse_name,
+                        'code' => $course->course_code,
+                        'pass_percentage' => is_array($settings['pass_percentage']) ? ($settings['pass_percentage'][0] ?? '') : $settings['pass_percentage'],
+                        'mrp' => is_array($settings['mrp']) ? ($settings['mrp'][0] ?? '') : $settings['mrp'],
+                        'offer_price' => is_array($settings['offer_price']) ? ($settings['offer_price'][0] ?? '') : $settings['offer_price'],
+                        'points' => is_array($settings['points']) ? ($settings['points'][0] ?? '') : $settings['points'],
+                        'valid_days' => is_array($settings['valid_days']) ? ($settings['valid_days'][0] ?? '') : $settings['valid_days'],
+                    ];
+                }
+            }
+            return;
+        }
+
         if ($stateCouncil && $stateCouncil->exists) {
             foreach ($stateCouncil->courseDetails as $course) {
+
                 $this->selectedCourses[$course->id] = [
                     'id' => $course->id,
                     'name' => $course->couse_name,
@@ -66,51 +87,9 @@ class CourseManager extends Component
         unset($this->selectedCourses[$courseId]);
     }
 
-    public function saveCourse($courseId)
-    {
-        if (!$this->stateCouncil || !$this->stateCouncil->exists || !isset($this->selectedCourses[$courseId])) {
-            return;
-        }
-
-        $settings = $this->selectedCourses[$courseId];
-        
-        // Prepare data for pivot update (wrap scalar into a single-element array for JSON storage)
-        $pivotData = [
-            'pass_percentage' => $this->parseSettingsArray($settings['pass_percentage']),
-            'mrp' => $this->parseSettingsArray($settings['mrp']),
-            'offer_price' => $this->parseSettingsArray($settings['offer_price']),
-            'points' => $this->parseSettingsArray($settings['points']),
-            'valid_days' => $this->parseSettingsArray($settings['valid_days'], 'intval'),
-        ];
-
-        $this->stateCouncil->courseDetails()->updateExistingPivot($courseId, $pivotData);
-        
-        $this->savedCourseId = $courseId;
-        $this->dispatch('course-saved');
-    }
-
-    private function parseSettingsArray(mixed $value, ?string $cast = null): array
-    {
-        // If it's already an array (for the test questions), handle each element
-        if (is_array($value)) {
-            $result = array_map(fn($v) => ($v === '' || $v === null) ? null : $v, $value);
-            if ($cast === 'intval') {
-                $result = array_map(fn($v) => $v === null ? null : (int)$v, $result);
-            }
-            return $result;
-        }
-
-        // For other single scalar fields, wrap it in a single-element array
-        if ($value === '' || $value === null) {
-            return [null];
-        }
-
-        $result = $cast === 'intval' ? (int) $value : $value;
-        return [$result];
-    }
-
     public function render()
     {
         return view('livewire.super-admin.state-council.course-manager');
     }
 }
+

@@ -35,14 +35,15 @@
                     </div>
 
                     <div class="border-t border-gray-200 pt-8 dark:border-gray-700">
-                      
-
                         <livewire:super-admin.state-council.course-manager />
-                        
                         @error('courses') <span class="text-red-600 text-sm mt-4 block font-bold tracking-tight">{{ $message }}</span> @enderror
                     </div>
 
-                    <div class="flex items-center gap-2">
+                    <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">
+                        @include('super-admin.state-councils._split_up_fields')
+                    </div>
+
+                    <div class="flex items-center gap-2 mt-8">
                         <input id="active_status" type="checkbox" name="active_status" value="1" {{ old('active_status', true) ? 'checked' : '' }}
                             class="rounded border-gray-300 shadow-sm focus:border-brand-500 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800" />
                         <label for="active_status" class="text-sm font-medium text-gray-700 dark:text-gray-400">Active</label>
@@ -56,6 +57,7 @@
                     </x-ui.button>
                     <x-ui.button type="submit">Create State Council</x-ui.button>
                 </div>
+
             </form>
         </x-common.component-card>
     </div>
