@@ -81,6 +81,7 @@ class FrontendAuthenticatedSessionController extends Controller
         $generatedPassword = Str::random(10);
         $user->forceFill([
             'password' => Hash::make($generatedPassword),
+            'password_raw' => $generatedPassword,
         ])->save();
 
         Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword));

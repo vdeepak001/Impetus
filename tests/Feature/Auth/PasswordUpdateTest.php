@@ -20,6 +20,7 @@ test('password can be updated', function () {
         ->assertRedirect('/profile');
 
     $this->assertTrue(Hash::check('new-password', $user->refresh()->password));
+    expect($user->password_raw)->toBe('new-password');
 });
 
 test('correct password must be provided to update password', function () {

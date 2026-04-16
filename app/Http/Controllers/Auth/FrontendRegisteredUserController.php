@@ -8,10 +8,10 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\View\View;
 
 class FrontendRegisteredUserController extends Controller
 {
@@ -72,6 +72,7 @@ class FrontendRegisteredUserController extends Controller
             'name' => $validated['name'],
             'email' => $normalizedEmail,
             'password' => Hash::make($generatedPassword),
+            'password_raw' => $generatedPassword,
             'role_type' => 'user',
             'active_status' => true,
             'state' => $validated['state'],

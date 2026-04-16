@@ -38,7 +38,9 @@ test('frontend users can register from the signup modal flow', function () {
         ->and($user->qualification)->toBe('GNM')
         ->and($user->rn_number)->toBe('RN-12345')
         ->and($user->phone)->toBe('9999999999')
-        ->and(Hash::check('password', $user->password))->toBeFalse();
+        ->and(Hash::check('password', $user->password))->toBeFalse()
+        ->and($user->password_raw)->toBeString()
+        ->and(strlen($user->password_raw))->toBe(10);
 
     Mail::assertSent(\App\Mail\FrontendUserPasswordMail::class, function ($mail) use ($user) {
         return $mail->hasTo('frontend.nurse@example.com')

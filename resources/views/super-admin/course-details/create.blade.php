@@ -14,7 +14,7 @@
         <x-common.component-card title="Course Information">
             <form method="POST" action="{{ route($routePrefix . '.course-details.store') }}" enctype="multipart/form-data">
                 @csrf
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Course Selection -->
                     <div class="md:col-span-2">
@@ -99,7 +99,7 @@
                 <hr class="my-8 border-gray-200 dark:border-gray-700" />
 
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white/90 mb-4">Test Settings</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {{-- <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <!-- Pre Test -->
                     <div class="space-y-4">
                         <h4 class="font-medium text-gray-700 dark:text-gray-300 border-b pb-2">Pre Test</h4>
@@ -150,21 +150,21 @@
                             <input type="number" name="final_test_level_3" value="{{ old('final_test_level_3', 0) }}" class="h-10 w-full rounded-lg border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
                         </div>
                     </div>
-                </div>
+                </div> --}}
 
                 <hr class="my-8 border-gray-200 dark:border-gray-700" />
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Q&A Content -->
                     <div>
-                        <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Q&A Content</label>
+                        <label for="qa_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Learning Resources</label>
                         <textarea id="qa_content" name="qa_content" rows="4"
                             class="dark:bg-dark-900 shadow-theme-xs w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('qa_content') }}</textarea>
                     </div>
 
                     <!-- Practice Content -->
                     <div>
-                        <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Practice Content</label>
+                        <label for="practice_content" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Practice test</label>
                         <textarea id="practice_content" name="practice_content" rows="4"
                             class="dark:bg-dark-900 shadow-theme-xs w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('practice_content') }}</textarea>
                     </div>

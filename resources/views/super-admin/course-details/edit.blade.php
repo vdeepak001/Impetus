@@ -15,7 +15,7 @@
             <form method="POST" action="{{ route($routePrefix . '.course-details.update', $course) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg mb-6 border border-gray-200 dark:border-gray-700">
                     <!-- Course Name (Static) -->
@@ -150,7 +150,7 @@
                             @error('practice_content') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
 
-                        <div class="md:col-span-2">
+                        {{-- <div class="md:col-span-2">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
                                     <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -203,7 +203,7 @@
                                     @error('final_test_level_3') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <div class="mt-8 border-t border-gray-200 pt-8 dark:border-gray-700">
