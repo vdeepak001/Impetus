@@ -68,7 +68,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 border border-gray-200 dark:border-gray-700 rounded-lg p-4">
                                 @foreach($material->attachment as $path)
                                     <div class="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded-md">
-                                        <a href="{{ asset($path) }}" target="_blank" class="text-sm text-blue-600 dark:text-blue-400 truncate max-w-[150px]">
+                                        <a href="{{ asset('storage/' . $path) }}" target="_blank" class="text-sm text-blue-600 dark:text-blue-400 truncate max-w-[150px]">
                                             {{ preg_replace('/^\d+_/', '', basename($path)) }}
                                         </a>
                                         <div class="flex items-center ml-2">
