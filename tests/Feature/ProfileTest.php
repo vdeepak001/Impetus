@@ -1,5 +1,9 @@
 <?php
 
+use App\Enums\PaymentMode;
+use App\Enums\PaymentStatus;
+use App\Models\CourseDetail;
+use App\Models\Order;
 use App\Models\User;
 
 test('profile page is displayed', function () {
@@ -26,6 +30,34 @@ test('frontend user sees profile tabs page', function () {
     $response->assertSee('Academic Information');
     $response->assertSee('Professional Information');
     $response->assertSee('My Course');
+});
+
+test('frontend user sees purchased courses from orders table', function () {
+    $user = User::factory()->create([
+        'role_type' => 'user',
+    ]);
+
+    $course = CourseDetail::create([
+        'couse_name' => 'Critical Care Basics',
+        'active_status' => 1,
+    ]);
+
+    Order::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'payment_mode' => PaymentMode::InternetBanking->value,
+        'start_date' => now()->subDay()->toDateString(),
+        'end_date' => now()->addMonth()->toDateString(),
+        'payment_status' => PaymentStatus::Completed->value,
+    ]);
+
+    $response = $this
+        ->actingAs($user)
+        ->get('/profile');
+
+    $response->assertOk();
+    $response->assertSee('Critical Care Basics');
+    $response->assertDontSee('No modules available yet.');
 });
 
 test('authenticated user can view change password page', function () {

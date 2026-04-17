@@ -45,7 +45,16 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::middleware('auth')->group(function () {
     Route::get('/profile', function () {
         if (auth()->user()?->role_type === 'user') {
-            return view('profile.frontend');
+            $purchasedCourses = \App\Models\Order::query()
+                ->with('courseDetail:id,couse_name')
+                ->where('user_id', auth()->id())
+                ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+                ->latest('id')
+                ->get();
+
+            return view('profile.frontend', [
+                'purchasedCourses' => $purchasedCourses,
+            ]);
         }
 
         return view('pages.profile', ['title' => 'Profile']);

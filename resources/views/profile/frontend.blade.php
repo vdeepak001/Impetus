@@ -96,9 +96,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td colspan="6" class="px-3 py-4 text-slate-500">No modules available yet.</td>
-                            </tr>
+                            @forelse (($purchasedCourses ?? collect()) as $courseOrder)
+                                <tr class="border-t border-slate-200">
+                                    <td class="px-3 py-3 text-slate-700">{{ $loop->iteration }}</td>
+                                    <td class="px-3 py-3 text-slate-700">{{ $courseOrder->courseDetail?->couse_name ?? 'N/A' }}</td>
+                                    <td class="px-3 py-3 text-slate-700">{{ optional($courseOrder->start_date)->format('d-m-Y') ?? '-' }}</td>
+                                    <td class="px-3 py-3 text-slate-700">{{ optional($courseOrder->end_date)->format('d-m-Y') ?? '-' }}</td>
+                                    <td class="px-3 py-3 text-slate-700">-</td>
+                                    <td class="px-3 py-3 text-slate-700">-</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="px-3 py-4 text-slate-500">No modules available yet.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
