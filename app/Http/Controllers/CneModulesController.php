@@ -61,6 +61,21 @@ class CneModulesController extends Controller
             abort(404);
         }
 
+        $course_detail->load([
+            'materials' => function ($query) {
+                $query
+                    ->where('active_status', true)
+                    ->whereHas('courseTitle', function ($titleQuery) {
+                        $titleQuery->where('active_status', true);
+                    })
+                    ->with(['courseTitle' => function ($titleQuery) {
+                        $titleQuery->where('active_status', true);
+                    }])
+                    ->orderBy('course_title_id')
+                    ->orderBy('id');
+            },
+        ]);
+
         $isPurchased = false;
 
         $viewer = auth()->user();

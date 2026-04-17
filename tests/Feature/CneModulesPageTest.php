@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\CourseDetail;
+use App\Models\CourseMaterial;
+use App\Models\CourseTitle;
 use App\Models\State;
 use App\Models\StateCouncil;
 use App\Models\User;
@@ -97,6 +99,37 @@ it('shows an active course detail page with module content', function () {
     $response->assertSee('Practice test', false);
     $response->assertSee('Questions and answers for deeper learning', false);
     $response->assertSee('Buy now', false);
+});
+
+it('shows learning materials subtitle and original file names on course detail page', function () {
+    $course = CourseDetail::create([
+        'couse_name' => 'Critical Care',
+        'description' => 'Course content',
+        'active_status' => 1,
+    ]);
+
+    $courseTitle = CourseTitle::create([
+        'course_id' => $course->id,
+        'title_name' => 'Emergency Management',
+        'active_status' => true,
+    ]);
+
+    CourseMaterial::create([
+        'course_id' => $course->id,
+        'course_title_id' => $courseTitle->id,
+        'description' => 'Week 1 Slides',
+        'attachment' => ['materials/1711111111_sample-guide.pdf', 'materials/1711111112_care-plan.pptx'],
+        'active_status' => true,
+    ]);
+
+    $response = $this->get(route('cne.modules.show', $course));
+
+    $response->assertSuccessful();
+    $response->assertSee('Learning Materials', false);
+    $response->assertSee('Emergency Management', false);
+    $response->assertSee('sample-guide.pdf', false);
+    $response->assertSee('care-plan.pptx', false);
+    $response->assertDontSee('Week 1 Slides', false);
 });
 
 it('returns not found for inactive course detail', function () {

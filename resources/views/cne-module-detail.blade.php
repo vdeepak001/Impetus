@@ -11,6 +11,28 @@
             ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
             : null;
         $isPurchased = $isPurchased ?? false;
+        $creditPoints = 'NA';
+        if (isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
+            $rawPoints = $course->stateCouncils->first()->pivot->points;
+            if (is_array($rawPoints)) {
+                $creditPoints = array_sum($rawPoints);
+            } else {
+                $creditPoints = $rawPoints;
+            }
+            $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+        }
+        $courseMaterials = ($course->materials ?? collect())
+            ->filter(fn ($material) => filled($material->course_title_id) && $material->courseTitle)
+            ->map(function ($material) {
+                return [
+                    'subtitle' => $material->description ?: ($material->courseTitle?->title_name ?? 'Sub Title'),
+                    'attachments' => collect(is_array($material->attachment) ? $material->attachment : [])
+                        ->filter(fn ($path) => filled($path))
+                        ->values()
+                        ->all(),
+                ];
+            })
+            ->values();
     @endphp
 
     <main class="pb-16" x-data="{}">
@@ -37,8 +59,8 @@
                         @auth
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
-                                    <span class="{{ $purchasedButtonClass }} cursor-default select-none" role="status">
-                                        Purchased
+                                    <span class="text-base font-bold text-green-600" role="status">
+                                        Credit Point: {{ $creditPoints }}
                                     </span>
                                 @else
                                     <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
@@ -146,8 +168,8 @@
             </div>
         </section>
 
-        {{-- Learning resources (qa_content): cream band, theme accents --}}
-        @if (filled($course->qa_content))
+        {{-- Learning resources + learning materials (left panel) --}}
+        @if (filled($course->qa_content) || $courseMaterials->isNotEmpty())
             <section class="relative z-10 -mt-px border-t border-amber-200/50 bg-gradient-to-b from-[#fffdf8] via-[#fdf8ee] to-[#faf3e8] py-16 sm:py-24">
                 <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/40 to-transparent"></div>
                 <div class="pointer-events-none absolute left-1/4 top-20 h-40 w-40 rounded-full bg-logo-light-green/10 blur-3xl"></div>
@@ -156,17 +178,59 @@
                 <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,13.5rem)_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
                         <div class="flex shrink-0 justify-center lg:justify-start">
-                            <div class="relative h-36 w-44 sm:h-40 sm:w-52">
-                                <div class="absolute left-0 top-3 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-light-green to-[#6fa828] text-white shadow-lg shadow-logo-light-green/30 ring-2 ring-white/40">
-                                    <svg class="h-11 w-11 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                                    </svg>
+                            <div class="w-52">
+                                <div class="relative h-36 w-44 sm:h-40 sm:w-52">
+                                    <div class="absolute left-0 top-3 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-light-green to-[#6fa828] text-white shadow-lg shadow-logo-light-green/30 ring-2 ring-white/40">
+                                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/10">
+                                            <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75h4.5m-7.5 3h10.5m-6 3h1.5m-6 4.125h10.5A2.625 2.625 0 0020.625 17.25V6.75A2.625 2.625 0 0018 4.125H6A2.625 2.625 0 003.375 6.75v10.5A2.625 2.625 0 006 19.875z" />
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="absolute bottom-0 right-0 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-blue to-brand-600 text-white shadow-lg shadow-logo-blue/25 ring-2 ring-white/40">
+                                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/10">
+                                            <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-1.5m0 0a4.5 4.5 0 004.5-4.5c0-1.84-1.104-3.422-2.684-4.123A4.5 4.5 0 106.75 12a4.5 4.5 0 004.5 4.5zM9.75 21h4.5" />
+                                            </svg>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="absolute bottom-0 right-0 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-blue to-brand-600 text-white shadow-lg shadow-logo-blue/25 ring-2 ring-white/40">
-                                    <svg class="h-10 w-10 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                                    </svg>
-                                </div>
+
+                                @if ($courseMaterials->isNotEmpty())
+                                    <div class="mt-6 rounded-2xl border border-slate-200/90 bg-white px-3 py-3 shadow-lg shadow-slate-300/30 ring-1 ring-slate-100">
+                                        <h3 class="text-[13px] font-extrabold uppercase tracking-wide text-slate-900">
+                                            Learning Materials
+                                        </h3>
+                                        <div class="mt-2 divide-y divide-slate-200/80">
+                                            @foreach ($courseMaterials as $material)
+                                                <div class="py-2 first:pt-0 last:pb-0">
+                                                    <p class="text-[12px] font-extrabold tracking-tight text-slate-800">{{ $material['subtitle'] }}</p>
+                                                    @if (! empty($material['attachments']))
+                                                        <ul class="mt-1 space-y-1">
+                                                            @foreach ($material['attachments'] as $path)
+                                                                @php
+                                                                    $originalFileName = preg_replace('/^\d+_/', '', basename($path));
+                                                                @endphp
+                                                                <li>
+                                                                    <a
+                                                                        href="{{ asset('storage/' . $path) }}"
+                                                                        target="_blank"
+                                                                        rel="noopener noreferrer"
+                                                                        class="text-[11px] font-medium text-[#0b77b5] underline decoration-[#0b77b5]/30 underline-offset-2 hover:text-brand-600"
+                                                                    >
+                                                                        {{ $originalFileName }}
+                                                                    </a>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        <p class="mt-1 text-[11px] text-slate-500">No files uploaded.</p>
+                                                    @endif
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                         <div class="min-w-0 pl-0 sm:pl-2 lg:pl-4">
@@ -176,9 +240,11 @@
                                 </h2>
                                 <p class="text-sm font-medium text-slate-500">Question &amp; answer format for deeper understanding</p>
                             </div>
-                            <div class="mt-8 max-w-3xl text-lg leading-8 text-slate-800 text-justify">
-                                {!! nl2br(e($course->qa_content)) !!}
-                            </div>
+                            @if (filled($course->qa_content))
+                                <div class="mt-8 max-w-3xl text-lg leading-8 text-slate-800 text-justify">
+                                    {!! nl2br(e($course->qa_content)) !!}
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -192,7 +258,7 @@
                     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-20">
                         <div class="order-2 min-w-0 lg:order-1">
                             <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
-                                Practice test
+                                Practice Test
                             </h2>
                             <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
