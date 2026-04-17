@@ -60,6 +60,33 @@ class CneModulesController extends Controller
         if ((int) $course_detail->active_status !== 1) {
             abort(404);
         }
+        $hasCourseMaterials = $course_detail->materials()
+            ->where('active_status', true)
+            ->whereHas('courseTitle', function ($titleQuery) {
+                $titleQuery->where('active_status', true);
+            })
+            ->exists();
+
+        $isPurchased = false;
+
+        $viewer = auth()->user();
+
+        if ($viewer && $viewer->role_type === 'user') {
+            $isPurchased = Order::userHasActivePurchaseForCourse($viewer, $course_detail);
+        }
+
+        return view('cne-module-detail', [
+            'course' => $course_detail,
+            'isPurchased' => $isPurchased,
+            'hasCourseMaterials' => $hasCourseMaterials,
+        ]);
+    }
+
+    public function materials(CourseDetail $course_detail): View
+    {
+        if ((int) $course_detail->active_status !== 1) {
+            abort(404);
+        }
 
         $course_detail->load([
             'materials' => function ($query) {
@@ -76,17 +103,8 @@ class CneModulesController extends Controller
             },
         ]);
 
-        $isPurchased = false;
-
-        $viewer = auth()->user();
-
-        if ($viewer && $viewer->role_type === 'user') {
-            $isPurchased = Order::userHasActivePurchaseForCourse($viewer, $course_detail);
-        }
-
-        return view('cne-module-detail', [
+        return view('cne-module-learning-materials', [
             'course' => $course_detail,
-            'isPurchased' => $isPurchased,
         ]);
     }
 }

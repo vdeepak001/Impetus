@@ -125,11 +125,16 @@ it('shows learning materials subtitle and original file names on course detail p
     $response = $this->get(route('cne.modules.show', $course));
 
     $response->assertSuccessful();
-    $response->assertSee('Learning Materials', false);
-    $response->assertSee('Emergency Management', false);
-    $response->assertSee('sample-guide.pdf', false);
-    $response->assertSee('care-plan.pptx', false);
-    $response->assertDontSee('Week 1 Slides', false);
+    $response->assertSee('View Learning Materials', false);
+    $response->assertDontSee('sample-guide.pdf', false);
+
+    $materialsPageResponse = $this->get(route('cne.modules.materials', $course));
+    $materialsPageResponse->assertSuccessful();
+    $materialsPageResponse->assertSee('Learning Materials', false);
+    $materialsPageResponse->assertSee('Emergency Management', false);
+    $materialsPageResponse->assertSee('sample-guide.pdf', false);
+    $materialsPageResponse->assertSee('care-plan.pptx', false);
+    $materialsPageResponse->assertDontSee('Week 1 Slides', false);
 });
 
 it('returns not found for inactive course detail', function () {

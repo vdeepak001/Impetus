@@ -11,6 +11,9 @@
             ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
             : null;
         $isPurchased = $isPurchased ?? false;
+        $canViewLearningMaterials = auth()->check()
+            && auth()->user()?->role_type === 'user'
+            && $isPurchased;
         $creditPoints = 'NA';
         if (isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
             $rawPoints = $course->stateCouncils->first()->pivot->points;
@@ -21,18 +24,7 @@
             }
             $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
         }
-        $courseMaterials = ($course->materials ?? collect())
-            ->filter(fn ($material) => filled($material->course_title_id) && $material->courseTitle)
-            ->map(function ($material) {
-                return [
-                    'subtitle' => $material->description ?: ($material->courseTitle?->title_name ?? 'Sub Title'),
-                    'attachments' => collect(is_array($material->attachment) ? $material->attachment : [])
-                        ->filter(fn ($path) => filled($path))
-                        ->values()
-                        ->all(),
-                ];
-            })
-            ->values();
+        $hasCourseMaterials = $hasCourseMaterials ?? false;
     @endphp
 
     <main class="pb-16" x-data="{}">
@@ -197,8 +189,8 @@
             </div>
         </section>
 
-        {{-- Learning resources + learning materials (left panel) --}}
-        @if (filled($course->qa_content) || $courseMaterials->isNotEmpty())
+        {{-- Learning resources + learning materials link --}}
+        @if (filled($course->qa_content) || $hasCourseMaterials)
             <section class="relative z-10 -mt-px border-t border-amber-200/50 bg-gradient-to-b from-[#fffdf8] via-[#fdf8ee] to-[#faf3e8] py-16 sm:py-24">
                 <div class="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-amber-300/40 to-transparent"></div>
                 <div class="pointer-events-none absolute left-1/4 top-20 h-40 w-40 rounded-full bg-logo-light-green/10 blur-3xl"></div>
@@ -225,39 +217,17 @@
                                     </div>
                                 </div>
 
-                                @if ($courseMaterials->isNotEmpty())
+                                @if ($hasCourseMaterials && $canViewLearningMaterials)
                                     <div class="mt-6 rounded-2xl border border-slate-200/90 bg-white px-3 py-3 shadow-lg shadow-slate-300/30 ring-1 ring-slate-100">
                                         <h3 class="text-[13px] font-extrabold uppercase tracking-wide text-slate-900">
                                             Learning Materials
                                         </h3>
-                                        <div class="mt-2 divide-y divide-slate-200/80">
-                                            @foreach ($courseMaterials as $material)
-                                                <div class="py-2 first:pt-0 last:pb-0">
-                                                    <p class="text-[12px] font-extrabold tracking-tight text-slate-800">{{ $material['subtitle'] }}</p>
-                                                    @if (! empty($material['attachments']))
-                                                        <ul class="mt-1 space-y-1">
-                                                            @foreach ($material['attachments'] as $path)
-                                                                @php
-                                                                    $originalFileName = preg_replace('/^\d+_/', '', basename($path));
-                                                                @endphp
-                                                                <li>
-                                                                    <a
-                                                                        href="{{ asset('storage/' . $path) }}"
-                                                                        target="_blank"
-                                                                        rel="noopener noreferrer"
-                                                                        class="text-[11px] font-medium text-[#0b77b5] underline decoration-[#0b77b5]/30 underline-offset-2 hover:text-brand-600"
-                                                                    >
-                                                                        {{ $originalFileName }}
-                                                                    </a>
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    @else
-                                                        <p class="mt-1 text-[11px] text-slate-500">No files uploaded.</p>
-                                                    @endif
-                                                </div>
-                                            @endforeach
-                                        </div>
+                                        <a
+                                            href="{{ route('cne.modules.materials', $course->couse_name) }}"
+                                            class="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-logo-blue px-3 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
+                                        >
+                                            View Learning Materials
+                                        </a>
                                     </div>
                                 @endif
                             </div>
