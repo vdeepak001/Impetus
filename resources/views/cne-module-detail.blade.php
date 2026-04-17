@@ -68,9 +68,29 @@
                         @auth
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
-                                    <span class="text-base font-bold text-green-600" role="status">
-                                        Credit Point: {{ $creditPoints }}
-                                    </span>
+                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                        <a
+                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'pre']) }}"
+                                            class="inline-flex items-center rounded-md border border-emerald-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                                        >
+                                            Pre
+                                        </a>
+                                        <a
+                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'mock']) }}"
+                                            class="inline-flex items-center rounded-md border border-amber-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                                        >
+                                            Mock
+                                        </a>
+                                        <a
+                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'final']) }}"
+                                            class="inline-flex items-center rounded-md border border-rose-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2"
+                                        >
+                                            Final
+                                        </a>
+                                        <span class="text-base font-bold text-green-600" role="status">
+                                            Credit Point: {{ $creditPoints }}
+                                        </span>
+                                    </div>
                                 @else
                                     <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
                                         @csrf
