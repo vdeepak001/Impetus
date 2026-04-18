@@ -60,25 +60,57 @@
                         @auth
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
+                                    @php
+                                        $tp = $courseTestProgress;
+                                        $canMock = (bool) $tp;
+                                        $canPre = $tp && ($tp['mock_done'] ?? false);
+                                        $canFinal = $tp && ($tp['pre_done'] ?? false);
+                                        $nextTest = null;
+                                        if ($tp) {
+                                            if (! ($tp['mock_done'] ?? false)) {
+                                                $nextTest = 'mock';
+                                            } elseif (! ($tp['pre_done'] ?? false)) {
+                                                $nextTest = 'pre';
+                                            } elseif (! ($tp['final_done'] ?? false)) {
+                                                $nextTest = 'final';
+                                            }
+                                        }
+                                        $btnActive = 'ring-2 ring-offset-2 ring-logo-blue ring-offset-white shadow-md';
+                                    @endphp
                                     <div class="flex flex-wrap items-center justify-end gap-3">
-                                        <a
-                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'pre']) }}"
-                                            class="inline-flex items-center justify-center rounded-xl border-2 border-emerald-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
-                                        >
-                                            Pre
-                                        </a>
-                                        <a
-                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'mock']) }}"
-                                            class="inline-flex items-center justify-center rounded-xl border-2 border-amber-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
-                                        >
-                                            Mock
-                                        </a>
-                                        <a
-                                            href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'final']) }}"
-                                            class="inline-flex items-center justify-center rounded-xl border-2 border-rose-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2"
-                                        >
-                                            Final
-                                        </a>
+                                        @if ($canMock)
+                                            <a
+                                                href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}"
+                                                class="inline-flex items-center justify-center rounded-xl border-2 border-amber-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 {{ $nextTest === 'mock' ? $btnActive : '' }}"
+                                            >
+                                                Mock
+                                            </a>
+                                        @else
+                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-amber-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700/50" title="Tests are unavailable">Mock</span>
+                                        @endif
+
+                                        @if ($canPre)
+                                            <a
+                                                href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}"
+                                                class="inline-flex items-center justify-center rounded-xl border-2 border-emerald-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 {{ $nextTest === 'pre' ? $btnActive : '' }}"
+                                            >
+                                                Pre
+                                            </a>
+                                        @else
+                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-emerald-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700/50" title="{{ ($tp['mock_done'] ?? false) ? '' : 'Complete the mock test first' }}">Pre</span>
+                                        @endif
+
+                                        @if ($canFinal)
+                                            <a
+                                                href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}"
+                                                class="inline-flex items-center justify-center rounded-xl border-2 border-rose-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2 {{ $nextTest === 'final' ? $btnActive : '' }}"
+                                            >
+                                                Final
+                                            </a>
+                                        @else
+                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-rose-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700/50" title="{{ ($tp['pre_done'] ?? false) ? '' : 'Complete the pre test first' }}">Final</span>
+                                        @endif
+
                                         <span class="text-base font-bold text-green-600" role="status">
                                             Credit Point: {{ $creditPoints }}
                                         </span>
@@ -279,6 +311,19 @@
                             <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>
+                            @auth
+                                @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false))
+                                    <div class="mt-8">
+                                        <a
+                                            href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
+                                            class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                        >
+                                            Open practice questions
+                                        </a>
+                                        <p class="mt-3 text-sm text-slate-500">Questions are grouped by level (up to 30 items) with numbered navigation.</p>
+                                    </div>
+                                @endif
+                            @endauth
                         </div>
                         <div class="order-1 w-full min-w-0 lg:order-2">
                             <div class="relative w-full">

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CourseTestType;
 use App\Models\CourseDetail;
+use App\Models\CourseTestAttempt;
 use App\Models\Order;
 use Illuminate\Contracts\View\View;
 
@@ -75,10 +77,38 @@ class CneModulesController extends Controller
             $isPurchased = Order::userHasActivePurchaseForCourse($viewer, $course_detail);
         }
 
+        $courseTestProgress = null;
+        if ($viewer && $viewer->role_type === 'user' && $isPurchased) {
+            $courseTestProgress = [
+                'mock_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Mock),
+                'pre_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Pre),
+                'final_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Final),
+            ];
+        }
+
         return view('cne-module-detail', [
             'course' => $course_detail,
             'isPurchased' => $isPurchased,
             'hasCourseMaterials' => $hasCourseMaterials,
+            'courseTestProgress' => $courseTestProgress,
+        ]);
+    }
+
+    public function takeTest(CourseDetail $course_detail, string $test): View
+    {
+        if ((int) $course_detail->active_status !== 1) {
+            abort(404);
+        }
+
+        $type = CourseTestType::tryFrom($test);
+        abort_unless($type, 404);
+
+        $title = ($course_detail->couse_name ?? 'Module').' · '.$type->label();
+
+        return view('cne-course-test', [
+            'course' => $course_detail,
+            'testType' => $type,
+            'title' => $title,
         ]);
     }
 

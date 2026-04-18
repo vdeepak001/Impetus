@@ -61,6 +61,7 @@
                         <select id="question_type" name="question_type" required x-model="questionType"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                             <option value="mcq">Multiple Choice (MCQ)</option>
+
                             <option value="text">Short/Long Answer (Text)</option>
                         </select>
                         @error('question_type') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
@@ -104,8 +105,8 @@
                         @error('question') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- MCQ choices - Only show if type is MCQ -->
-                    <template x-if="questionType === 'mcq'">
+                    <!-- MCQ / Short (choice-based) -->
+                    <template x-if="questionType === 'mcq' || questionType === 'short'">
                         <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="choice_a" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Choice A</label>
@@ -138,9 +139,9 @@
                     <div class="md:col-span-2">
                         <label for="answer" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Correct Answer</label>
 
-                        <!-- Show dropdown for MCQ -->
-                        <div x-show="questionType === 'mcq'">
-                            <select id="answer_mcq" name="answer" :required="questionType === 'mcq'" :disabled="questionType !== 'mcq'"
+                        <!-- Answer: A–D for MCQ or Short -->
+                        <div x-show="questionType === 'mcq' || questionType === 'short'" x-cloak>
+                            <select id="answer_mcq" name="answer" :required="questionType === 'mcq' || questionType === 'short'" :disabled="questionType !== 'mcq' && questionType !== 'short'"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90">
                                 <option value="">Select Answer</option>
                                 <option value="A" {{ old('answer') == 'A' ? 'selected' : '' }}>Choice A</option>
@@ -150,8 +151,8 @@
                             </select>
                         </div>
 
-                        <!-- Show text field for TEXT -->
-                        <div x-show="questionType === 'text'">
+                        <!-- Free text answer -->
+                        <div x-show="questionType === 'text'" x-cloak>
                             <textarea id="answer_text" name="answer" rows="2" :required="questionType === 'text'" :disabled="questionType !== 'text'"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('answer') }}</textarea>
                         </div>
@@ -164,6 +165,21 @@
                         <textarea id="reason" name="reason" rows="2"
                             class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30">{{ old('reason') }}</textarea>
                         @error('reason') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="md:col-span-2 flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-gray-50/80 px-4 py-3 dark:border-gray-700 dark:bg-gray-800/50">
+                        <input type="hidden" name="active_status" value="0" />
+                        <input
+                            id="active_status"
+                            type="checkbox"
+                            name="active_status"
+                            value="1"
+                            {{ old('active_status', '1') === '1' || old('active_status') === true ? 'checked' : '' }}
+                            class="h-4 w-4 rounded border-gray-300 text-brand-600 focus:ring-brand-500 dark:border-gray-600 dark:bg-gray-800"
+                        />
+                        <label for="active_status" class="text-sm font-medium text-gray-700 dark:text-gray-300">
+                            Active <span class="font-normal text-gray-500 dark:text-gray-400">(inactive questions are hidden from learner tests)</span>
+                        </label>
                     </div>
                 </div>
 

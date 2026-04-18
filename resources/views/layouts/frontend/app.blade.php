@@ -11,7 +11,9 @@
 
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
     @else
+        @livewireStyles
         <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
         <style>
             @theme {
@@ -42,8 +44,7 @@
         </style>
     @endif
 
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.x.x/dist/cdn.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- Alpine is bundled with @livewireScripts (Livewire 4). Extra CDN Alpine breaks wire:click / wire:model on Livewire components. --}}
 </head>
 <body class="antialiased bg-slate-50 text-slate-800">
     @include('welcome.partials.header')
@@ -56,5 +57,6 @@
     @yield('content')
     @include('welcome.partials.footer')
     <x-ui.toaster />
+    @livewireScripts
 </body>
 </html>

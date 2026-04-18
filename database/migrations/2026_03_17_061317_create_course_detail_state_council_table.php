@@ -20,7 +20,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('state_council_id')->constrained('state_councils')->cascadeOnDelete();
             $table->foreignId('course_detail_id')->constrained('course_details')->cascadeOnDelete();
-            $table->unique(['state_council_id', 'course_detail_id']);
+            $table->unique(['state_council_id', 'course_detail_id'], 'cdsc_council_course_unique');
             $table->timestamps();
         });
 

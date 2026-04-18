@@ -101,7 +101,7 @@
                             {{ ($questions->currentPage() - 1) * $questions->perPage() + $loop->iteration }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $question->question_type === 'mcq' ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' }}">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ in_array($question->question_type, ['mcq', 'short'], true) ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' : 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' }}">
                                 {{ strtoupper($question->question_type) }}
                             </span>
                         </td>

@@ -8,6 +8,7 @@ use App\Models\CourseDetail;
 use App\Models\CourseQuestion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class CourseQuestionController extends Controller
 {
@@ -31,14 +32,18 @@ class CourseQuestionController extends Controller
         $courseId = $request->query('course_id');
         $level = $request->query('level');
 
-        if (!$courseId || !$level) {
+        if (! $courseId || ! $level) {
             return response()->json(['code' => '']);
         }
 
         $course = CourseDetail::findOrFail($courseId);
         $levelCode = 'L1';
-        if ($level === 'Level 2') $levelCode = 'L2';
-        if ($level === 'Level 3') $levelCode = 'L3';
+        if ($level === 'Level 2') {
+            $levelCode = 'L2';
+        }
+        if ($level === 'Level 3') {
+            $levelCode = 'L3';
+        }
 
         // Count existing questions for this course and level
         $lastQuestion = CourseQuestion::where('course_id', $courseId)
@@ -51,7 +56,7 @@ class CourseQuestionController extends Controller
             // Extract sequence from existing code: BLS001/1001/L1
             $parts = explode('/', $lastQuestion->question_code);
             if (count($parts) === 3) {
-                $sequence = (int)$parts[1] + 1;
+                $sequence = (int) $parts[1] + 1;
             } else {
                 // Fallback: just count
                 $sequence = CourseQuestion::where('course_id', $courseId)
@@ -67,15 +72,17 @@ class CourseQuestionController extends Controller
 
     public function store(Request $request)
     {
+        $mcqOrShort = Rule::requiredIf(fn () => in_array($request->input('question_type'), ['mcq', 'short'], true));
+
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
-            'question_type' => ['required', 'string', 'in:mcq,text'],
+            'question_type' => ['required', 'string', 'in:mcq,text,short'],
             'question_level' => ['required', 'string', 'max:20'],
             'question' => ['required', 'string'],
-            'choice_a' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_b' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_c' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_d' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
+            'choice_a' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_b' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_c' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_d' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
             'answer' => ['required', 'string'],
             'reason' => ['nullable', 'string'],
         ]);
@@ -83,8 +90,12 @@ class CourseQuestionController extends Controller
         // Auto generate question code if not provided or to ensure correctness
         $course = CourseDetail::findOrFail($validated['course_id']);
         $levelCode = 'L1';
-        if ($validated['question_level'] === 'Level 2') $levelCode = 'L2';
-        if ($validated['question_level'] === 'Level 3') $levelCode = 'L3';
+        if ($validated['question_level'] === 'Level 2') {
+            $levelCode = 'L2';
+        }
+        if ($validated['question_level'] === 'Level 3') {
+            $levelCode = 'L3';
+        }
 
         $lastQuestion = CourseQuestion::where('course_id', $validated['course_id'])
             ->where('question_level', $validated['question_level'])
@@ -95,7 +106,7 @@ class CourseQuestionController extends Controller
         if ($lastQuestion) {
             $parts = explode('/', $lastQuestion->question_code);
             if (count($parts) === 3) {
-                $sequence = (int)$parts[1] + 1;
+                $sequence = (int) $parts[1] + 1;
             } else {
                 $sequence = CourseQuestion::where('course_id', $validated['course_id'])
                     ->where('question_level', $validated['question_level'])
@@ -112,6 +123,7 @@ class CourseQuestionController extends Controller
             $validated['choice_d'] = null;
         }
 
+        $validated['active_status'] = $request->input('active_status') === '1';
         $validated['user_id'] = Auth::id();
         CourseQuestion::create($validated);
 
@@ -131,15 +143,17 @@ class CourseQuestionController extends Controller
 
     public function update(Request $request, CourseQuestion $course_question)
     {
+        $mcqOrShort = Rule::requiredIf(fn () => in_array($request->input('question_type'), ['mcq', 'short'], true));
+
         $validated = $request->validate([
             'course_id' => ['required', 'exists:course_details,id'],
-            'question_type' => ['required', 'string', 'in:mcq,text'],
+            'question_type' => ['required', 'string', 'in:mcq,text,short'],
             'question_level' => ['required', 'string', 'max:20'],
             'question' => ['required', 'string'],
-            'choice_a' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_b' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_c' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
-            'choice_d' => ['required_if:question_type,mcq', 'nullable', 'string', 'max:255'],
+            'choice_a' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_b' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_c' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
+            'choice_d' => [$mcqOrShort, 'nullable', 'string', 'max:255'],
             'answer' => ['required', 'string'],
             'reason' => ['nullable', 'string'],
         ]);
@@ -150,8 +164,12 @@ class CourseQuestionController extends Controller
         if ($course_question->course_id != $validated['course_id'] || $course_question->question_level != $validated['question_level']) {
             $course = CourseDetail::findOrFail($validated['course_id']);
             $levelCode = 'L1';
-            if ($validated['question_level'] === 'Level 2') $levelCode = 'L2';
-            if ($validated['question_level'] === 'Level 3') $levelCode = 'L3';
+            if ($validated['question_level'] === 'Level 2') {
+                $levelCode = 'L2';
+            }
+            if ($validated['question_level'] === 'Level 3') {
+                $levelCode = 'L3';
+            }
 
             $lastQuestion = CourseQuestion::where('course_id', $validated['course_id'])
                 ->where('question_level', $validated['question_level'])
@@ -162,7 +180,7 @@ class CourseQuestionController extends Controller
             if ($lastQuestion) {
                 $parts = explode('/', $lastQuestion->question_code);
                 if (count($parts) === 3) {
-                    $sequence = (int)$parts[1] + 1;
+                    $sequence = (int) $parts[1] + 1;
                 } else {
                     $sequence = CourseQuestion::where('course_id', $validated['course_id'])
                         ->where('question_level', $validated['question_level'])
@@ -178,6 +196,8 @@ class CourseQuestionController extends Controller
             $validated['choice_c'] = null;
             $validated['choice_d'] = null;
         }
+
+        $validated['active_status'] = $request->input('active_status') === '1';
 
         $course_question->update($validated);
 
