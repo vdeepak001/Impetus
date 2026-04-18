@@ -1,6 +1,4 @@
 <div class="pb-20">
-    <div class="h-[72px]" aria-hidden="true"></div>
-
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         @if ($fatalError)
             <div class="rounded-2xl border border-amber-200 bg-amber-50 px-6 py-8 text-amber-900 shadow-sm">
