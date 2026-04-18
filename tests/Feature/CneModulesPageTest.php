@@ -117,7 +117,7 @@ it('shows learning materials subtitle and original file names on course detail p
     CourseMaterial::create([
         'course_id' => $course->id,
         'course_title_id' => $courseTitle->id,
-        'description' => 'Week 1 Slides',
+        'description' => null,
         'attachment' => ['materials/1711111111_sample-guide.pdf', 'materials/1711111112_care-plan.pptx'],
         'active_status' => true,
     ]);

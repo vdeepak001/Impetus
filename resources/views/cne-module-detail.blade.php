@@ -60,22 +60,22 @@
                         @auth
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
-                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                    <div class="flex flex-wrap items-center justify-end gap-3">
                                         <a
                                             href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'pre']) }}"
-                                            class="inline-flex items-center rounded-md border border-emerald-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+                                            class="inline-flex items-center justify-center rounded-xl border-2 border-emerald-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
                                         >
                                             Pre
                                         </a>
                                         <a
                                             href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'mock']) }}"
-                                            class="inline-flex items-center rounded-md border border-amber-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
+                                            class="inline-flex items-center justify-center rounded-xl border-2 border-amber-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2"
                                         >
                                             Mock
                                         </a>
                                         <a
                                             href="{{ route('online.examination', ['course' => $course->couse_name, 'test' => 'final']) }}"
-                                            class="inline-flex items-center rounded-md border border-rose-500/40 bg-white px-4 py-2 text-sm font-semibold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2"
+                                            class="inline-flex items-center justify-center rounded-xl border-2 border-rose-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2"
                                         >
                                             Final
                                         </a>
@@ -199,8 +199,8 @@
                 <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,13.5rem)_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
                         <div class="flex shrink-0 justify-center lg:justify-start">
-                            <div class="w-52">
-                                <div class="relative h-36 w-44 sm:h-40 sm:w-52">
+                            <div class="w-52 sm:w-56">
+                                <div class="relative h-36 w-44 sm:h-40 sm:w-56">
                                     <div class="absolute left-0 top-3 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-light-green to-[#6fa828] text-white shadow-lg shadow-logo-light-green/30 ring-2 ring-white/40">
                                         <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/10">
                                             <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
@@ -218,17 +218,34 @@
                                 </div>
 
                                 @if ($hasCourseMaterials && $canViewLearningMaterials)
-                                    <div class="mt-6 rounded-2xl border border-slate-200/90 bg-white px-3 py-3 shadow-lg shadow-slate-300/30 ring-1 ring-slate-100">
-                                        <h3 class="text-[13px] font-extrabold uppercase tracking-wide text-slate-900">
-                                            Learning Materials
-                                        </h3>
-                                        <a
-                                            href="{{ route('cne.modules.materials', $course->couse_name) }}"
-                                            class="mt-3 inline-flex w-full items-center justify-center rounded-lg bg-logo-blue px-3 py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
-                                        >
-                                            View Learning Materials
-                                        </a>
-                                    </div>
+                                    <a
+                                        href="{{ route('cne.modules.materials', $course->couse_name) }}"
+                                        class="group relative mt-6 block overflow-hidden rounded-2xl bg-gradient-to-br from-logo-blue to-brand-600 p-5 text-center text-white shadow-lg shadow-logo-blue/30 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-logo-blue/40 hover:ring-white/55 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2 focus-visible:ring-offset-[#fdf8ee] active:translate-y-0"
+                                    >
+                                        <div class="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full bg-white/15 blur-2xl"></div>
+                                        <div class="pointer-events-none absolute -bottom-8 -left-6 h-20 w-20 rounded-full bg-logo-light-green/25 blur-2xl"></div>
+                                        <div class="relative flex flex-col items-center gap-3.5">
+                                            <span class="inline-flex h-12 w-12 items-center justify-center rounded-full border-2 border-white/80 bg-white/10 shadow-inner ring-1 ring-white/25 transition group-hover:bg-white/15 group-hover:ring-white/40">
+                                                <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.85" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                                </svg>
+                                            </span>
+                                            <div class="space-y-1">
+                                                <p class="text-[11px] font-extrabold uppercase tracking-[0.2em] text-white/75">
+                                                    Learning materials
+                                                </p>
+                                                <p class="text-sm font-bold uppercase tracking-wide text-white drop-shadow-sm sm:text-[15px]">
+                                                    View learning materials
+                                                </p>
+                                            </div>
+                                            <span class="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-white/95 ring-1 ring-white/25 transition group-hover:bg-white/25 group-hover:ring-white/40">
+                                                Open
+                                                <svg class="h-3.5 w-3.5 transition group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.25" aria-hidden="true">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </a>
                                 @endif
                             </div>
                         </div>
