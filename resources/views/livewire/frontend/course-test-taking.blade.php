@@ -18,120 +18,185 @@
                 $pctWrong = round(100 - $pctCorrect, 1);
                 $banner = $type->resultBannerLabel();
             @endphp
-            <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-200/60">
-                <div class="flex flex-col gap-3 border-b border-slate-200 bg-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8">
-                    <h1 class="font-serif text-lg font-bold tracking-tight text-slate-800 sm:text-xl">
-                        Result for {{ $banner }}
-                    </h1>
-                    <nav class="text-xs text-slate-600 sm:text-sm" aria-label="Breadcrumb">
-                        <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                            <li>
-                                <a href="{{ route('home') }}" class="font-medium text-slate-600 underline-offset-2 hover:text-logo-blue hover:underline">CNE Home</a>
-                            </li>
-                            <li class="text-slate-400" aria-hidden="true">→</li>
-                            <li>
-                                <a href="{{ route('cne.modules') }}" class="font-medium text-slate-600 underline-offset-2 hover:text-logo-blue hover:underline">CNE Modules</a>
-                            </li>
-                            <li class="text-slate-400" aria-hidden="true">→</li>
-                            <li class="font-semibold text-slate-800" aria-current="page">{{ $banner }}</li>
-                        </ol>
-                    </nav>
-                </div>
+            <div class="relative">
+                <div class="pointer-events-none absolute -left-20 -top-16 h-72 w-72 rounded-full bg-logo-blue/[0.07] blur-3xl" aria-hidden="true"></div>
+                <div class="pointer-events-none absolute -bottom-24 -right-16 h-80 w-80 rounded-full bg-logo-light-green/[0.12] blur-3xl" aria-hidden="true"></div>
+                <div class="pointer-events-none absolute left-1/2 top-1/3 h-64 w-64 -translate-x-1/2 rounded-full bg-orange-200/20 blur-3xl" aria-hidden="true"></div>
 
-                <div class="px-5 py-8 sm:px-10 sm:py-10">
-                    <p class="text-center text-sm text-slate-600 sm:text-base">
-                        Module:
-                        <span class="border-b-2 border-orange-500 font-semibold text-orange-500">{{ $course->couse_name }}</span>
-                    </p>
+                <div class="relative overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-2xl shadow-slate-900/[0.08] ring-1 ring-slate-200/50">
+                    <div class="h-1.5 bg-gradient-to-r from-logo-blue via-sky-400 to-logo-light-green" aria-hidden="true"></div>
 
-                    <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                        <div class="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-4 shadow-sm">
-                            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm ring-2 ring-emerald-500/20">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                    <div class="border-b border-slate-200/80 bg-gradient-to-br from-slate-50/95 via-white to-brand-50/30 px-5 py-6 sm:px-10 sm:py-8">
+                        <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+                            <div class="min-w-0">
+                                <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-logo-blue/80">Test complete</p>
+                                <h1 class="mt-2 font-serif text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl">
+                                    Result for {{ $banner }}
+                                </h1>
+                                <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+                                    Here is a snapshot of how you did. Review your score and timing, then head back to the module when you are ready.
+                                </p>
                             </div>
-                            <span class="min-w-0 flex-1 text-sm text-slate-600">Question Answered:</span>
-                            <span class="text-lg font-bold tabular-nums text-slate-900">{{ $totalQuestions }}</span>
+                            <nav class="shrink-0 text-xs sm:text-sm" aria-label="Breadcrumb">
+                                <ol class="flex flex-wrap items-center gap-2">
+                                    <li>
+                                        <a href="{{ route('home') }}" class="inline-flex rounded-full border border-slate-200/80 bg-white/90 px-3 py-1 font-semibold text-slate-600 shadow-sm transition hover:border-logo-blue/40 hover:text-logo-blue">CNE Home</a>
+                                    </li>
+                                    <li class="text-slate-300" aria-hidden="true">/</li>
+                                    <li>
+                                        <a href="{{ route('cne.modules') }}" class="inline-flex rounded-full border border-slate-200/80 bg-white/90 px-3 py-1 font-semibold text-slate-600 shadow-sm transition hover:border-logo-blue/40 hover:text-logo-blue">Modules</a>
+                                    </li>
+                                    <li class="text-slate-300" aria-hidden="true">/</li>
+                                    <li>
+                                        <span class="inline-flex rounded-full border border-logo-blue/25 bg-logo-blue/10 px-3 py-1 font-bold text-brand-800">{{ $banner }}</span>
+                                    </li>
+                                </ol>
+                            </nav>
                         </div>
-                        <div class="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-4 shadow-sm">
-                            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-sky-500 text-white shadow-sm ring-2 ring-sky-500/20">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <span class="min-w-0 flex-1 text-sm text-slate-600">Total Duration:</span>
-                            <span class="text-lg font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</span>
-                        </div>
-                        <div class="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-4 shadow-sm">
-                            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white shadow-sm ring-2 ring-emerald-500/20">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <span class="min-w-0 flex-1 text-sm text-slate-600">Correct Answer:</span>
-                            <span class="text-lg font-bold tabular-nums text-slate-900">{{ $correctCount }}</span>
-                        </div>
-                        <div class="flex items-center gap-4 rounded-xl border border-slate-100 bg-slate-50/60 px-4 py-4 shadow-sm">
-                            <div class="flex size-12 shrink-0 items-center justify-center rounded-full bg-orange-500 text-white shadow-sm ring-2 ring-orange-500/20">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                            </div>
-                            <span class="min-w-0 flex-1 text-sm text-slate-600">Wrong Answer:</span>
-                            <span class="text-lg font-bold tabular-nums text-slate-900">{{ $wrongCount }}</span>
+
+                        <div class="mt-8 rounded-2xl border border-orange-200/60 bg-gradient-to-r from-orange-50/90 via-white to-amber-50/40 px-5 py-4 shadow-inner shadow-orange-100/50 sm:px-6">
+                            <p class="text-[10px] font-bold uppercase tracking-[0.18em] text-orange-600/90">Module</p>
+                            <p class="mt-1 font-serif text-xl font-bold text-orange-600 sm:text-2xl">
+                                {{ $course->couse_name }}
+                            </p>
                         </div>
                     </div>
 
-                    <div class="mt-12">
-                        <h2 class="inline-block font-serif text-lg font-bold text-slate-900 sm:text-xl">
-                            {{ $banner }} Result Chart
-                        </h2>
-                        <div class="mt-2 h-px w-full max-w-md bg-gradient-to-r from-orange-400 via-orange-300 to-transparent"></div>
-
-                        <div class="relative mx-auto mt-10 size-56 sm:size-64">
-                            <div
-                                class="absolute inset-0 rounded-full shadow-inner ring-1 ring-slate-200/40"
-                                style="background: conic-gradient(from -90deg, rgb(34 197 94) 0% {{ $pctCorrect }}%, rgb(249 115 22) {{ $pctCorrect }}% 100%)"
-                            ></div>
-                            <div class="absolute inset-[26%] rounded-full bg-white shadow-sm ring-1 ring-slate-100"></div>
-                        </div>
-
-                        <div class="mx-auto mt-8 flex max-w-md flex-col gap-3 text-sm sm:flex-row sm:justify-center sm:gap-10">
-                            <div class="flex items-center gap-2 text-emerald-600">
-                                <span class="size-2.5 shrink-0 rounded-full bg-emerald-500" aria-hidden="true"></span>
-                                <span class="font-semibold">Correct Answer</span>
-                                <span class="tabular-nums text-slate-700">{{ number_format($pctCorrect, 1) }}%</span>
+                    <div class="relative bg-gradient-to-b from-white via-slate-50/30 to-white px-5 py-8 sm:px-10 sm:py-12">
+                        <div class="grid gap-4 sm:grid-cols-2 lg:gap-5">
+                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-100/50">
+                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-lg shadow-emerald-500/30 ring-2 ring-white">
+                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Questions answered</p>
+                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-slate-900">{{ $totalQuestions }}</p>
+                                </div>
                             </div>
-                            <div class="flex items-center gap-2 text-orange-500">
-                                <span class="size-2.5 shrink-0 rounded-full bg-orange-500" aria-hidden="true"></span>
-                                <span class="font-semibold">Wrong Answer</span>
-                                <span class="tabular-nums text-slate-700">{{ number_format($pctWrong, 1) }}%</span>
+                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-sky-100/50">
+                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-logo-blue text-white shadow-lg shadow-sky-500/30 ring-2 ring-white">
+                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Total duration</p>
+                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</p>
+                                </div>
+                            </div>
+                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-emerald-100/50">
+                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white shadow-lg shadow-teal-500/25 ring-2 ring-white">
+                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Correct answers</p>
+                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-emerald-700">{{ $correctCount }}</p>
+                                </div>
+                            </div>
+                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-orange-100/50">
+                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 text-white shadow-lg shadow-orange-500/30 ring-2 ring-white">
+                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                    </svg>
+                                </div>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Wrong answers</p>
+                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-orange-700">{{ $wrongCount }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    @if ($type === \App\Enums\CourseTestType::Final && $passThresholdPercent !== null)
-                        <div class="mt-10 rounded-xl border p-5 {{ $passed ? 'border-emerald-200 bg-emerald-50/80' : 'border-rose-200 bg-rose-50/80' }}">
-                            <p class="text-xs font-bold uppercase tracking-wider {{ $passed ? 'text-emerald-700' : 'text-rose-700' }}">
-                                Pass mark {{ number_format((float) $passThresholdPercent, 2) }}% · Your score {{ number_format((float) $scorePercent, 2) }}%
-                            </p>
-                            <p class="mt-2 text-lg font-bold {{ $passed ? 'text-emerald-800' : 'text-rose-800' }}">
-                                {{ $passed ? 'Passed' : 'Not passed' }}
-                            </p>
+                        <div class="mt-12 overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-b from-white to-slate-50/90 p-6 shadow-inner shadow-slate-200/30 ring-1 ring-slate-100 sm:p-10">
+                            <div class="flex flex-col gap-2 border-b border-slate-200/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
+                                <div>
+                                    <h2 class="font-serif text-xl font-bold text-slate-900 sm:text-2xl">
+                                        {{ $banner }} result chart
+                                    </h2>
+                                    <p class="mt-1 text-sm text-slate-500">Correct vs incorrect share of your attempt</p>
+                                </div>
+                                <div class="rounded-xl border border-slate-200/80 bg-white px-4 py-2 text-right shadow-sm">
+                                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Overall score</p>
+                                    <p class="text-2xl font-bold tabular-nums text-brand-900">{{ number_format((float) $scorePercent, 1) }}<span class="text-lg text-slate-500">%</span></p>
+                                </div>
+                            </div>
+
+                            <div class="relative mx-auto mt-10 flex max-w-lg flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-14">
+                                <div class="relative size-52 shrink-0 sm:size-60">
+                                    <div
+                                        class="absolute inset-0 rounded-full shadow-[inset_0_2px_12px_rgba(15,23,42,0.06)] ring-[10px] ring-slate-100/90 ring-offset-2 ring-offset-white"
+                                        style="background: conic-gradient(from -90deg, rgb(52 211 153) 0% {{ $pctCorrect }}%, rgb(251 146 60) {{ $pctCorrect }}% 100%)"
+                                    ></div>
+                                    <div class="absolute inset-[22%] flex flex-col items-center justify-center rounded-full bg-gradient-to-b from-white to-slate-50 shadow-md ring-1 ring-slate-200/80">
+                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</span>
+                                        <span class="font-serif text-3xl font-bold tabular-nums text-brand-900 sm:text-4xl">{{ number_format((float) $scorePercent, 1) }}<span class="text-xl text-slate-500">%</span></span>
+                                    </div>
+                                </div>
+
+                                <div class="flex w-full max-w-xs flex-col justify-center gap-4">
+                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3 shadow-sm">
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="size-3 shrink-0 rounded-full bg-emerald-500 shadow-sm ring-2 ring-emerald-200" aria-hidden="true"></span>
+                                            <span class="text-sm font-bold text-emerald-900">Correct</span>
+                                        </div>
+                                        <span class="text-sm font-bold tabular-nums text-emerald-800">{{ number_format($pctCorrect, 1) }}%</span>
+                                    </div>
+                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-orange-100 bg-orange-50/50 px-4 py-3 shadow-sm">
+                                        <div class="flex items-center gap-2.5">
+                                            <span class="size-3 shrink-0 rounded-full bg-orange-500 shadow-sm ring-2 ring-orange-200" aria-hidden="true"></span>
+                                            <span class="text-sm font-bold text-orange-900">Wrong</span>
+                                        </div>
+                                        <span class="text-sm font-bold tabular-nums text-orange-800">{{ number_format($pctWrong, 1) }}%</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    @endif
 
-                    <div class="mt-10 flex flex-wrap justify-center gap-3">
-                        <a
-                            href="{{ route('cne.modules.show', $course->couse_name) }}"
-                            class="inline-flex items-center justify-center rounded-xl bg-logo-blue px-8 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600"
-                        >
-                            Back to module
-                        </a>
-                        @if ($errors->has('submit'))
-                            <p class="w-full text-center text-sm text-rose-600">{{ $errors->first('submit') }}</p>
+                        @if ($type === \App\Enums\CourseTestType::Final && $passThresholdPercent !== null)
+                            <div class="mt-10 overflow-hidden rounded-2xl border p-6 shadow-lg sm:p-7 {{ $passed ? 'border-emerald-200/90 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/50 shadow-emerald-100/40' : 'border-rose-200/90 bg-gradient-to-br from-rose-50 via-white to-rose-50/50 shadow-rose-100/40' }}">
+                                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                                    <div>
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] {{ $passed ? 'text-emerald-700' : 'text-rose-700' }}">Final outcome</p>
+                                        <p class="mt-1 text-lg font-bold {{ $passed ? 'text-emerald-900' : 'text-rose-900' }}">
+                                            {{ $passed ? 'You passed' : 'Not passed' }}
+                                        </p>
+                                        <p class="mt-2 text-sm text-slate-600">
+                                            Pass mark <span class="font-semibold text-slate-800">{{ number_format((float) $passThresholdPercent, 2) }}%</span>
+                                            · Your score <span class="font-semibold text-slate-800">{{ number_format((float) $scorePercent, 2) }}%</span>
+                                        </p>
+                                    </div>
+                                    <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl {{ $passed ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/35' : 'bg-rose-500 text-white shadow-lg shadow-rose-500/35' }}">
+                                        @if ($passed)
+                                            <svg class="size-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                                            </svg>
+                                        @else
+                                            <svg class="size-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" aria-hidden="true">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
                         @endif
+
+                        <div class="mt-12 flex flex-col items-center gap-4 border-t border-slate-200/60 pt-10">
+                            <a
+                                href="{{ route('cne.modules.show', $course->couse_name) }}"
+                                class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-logo-blue to-brand-600 px-10 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-xl shadow-logo-blue/30 transition hover:from-brand-600 hover:to-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
+                            >
+                                Back to module
+                                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                </svg>
+                            </a>
+                            @if ($errors->has('submit'))
+                                <p class="text-center text-sm text-rose-600">{{ $errors->first('submit') }}</p>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
