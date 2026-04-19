@@ -36,4 +36,15 @@ enum CourseTestType: string
             self::Practice => 'Practice test',
         };
     }
+
+    /** Title-style label for result screens and breadcrumbs (e.g. Pre-Test). */
+    public function resultBannerLabel(): string
+    {
+        return match ($this) {
+            self::Mock => 'Mock Test',
+            self::Pre => 'Pre-Test',
+            self::Final => 'Final Test',
+            self::Practice => 'Practice Test',
+        };
+    }
 }

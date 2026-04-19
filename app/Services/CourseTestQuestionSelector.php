@@ -259,7 +259,7 @@ class CourseTestQuestionSelector
                 break;
             }
             $chunk = $this->scopeLevelBucket($this->baseQuestionQuery($course), $levelIndex)
-                ->orderBy('id')
+                ->inRandomOrder()
                 ->limit($remaining)
                 ->pluck('id')
                 ->map(fn ($id) => (int) $id)
