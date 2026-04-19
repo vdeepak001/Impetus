@@ -244,38 +244,22 @@ class CourseTestQuestionSelector
     }
 
     /**
-     * Practice: prefer level order, then any MCQ for this course up to 30.
+     * Practice: up to 30 eligible MCQs drawn at random from the full pool (same random draw style as mock / pre / final when using the flat pool).
      *
      * @return list<int>
      */
     private function practiceQuestionIds(CourseDetail $course): array
     {
-        $ids = [];
         $cap = 30;
+        $base = $this->baseQuestionQuery($course);
+        $count = (int) (clone $base)->count();
+        $limit = min($cap, max(0, $count));
 
-        foreach ([0, 1, 2] as $levelIndex) {
-            $remaining = $cap - count($ids);
-            if ($remaining <= 0) {
-                break;
+        if ($limit > 0) {
+            $ids = $this->pickRandomIds($base, $limit);
+            if ($ids !== []) {
+                return $ids;
             }
-            $chunk = $this->scopeLevelBucket($this->baseQuestionQuery($course), $levelIndex)
-                ->inRandomOrder()
-                ->limit($remaining)
-                ->pluck('id')
-                ->map(fn ($id) => (int) $id)
-                ->all();
-            foreach ($chunk as $id) {
-                $ids[] = $id;
-            }
-        }
-
-        if ($ids !== []) {
-            return $ids;
-        }
-
-        $flat = $this->pickRandomIds($this->baseQuestionQuery($course), $cap);
-        if ($flat !== []) {
-            return $flat;
         }
 
         return $this->pickRandomIds($this->lenientQuestionQuery($course), $cap);

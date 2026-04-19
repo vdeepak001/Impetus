@@ -108,9 +108,7 @@ class CourseTestTaking extends Component
                 $inProgress->delete();
             }
 
-            if ($this->type !== CourseTestType::Practice) {
-                shuffle($ids);
-            }
+            shuffle($ids);
 
             $attempt = CourseTestAttempt::query()->create([
                 'user_id' => $user->id,
@@ -130,7 +128,7 @@ class CourseTestTaking extends Component
 
         $this->totalQuestions = count($this->questions);
 
-        if ($this->attemptId) {
+        if ($this->type !== CourseTestType::Practice && $this->attemptId) {
             $startedAt = CourseTestAttempt::query()->whereKey($this->attemptId)->value('started_at');
             if ($startedAt) {
                 $this->examDeadlineTs = Carbon::parse($startedAt)
@@ -143,7 +141,9 @@ class CourseTestTaking extends Component
             $this->passThresholdPercent = $this->resolvePassThreshold($course, $council);
         }
 
-        $this->refreshExamTimer();
+        if ($this->type !== CourseTestType::Practice) {
+            $this->refreshExamTimer();
+        }
     }
 
     /**
@@ -151,7 +151,7 @@ class CourseTestTaking extends Component
      */
     public function refreshExamTimer(): void
     {
-        if ($this->submitted || $this->examDeadlineTs === null) {
+        if ($this->type === CourseTestType::Practice || $this->submitted || $this->examDeadlineTs === null) {
             return;
         }
 

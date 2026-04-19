@@ -27,7 +27,18 @@
         $hasCourseMaterials = $hasCourseMaterials ?? false;
     @endphp
 
-    <main class="pb-16" x-data="{}">
+    <main
+        class="pb-16"
+        x-data="{
+            practiceGateOpen: false,
+            init() {
+                this.$watch('practiceGateOpen', value => {
+                    document.body.style.overflow = value ? 'hidden' : '';
+                });
+            },
+        }"
+        @keydown.escape.window="practiceGateOpen = false"
+    >
         <div class="h-[100px]" aria-hidden="true"></div>
 
         {{-- Hero + overview (aligned with Practice Test / site theme) --}}
@@ -313,14 +324,28 @@
                             </div>
                             @auth
                                 @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false))
+                                    @php
+                                        $mockDoneForPractice = (bool) ($courseTestProgress['mock_done'] ?? false);
+                                    @endphp
                                     <div class="mt-8">
-                                        <a
-                                            href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                            class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
-                                        >
-                                            Open practice questions
-                                        </a>
-                                        <p class="mt-3 text-sm text-slate-500">Questions are grouped by level (up to 30 items) with numbered navigation.</p>
+                                        @if ($mockDoneForPractice)
+                                            <a
+                                                href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
+                                                class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                            >
+                                                Open practice questions
+                                            </a>
+                                        @else
+                                            <button
+                                                type="button"
+                                                class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                                @click="practiceGateOpen = true"
+                                                aria-haspopup="dialog"
+                                            >
+                                                Open practice questions
+                                            </button>
+                                        @endif
+                                        <p class="mt-3 text-sm text-slate-500">Up to 30 random questions per session, with numbered navigation.</p>
                                     </div>
                                 @endif
                             @endauth
@@ -345,5 +370,89 @@
                 </div>
             </section>
         @endif
+
+        {{-- Gate: practice questions require completed mock test --}}
+        <div
+            x-show="practiceGateOpen"
+            x-cloak
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="practice-gate-title"
+        >
+            <div
+                class="absolute inset-0 bg-slate-900/55 backdrop-blur-sm"
+                @click="practiceGateOpen = false"
+                aria-hidden="true"
+            ></div>
+            <div
+                class="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-900/20 ring-1 ring-slate-200/60"
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+                x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+                @click.stop
+            >
+                <div class="border-b border-amber-100 bg-gradient-to-r from-amber-50 via-white to-amber-50/80 px-6 py-4">
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex min-w-0 items-center gap-3">
+                            <span class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-700 ring-1 ring-amber-200/80">
+                                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+                                </svg>
+                            </span>
+                            <h3 id="practice-gate-title" class="font-serif text-lg font-bold leading-snug text-slate-900">
+                                Complete the mock test first
+                            </h3>
+                        </div>
+                        <button
+                            type="button"
+                            class="rounded-lg p-1.5 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue"
+                            @click="practiceGateOpen = false"
+                            aria-label="Close dialog"
+                        >
+                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div class="px-6 py-5">
+                    <p class="text-sm leading-relaxed text-slate-600">
+                        To open practice questions, you need to <span class="font-semibold text-slate-800">complete the mock test</span> for this module first. After that, you can return here and proceed to practice.
+                    </p>
+                    <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-end">
+                        <button
+                            type="button"
+                            class="inline-flex w-full items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-2 sm:w-auto"
+                            @click="practiceGateOpen = false"
+                        >
+                            Close
+                        </button>
+                        <a
+                            href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}"
+                            class="inline-flex w-full items-center justify-center rounded-xl bg-logo-blue px-5 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/25 transition hover:bg-brand-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2 sm:w-auto"
+                            @click="practiceGateOpen = false"
+                        >
+                            Go to mock test
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            [x-cloak] {
+                display: none !important;
+            }
+        </style>
     </main>
 @endsection

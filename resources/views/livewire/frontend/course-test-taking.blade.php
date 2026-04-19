@@ -222,7 +222,7 @@
                         <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Questions</p>
                         <p class="mt-1 text-xs text-slate-500">
                             @if ($type === \App\Enums\CourseTestType::Practice)
-                                Grouped by level (max 30 questions). Click a number to jump.
+                                Random set (up to 30 questions). Click a number to jump.
                             @else
                                 Use the grid to navigate. Your answers are saved in this session until you submit.
                             @endif

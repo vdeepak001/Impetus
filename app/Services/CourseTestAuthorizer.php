@@ -18,6 +18,10 @@ class CourseTestAuthorizer
 
         if ($type === CourseTestType::Practice) {
             abort_unless(filled($course->practice_content), 404);
+            abort_unless(
+                CourseTestAttempt::isTypeCompleted($user->id, $course->id, CourseTestType::Mock),
+                403
+            );
 
             return;
         }
