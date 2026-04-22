@@ -159,6 +159,59 @@ class CneModulesController extends Controller
 
         $title = ($course_detail->couse_name ?? 'Module').' · '.$type->label();
 
+        if ($type === CourseTestType::Practice && !request()->has('level')) {
+            $questions = \App\Models\CourseQuestion::query()
+                ->where('course_id', $course_detail->id)
+                ->where('active_status', true)
+                ->get();
+
+            $levelCounts = [
+                '1' => 0,
+                '2' => 0,
+                '3' => 0,
+                'other' => 0,
+            ];
+
+            $levelAliases = [
+                '1' => ['Level 1', 'L1', 'LEVEL 1', 'level 1', 'Level1', '1', 'I', 'LEVEL - I', 'LEVEL-I', 'Level - I', 'Level-I'],
+                '2' => ['Level 2', 'L2', 'LEVEL 2', 'level 2', 'Level2', '2', 'II', 'LEVEL - II', 'LEVEL-II', 'Level - II', 'Level-II'],
+                '3' => ['Level 3', 'L3', 'LEVEL 3', 'level 3', 'Level3', '3', 'III', 'LEVEL - III', 'LEVEL-III', 'Level - III', 'Level-III'],
+            ];
+
+            foreach ($questions as $q) {
+                $level = trim((string)$q->question_level);
+                $found = false;
+                foreach ($levelAliases as $key => $aliases) {
+                    if (in_array($level, $aliases, true)) {
+                        $levelCounts[$key]++;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $levelCounts['other']++;
+                }
+            }
+
+            $userAttempts = \App\Models\CourseTestAttempt::query()
+                ->where('user_id', auth()->id())
+                ->where('course_detail_id', $course_detail->id)
+                ->where('test_type', CourseTestType::Practice->value)
+                ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
+                ->selectRaw('practice_level, practice_set, count(*) as count')
+                ->groupBy('practice_level', 'practice_set')
+                ->get()
+                ->groupBy('practice_level')
+                ->map(fn($group) => $group->pluck('count', 'practice_set'));
+
+            return view('practice-test', [
+                'course' => $course_detail,
+                'title' => $title,
+                'levelCounts' => $levelCounts,
+                'userAttempts' => $userAttempts,
+            ]);
+        }
+
         return view('cne-course-test', [
             'course' => $course_detail,
             'testType' => $type,

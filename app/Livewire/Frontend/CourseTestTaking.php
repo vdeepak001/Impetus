@@ -79,8 +79,11 @@ class CourseTestTaking extends Component
         $council = app(CourseStateCouncilResolver::class)->resolveForUserCourse($user, $course);
         $split = app(CourseQuestionSplitResolver::class)->resolve($council, $course);
 
+        $level = request()->query('level') ? (int) request()->query('level') : null;
+        $set = request()->query('set') ? (int) request()->query('set') : null;
+
         $selector = app(CourseTestQuestionSelector::class);
-        $ids = $selector->selectQuestionIds($course, $split, $this->type);
+        $ids = $selector->selectQuestionIds($course, $split, $this->type, $level, $set);
 
         if ($ids === []) {
             $this->fatalError = $this->buildNoQuestionsMessage($course, $split, $selector);
@@ -117,6 +120,8 @@ class CourseTestTaking extends Component
                 'course_detail_id' => $course->id,
                 'state_council_id' => $council?->id,
                 'test_type' => $this->type,
+                'practice_level' => request()->query('level'),
+                'practice_set' => request()->query('set'),
                 'status' => CourseTestAttempt::STATUS_IN_PROGRESS,
                 'question_ids' => $ids,
                 'correct_count' => 0,

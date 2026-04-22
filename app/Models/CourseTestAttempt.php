@@ -18,6 +18,8 @@ class CourseTestAttempt extends Model
         'course_detail_id',
         'state_council_id',
         'test_type',
+        'practice_level',
+        'practice_set',
         'status',
         'question_ids',
         'score_percent',

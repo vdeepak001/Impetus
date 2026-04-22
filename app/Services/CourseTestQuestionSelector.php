@@ -21,9 +21,9 @@ class CourseTestQuestionSelector
     private function levelAliases(int $levelIndex): array
     {
         return match ($levelIndex) {
-            0 => ['Level 1', 'L1', 'LEVEL 1', 'level 1', 'Level1', '1', 'I'],
-            1 => ['Level 2', 'L2', 'LEVEL 2', 'level 2', 'Level2', '2', 'II'],
-            2 => ['Level 3', 'L3', 'LEVEL 3', 'level 3', 'Level3', '3', 'III'],
+            0 => ['Level 1', 'L1', 'LEVEL 1', 'level 1', 'Level1', '1', 'I', 'LEVEL - I', 'LEVEL-I', 'Level - I', 'Level-I'],
+            1 => ['Level 2', 'L2', 'LEVEL 2', 'level 2', 'Level2', '2', 'II', 'LEVEL - II', 'LEVEL-II', 'Level - II', 'Level-II'],
+            2 => ['Level 3', 'L3', 'LEVEL 3', 'level 3', 'Level3', '3', 'III', 'LEVEL - III', 'LEVEL-III', 'Level - III', 'Level-III'],
             default => [],
         };
     }
@@ -169,9 +169,30 @@ class CourseTestQuestionSelector
      *
      * @return list<int>
      */
-    public function selectQuestionIds(CourseDetail $course, ?QuestionSplitUp $split, CourseTestType $type): array
+    public function selectQuestionIds(CourseDetail $course, ?QuestionSplitUp $split, CourseTestType $type, ?int $level = null, ?int $set = null): array
     {
         if ($type === CourseTestType::Practice) {
+            if ($level !== null && $set !== null) {
+                if ($level === -1) { // Special case for 'other'
+                    $query = $this->baseQuestionQuery($course);
+                    foreach ([0, 1, 2] as $idx) {
+                        $tokens = $this->normalizedLevelTokens($idx);
+                        foreach ($tokens as $token) {
+                            $query->whereRaw('LOWER(TRIM(COALESCE(question_level, ?))) != ?', ['', mb_strtolower(trim($token))]);
+                        }
+                    }
+                } else {
+                    $query = $this->scopeLevelBucket($this->baseQuestionQuery($course), $level - 1);
+                }
+                
+                return $query->orderBy('id')
+                    ->offset(($set - 1) * 20)
+                    ->limit(20)
+                    ->pluck('id')
+                    ->map(fn ($id) => (int) $id)
+                    ->all();
+            }
+            
             return $this->practiceQuestionIds($course);
         }
 

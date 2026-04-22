@@ -5,10 +5,10 @@
                 <p class="text-lg font-semibold">This test cannot be loaded</p>
                 <p class="mt-2 whitespace-pre-line text-sm text-amber-800/90">{{ $fatalError }}</p>
                 <a
-                    href="{{ route('cne.modules.show', $course->couse_name) }}"
+                    href="{{ $testType === 'practice' ? route('cne.modules.test', [$course->couse_name, 'practice']) : route('cne.modules.show', $course->couse_name) }}"
                     class="mt-6 inline-flex items-center gap-2 rounded-xl border border-amber-300 bg-white px-5 py-2.5 text-sm font-semibold text-amber-900 shadow-sm transition hover:bg-amber-100"
                 >
-                    Back to module
+                    Back to {{ $testType === 'practice' ? 'practice sets' : 'module' }}
                 </a>
             </div>
         @elseif ($submitted)
@@ -169,10 +169,10 @@
                         {{-- Action Buttons --}}
                         <div class="mt-10 flex flex-col items-center gap-4 border-t border-slate-100 pt-8">
                             <a
-                                href="{{ route('cne.modules.show', $course->couse_name) }}"
+                                href="{{ $testType === 'practice' ? route('cne.modules.test', [$course->couse_name, 'practice']) : route('cne.modules.show', $course->couse_name) }}"
                                 class="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-logo-blue to-brand-600 px-10 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-xl shadow-logo-blue/30 transition hover:from-brand-600 hover:to-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
                             >
-                                Back to module
+                                Back to {{ $testType === 'practice' ? 'practice sets' : 'module' }}
                                 <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                                 </svg>
@@ -186,11 +186,11 @@
             <div class="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
                 <div class="min-w-0 flex-1">
                     <a
-                        href="{{ route('cne.modules.show', $course->couse_name) }}"
+                        href="{{ $testType === 'practice' ? route('cne.modules.test', [$course->couse_name, 'practice']) : route('cne.modules.show', $course->couse_name) }}"
                         class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-logo-blue hover:text-brand-600"
                     >
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-                        Module
+                        {{ $testType === 'practice' ? 'Practice Sets' : 'Module' }}
                     </a>
                     <h1 class="mt-2 font-serif text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl">
                         {{ $type->label() }}
