@@ -47,23 +47,39 @@ class FrontendRegisteredUserController extends Controller
             ])],
             'date_of_birth' => ['required', 'date', 'before:today'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'phone' => ['required', 'string', 'max:20'],
+            'phone' => ['required', 'numeric', 'digits:10'],
             'rn_number' => ['required', 'string', 'max:100'],
         ]);
 
         $generatedPassword = Str::random(10);
         $normalizedEmail = Str::lower(trim($validated['email']));
 
-        $emailAlreadyExists = User::query()
-            ->get()
-            ->contains(function (User $user) use ($normalizedEmail): bool {
-                return Str::lower(trim((string) $user->email)) === $normalizedEmail;
-            });
+        $normalizedPhone = trim($validated['phone']);
+
+        // Since email and phone are encrypted in the User model, we cannot use standard SQL uniqueness checks.
+        // We fetch all users and check manually.
+        $allUsers = User::query()->whereNotNull('phone')->orWhereNotNull('email')->get();
+
+        $emailAlreadyExists = $allUsers->contains(function (User $user) use ($normalizedEmail): bool {
+            return Str::lower(trim((string) $user->email)) === $normalizedEmail;
+        });
 
         if ($emailAlreadyExists) {
             return back()
                 ->withErrors([
                     'email' => 'This email is already registered.',
+                ], 'frontendRegister')
+                ->withInput();
+        }
+
+        $phoneAlreadyExists = $allUsers->contains(function (User $user) use ($normalizedPhone): bool {
+            return trim((string) $user->phone) === $normalizedPhone;
+        });
+
+        if ($phoneAlreadyExists) {
+            return back()
+                ->withErrors([
+                    'phone' => 'This mobile number is already registered.',
                 ], 'frontendRegister')
                 ->withInput();
         }
