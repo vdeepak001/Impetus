@@ -31,13 +31,25 @@
         class="pb-16"
         x-data="{
             practiceGateOpen: false,
+            scoreCardOpen: false,
+            scoreCardData: {
+                title: '',
+                score: 0,
+                correct: 0,
+                wrong: 0,
+                total: 0,
+                duration: '—'
+            },
             init() {
                 this.$watch('practiceGateOpen', value => {
                     document.body.style.overflow = value ? 'hidden' : '';
                 });
+                this.$watch('scoreCardOpen', value => {
+                    document.body.style.overflow = value ? 'hidden' : '';
+                });
             },
         }"
-        @keydown.escape.window="practiceGateOpen = false"
+        @keydown.escape.window="practiceGateOpen = false; scoreCardOpen = false"
     >
         <div class="h-[100px]" aria-hidden="true"></div>
 
@@ -106,9 +118,20 @@
 
                                         {{-- Mock Test --}}
                                         @if ($mockDone)
-                                            <span class="{{ $btnBase }} {{ $doneClass }}" title="Mock test completed with {{ number_format((float) $tp['mock_score'], 1) }}%">
+                                            <button 
+                                                type="button"
+                                                @click="scoreCardOpen = true; scoreCardData = { 
+                                                    title: 'Mock Test Result',
+                                                    score: '{{ number_format((float) $tp['mock_score'], 1) }}',
+                                                    correct: '{{ $tp['mock_correct'] }}',
+                                                    wrong: '{{ $tp['mock_wrong'] }}',
+                                                    total: '{{ $tp['mock_total'] }}',
+                                                    duration: '{{ $tp['mock_duration'] }}'
+                                                }"
+                                                class="{{ $btnBase }} {{ $mockClass }} border-logo-blue/30 bg-logo-blue/5"
+                                            >
                                                 Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                            </span>
+                                            </button>
                                         @elseif ($canMock)
                                             <a href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}" class="{{ $btnBase }} {{ $mockClass }}">Mock</a>
                                         @else
@@ -117,9 +140,20 @@
 
                                         {{-- Pre Test --}}
                                         @if ($preDone)
-                                            <span class="{{ $btnBase }} {{ $doneClass }}" title="Pre test completed with {{ number_format((float) $tp['pre_score'], 1) }}%">
+                                            <button 
+                                                type="button"
+                                                @click="scoreCardOpen = true; scoreCardData = { 
+                                                    title: 'Pre Test Result',
+                                                    score: '{{ number_format((float) $tp['pre_score'], 1) }}',
+                                                    correct: '{{ $tp['pre_correct'] }}',
+                                                    wrong: '{{ $tp['pre_wrong'] }}',
+                                                    total: '{{ $tp['pre_total'] }}',
+                                                    duration: '{{ $tp['pre_duration'] }}'
+                                                }"
+                                                class="{{ $btnBase }} {{ $preClass }} border-logo-blue/30 bg-logo-blue/5"
+                                            >
                                                 Pre <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                            </span>
+                                            </button>
                                         @elseif ($canPre)
                                             <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pre</a>
                                         @else
@@ -128,10 +162,21 @@
 
                                         {{-- Final Test --}}
                                         @if ($finalDone && ($tp['final_passed'] ?? false))
-                                            <span class="{{ $btnBase }} {{ $doneClass }} ring-2 ring-emerald-500/20" title="Final test completed with {{ number_format((float) $tp['final_score'], 1) }}% (Passed)">
+                                            <button 
+                                                type="button"
+                                                @click="scoreCardOpen = true; scoreCardData = { 
+                                                    title: 'Final Test Result',
+                                                    score: '{{ number_format((float) $tp['final_score'], 1) }}',
+                                                    correct: '{{ $tp['final_correct'] }}',
+                                                    wrong: '{{ $tp['final_wrong'] }}',
+                                                    total: '{{ $tp['final_total'] }}',
+                                                    duration: '{{ $tp['final_duration'] }}'
+                                                }"
+                                                class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
+                                            >
                                                 Final 
                                                 <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                            </span>
+                                            </button>
                                         @elseif ($canFinal)
                                             <a href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}" class="{{ $btnBase }} {{ $finalClass }}">
                                                 @if ($finalDone)
@@ -393,6 +438,83 @@
             </section>
         @endif
 
+        {{-- Score Card Modal --}}
+        <div
+            x-show="scoreCardOpen"
+            x-cloak
+            x-transition:enter="transition ease-out duration-200"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-150"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            role="dialog"
+            aria-modal="true"
+        >
+            <div class="absolute inset-0 bg-slate-900/60 transition-opacity" @click="scoreCardOpen = false"></div>
+            
+            <div class="relative w-full max-w-lg rounded-[2rem] border border-white/20 bg-white shadow-2xl ring-1 ring-slate-900/10">
+                <div class="flex items-center justify-between border-b border-slate-100 bg-white/95 px-6 py-4 rounded-t-[2rem]">
+                    <div class="flex items-center gap-2.5">
+                        <div class="flex size-9 items-center justify-center rounded-xl bg-logo-blue/10 text-logo-blue">
+                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h2 class="font-serif text-lg font-bold text-slate-900">Score Card</h2>
+                    </div>
+                    <button 
+                        @click="scoreCardOpen = false"
+                        class="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600"
+                    >
+                        <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="px-6 py-6 sm:px-8">
+                    <div class="text-center">
+                        <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-logo-blue/80" x-text="scoreCardData.title"></p>
+                        <div class="mt-2 inline-flex items-end gap-1">
+                            <span class="text-5xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.score"></span>
+                            <span class="mb-1 text-2xl font-bold text-slate-400">%</span>
+                        </div>
+                        <p class="mt-2 text-sm font-semibold text-slate-500">{{ $course->couse_name }}</p>
+                    </div>
+
+                    <div class="mt-8 grid grid-cols-2 gap-3">
+                        <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Questions</p>
+                            <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.total"></p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Duration</p>
+                            <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.duration"></p>
+                        </div>
+                        <div class="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-600/80">Correct</p>
+                            <p class="mt-1 text-xl font-bold text-emerald-700" x-text="scoreCardData.correct"></p>
+                        </div>
+                        <div class="rounded-2xl border border-orange-100 bg-orange-50/30 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-orange-600/80">Wrong</p>
+                            <p class="mt-1 text-xl font-bold text-orange-700" x-text="scoreCardData.wrong"></p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <button
+                            @click="scoreCardOpen = false"
+                            class="flex w-full items-center justify-center gap-2 rounded-2xl bg-logo-blue py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-xl shadow-logo-blue/20 transition hover:bg-brand-600"
+                        >
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         {{-- Gate: practice questions require completed mock test --}}
         <div
             x-show="practiceGateOpen"
@@ -409,7 +531,7 @@
             aria-labelledby="practice-gate-title"
         >
             <div
-                class="absolute inset-0 bg-slate-900/55 backdrop-blur-sm"
+                class="absolute inset-0 bg-slate-900/55"
                 @click="practiceGateOpen = false"
                 aria-hidden="true"
             ></div>

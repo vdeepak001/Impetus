@@ -103,13 +103,39 @@ class CneModulesController extends Controller
                 ->latest('id')
                 ->first();
 
+            $formatDuration = function($seconds) {
+                if ($seconds === null) return '—';
+                $seconds = (int) $seconds;
+                return sprintf('%d:%02d', floor($seconds / 60), $seconds % 60);
+            };
+
             $courseTestProgress = [
                 'mock_done' => (bool) $mockAttempt,
                 'mock_score' => $mockAttempt?->score_percent,
+                'mock_correct' => $mockAttempt?->correct_count,
+                'mock_wrong' => $mockAttempt ? (max(0, $mockAttempt->total_questions - $mockAttempt->correct_count)) : 0,
+                'mock_total' => $mockAttempt?->total_questions,
+                'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at 
+                    ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at)) 
+                    : '—',
+
                 'pre_done' => (bool) $preAttempt,
                 'pre_score' => $preAttempt?->score_percent,
+                'pre_correct' => $preAttempt?->correct_count,
+                'pre_wrong' => $preAttempt ? (max(0, $preAttempt->total_questions - $preAttempt->correct_count)) : 0,
+                'pre_total' => $preAttempt?->total_questions,
+                'pre_duration' => $preAttempt && $preAttempt->started_at && $preAttempt->completed_at 
+                    ? $formatDuration($preAttempt->started_at->diffInSeconds($preAttempt->completed_at)) 
+                    : '—',
+
                 'final_done' => (bool) $finalAttempt,
                 'final_score' => $finalAttempt?->score_percent,
+                'final_correct' => $finalAttempt?->correct_count,
+                'final_wrong' => $finalAttempt ? (max(0, $finalAttempt->total_questions - $finalAttempt->correct_count)) : 0,
+                'final_total' => $finalAttempt?->total_questions,
+                'final_duration' => $finalAttempt && $finalAttempt->started_at && $finalAttempt->completed_at 
+                    ? $formatDuration($finalAttempt->started_at->diffInSeconds($finalAttempt->completed_at)) 
+                    : '—',
                 'final_passed' => $finalAttempt?->passed,
             ];
         }
