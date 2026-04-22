@@ -44,7 +44,7 @@
                                 For security, please log in and change your password immediately after your first sign in.
                             </p>
 
-                            <table role="presentation" cellspacing="0" cellpadding="0" style="margin-top: 22px;">
+                            {{-- <table role="presentation" cellspacing="0" cellpadding="0" style="margin-top: 22px;">
                                 <tr>
                                     <td>
                                         <a href="{{ route('login') }}" style="display: inline-block; padding: 11px 18px; border-radius: 999px; background-color: #0082c9; color: #ffffff; text-decoration: none; font-size: 14px; font-weight: 600;">
@@ -52,7 +52,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                            </table>
+                            </table> --}}
                         </td>
                     </tr>
 
