@@ -108,7 +108,9 @@ class CourseTestTaking extends Component
                 $inProgress->delete();
             }
 
-            shuffle($ids);
+            if ($this->type !== CourseTestType::Practice) {
+                shuffle($ids);
+            }
 
             $attempt = CourseTestAttempt::query()->create([
                 'user_id' => $user->id,

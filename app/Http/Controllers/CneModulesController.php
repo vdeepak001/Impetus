@@ -79,10 +79,38 @@ class CneModulesController extends Controller
 
         $courseTestProgress = null;
         if ($viewer && $viewer->role_type === 'user' && $isPurchased) {
+            $mockAttempt = CourseTestAttempt::query()
+                ->where('user_id', $viewer->id)
+                ->where('course_detail_id', $course_detail->id)
+                ->where('test_type', CourseTestType::Mock->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->latest('id')
+                ->first();
+
+            $preAttempt = CourseTestAttempt::query()
+                ->where('user_id', $viewer->id)
+                ->where('course_detail_id', $course_detail->id)
+                ->where('test_type', CourseTestType::Pre->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->latest('id')
+                ->first();
+
+            $finalAttempt = CourseTestAttempt::query()
+                ->where('user_id', $viewer->id)
+                ->where('course_detail_id', $course_detail->id)
+                ->where('test_type', CourseTestType::Final->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->latest('id')
+                ->first();
+
             $courseTestProgress = [
-                'mock_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Mock),
-                'pre_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Pre),
-                'final_done' => CourseTestAttempt::isTypeCompleted($viewer->id, $course_detail->id, CourseTestType::Final),
+                'mock_done' => (bool) $mockAttempt,
+                'mock_score' => $mockAttempt?->score_percent,
+                'pre_done' => (bool) $preAttempt,
+                'pre_score' => $preAttempt?->score_percent,
+                'final_done' => (bool) $finalAttempt,
+                'final_score' => $finalAttempt?->score_percent,
+                'final_passed' => $finalAttempt?->passed,
             ];
         }
 

@@ -68,58 +68,80 @@
                         $purchasedButtonClass = 'inline-flex shrink-0 items-center justify-center rounded-xl bg-emerald-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-emerald-600/25 ring-2 ring-emerald-500/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500 focus-visible:ring-offset-2';
                     @endphp
                     <div class="shrink-0">
-                        @auth
+                        @if (Auth::check())
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
-                                    @php
-                                        $tp = $courseTestProgress;
-                                        $canMock = (bool) $tp;
-                                        $canPre = $tp && ($tp['mock_done'] ?? false);
-                                        $canFinal = $tp && ($tp['pre_done'] ?? false);
-                                        $nextTest = null;
-                                        if ($tp) {
-                                            if (! ($tp['mock_done'] ?? false)) {
-                                                $nextTest = 'mock';
-                                            } elseif (! ($tp['pre_done'] ?? false)) {
-                                                $nextTest = 'pre';
-                                            } elseif (! ($tp['final_done'] ?? false)) {
-                                                $nextTest = 'final';
-                                            }
-                                        }
-                                        $btnActive = 'ring-2 ring-offset-2 ring-logo-blue ring-offset-white shadow-md';
-                                    @endphp
                                     <div class="flex flex-wrap items-center justify-end gap-3">
-                                        @if ($canMock)
-                                            <a
-                                                href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}"
-                                                class="inline-flex items-center justify-center rounded-xl border-2 border-amber-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700 transition hover:border-amber-500 hover:bg-amber-500 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 {{ $nextTest === 'mock' ? $btnActive : '' }}"
-                                            >
-                                                Mock
-                                            </a>
+                                        @php
+                                            $tp = $courseTestProgress;
+                                            $mockDone = $tp['mock_done'] ?? false;
+                                            $preDone = $tp['pre_done'] ?? false;
+                                            $finalDone = $tp['final_done'] ?? false;
+
+                                            $canMock = (bool) $tp;
+                                            $canPre = $tp && $mockDone;
+                                            $canFinal = $tp && $preDone;
+
+                                            $nextTest = null;
+                                            if ($tp) {
+                                                if (! $mockDone) {
+                                                    $nextTest = 'mock';
+                                                } elseif (! $preDone) {
+                                                    $nextTest = 'pre';
+                                                } elseif (! $finalDone) {
+                                                    $nextTest = 'final';
+                                                }
+                                            }
+
+                                            $btnBase = 'inline-flex items-center justify-center rounded-xl border-2 px-8 py-3.5 text-base font-bold uppercase tracking-wide transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
+                                            $btnActive = 'ring-2 ring-offset-2 ring-logo-blue ring-offset-white shadow-md';
+
+                                            $mockClass = "border-amber-500/40 bg-white text-amber-700 hover:border-amber-500 hover:bg-amber-500 hover:text-white focus-visible:ring-amber-500 " . ($nextTest === 'mock' ? $btnActive : '');
+                                            $preClass = "border-emerald-500/40 bg-white text-emerald-700 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus-visible:ring-emerald-600 " . ($nextTest === 'pre' ? $btnActive : '');
+                                            $finalClass = "border-rose-500/40 bg-white text-rose-700 hover:border-rose-600 hover:bg-rose-600 hover:text-white focus-visible:ring-rose-600 " . ($nextTest === 'final' ? $btnActive : '');
+
+                                            $doneClass = 'cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400 opacity-80';
+                                            $lockedClass = 'cursor-not-allowed border-slate-200/50 bg-slate-100/50 text-slate-300';
+                                        @endphp
+
+                                        {{-- Mock Test --}}
+                                        @if ($mockDone)
+                                            <span class="{{ $btnBase }} {{ $doneClass }}" title="Mock test completed with {{ number_format((float) $tp['mock_score'], 1) }}%">
+                                                Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                            </span>
+                                        @elseif ($canMock)
+                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}" class="{{ $btnBase }} {{ $mockClass }}">Mock</a>
                                         @else
-                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-amber-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-amber-700/50" title="Tests are unavailable">Mock</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Mock</span>
                                         @endif
 
-                                        @if ($canPre)
-                                            <a
-                                                href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}"
-                                                class="inline-flex items-center justify-center rounded-xl border-2 border-emerald-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700 transition hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 {{ $nextTest === 'pre' ? $btnActive : '' }}"
-                                            >
-                                                Pre
-                                            </a>
+                                        {{-- Pre Test --}}
+                                        @if ($preDone)
+                                            <span class="{{ $btnBase }} {{ $doneClass }}" title="Pre test completed with {{ number_format((float) $tp['pre_score'], 1) }}%">
+                                                Pre <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                            </span>
+                                        @elseif ($canPre)
+                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pre</a>
                                         @else
-                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-emerald-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-emerald-700/50" title="{{ ($tp['mock_done'] ?? false) ? '' : 'Complete the mock test first' }}">Pre</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Pre</span>
                                         @endif
 
-                                        @if ($canFinal)
-                                            <a
-                                                href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}"
-                                                class="inline-flex items-center justify-center rounded-xl border-2 border-rose-500/40 bg-white px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700 transition hover:border-rose-600 hover:bg-rose-600 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2 {{ $nextTest === 'final' ? $btnActive : '' }}"
-                                            >
-                                                Final
+                                        {{-- Final Test --}}
+                                        @if ($finalDone && ($tp['final_passed'] ?? false))
+                                            <span class="{{ $btnBase }} {{ $doneClass }} ring-2 ring-emerald-500/20" title="Final test completed with {{ number_format((float) $tp['final_score'], 1) }}% (Passed)">
+                                                Final 
+                                                <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                            </span>
+                                        @elseif ($canFinal)
+                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}" class="{{ $btnBase }} {{ $finalClass }}">
+                                                @if ($finalDone)
+                                                    Retake Final ({{ number_format((float) $tp['final_score'], 1) }}%)
+                                                @else
+                                                    Final
+                                                @endif
                                             </a>
                                         @else
-                                            <span class="inline-flex cursor-not-allowed items-center justify-center rounded-xl border-2 border-rose-500/20 bg-slate-100 px-8 py-3.5 text-base font-bold uppercase tracking-wide text-rose-700/50" title="{{ ($tp['pre_done'] ?? false) ? '' : 'Complete the pre test first' }}">Final</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the pre test first">Final</span>
                                         @endif
 
                                         <span class="text-base font-bold text-green-600" role="status">
@@ -177,7 +199,7 @@
                                     Buy now
                                 </button>
                             @endif
-                        @endauth
+                        @endif
                     </div>
                 </div>
 

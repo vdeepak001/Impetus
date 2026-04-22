@@ -63,7 +63,7 @@
                         <article class="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
                             <header class="border-b border-slate-200/80 bg-gradient-to-r from-slate-50 via-white to-logo-light-green/5 px-5 py-4 sm:px-6 sm:py-4">
                                 <h2 class="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
-                                    {{ $material['subtitle'] }}
+                                    {{ $loop->iteration }}. {{ $material['subtitle'] }}
                                 </h2>
                             </header>
                             <div class="px-5 py-5 sm:px-6 sm:py-6">

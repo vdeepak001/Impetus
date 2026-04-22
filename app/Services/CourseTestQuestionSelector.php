@@ -244,25 +244,51 @@ class CourseTestQuestionSelector
     }
 
     /**
-     * Practice: up to 30 eligible MCQs drawn at random from the full pool (same random draw style as mock / pre / final when using the flat pool).
+     * Practice: all eligible MCQs drawn in a fixed order (Level 1, then Level 2, then Level 3).
+     * No randomness or cap is applied, allowing the user to practice the full pool.
      *
      * @return list<int>
      */
     private function practiceQuestionIds(CourseDetail $course): array
     {
-        $cap = 30;
-        $base = $this->baseQuestionQuery($course);
-        $count = (int) (clone $base)->count();
-        $limit = min($cap, max(0, $count));
+        $ids = [];
 
-        if ($limit > 0) {
-            $ids = $this->pickRandomIds($base, $limit);
-            if ($ids !== []) {
-                return $ids;
+        // Fetch questions in order: Level 1 (index 0), Level 2 (index 1), Level 3 (index 2)
+        foreach ([0, 1, 2] as $levelIndex) {
+            $levelIds = $this->scopeLevelBucket($this->baseQuestionQuery($course), $levelIndex)
+                ->orderBy('id')
+                ->pluck('id')
+                ->map(fn ($id) => (int) $id)
+                ->all();
+
+            foreach ($levelIds as $id) {
+                $ids[] = $id;
             }
         }
 
-        return $this->pickRandomIds($this->lenientQuestionQuery($course), $cap);
+        // Add remaining questions (those with no level or levels other than L1-L3)
+        $existingIds = $ids;
+        $otherIds = $this->baseQuestionQuery($course)
+            ->whereNotIn('id', $existingIds)
+            ->orderBy('id')
+            ->pluck('id')
+            ->map(fn ($id) => (int) $id)
+            ->all();
+
+        foreach ($otherIds as $id) {
+            $ids[] = $id;
+        }
+
+        // If still empty (e.g. no active MCQs), fallback to lenient pool in ID order
+        if ($ids === []) {
+            return $this->lenientQuestionQuery($course)
+                ->orderBy('id')
+                ->pluck('id')
+                ->map(fn ($id) => (int) $id)
+                ->all();
+        }
+
+        return $ids;
     }
 
     public function levelLabelForQuestion(CourseQuestion $question): string
