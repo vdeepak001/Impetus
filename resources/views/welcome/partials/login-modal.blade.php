@@ -82,12 +82,12 @@
                     <input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-logo-light-green focus:ring-logo-light-green" @checked(old('remember')) />
                     <span>Remember me</span>
                 </label>
-                <button type="submit"
+                {{-- <button type="submit"
                         formaction="{{ route('frontend.password.resend') }}"
                         formmethod="POST"
                         class="text-sm font-medium text-logo-blue hover:text-brand-900 hover:underline">
                     Resend login password
-                </button>
+                </button> --}}
             </div>
             <button type="submit"
                     class="w-full rounded-full bg-logo-light-green px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-logo-light-green/90 focus:outline-none focus:ring-2 focus:ring-logo-light-green focus:ring-offset-2">
