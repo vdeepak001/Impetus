@@ -6,6 +6,10 @@
     <main class="pb-16">
         <div class="h-[100px]" aria-hidden="true"></div>
 
+@section('content')
+    <main class="pb-16">
+        <div class="h-[100px]" aria-hidden="true"></div>
+
         {{-- Breadcrumbs Section --}}
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">

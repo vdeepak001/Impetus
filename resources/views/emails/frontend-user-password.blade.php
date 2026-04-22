@@ -11,6 +11,11 @@
             <td align="center">
                 <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="max-width: 620px; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; overflow: hidden;">
                     <tr>
+                        <td align="center" style="padding: 24px 24px 16px;">
+                            <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" style="height: 40px; width: auto; display: block;">
+                        </td>
+                    </tr>
+                    <tr>
                         <td style="background: linear-gradient(135deg, #0082c9 0%, #83ba2d 100%); padding: 24px;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 24px; line-height: 1.3; font-weight: 700;">
                                 Welcome, {{ $user->name }}!

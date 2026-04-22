@@ -48,7 +48,18 @@
                             {{ $stateCouncil->council_name ?? '—' }}
                         </td>
                         <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                            {{ $stateCouncil->courseDetails->pluck('couse_name')->join(', ') ?: '—' }}
+                            <div class="flex flex-col gap-1.5">
+                                @forelse($stateCouncil->courseDetails as $index => $course)
+                                    <div class="flex items-start">
+                                        <span class="inline-flex items-center justify-center min-w-[1.5rem] h-5 mr-1.5 text-[10px] font-bold bg-gray-100 text-gray-600 rounded-md dark:bg-gray-700 dark:text-gray-300">
+                                            {{ $index + 1 }}
+                                        </span>
+                                        <span class="leading-5">{{ $course->couse_name }}</span>
+                                    </div>
+                                @empty
+                                    <span class="text-gray-400 italic">No courses assigned</span>
+                                @endforelse
+                            </div>
                         </td>
                         {{-- <td class="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                             {{ $stateCouncil->courseDetails->pluck('sequence')->filter()->join(', ') ?: '—' }}

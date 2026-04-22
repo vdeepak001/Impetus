@@ -55,6 +55,44 @@ class CneModulesController extends Controller
     }
 
     /**
+     * General practice test landing page: lists all active modules.
+     */
+    public function practiceIndex(): View
+    {
+        $query = CourseDetail::query()
+            ->where('active_status', 1);
+
+        $user = auth()->user();
+        if ($user && $user->role_type === 'user' && filled($user->state)) {
+            $stateName = trim((string) $user->state);
+            $query->with(['stateCouncils' => function ($stateCouncilQuery) use ($stateName) {
+                $stateCouncilQuery
+                    ->where('active_status', true)
+                    ->whereHas('state', function ($stateQuery) use ($stateName) {
+                        $stateQuery->where('name', $stateName)->where('status', 'active');
+                    });
+            }]);
+        }
+
+        $courses = $query
+            ->orderByRaw('CASE WHEN sequence IS NULL THEN 1 ELSE 0 END')
+            ->orderBy('sequence')
+            ->orderBy('id')
+            ->get();
+
+        $purchasedCourseIds = collect();
+        if ($user && $user->role_type === 'user') {
+            $purchasedCourseIds = Order::purchasedCourseDetailIdsFor($user);
+        }
+
+        return view('practice-landing', [
+            'courses' => $courses,
+            'purchasedCourseIds' => $purchasedCourseIds,
+            'title' => 'Practice Test',
+        ]);
+    }
+
+    /**
      * Single module: description, attachment, Q&A and practice content.
      */
     public function show(CourseDetail $course_detail): View

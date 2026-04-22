@@ -39,7 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 Route::view('/cpd-certifications', 'cpd-certifications')->name('cpd.certifications');
 Route::view('/learning-materials', 'learning-materials')->name('learning.materials');
-Route::view('/practice-test', 'practice-test')->name('practice.test');
+Route::get('/practice-test', [CneModulesController::class, 'practiceIndex'])->name('practice.test');
 Route::view('/online-examination', 'online-examination')->name('online.examination');
 
 Route::view('/faq', 'faq')->name('faq');
