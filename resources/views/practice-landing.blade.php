@@ -51,52 +51,146 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-2 lg:items-center">
                     <div class="order-2 lg:order-1">
-                        <h1 class="text-base font-semibold leading-7 text-logo-blue uppercase tracking-wider">Practice & Excellence</h1>
+                        <h1 class="text-base font-semibold leading-7 text-logo-blue uppercase tracking-wider">CPD in Nursing</h1>
                         <h2 class="mt-2 text-4xl font-serif font-extrabold tracking-tight text-brand-900 sm:text-5xl">
-                            Why Practice Matters
+                            Practice Tests
                         </h2>
-                        <p class="mt-6 text-lg leading-relaxed text-slate-600">
-                            Select a module below to access its practice questions. Each module contains multiple sets of 20 questions each, designed to help you prepare for your Mock and Final examinations.
-                        </p>
+                        <div class="mt-6 space-y-6 text-lg leading-relaxed text-slate-600">
+                            <p>
+                                The Practice Tests for CPD in Nursing are designed to reinforce learning, assess knowledge, and enhance clinical decision-making skills. These tests provide nurses the opportunity to evaluate their understanding of key concepts and prepare effectively for certification and professional practice.
+                            </p>
+                            <p>
+                                Aligned with current clinical guidelines and course objectives, the practice tests cover a wide range of topics relevant to contemporary nursing care. They are structured to simulate real-life scenarios, encouraging critical thinking and the application of knowledge in practical situations.
+                            </p>
+                        </div>
                         
-                        <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-slate-600 lg:max-w-none">
-                            <div class="relative pl-9">
-                                <dt class="inline font-bold text-brand-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                    </svg>
-                                    Self-Assessment.
-                                </dt>
-                                <dd class="inline text-sm">Identify your strengths and areas that need more focus before the final evaluation.</dd>
-                            </div>
-                            <div class="relative pl-9">
-                                <dt class="inline font-bold text-brand-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                    </svg>
-                                    Exam Readiness.
-                                </dt>
-                                <dd class="inline text-sm">Get accustomed to the question format and time constraints of the professional exams.</dd>
-                            </div>
-                            <div class="relative pl-9">
-                                <dt class="inline font-bold text-brand-900">
-                                    <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                                    </svg>
-                                    Unlimited Attempts.
-                                </dt>
-                                <dd class="inline text-sm">Practice as many times as you need to achieve mastery over the subject matter.</dd>
-                            </div>
-                        </dl>
+                        <div class="mt-10">
+                            <h3 class="text-xl font-bold text-brand-900 mb-6">Key Features</h3>
+                            <dl class="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Question Bank
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Covers clinical skills, safety, infection control, and more.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Case-Based
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Realistic scenarios that assess problem-solving abilities.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Instant Feedback
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Immediate explanations to support and correct learning.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Self-Assessment
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Identify strengths and areas for further improvement.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Flexible Access
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Available online, practice anytime at your convenience.</dd>
+                                </div>
+                                <div class="relative pl-9">
+                                    <dt class="font-bold text-brand-900">
+                                        <svg class="absolute left-1 top-1 h-5 w-5 text-emerald-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                                        </svg>
+                                        Exam Prep
+                                    </dt>
+                                    <dd class="text-sm text-slate-500">Prepares for CPD certification assessments.</dd>
+                                </div>
+                            </dl>
+                        </div>
                     </div>
                     <div class="relative order-1 lg:order-2">
                         <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-500 ring-1 ring-slate-200">
-                            <img src="{{ asset('images/nursing-practice.png') }}" alt="Student practicing" class="w-full h-auto object-cover aspect-[4/3]">
+                            <img src="{{ asset('images/practice_test_hero.png') }}" alt="Nurse taking practice test" class="w-full h-auto object-cover aspect-[4/3]">
                             <div class="absolute inset-0 bg-gradient-to-tr from-logo-blue/20 to-transparent pointer-events-none"></div>
                         </div>
                         {{-- Decorative elements --}}
                         <div class="absolute -bottom-10 -right-10 h-40 w-40 rounded-full bg-logo-light-green/10 blur-3xl"></div>
                         <div class="absolute -top-10 -left-10 h-40 w-40 rounded-full bg-logo-blue/10 blur-3xl"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white overflow-hidden relative">
+            <div class="mx-auto max-w-7xl px-6 lg:px-8 relative">
+                <div class="grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-2 lg:items-center">
+                    <div class="relative">
+                        <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-500 ring-1 ring-slate-200">
+                            <img src="{{ asset('images/nursing_benefits.png') }}" alt="Clinical learning" class="w-full h-auto object-cover aspect-[4/3]">
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="text-3xl font-serif font-extrabold tracking-tight text-brand-900 sm:text-4xl">
+                            Benefits & Purpose
+                        </h2>
+                        <p class="mt-6 text-lg leading-relaxed text-slate-600">
+                            The purpose of these practice tests is to ensure that nurses gain theoretical knowledge and develop the ability to apply it effectively in clinical settings. Regular self-assessment enables nurses to maintain high standards of care and achieve professional excellence.
+                        </p>
+                        
+                        <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-900">Knowledge Retention</h4>
+                                    <p class="text-sm text-slate-500">Strengthens recall for assessments.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-900">Builds Confidence</h4>
+                                    <p class="text-sm text-slate-500">Prepare for real-world scenarios.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-900">Critical Thinking</h4>
+                                    <p class="text-sm text-slate-500">Enhances clinical judgement skills.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-brand-900">Lifelong Learning</h4>
+                                    <p class="text-sm text-slate-500">Supports continuous improvement.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
