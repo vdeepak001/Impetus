@@ -59,7 +59,7 @@
                                 class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
                         </div>
                         <div>
-                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Validity</label>
+                            <label class="mb-1 block text-[10px] font-bold text-gray-400 uppercase tracking-tight">Validity Period</label>
                             <input type="number" name="courses[{{ $courseId }}][valid_days]" wire:model.defer="selectedCourses.{{ $courseId }}.valid_days"
                                 placeholder="30"
                                 class="h-9 w-full rounded-lg border border-gray-200 bg-white px-2 text-sm text-gray-800 focus:ring-4 focus:ring-brand-500/10 focus:border-brand-500 dark:bg-gray-900 dark:border-gray-700 dark:text-white/90 transition-all" />
