@@ -362,7 +362,7 @@
                         <div class="min-w-0 pl-0 sm:pl-2 lg:pl-4">
                             <div class="flex flex-col gap-2 border-l-4 border-logo-light-green pl-5 sm:pl-6">
                                 <h2 class="text-2xl font-bold tracking-tight text-emerald-900 font-serif sm:text-3xl">
-                                    Learning resources
+                                    Learning Resources
                                 </h2>
                                 <p class="text-sm font-medium text-slate-500">Question &amp; answer format for deeper understanding</p>
                             </div>
