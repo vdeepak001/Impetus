@@ -16,11 +16,11 @@ class Index extends Component
     #[Url(except: '')]
     public $search = '';
 
-    #[Url(except: 'id')]
-    public $sortField = 'id';
+    #[Url(except: 'states.name')]
+    public $sortField = 'states.name';
 
-    #[Url(except: 'desc')]
-    public $sortDirection = 'desc';
+    #[Url(except: 'asc')]
+    public $sortDirection = 'asc';
 
     public $perPage = 10;
 
@@ -52,7 +52,9 @@ class Index extends Component
 
     public function render()
     {
-        $query = StateCouncil::with(['state', 'courseDetails']);
+        $query = StateCouncil::select('state_councils.*')
+            ->join('states', 'states.id', '=', 'state_councils.state_id')
+            ->with(['state', 'courseDetails']);
 
         if ($this->search) {
             $query->where(function ($q) {
