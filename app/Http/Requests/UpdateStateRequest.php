@@ -22,7 +22,7 @@ class UpdateStateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'max:255', 'unique:states,name,' . $this->state->id],
             'status' => ['required', 'string', 'in:active,inactive'],
         ];
     }
