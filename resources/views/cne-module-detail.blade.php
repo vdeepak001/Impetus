@@ -422,7 +422,7 @@
                                 <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
                                 <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-100 shadow-xl shadow-slate-300/35 ring-1 ring-slate-200/50">
                                     <img
-                                        src="{{ asset('images/cne-practice-test.jpg') }}"
+                                        src="{{ asset('images/nursing_benefits.png') }}"
                                         alt="Practice assessment and multiple-choice review"
                                         class="aspect-[4/3] w-full object-cover lg:aspect-auto lg:h-[min(22rem,48vh)]"
                                         width="1400"

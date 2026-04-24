@@ -210,6 +210,10 @@ foreach ($prefixes as $prefix) {
         if (in_array($prefix, ['super-admin', 'admin'], true)) {
             Route::get('reports', [ReportsController::class, 'index'])
                 ->name($prefix.'.reports.index');
+            Route::get('reports/user-performance', [ReportsController::class, 'userPerformance'])
+                ->name($prefix.'.reports.user-performance');
+            Route::get('reports/export-csv', [ReportsController::class, 'exportCsv'])
+                ->name($prefix.'.reports.export-csv');
         }
 
         if (in_array($prefix, ['super-admin', 'admin', 'support'], true)) {
