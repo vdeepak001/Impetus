@@ -309,15 +309,13 @@
                 <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,13.5rem)_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
                         <div class="flex shrink-0 justify-center lg:justify-start">
-                            <div class="w-52 sm:w-56">
-                                <div class="relative h-36 w-44 overflow-hidden rounded-2xl border border-slate-200/60 bg-white shadow-xl shadow-slate-200/50 sm:h-40 sm:w-56">
-                                    <img 
-                                        src="{{ asset('images/nurses_education-1000x675.png') }}" 
-                                        alt="Nurses Education" 
-                                        class="h-full w-full object-cover"
-                                        loading="lazy"
-                                    >
-                                </div>
+                            <div class="w-52 sm:w-60">
+                                <img 
+                                    src="{{ asset('images/nurses_education-1000x675.png') }}" 
+                                    alt="Nurses Education" 
+                                    class="w-full h-auto"
+                                    loading="lazy"
+                                >
 
                                 @if ($hasCourseMaterials && $canViewLearningMaterials)
                                     <a
