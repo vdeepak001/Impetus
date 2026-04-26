@@ -15,7 +15,7 @@
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
                     <div class="max-w-2xl">
-                        <h1 class="font-serif text-4xl font-extrabold tracking-tight text-brand-900 sm:text-5xl">
+                        <h1 class="font-serif text-[32px] font-extrabold tracking-tight text-brand-900 sm:text-[44px]">
                             Practice Test
                         </h1>
                         <p class="mt-6 text-lg leading-relaxed text-slate-600">

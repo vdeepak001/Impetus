@@ -29,7 +29,7 @@
                         <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                             <div class="min-w-0">
                                 <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-logo-blue/80">Test complete</p>
-                                <h1 class="mt-2 font-serif text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl">
+                                <h1 class="mt-2 font-serif text-xl font-bold tracking-tight text-brand-900 sm:text-[26px]">
                                     Result for {{ $banner }}
                                 </h1>
                                 <p class="mt-1.5 text-lg font-bold text-orange-600">
@@ -192,7 +192,7 @@
                         <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
                         {{ $testType === 'practice' ? 'Practice Sets' : 'Module' }}
                     </a>
-                    <h1 class="mt-2 font-serif text-2xl font-bold tracking-tight text-brand-900 sm:text-3xl">
+                    <h1 class="mt-2 font-serif text-xl font-bold tracking-tight text-brand-900 sm:text-[26px]">
                         {{ $type->label() }}
                     </h1>
                     <p class="mt-2 text-2xl font-bold leading-tight text-orange-500 sm:text-3xl lg:text-4xl">
@@ -299,13 +299,8 @@
                     @else
                         @php($q = $questions[$currentIndex] ?? null)
                         @if ($q)
-                            @if (! empty($q['level']))
-                                <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-600">
-                                    {{ $q['level'] }}
-                                </span>
-                            @endif
                             <h2 class="mt-4 text-lg font-semibold leading-relaxed text-slate-900 sm:text-xl">
-                                {{ $q['text'] }}
+                                {{ $currentIndex + 1 }}. {{ $q['text'] }}
                             </h2>
 
                             <div class="mt-8 space-y-4" wire:key="q-{{ $q['id'] }}">
