@@ -310,21 +310,13 @@
                     <div class="grid grid-cols-1 items-start gap-10 sm:gap-12 lg:grid-cols-[minmax(0,13.5rem)_minmax(0,1fr)] lg:gap-x-12 xl:gap-x-16">
                         <div class="flex shrink-0 justify-center lg:justify-start">
                             <div class="w-52 sm:w-56">
-                                <div class="relative h-36 w-44 sm:h-40 sm:w-56">
-                                    <div class="absolute left-0 top-3 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-light-green to-[#6fa828] text-white shadow-lg shadow-logo-light-green/30 ring-2 ring-white/40">
-                                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/10">
-                                            <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 9.75h4.5m-7.5 3h10.5m-6 3h1.5m-6 4.125h10.5A2.625 2.625 0 0020.625 17.25V6.75A2.625 2.625 0 0018 4.125H6A2.625 2.625 0 003.375 6.75v10.5A2.625 2.625 0 006 19.875z" />
-                                            </svg>
-                                        </span>
-                                    </div>
-                                    <div class="absolute bottom-0 right-0 flex h-[5.25rem] w-[6.5rem] items-center justify-center rounded-2xl bg-gradient-to-br from-logo-blue to-brand-600 text-white shadow-lg shadow-logo-blue/25 ring-2 ring-white/40">
-                                        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/80 bg-white/10">
-                                            <svg class="h-6 w-6 drop-shadow-sm" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-1.5m0 0a4.5 4.5 0 004.5-4.5c0-1.84-1.104-3.422-2.684-4.123A4.5 4.5 0 106.75 12a4.5 4.5 0 004.5 4.5zM9.75 21h4.5" />
-                                            </svg>
-                                        </span>
-                                    </div>
+                                <div class="relative h-36 w-44 overflow-hidden rounded-2xl border border-slate-200/60 bg-white shadow-xl shadow-slate-200/50 sm:h-40 sm:w-56">
+                                    <img 
+                                        src="{{ asset('images/nurses_education-1000x675.png') }}" 
+                                        alt="Nurses Education" 
+                                        class="h-full w-full object-cover"
+                                        loading="lazy"
+                                    >
                                 </div>
 
                                 @if ($hasCourseMaterials && $canViewLearningMaterials)
