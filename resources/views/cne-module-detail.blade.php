@@ -161,7 +161,7 @@
                                         @endif
 
                                         {{-- Final Test --}}
-                                        @if ($finalDone && ($tp['final_passed'] ?? false))
+                                        @if ($finalDone && (($tp['final_passed'] ?? false) || ($tp['final_attempt_count'] ?? 0) >= 2))
                                             <button 
                                                 type="button"
                                                 @click="scoreCardOpen = true; scoreCardData = { 
@@ -175,7 +175,11 @@
                                                 class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
                                                 Final 
-                                                <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                @if ($tp['final_passed'] ?? false)
+                                                    <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                @else
+                                                    <span class="ml-2 text-[10px] text-rose-500 font-bold uppercase">(Failed)</span>
+                                                @endif
                                             </button>
                                         @elseif ($canFinal)
                                             <a href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}" class="{{ $btnBase }} {{ $finalClass }}">

@@ -133,13 +133,16 @@ class CneModulesController extends Controller
                 ->latest('id')
                 ->first();
 
-            $finalAttempt = CourseTestAttempt::query()
+            $finalAttempts = CourseTestAttempt::query()
                 ->where('user_id', $viewer->id)
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Final->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
                 ->latest('id')
-                ->first();
+                ->get();
+
+            $finalAttempt = $finalAttempts->first();
+            $finalAttemptCount = $finalAttempts->count();
 
             $formatDuration = function($seconds) {
                 if ($seconds === null) return '—';
@@ -175,6 +178,7 @@ class CneModulesController extends Controller
                     ? $formatDuration($finalAttempt->started_at->diffInSeconds($finalAttempt->completed_at)) 
                     : '—',
                 'final_passed' => $finalAttempt?->passed,
+                'final_attempt_count' => $finalAttemptCount,
             ];
         }
 

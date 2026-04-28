@@ -99,7 +99,9 @@ class ReportsController extends Controller
             $query->whereDate('completed_at', '<=', $toDate);
         }
 
-        if ($examType) {
+        if ($examType === 'passed') {
+            $query->where('passed', true);
+        } elseif ($examType) {
             $query->where('test_type', $examType);
         }
 
@@ -110,17 +112,21 @@ class ReportsController extends Controller
 
         $userAttempts = $grouped->map(function ($group) {
             $first = $group->first();
-            $pre = $group->where('test_type', \App\Enums\CourseTestType::Pre)->sortByDesc('score_percent')->first();
             $mock = $group->where('test_type', \App\Enums\CourseTestType::Mock)->sortByDesc('score_percent')->first();
-            $final = $group->where('test_type', \App\Enums\CourseTestType::Final)->sortByDesc('score_percent')->first();
+            $pre = $group->where('test_type', \App\Enums\CourseTestType::Pre)->sortByDesc('score_percent')->first();
+            
+            $finalAttempts = $group->where('test_type', \App\Enums\CourseTestType::Final)->sortBy('completed_at');
+            $final1 = $finalAttempts->first();
+            $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
             return (object)[
                 'user_name' => $first->user->name ?? 'Unknown',
                 'ihs_id' => $first->user->rn_number ?? 'N/A',
                 'course_name' => $first->courseDetail->couse_name ?? 'Unknown',
-                'pre_score' => $pre ? number_format($pre->score_percent, 2) : '-',
                 'mock_score' => $mock ? number_format($mock->score_percent, 2) : '-',
-                'final_score' => $final ? number_format($final->score_percent, 2) : '-',
+                'pre_score' => $pre ? number_format($pre->score_percent, 2) : '-',
+                'final_score_1' => $final1 ? number_format($final1->score_percent, 2) : '-',
+                'final_score_2' => $final2 ? number_format($final2->score_percent, 2) : '-',
                 'completed_on' => $first->completed_at->format('d-m-Y'),
             ];
         });
@@ -158,7 +164,9 @@ class ReportsController extends Controller
         if ($toDate) {
             $query->whereDate('completed_at', '<=', $toDate);
         }
-        if ($examType) {
+        if ($examType === 'passed') {
+            $query->where('passed', true);
+        } elseif ($examType) {
             $query->where('test_type', $examType);
         }
 
@@ -177,21 +185,25 @@ class ReportsController extends Controller
 
         $callback = function() use ($grouped) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['Name', 'IHS ID', 'Module Name', 'Pre-Test', 'Mock Exam', 'Final', 'Completed On']);
+            fputcsv($file, ['Name', 'IHS ID', 'Module Name', 'Mock Test', 'Pre Test', 'Final 1', 'Final 2', 'Completed On']);
 
             foreach ($grouped as $group) {
                 $first = $group->first();
-                $pre = $group->where('test_type', \App\Enums\CourseTestType::Pre)->sortByDesc('score_percent')->first();
                 $mock = $group->where('test_type', \App\Enums\CourseTestType::Mock)->sortByDesc('score_percent')->first();
-                $final = $group->where('test_type', \App\Enums\CourseTestType::Final)->sortByDesc('score_percent')->first();
+                $pre = $group->where('test_type', \App\Enums\CourseTestType::Pre)->sortByDesc('score_percent')->first();
+                
+                $finalAttempts = $group->where('test_type', \App\Enums\CourseTestType::Final)->sortBy('completed_at');
+                $final1 = $finalAttempts->first();
+                $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
                 fputcsv($file, [
                     $first->user->name ?? 'Unknown',
                     $first->user->rn_number ?? 'N/A',
                     $first->courseDetail->couse_name ?? 'Unknown',
-                    $pre ? number_format($pre->score_percent, 2) : '-',
                     $mock ? number_format($mock->score_percent, 2) : '-',
-                    $final ? number_format($final->score_percent, 2) : '-',
+                    $pre ? number_format($pre->score_percent, 2) : '-',
+                    $final1 ? number_format($final1->score_percent, 2) : '-',
+                    $final2 ? number_format($final2->score_percent, 2) : '-',
                     $first->completed_at->format('d-m-Y'),
                 ]);
             }

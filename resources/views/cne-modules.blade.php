@@ -22,66 +22,111 @@
                     </p>
                 </div>
 
+                @php
+                    $purchasedCourses = $courses->filter(fn($c) => isset($purchasedCourseIds) && $purchasedCourseIds->contains($c->id));
+                    $otherCourses = $courses->reject(fn($c) => isset($purchasedCourseIds) && $purchasedCourseIds->contains($c->id));
+                @endphp
+
                 @if ($courses->isEmpty())
                     <div class="rounded-3xl border border-slate-200/80 bg-white px-8 py-14 text-center shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
                         <p class="text-lg leading-8 text-slate-600 text-justify">No modules are available yet. Please check back later.</p>
                     </div>
                 @else
-                    <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
-                        @foreach ($courses as $course)
-                            @php
-                                $title = $course->couse_name;
-                                $detailUrl = route('cne.modules.show', $course->couse_name);
-                            @endphp
-                            @php
-                                $isPurchased = isset($purchasedCourseIds) && $purchasedCourseIds->contains($course->id);
-                                $creditPoints = 'NA';
-                                if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
-                                    $rawPoints = $course->stateCouncils->first()->pivot->points;
-                                    if (is_array($rawPoints)) {
-                                        $creditPoints = array_sum($rawPoints);
-                                    } else {
-                                        $creditPoints = $rawPoints;
+                    {{-- Purchased Modules Section --}}
+                    @if($purchasedCourses->isNotEmpty())
+                        <div class="mb-8">
+                            <h3 class="font-serif text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">Purchased Modules</h3>
+                            <div class="mt-2 h-1 w-20 rounded-full bg-emerald-500"></div>
+                        </div>
+                        <div class="mb-16 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
+                            @foreach ($purchasedCourses as $course)
+                                @php
+                                    $title = $course->couse_name;
+                                    $detailUrl = route('cne.modules.show', $course->couse_name);
+                                    $creditPoints = 'NA';
+                                    if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
+                                        $rawPoints = $course->stateCouncils->first()->pivot->points;
+                                        $creditPoints = is_array($rawPoints) ? array_sum($rawPoints) : $rawPoints;
+                                        $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
                                     }
-                                    $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
-                                }
-                            @endphp
-                            <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
-                                <a href="{{ $detailUrl }}" class="relative flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">
-                                    @auth
-                                        @if (auth()->user()?->role_type === 'user')
-                                            <div
-                                                class="absolute -left-10 top-6 z-20 w-40 -rotate-45 transform text-center py-1.5 text-[11px] font-bold tracking-wider text-white shadow-md {{ $isPurchased ? 'bg-emerald-500' : 'bg-slate-500' }}"
+                                @endphp
+                                <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
+                                    <a href="{{ $detailUrl }}" class="relative flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">
+                                        <div class="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-slate-100">
+                                            <img
+                                                src="{{ asset('images/course.jpeg') }}"
+                                                alt=""
+                                                class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                                decoding="async"
                                             >
-                                                {{ $isPurchased ? 'Purchased' : 'Not Purchased' }}
+                                            <div class="absolute inset-0 flex items-center justify-center p-4">
+                                                <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
+                                                    {{ $title ?? '—' }}
+                                                </span>
                                             </div>
-                                        @endif
-                                    @endauth
-                                    <div class="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-slate-100">
-                                        <img
-                                            src="{{ asset('images/course.jpeg') }}"
-                                            alt=""
-                                            class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
-                                            loading="lazy"
-                                            decoding="async"
-                                        >
-                                        <div class="absolute inset-0 flex items-center justify-center p-4">
-                                            <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
-                                                {{ $title ?? '—' }}
-                                            </span>
+                                            @auth
+                                                @if (auth()->user()?->role_type === 'user')
+                                                    <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
+                                                        Credit Point: {{ $creditPoints }}
+                                                    </div>
+                                                @endif
+                                            @endauth
                                         </div>
-                                        @auth
-                                            @if (auth()->user()?->role_type === 'user')
-                                                <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
-                                                    Credit Point: {{ $creditPoints }}
-                                                </div>
-                                            @endif
-                                        @endauth
-                                    </div>
-                                </a>
-                            </article>
-                        @endforeach
-                    </div>
+                                    </a>
+                                </article>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    {{-- Other Modules Section --}}
+                    @if($otherCourses->isNotEmpty())
+                        <div class="mb-8">
+                            <h3 class="font-serif text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+                                {{ $purchasedCourses->isNotEmpty() ? 'Other Modules' : 'Available Modules' }}
+                            </h3>
+                            <div class="mt-2 h-1 w-20 rounded-full bg-logo-blue"></div>
+                        </div>
+                        <div class="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
+                            @foreach ($otherCourses as $course)
+                                @php
+                                    $title = $course->couse_name;
+                                    $detailUrl = route('cne.modules.show', $course->couse_name);
+                                    $creditPoints = 'NA';
+                                    if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
+                                        $rawPoints = $course->stateCouncils->first()->pivot->points;
+                                        $creditPoints = is_array($rawPoints) ? array_sum($rawPoints) : $rawPoints;
+                                        $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+                                    }
+                                @endphp
+                                <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
+                                    <a href="{{ $detailUrl }}" class="relative flex flex-1 flex-col focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2">
+                                        <div class="relative aspect-[4/3] w-full shrink-0 overflow-hidden bg-slate-100">
+                                            <img
+                                                src="{{ asset('images/course.jpeg') }}"
+                                                alt=""
+                                                class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+                                                loading="lazy"
+                                                decoding="async"
+                                            >
+                                            <div class="absolute inset-0 flex items-center justify-center p-4">
+                                                <span class="block max-w-full text-balance text-center text-base font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
+                                                    {{ $title ?? '—' }}
+                                                </span>
+                                            </div>
+                                            @auth
+                                                @if (auth()->user()?->role_type === 'user')
+                                                    <div class="absolute bottom-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
+                                                        Credit Point: {{ $creditPoints }}
+                                                    </div>
+                                                @endif
+                                            @endauth
+                                        </div>
+                                    </a>
+                                </article>
+                            @endforeach
+                        </div>
+                    @endif
                 @endif
             </div>
         </section>
