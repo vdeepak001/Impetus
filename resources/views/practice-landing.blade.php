@@ -214,7 +214,6 @@
                         <div class="relative">
                             <span class="inline-flex items-center rounded-xl bg-emerald-600 px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-emerald-600/20">Level 1</span>
                             <h3 class="mt-6 font-serif text-3xl font-black text-brand-900 leading-tight">Foundation & Core Basics</h3>
-                            <p class="mt-4 text-base text-slate-500 leading-relaxed">Focuses on fundamental nursing principles, basic medical terminology, and essential patient care techniques.</p>
                             
                             <ul class="mt-8 space-y-4">
                                 <li class="flex items-center gap-3 text-sm text-slate-600">
@@ -239,7 +238,6 @@
                         <div class="relative">
                             <span class="inline-flex items-center rounded-xl bg-sky-500 px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-sky-500/20">Level 2</span>
                             <h3 class="mt-6 font-serif text-3xl font-black text-brand-900 leading-tight">Intermediate Clinical Skills</h3>
-                            <p class="mt-4 text-base text-slate-500 leading-relaxed">Covers more complex procedures, pharmacology, and specialized patient monitoring techniques.</p>
                             
                             <ul class="mt-8 space-y-4">
                                 <li class="flex items-center gap-3 text-sm text-slate-600">
@@ -264,7 +262,6 @@
                         <div class="relative">
                             <span class="inline-flex items-center rounded-xl bg-rose-500 px-4 py-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-white shadow-lg shadow-rose-500/20">Level 3</span>
                             <h3 class="mt-6 font-serif text-3xl font-black text-brand-900 leading-tight">Expert Mastery & Ethics</h3>
-                            <p class="mt-4 text-base text-slate-500 leading-relaxed">Advanced diagnostics, critical care management, and professional nursing ethics and leadership.</p>
                             
                             <ul class="mt-8 space-y-4">
                                 <li class="flex items-center gap-3 text-sm text-slate-600">
