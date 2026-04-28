@@ -906,5 +906,5 @@ table tbody tr:nth-child(even) {
 
 /* Specific Section Headers */
 h2 {
-  color: var(--color-logo-mid-green) !important;
+  color: var(--color-logo-mid-green);
 }

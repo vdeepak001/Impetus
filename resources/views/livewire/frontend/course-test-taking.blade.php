@@ -299,7 +299,7 @@
                     @else
                         @php($q = $questions[$currentIndex] ?? null)
                         @if ($q)
-                            <h2 class="mt-4 text-lg font-semibold leading-relaxed text-slate-900 sm:text-xl">
+                            <h2 class="mt-4 text-lg font-semibold leading-relaxed !text-logo-blue sm:text-xl">
                                 {{ $currentIndex + 1 }}. {{ $q['text'] }}
                             </h2>
 
