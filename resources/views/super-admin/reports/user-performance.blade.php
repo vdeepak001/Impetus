@@ -136,8 +136,9 @@
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">IHS ID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Pre-Test</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Mock Exam</th>
+
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Pre-Test</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Final</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-right">Completed on</th>
                     </tr>
@@ -148,8 +149,9 @@
                             <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->ihs_id }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
-                            <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->pre_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->pre_score }}</td>
                             <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->mock_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->mock_score }}</td>
+
+                            <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->pre_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->pre_score }}</td>
                             <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->final_score }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->completed_on }}</td>
                         </tr>
