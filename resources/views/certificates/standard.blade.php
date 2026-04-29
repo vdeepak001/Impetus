@@ -6,187 +6,217 @@
     <style>
         @page {
             margin: 0;
+            size: A4 landscape;
         }
         body {
-            font-family: 'Helvetica', 'Arial', sans-serif;
-            color: #333;
+            font-family: 'serif';
             margin: 0;
             padding: 0;
-            background-color: #f8fdf9;
+            background-color: #fff;
+            color: #1e293b;
         }
-        .certificate-container {
-            width: 100%;
-            height: 100%;
-            padding: 40px;
+        .cert-wrapper {
+            padding: 35px;
+            height: 100vh;
             box-sizing: border-box;
-            position: relative;
+            background-color: #f8fafc;
         }
-        .border-outer {
-            border: 15px solid #1a365d; /* logo-blue-ish */
-            height: 90%;
-            padding: 10px;
-            position: relative;
-        }
-        .border-inner {
-            border: 2px solid #5fb143; /* logo-light-green */
+        .outer-border {
+            border: 10px double #0f172a;
             height: 100%;
-            padding: 40px;
+            padding: 6px;
             box-sizing: border-box;
+            background-color: #fff;
+        }
+        .inner-border {
+            border: 1.5px solid #b45309;
+            height: 100%;
+            padding: 30px 50px;
+            box-sizing: border-box;
+            background-color: #ffffff;
+            position: relative;
             text-align: center;
-            background-color: white;
-            background-image: radial-gradient(#5fb14310 1px, transparent 1px);
-            background-size: 20px 20px;
+        }
+        
+        /* Decorative Corners */
+        .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 3px solid #b45309;
+        }
+        .tl { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
+        .tr { top: -5px; right: -5px; border-left: 0; border-bottom: 0; }
+        .bl { bottom: -5px; left: -5px; border-right: 0; border-top: 0; }
+        .br { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
+
+        .header {
+            margin-bottom: 15px;
         }
         .logo {
-            margin-bottom: 20px;
-        }
-        .logo img {
-            height: 60px;
-        }
-        .certificate-title {
-            font-size: 48px;
-            font-weight: bold;
-            color: #1a365d;
+            height: 65px;
             margin-bottom: 10px;
+        }
+        
+        .main-title {
+            font-size: 52px;
+            color: #0f172a;
+            letter-spacing: 8px;
             text-transform: uppercase;
+            margin: 10px 0;
+            font-weight: bold;
+            font-family: 'Times-Bold', serif;
+        }
+        .sub-title {
+            font-size: 18px;
+            color: #b45309;
+            font-style: italic;
+            margin-bottom: 25px;
             letter-spacing: 2px;
         }
-        .certificate-subtitle {
-            font-size: 18px;
-            color: #555;
-            margin-bottom: 40px;
-            font-style: italic;
-        }
+        
         .certify-text {
             font-size: 20px;
             margin-bottom: 10px;
+            color: #475569;
         }
         .user-name {
-            font-size: 42px;
+            font-size: 48px;
+            color: #0f172a;
             font-weight: bold;
-            color: #1a365d;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #5fb143;
+            margin: 10px 0;
+            font-family: 'Times-BoldItalic', serif;
+            border-bottom: 1px solid #e2e8f0;
             display: inline-block;
-            padding: 0 40px;
+            padding: 0 50px;
         }
-        .course-text {
-            font-size: 20px;
-            margin-bottom: 10px;
+        
+        .course-label {
+            font-size: 18px;
+            margin: 20px 0 8px;
+            color: #475569;
         }
         .course-name {
-            font-size: 28px;
+            font-size: 30px;
+            color: #0f172a;
             font-weight: bold;
-            color: #333;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .points-box {
+        
+        .points-badge {
             display: inline-block;
-            background-color: #1a365d;
-            color: white;
-            padding: 10px 25px;
-            border-radius: 50px;
+            border: 2px solid #0f172a;
+            color: #0f172a;
+            padding: 8px 30px;
             font-size: 18px;
             font-weight: bold;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
         }
-        .footer {
-            margin-top: 50px;
-            width: 100%;
-        }
-        .signature-container {
-            width: 100%;
-            display: table;
-        }
-        .signature-box {
-            display: table-cell;
-            width: 33%;
-            text-align: center;
-            vertical-align: bottom;
-        }
-        .signature-line {
-            width: 150px;
-            border-top: 1px solid #333;
-            margin: 0 auto 5px;
-        }
-        .signature-label {
-            font-size: 14px;
-            font-weight: bold;
-            color: #555;
-        }
-        .date-box {
-            margin-top: 20px;
+        
+        .date-section {
             font-size: 16px;
-            color: #777;
+            margin-top: 20px;
+            color: #64748b;
         }
+        
+        .footer {
+            margin-top: 40px;
+            width: 100%;
+        }
+        .sig-row {
+            display: block;
+            width: 100%;
+            clear: both;
+        }
+        .sig-col {
+            float: left;
+            width: 33.33%;
+            text-align: center;
+        }
+        .sig-line {
+            width: 180px;
+            border-bottom: 1px solid #0f172a;
+            margin: 0 auto 8px;
+            height: 45px;
+        }
+        .sig-label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #1e293b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         .watermark {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0.03;
+            width: 400px;
+            height: 400px;
+            margin-left: -200px;
+            margin-top: -200px;
+            opacity: 0.04;
             z-index: -1;
-        }
-        .watermark img {
-            width: 500px;
-        }
-        .seal {
-            position: absolute;
-            bottom: 60px;
-            right: 80px;
-            width: 120px;
-            height: 120px;
-            opacity: 0.8;
         }
     </style>
 </head>
 <body>
-    <div class="certificate-container">
-        <div class="border-outer">
-            <div class="border-inner">
-                <div class="watermark">
-                    <img src="{{ public_path('images/logo/logo-impetus.png') }}" alt="">
+    <div class="cert-wrapper">
+        <div class="outer-border">
+            <div class="inner-border">
+                <div class="corner tl"></div>
+                <div class="corner tr"></div>
+                <div class="corner bl"></div>
+                <div class="corner br"></div>
+
+                <div class="header">
+                    <img src="{{ public_path('images/venture.svg') }}" class="logo" style="height: 55px;">
                 </div>
 
-                <div class="logo">
-                    <img src="{{ public_path('images/logo/logo-impetus.png') }}" alt="Impetus Logo">
-                </div>
-
-                <div class="certificate-title">Certificate</div>
-                <div class="certificate-subtitle">OF COMPLETION</div>
+                <div class="main-title">Certificate</div>
+                <div class="sub-title">OF COMPLETION AND EXCELLENCE</div>
 
                 <div class="certify-text">This is to certify that</div>
                 <div class="user-name">{{ $user->name ?: ($user->first_name . ' ' . $user->last_name) }}</div>
 
-                <div class="course-text">has successfully completed the CPD module</div>
+                <div class="course-label">has successfully mastered the CPD module</div>
                 <div class="course-name">{{ $course->couse_name }}</div>
 
                 @if(($points ?? 0) > 0)
-                    <div class="points-box">
-                        {{ $points }} CREDIT {{ $points > 1 ? 'POINTS' : 'POINT' }}
+                    <div class="points-badge">
+                        AWARDED {{ $points }} CPD CREDIT {{ $points > 1 ? 'POINTS' : 'POINT' }}
                     </div>
                 @endif
 
-                <div class="date-box">
-                    Awarded on <strong>{{ $date }}</strong>
+                <div class="date-section">
+                    Issued on this day, {{ $date }}
                 </div>
 
                 <div class="footer">
-                    <div class="signature-container">
-                        <div class="signature-box">
-                            <div class="signature-line"></div>
-                            <div class="signature-label">Program Coordinator</div>
+                    <div class="sig-row">
+                        <div class="sig-col">
+                            <div class="sig-line"></div>
+                            <div class="sig-label">PROGRAM COORDINATOR</div>
                         </div>
-                        <div class="signature-box">
-                            <!-- Placeholder for a seal or central signature -->
-                             <div style="height: 40px;"></div>
-                             <div class="signature-label">Impetus Learning</div>
+                        <div class="sig-col">
+                            <div style="height: 45px;">
+                                <img src="{{ public_path('images/venture.svg') }}" style="height: 35px; opacity: 0.5;">
+                            </div>
+                            <div class="sig-label">VENTURE LEARNING</div>
                         </div>
-                        <div class="signature-box">
-                            <div class="signature-line"></div>
-                            <div class="signature-label">Medical Director</div>
+                        <div class="sig-col">
+                            <div class="sig-line"></div>
+                            <div class="sig-label">MEDICAL DIRECTOR</div>
                         </div>
                     </div>
+                </div>
+                
+                <div class="watermark">
+                    <img src="{{ public_path('images/venture.svg') }}" style="width: 100%;">
                 </div>
             </div>
         </div>
