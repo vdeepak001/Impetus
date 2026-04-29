@@ -117,18 +117,18 @@ class CneModulesController extends Controller
 
         $courseTestProgress = null;
         if ($viewer && $viewer->role_type === 'user' && $isPurchased) {
-            $mockAttempt = CourseTestAttempt::query()
-                ->where('user_id', $viewer->id)
-                ->where('course_detail_id', $course_detail->id)
-                ->where('test_type', CourseTestType::Mock->value)
-                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                ->latest('id')
-                ->first();
-
             $preAttempt = CourseTestAttempt::query()
                 ->where('user_id', $viewer->id)
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Pre->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->latest('id')
+                ->first();
+
+            $mockAttempt = CourseTestAttempt::query()
+                ->where('user_id', $viewer->id)
+                ->where('course_detail_id', $course_detail->id)
+                ->where('test_type', CourseTestType::Mock->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
                 ->latest('id')
                 ->first();
@@ -151,15 +151,6 @@ class CneModulesController extends Controller
             };
 
             $courseTestProgress = [
-                'mock_done' => (bool) $mockAttempt,
-                'mock_score' => $mockAttempt?->score_percent,
-                'mock_correct' => $mockAttempt?->correct_count,
-                'mock_wrong' => $mockAttempt ? (max(0, $mockAttempt->total_questions - $mockAttempt->correct_count)) : 0,
-                'mock_total' => $mockAttempt?->total_questions,
-                'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at 
-                    ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at)) 
-                    : '—',
-
                 'pre_done' => (bool) $preAttempt,
                 'pre_score' => $preAttempt?->score_percent,
                 'pre_correct' => $preAttempt?->correct_count,
@@ -167,6 +158,15 @@ class CneModulesController extends Controller
                 'pre_total' => $preAttempt?->total_questions,
                 'pre_duration' => $preAttempt && $preAttempt->started_at && $preAttempt->completed_at 
                     ? $formatDuration($preAttempt->started_at->diffInSeconds($preAttempt->completed_at)) 
+                    : '—',
+
+                'mock_done' => (bool) $mockAttempt,
+                'mock_score' => $mockAttempt?->score_percent,
+                'mock_correct' => $mockAttempt?->correct_count,
+                'mock_wrong' => $mockAttempt ? (max(0, $mockAttempt->total_questions - $mockAttempt->correct_count)) : 0,
+                'mock_total' => $mockAttempt?->total_questions,
+                'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at 
+                    ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at)) 
                     : '—',
 
                 'final_done' => (bool) $finalAttempt,

@@ -86,20 +86,20 @@
                                     <div class="flex flex-wrap items-center justify-end gap-3">
                                         @php
                                             $tp = $courseTestProgress;
-                                            $mockDone = $tp['mock_done'] ?? false;
                                             $preDone = $tp['pre_done'] ?? false;
+                                            $mockDone = $tp['mock_done'] ?? false;
                                             $finalDone = $tp['final_done'] ?? false;
 
-                                            $canMock = (bool) $tp;
-                                            $canPre = $tp && $mockDone;
-                                            $canFinal = $tp && $preDone;
+                                            $canPre = (bool) $tp;
+                                            $canMock = $tp && $preDone;
+                                            $canFinal = $tp && $mockDone;
 
                                             $nextTest = null;
                                             if ($tp) {
-                                                if (! $mockDone) {
-                                                    $nextTest = 'mock';
-                                                } elseif (! $preDone) {
+                                                if (! $preDone) {
                                                     $nextTest = 'pre';
+                                                } elseif (! $mockDone) {
+                                                    $nextTest = 'mock';
                                                 } elseif (! $finalDone) {
                                                     $nextTest = 'final';
                                                 }
@@ -108,35 +108,13 @@
                                             $btnBase = 'inline-flex items-center justify-center rounded-xl border-2 px-8 py-3.5 text-base font-bold uppercase tracking-wide transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
                                             $btnActive = 'ring-2 ring-offset-2 ring-logo-blue ring-offset-white shadow-md';
 
-                                            $mockClass = "border-amber-500/40 bg-white text-amber-700 hover:border-amber-500 hover:bg-amber-500 hover:text-white focus-visible:ring-amber-500 " . ($nextTest === 'mock' ? $btnActive : '');
                                             $preClass = "border-emerald-500/40 bg-white text-emerald-700 hover:border-emerald-600 hover:bg-emerald-600 hover:text-white focus-visible:ring-emerald-600 " . ($nextTest === 'pre' ? $btnActive : '');
+                                            $mockClass = "border-amber-500/40 bg-white text-amber-700 hover:border-amber-500 hover:bg-amber-500 hover:text-white focus-visible:ring-amber-500 " . ($nextTest === 'mock' ? $btnActive : '');
                                             $finalClass = "border-rose-500/40 bg-white text-rose-700 hover:border-rose-600 hover:bg-rose-600 hover:text-white focus-visible:ring-rose-600 " . ($nextTest === 'final' ? $btnActive : '');
 
                                             $doneClass = 'cursor-not-allowed border-slate-200 bg-slate-50 text-slate-400 opacity-80';
                                             $lockedClass = 'cursor-not-allowed border-slate-200/50 bg-slate-100/50 text-slate-300';
                                         @endphp
-
-                                        {{-- Mock Test --}}
-                                        @if ($mockDone)
-                                            <button 
-                                                type="button"
-                                                @click="scoreCardOpen = true; scoreCardData = { 
-                                                    title: 'Mock Test Result',
-                                                    score: '{{ number_format((float) $tp['mock_score'], 1) }}',
-                                                    correct: '{{ $tp['mock_correct'] }}',
-                                                    wrong: '{{ $tp['mock_wrong'] }}',
-                                                    total: '{{ $tp['mock_total'] }}',
-                                                    duration: '{{ $tp['mock_duration'] }}'
-                                                }"
-                                                class="{{ $btnBase }} {{ $mockClass }} border-logo-blue/30 bg-logo-blue/5"
-                                            >
-                                                Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                            </button>
-                                        @elseif ($canMock)
-                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}" class="{{ $btnBase }} {{ $mockClass }}">Mock</a>
-                                        @else
-                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Mock</span>
-                                        @endif
 
                                         {{-- Pre Test --}}
                                         @if ($preDone)
@@ -157,7 +135,29 @@
                                         @elseif ($canPre)
                                             <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pre</a>
                                         @else
-                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Pre</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Pre</span>
+                                        @endif
+
+                                        {{-- Mock Test --}}
+                                        @if ($mockDone)
+                                            <button 
+                                                type="button"
+                                                @click="scoreCardOpen = true; scoreCardData = { 
+                                                    title: 'Mock Test Result',
+                                                    score: '{{ number_format((float) $tp['mock_score'], 1) }}',
+                                                    correct: '{{ $tp['mock_correct'] }}',
+                                                    wrong: '{{ $tp['mock_wrong'] }}',
+                                                    total: '{{ $tp['mock_total'] }}',
+                                                    duration: '{{ $tp['mock_duration'] }}'
+                                                }"
+                                                class="{{ $btnBase }} {{ $mockClass }} border-logo-blue/30 bg-logo-blue/5"
+                                            >
+                                                Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                            </button>
+                                        @elseif ($canMock)
+                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}" class="{{ $btnBase }} {{ $mockClass }}">Mock</a>
+                                        @else
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the pre test first">Mock</span>
                                         @endif
 
                                         {{-- Final Test --}}
@@ -190,7 +190,7 @@
                                                 @endif
                                             </a>
                                         @else
-                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the pre test first">Final</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Final</span>
                                         @endif
 
                                         <span class="text-base font-bold text-green-600" role="status">

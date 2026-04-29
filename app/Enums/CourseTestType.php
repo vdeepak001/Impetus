@@ -14,15 +14,15 @@ enum CourseTestType: string
      */
     public static function sequenced(): array
     {
-        return [self::Mock, self::Pre, self::Final];
+        return [self::Pre, self::Mock, self::Final];
     }
 
     public function prerequisite(): ?self
     {
         return match ($this) {
-            self::Mock => null,
-            self::Pre => self::Mock,
-            self::Final => self::Pre,
+            self::Pre => null,
+            self::Mock => self::Pre,
+            self::Final => self::Mock,
             self::Practice => null,
         };
     }
