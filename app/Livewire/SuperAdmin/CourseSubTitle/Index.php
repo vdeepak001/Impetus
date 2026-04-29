@@ -21,7 +21,7 @@ class Index extends Component
     #[Url(except: 'desc')]
     public $sortDirection = 'desc';
 
-    public $perPage = 10;
+    public $perPage = 20;
 
     public $page = 1;
 
