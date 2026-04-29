@@ -14,7 +14,7 @@
         $canViewLearningMaterials = auth()->check()
             && auth()->user()?->role_type === 'user'
             && $isPurchased;
-        $creditPoints = 'NA';
+        $creditPoints = 'N/A';
         if (isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
             $rawPoints = $course->stateCouncils->first()->pivot->points;
             if (is_array($rawPoints)) {
@@ -22,7 +22,7 @@
             } else {
                 $creditPoints = $rawPoints;
             }
-            $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+            $creditPoints = !empty($creditPoints) ? $creditPoints : 'N/A';
         }
         $hasCourseMaterials = $hasCourseMaterials ?? false;
     @endphp
@@ -121,7 +121,7 @@
                                             <button 
                                                 type="button"
                                                 @click="scoreCardOpen = true; scoreCardData = { 
-                                                    title: 'Pre Test Result',
+                                                    title: 'Pretest Result',
                                                     score: '{{ number_format((float) $tp['pre_score'], 1) }}',
                                                     correct: '{{ $tp['pre_correct'] }}',
                                                     wrong: '{{ $tp['pre_wrong'] }}',
@@ -130,12 +130,12 @@
                                                 }"
                                                 class="{{ $btnBase }} {{ $preClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
-                                                Pre <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                Pretest <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                                             </button>
                                         @elseif ($canPre)
-                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pre</a>
+                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pretest</a>
                                         @else
-                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Pre</span>
+                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Pretest</span>
                                         @endif
 
                                         {{-- Mock Test --}}
@@ -192,10 +192,6 @@
                                         @else
                                             <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Final</span>
                                         @endif
-
-                                        <span class="text-base font-bold text-green-600" role="status">
-                                            Credit Point: {{ $creditPoints }}
-                                        </span>
                                     </div>
                                 @else
                                     <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">
@@ -269,6 +265,13 @@
                         <div class="relative">
                             <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
                             <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white shadow-xl shadow-slate-300/30 ring-1 ring-slate-200/40">
+                                @auth
+                                    @if (auth()->user()?->role_type === 'user')
+                                        <div class="absolute top-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
+                                            Credit Point: {{ $creditPoints }}
+                                        </div>
+                                    @endif
+                                @endauth
                                 @if ($imgUrl && $isImage)
                                     <img
                                         src="{{ $imgUrl }}"

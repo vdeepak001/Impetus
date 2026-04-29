@@ -43,11 +43,11 @@
                                 @php
                                     $title = $course->couse_name;
                                     $detailUrl = route('cne.modules.show', $course->couse_name);
-                                    $creditPoints = 'NA';
+                                    $creditPoints = 'N/A';
                                     if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
                                         $rawPoints = $course->stateCouncils->first()->pivot->points;
                                         $creditPoints = is_array($rawPoints) ? array_sum($rawPoints) : $rawPoints;
-                                        $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+                                        $creditPoints = !empty($creditPoints) ? $creditPoints : 'N/A';
                                     }
                                 @endphp
                                 <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">
@@ -92,11 +92,11 @@
                                 @php
                                     $title = $course->couse_name;
                                     $detailUrl = route('cne.modules.show', $course->couse_name);
-                                    $creditPoints = 'NA';
+                                    $creditPoints = 'N/A';
                                     if(isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
                                         $rawPoints = $course->stateCouncils->first()->pivot->points;
                                         $creditPoints = is_array($rawPoints) ? array_sum($rawPoints) : $rawPoints;
-                                        $creditPoints = filled($creditPoints) ? $creditPoints : 'NA';
+                                        $creditPoints = !empty($creditPoints) ? $creditPoints : 'N/A';
                                     }
                                 @endphp
                                 <article class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-md shadow-slate-200/50 ring-1 ring-slate-100 transition hover:-translate-y-0.5 hover:border-logo-light-green/30 hover:shadow-xl hover:shadow-slate-300/40 hover:ring-logo-light-green/20">

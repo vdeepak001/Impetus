@@ -27,6 +27,7 @@ class UserCourseOrderController extends Controller
         $query = CourseDetail::query()
             ->where('active_status', 1);
 
+        $stateName = null;
         if (filled($user->state)) {
             $stateName = trim((string) $user->state);
             $query->whereHas('stateCouncils', function ($stateCouncilQuery) use ($stateName) {
@@ -35,14 +36,20 @@ class UserCourseOrderController extends Controller
                     ->whereHas('state', function ($stateQuery) use ($stateName) {
                         $stateQuery->where('name', $stateName)->where('status', 'active');
                     });
-            });
+            })->with(['stateCouncils' => function ($stateCouncilQuery) use ($stateName) {
+                $stateCouncilQuery
+                    ->where('active_status', true)
+                    ->whereHas('state', function ($stateQuery) use ($stateName) {
+                        $stateQuery->where('name', $stateName)->where('status', 'active');
+                    });
+            }]);
         }
 
         $courses = $query
             ->orderByRaw('CASE WHEN sequence IS NULL THEN 1 ELSE 0 END')
             ->orderBy('sequence')
             ->orderBy('id')
-            ->get(['id', 'couse_name']);
+            ->get();
 
         $modes = collect(PaymentMode::cases())->map(fn (PaymentMode $mode) => [
             'value' => $mode->value,
@@ -50,10 +57,19 @@ class UserCourseOrderController extends Controller
         ])->values();
 
         return response()->json([
-            'courses' => $courses->map(fn (CourseDetail $c) => [
-                'id' => $c->id,
-                'name' => $c->couse_name,
-            ]),
+            'courses' => $courses->map(function (CourseDetail $c) {
+                $validDays = 0;
+                $sc = $c->stateCouncils->first();
+                if ($sc && $sc->pivot) {
+                    $val = $sc->pivot->valid_days;
+                    $validDays = is_array($val) ? ($val[0] ?? 0) : ($val ?? 0);
+                }
+                return [
+                    'id' => $c->id,
+                    'name' => $c->couse_name,
+                    'valid_days' => (int) $validDays,
+                ];
+            }),
             'payment_modes' => $modes,
             'message' => $courses->isEmpty() && filled($user->state)
                 ? 'No modules are linked to this learner’s state.'
