@@ -27,6 +27,7 @@ class CourseTestAttempt extends Model
         'total_questions',
         'passed',
         'pass_threshold_percent',
+        'rating',
         'started_at',
         'completed_at',
     ];

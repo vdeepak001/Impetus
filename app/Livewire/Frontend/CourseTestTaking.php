@@ -50,6 +50,10 @@ class CourseTestTaking extends Component
     public int $obtainedScore = 0;
     
     public int $maxScore = 0;
+    
+    public ?int $rating = null;
+
+    public int $finalAttemptCount = 0;
 
     public int $totalQuestions = 0;
 
@@ -313,6 +317,26 @@ class CourseTestTaking extends Component
         $fresh = $attempt->fresh();
         $this->passed = $fresh->passed;
         $this->formattedDuration = $this->formatTestDuration($fresh->started_at, $fresh->completed_at);
+        $this->rating = $fresh->rating;
+
+        if ($this->type === CourseTestType::Final) {
+            $this->finalAttemptCount = CourseTestAttempt::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $this->courseId)
+                ->where('test_type', CourseTestType::Final->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->count();
+        }
+    }
+
+    public function setRating(int $value): void
+    {
+        if ($this->attemptId) {
+            CourseTestAttempt::query()
+                ->whereKey($this->attemptId)
+                ->update(['rating' => $value]);
+            $this->rating = $value;
+        }
     }
 
     public function render(): View

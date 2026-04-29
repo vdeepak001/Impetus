@@ -152,28 +152,66 @@
                             </div>
                         </div>
 
-                        {{-- Pass/Fail Alert (Final only) --}}
+                        {{-- Pass/Fail Outcome Section --}}
                         @if ($type === \App\Enums\CourseTestType::Final && $passThresholdPercent !== null)
-                            <div class="mt-10 overflow-hidden rounded-2xl border p-6 shadow-lg sm:p-7 {{ $passed ? 'border-emerald-200/90 bg-gradient-to-br from-emerald-50 via-white to-emerald-50/50 shadow-emerald-100/40' : 'border-rose-200/90 bg-gradient-to-br from-rose-50 via-white to-rose-50/50 shadow-rose-100/40' }}">
-                                <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                                    <div>
-                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] {{ $passed ? 'text-emerald-700' : 'text-rose-700' }}">Final outcome</p>
-                                        <p class="mt-1 text-lg font-bold {{ $passed ? 'text-emerald-900' : 'text-rose-900' }}">
-                                            {{ $passed ? 'You passed' : 'Not passed' }}
-                                        </p>
-                                        <p class="mt-2 text-sm text-slate-600">
-                                            Pass mark <span class="font-semibold text-slate-800">{{ number_format((float) $passThresholdPercent, 2) }}%</span>
-                                            · Score <span class="font-semibold text-slate-800">{{ number_format((float) $scorePercent, 2) }}%</span>
-                                        </p>
+                            <div class="mt-10 flex flex-col items-center justify-center text-center">
+                                @if ($passed)
+                                    <div class="space-y-4">
+                                        <h3 class="text-2xl font-black tracking-widest text-emerald-600 sm:text-3xl">CONGRATULATIONS!</h3>
+                                        <p class="text-lg font-bold text-slate-800">You have Successfully Completed the Exam</p>
+                                        
+                                        <div class="flex flex-col items-center gap-3 py-6" x-data="{ hoverRating: 0, currentRating: @entangle('rating').live }">
+                                            <p class="text-sm font-bold text-slate-600">Feedback (Give a Star Rating)</p>
+                                            <div class="flex gap-1">
+                                                @foreach(range(1, 5) as $i)
+                                                    <button 
+                                                        type="button" 
+                                                        @click="$wire.setRating({{ $i }})"
+                                                        @mouseenter="hoverRating = {{ $i }}"
+                                                        @mouseleave="hoverRating = 0"
+                                                        class="transition-transform hover:scale-110"
+                                                    >
+                                                        <svg 
+                                                            class="size-10 transition-colors" 
+                                                            :class="(hoverRating || currentRating) >= {{ $i }} ? 'text-amber-400 fill-amber-400' : 'text-slate-300 fill-transparent'"
+                                                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                                                        >
+                                                            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                                        </svg>
+                                                    </button>
+                                                @endforeach
+                                            </div>
+                                            <template x-if="currentRating > 0">
+                                                <p class="text-xs font-semibold text-emerald-600">Thank you for your feedback!</p>
+                                            </template>
+                                        </div>
+
+                                        <div class="mt-4">
+                                            <button type="button" class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-8 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-brand-600">
+                                                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 7.5L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                                                Download Certificate
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div class="flex size-16 shrink-0 items-center justify-center rounded-2xl {{ $passed ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/35' : 'bg-rose-500 text-white shadow-lg shadow-rose-500/35' }}">
-                                        @if ($passed)
-                                            <svg class="size-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                        @else
-                                            <svg class="size-9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                @else
+                                    <div class="space-y-4">
+                                        <h3 class="text-2xl font-black tracking-widest text-rose-600 sm:text-3xl">SORRY!</h3>
+                                        <p class="text-lg font-bold text-slate-800">You have not Completed the Exam</p>
+                                        
+                                        @if($finalAttemptCount < 2)
+                                            <p class="text-sm font-semibold text-slate-500">You can make ONE more attempt</p>
                                         @endif
+
+                                        <div class="mt-8">
+                                            <a 
+                                                href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}"
+                                                class="inline-flex items-center gap-2 rounded-xl border-2 border-rose-600 px-10 py-3 text-sm font-black uppercase tracking-widest text-rose-600 transition hover:bg-rose-600 hover:text-white"
+                                            >
+                                                TRY AGAIN!
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
                             </div>
                         @endif
 
