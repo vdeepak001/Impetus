@@ -8,17 +8,20 @@
             margin: 0;
             size: A4 landscape;
         }
-        body {
-            font-family: 'serif';
+        html, body {
             margin: 0;
             padding: 0;
+        }
+        body {
+            font-family: 'serif';
             background-color: #fff;
             color: #1e293b;
         }
         .cert-wrapper {
-            padding: 10px;
-            height: 200mm;
-            width: 287mm;
+            padding: 5px;
+            height: 190mm;
+            width: 277mm;
+            margin: 0 auto;
             box-sizing: border-box;
             background-color: #f8fafc;
             page-break-inside: avoid;
