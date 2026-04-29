@@ -86,6 +86,8 @@ Route::middleware('auth')->group(function () {
         return view('profile.change-password');
     })->name('profile.change-password');
 
+    Route::get('/certificates/{order}/download', [\App\Http\Controllers\CertificateController::class, 'download'])->name('certificates.download');
+
     Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
 
