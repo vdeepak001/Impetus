@@ -11,38 +11,36 @@
         html, body {
             margin: 0;
             padding: 0;
+            height: 210mm;
+            width: 297mm;
         }
         body {
             font-family: 'serif';
             background-color: #fff;
             color: #1e293b;
         }
-        .cert-wrapper {
-            padding: 5px;
-            height: 190mm;
-            width: 277mm;
-            margin: 0 auto;
+        .cert-container {
+            width: 297mm;
+            height: 210mm;
+            padding: 12mm;
             box-sizing: border-box;
-            background-color: #f8fafc;
-            page-break-inside: avoid;
+            background-color: #f1f5f9;
         }
-        .outer-border {
+        .cert-content {
             border: 10px double #0f172a;
-            height: 100%;
-            padding: 5px;
+            height: 180mm;
+            padding: 20px;
             box-sizing: border-box;
             background-color: #fff;
-            page-break-inside: avoid;
-        }
-        .inner-border {
-            border: 1.5px solid #b45309;
-            height: 100%;
-            padding: 20px 40px;
-            box-sizing: border-box;
-            background-color: #ffffff;
             position: relative;
             text-align: center;
-            page-break-inside: avoid;
+        }
+        .inner-frame {
+            border: 1px solid #b45309;
+            height: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            position: relative;
         }
         
         /* Decorative Corners */
@@ -172,9 +170,9 @@
     </style>
 </head>
 <body>
-    <div class="cert-wrapper">
-        <div class="outer-border">
-            <div class="inner-border">
+    <div class="cert-container">
+        <div class="cert-content">
+            <div class="inner-frame">
                 <div class="corner tl"></div>
                 <div class="corner tr"></div>
                 <div class="corner bl"></div>
