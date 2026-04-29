@@ -14,14 +14,14 @@
             padding: 0;
             background-color: #fff;
             color: #1e293b;
-            overflow: hidden;
         }
         .cert-wrapper {
-            padding: 20px;
-            height: 750px;
+            padding: 10px;
+            height: 200mm;
+            width: 287mm;
             box-sizing: border-box;
             background-color: #f8fafc;
-            overflow: hidden;
+            page-break-inside: avoid;
         }
         .outer-border {
             border: 10px double #0f172a;
@@ -29,6 +29,7 @@
             padding: 5px;
             box-sizing: border-box;
             background-color: #fff;
+            page-break-inside: avoid;
         }
         .inner-border {
             border: 1.5px solid #b45309;
@@ -38,6 +39,7 @@
             background-color: #ffffff;
             position: relative;
             text-align: center;
+            page-break-inside: avoid;
         }
         
         /* Decorative Corners */
