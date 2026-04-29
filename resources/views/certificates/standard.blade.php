@@ -11,8 +11,7 @@
         html, body {
             margin: 0;
             padding: 0;
-            height: 210mm;
-            width: 297mm;
+            width: 100%;
         }
         body {
             font-family: 'serif';
@@ -20,15 +19,16 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 297mm;
-            height: 210mm;
-            padding: 12mm;
+            width: 280mm;
+            height: 200mm;
+            margin: 0 auto;
+            padding: 10mm;
             box-sizing: border-box;
             background-color: #f1f5f9;
         }
         .cert-content {
             border: 10px double #0f172a;
-            height: 180mm;
+            height: 175mm;
             padding: 20px;
             box-sizing: border-box;
             background-color: #fff;
