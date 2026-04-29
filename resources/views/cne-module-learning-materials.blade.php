@@ -75,9 +75,8 @@
                                         <li class="flex gap-3">
                                             <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-logo-blue" aria-hidden="true"></span>
                                             <a
-                                                href="{{ asset('storage/' . $path) }}"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
+                                                href="javascript:void(0)"
+                                                onclick="openFile('{{ asset('storage/' . $path) }}')"
                                                 class="font-medium text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-600"
                                             >
                                                 {{ $originalFileName }}
@@ -96,4 +95,74 @@
             </div>
         </section>
     </main>
+    {{-- Modal for file viewing --}}
+    <div id="fileModal" class="fixed inset-0 z-[100] hidden overflow-hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+        {{-- Backdrop --}}
+        <div class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm transition-opacity" aria-hidden="true" onclick="closeModal()"></div>
+
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+            <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-6">
+                {{-- Modal Content --}}
+                <div class="relative flex w-full max-w-6xl h-[90vh] transform flex-col overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all">
+                    <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50 shrink-0">
+                        <h3 class="text-lg font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
+                        <button type="button" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-500 transition-colors focus:outline-none shrink-0" onclick="closeModal()">
+                            <span class="sr-only">Close</span>
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="flex-1 w-full bg-slate-800 overflow-hidden relative group">
+                        <iframe id="fileViewer" src="" class="w-full h-full border-0 select-none block" oncontextmenu="return false;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openFile(url) {
+            const modal = document.getElementById('fileModal');
+            const viewer = document.getElementById('fileViewer');
+            const title = document.getElementById('modal-title');
+            
+            // Extract filename for the title
+            const filename = url.split('/').pop().replace(/^\d+_/, '');
+            title.textContent = filename;
+
+            // If it's a PDF, add parameters to hide toolbar and fit width
+            let finalUrl = url;
+            if (url.toLowerCase().endsWith('.pdf')) {
+                // view=FitH fits to width, view=Fit fits to whole page
+                finalUrl += '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+            }
+
+            viewer.src = finalUrl;
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('fileModal');
+            const viewer = document.getElementById('fileViewer');
+            
+            modal.classList.add('hidden');
+            viewer.src = '';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Disable right click on the modal viewer area
+        document.getElementById('fileModal').addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
 @endsection
