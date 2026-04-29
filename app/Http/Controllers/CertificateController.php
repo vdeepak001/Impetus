@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\CourseDetail;
 use App\Models\CourseTestAttempt;
 use App\Models\Order;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,7 +54,7 @@ class CertificateController extends Controller
             'points' => (int) $points,
         ];
 
-        $pdf = Pdf::loadView('certificates.standard', $data);
+        $pdf = app('dompdf.wrapper')->loadView('certificates.standard', $data);
         $pdf->setPaper('A4', 'landscape');
 
         return $pdf->download('Certificate-' . ($order->courseDetail->course_code ?? 'CNE') . '.pdf');
