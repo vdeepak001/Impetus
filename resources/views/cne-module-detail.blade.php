@@ -330,7 +330,7 @@
                                 <h2 class="text-2xl font-bold tracking-tight text-emerald-900 font-serif sm:text-3xl">
                                     Learning Resources
                                 </h2>
-                                <p class="text-sm font-medium text-slate-500">Question &amp; answer format for deeper understanding</p>
+                                {{-- <p class="text-sm font-medium text-slate-500">Question &amp; answer format for deeper understanding</p> --}}
                             </div>
                             
                             @if (filled($course->qa_content))

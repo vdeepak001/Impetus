@@ -82,7 +82,7 @@
             </form>
 
             <div x-show="tab === 'course'" class="mt-6">
-                <h3 class="text-xl font-semibold text-slate-900">Knowledge Based Module</h3>
+                <h3 class="text-xl font-semibold text-slate-900">CPD Module</h3>
                 <div class="mt-3 overflow-hidden rounded-xl border border-slate-200">
                     <table class="w-full border-collapse text-sm">
                         <thead class="bg-logo-blue text-white">
