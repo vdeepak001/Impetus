@@ -14,24 +14,26 @@
             padding: 0;
             background-color: #fff;
             color: #1e293b;
+            overflow: hidden;
         }
         .cert-wrapper {
-            padding: 35px;
-            height: 100vh;
+            padding: 20px;
+            height: 750px;
             box-sizing: border-box;
             background-color: #f8fafc;
+            overflow: hidden;
         }
         .outer-border {
             border: 10px double #0f172a;
             height: 100%;
-            padding: 6px;
+            padding: 5px;
             box-sizing: border-box;
             background-color: #fff;
         }
         .inner-border {
             border: 1.5px solid #b45309;
             height: 100%;
-            padding: 30px 50px;
+            padding: 20px 40px;
             box-sizing: border-box;
             background-color: #ffffff;
             position: relative;
@@ -59,36 +61,36 @@
         }
         
         .main-title {
-            font-size: 52px;
+            font-size: 48px;
             color: #0f172a;
             letter-spacing: 8px;
             text-transform: uppercase;
-            margin: 10px 0;
+            margin: 5px 0;
             font-weight: bold;
             font-family: 'Times-Bold', serif;
         }
         .sub-title {
-            font-size: 18px;
+            font-size: 16px;
             color: #b45309;
             font-style: italic;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
         }
         
         .certify-text {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 5px;
             color: #475569;
         }
         .user-name {
-            font-size: 48px;
+            font-size: 42px;
             color: #0f172a;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 5px 0;
             font-family: 'Times-BoldItalic', serif;
             border-bottom: 1px solid #e2e8f0;
             display: inline-block;
-            padding: 0 50px;
+            padding: 0 40px;
         }
         
         .course-label {
@@ -119,12 +121,12 @@
         
         .date-section {
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 10px;
             color: #64748b;
         }
         
         .footer {
-            margin-top: 40px;
+            margin-top: 25px;
             width: 100%;
         }
         .sig-row {
