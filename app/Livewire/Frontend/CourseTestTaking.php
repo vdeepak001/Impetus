@@ -46,8 +46,15 @@ class CourseTestTaking extends Component
     public ?float $passThresholdPercent = null;
 
     public int $correctCount = 0;
+    
+    public int $obtainedScore = 0;
+    
+    public int $maxScore = 0;
 
     public int $totalQuestions = 0;
+
+    /** @var array<int, array{correct:int, total:int, weight:int, score:int, max:int}> */
+    public array $levelStats = [];
 
     public ?string $fatalError = null;
 
@@ -225,8 +232,16 @@ class CourseTestTaking extends Component
 
         $correct = 0;
         $total = count($attempt->question_ids);
+        $obtainedScore = 0;
+        $maxScore = 0;
+        $weights = $this->getLevelWeights();
+        $levelStats = [
+            1 => ['correct' => 0, 'total' => 0],
+            2 => ['correct' => 0, 'total' => 0],
+            3 => ['correct' => 0, 'total' => 0],
+        ];
 
-        DB::transaction(function () use ($attempt, $byId, $total, &$correct): void {
+        DB::transaction(function () use ($attempt, $byId, $total, &$correct, &$obtainedScore, &$maxScore, $weights, &$levelStats): void {
             CourseTestAnswer::query()->where('course_test_attempt_id', $attempt->id)->delete();
 
             foreach ($attempt->question_ids as $i => $qid) {
@@ -234,11 +249,25 @@ class CourseTestTaking extends Component
                 if (! $q) {
                     continue;
                 }
+
+                $levelStr = (string) ($q->question_level ?? 'Level 1');
+                $levelNum = 1;
+                if (str_contains($levelStr, '2')) {
+                    $levelNum = 2;
+                } elseif (str_contains($levelStr, '3')) {
+                    $levelNum = 3;
+                }
+                $weight = $weights[$levelNum] ?? 1;
+                $maxScore += $weight;
+                $levelStats[$levelNum]['total']++;
+
                 $selected = strtolower((string) ($this->responses[(int) $qid] ?? ''));
                 $selected = substr($selected, 0, 1);
                 $isCorrect = $this->answerMatches($q, $selected);
                 if ($isCorrect) {
                     $correct++;
+                    $obtainedScore += $weight;
+                    $levelStats[$levelNum]['correct']++;
                 }
                 CourseTestAnswer::query()->create([
                     'course_test_attempt_id' => $attempt->id,
@@ -249,7 +278,7 @@ class CourseTestTaking extends Component
                 ]);
             }
 
-            $score = $total > 0 ? round(100 * $correct / $total, 2) : 0.0;
+            $score = $maxScore > 0 ? round(100 * $obtainedScore / $maxScore, 2) : 0.0;
             $passed = null;
             if ($this->type === CourseTestType::Final && $this->passThresholdPercent !== null) {
                 $passed = $score >= $this->passThresholdPercent;
@@ -268,7 +297,19 @@ class CourseTestTaking extends Component
 
         $this->submitted = true;
         $this->correctCount = $correct;
-        $this->scorePercent = $total > 0 ? round(100 * $correct / $total, 2) : 0.0;
+        $this->obtainedScore = $obtainedScore;
+        $this->maxScore = $maxScore;
+        $this->scorePercent = $maxScore > 0 ? round(100 * $obtainedScore / $maxScore, 2) : 0.0;
+        
+        // Finalize levelStats with weights
+        foreach ($levelStats as $lvl => $data) {
+            $w = $weights[$lvl] ?? 1;
+            $levelStats[$lvl]['weight'] = $w;
+            $levelStats[$lvl]['score'] = $data['correct'] * $w;
+            $levelStats[$lvl]['max'] = $data['total'] * $w;
+        }
+        $this->levelStats = $levelStats;
+
         $fresh = $attempt->fresh();
         $this->passed = $fresh->passed;
         $this->formattedDuration = $this->formatTestDuration($fresh->started_at, $fresh->completed_at);
@@ -462,5 +503,19 @@ class CourseTestTaking extends Component
         }
 
         return (float) $raw;
+    }
+
+    private function getLevelWeights(): array
+    {
+        $scores = \App\Models\LevelScore::first();
+        if (! $scores) {
+            return [1 => 1, 2 => 2, 3 => 3];
+        }
+
+        return [
+            1 => (int) $scores->level_1,
+            2 => (int) $scores->level_2,
+            3 => (int) $scores->level_3,
+        ];
     }
 }
