@@ -56,7 +56,19 @@ Route::middleware('auth')->group(function () {
                 ->where('user_id', auth()->id())
                 ->where('payment_status', \App\Enums\PaymentStatus::Completed)
                 ->latest('id')
-                ->get();
+                ->get()
+                ->map(function ($order) {
+                    $order->completion = \App\Models\CourseTestAttempt::query()
+                        ->where('user_id', $order->user_id)
+                        ->where('course_detail_id', $order->course_detail_id)
+                        ->where('test_type', \App\Enums\CourseTestType::Final)
+                        ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
+                        ->where('passed', true)
+                        ->latest('completed_at')
+                        ->first();
+
+                    return $order;
+                });
 
             return view('profile.frontend', [
                 'purchasedCourses' => $purchasedCourses,

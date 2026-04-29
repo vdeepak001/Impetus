@@ -25,6 +25,11 @@ class Index extends Component
 
     public $page = 1;
 
+    public function resetPage(): void
+    {
+        $this->page = 1;
+    }
+
     public function setFilter($filter)
     {
         $this->filter = $filter;

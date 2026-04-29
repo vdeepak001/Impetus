@@ -102,8 +102,14 @@
                                     <td class="px-3 py-3 text-slate-700">{{ $courseOrder->courseDetail?->couse_name ?? 'N/A' }}</td>
                                     <td class="px-3 py-3 text-slate-700">{{ optional($courseOrder->start_date)->format('d-m-Y') ?? '-' }}</td>
                                     <td class="px-3 py-3 text-slate-700">{{ optional($courseOrder->end_date)->format('d-m-Y') ?? '-' }}</td>
-                                    <td class="px-3 py-3 text-slate-700">-</td>
-                                    <td class="px-3 py-3 text-slate-700">-</td>
+                                    <td class="px-3 py-3 text-slate-700">{{ $courseOrder->completion ? $courseOrder->completion->completed_at->format('d-m-Y') : '-' }}</td>
+                                    <td class="px-3 py-3 text-slate-700">
+                                        @if($courseOrder->completion)
+                                            <span class="text-logo-blue font-medium cursor-pointer hover:underline">Download</span>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
                                 </tr>
                             @empty
                                 <tr>
