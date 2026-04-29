@@ -48,94 +48,84 @@
                     {{-- Content Section --}}
                     <div class="bg-gradient-to-b from-white via-slate-50/30 to-white px-6 py-10 sm:px-10">
                         {{-- Quick Stats Grid --}}
-                        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5">
-                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 text-white shadow-lg shadow-emerald-500/30 ring-2 ring-white">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Questions</p>
-                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-slate-900">{{ $totalQuestions }}</p>
-                                </div>
+                        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
+                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Questions</p>
+                                <p class="mt-1 text-2xl font-bold tabular-nums text-slate-900">{{ $totalQuestions }}</p>
                             </div>
-                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5">
-                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-sky-400 to-logo-blue text-white shadow-lg shadow-sky-500/30 ring-2 ring-white">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Duration</p>
-                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</p>
-                                </div>
+                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Correct Answer</p>
+                                <p class="mt-1 text-2xl font-bold tabular-nums text-emerald-600">{{ $correctCount }}</p>
                             </div>
-                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5">
-                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white shadow-lg shadow-teal-500/25 ring-2 ring-white">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Correct</p>
-                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-emerald-700">{{ $correctCount }}</p>
-                                </div>
+                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Wrong Answer</p>
+                                <p class="mt-1 text-2xl font-bold tabular-nums text-orange-600">{{ $wrongCount }}</p>
                             </div>
-                            <div class="group flex items-center gap-4 rounded-2xl border border-slate-200/70 bg-white/90 p-4 shadow-md shadow-slate-200/40 ring-1 ring-slate-100 transition hover:-translate-y-0.5">
-                                <div class="flex size-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-rose-500 text-white shadow-lg shadow-orange-500/30 ring-2 ring-white">
-                                    <svg class="size-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
-                                    </svg>
-                                </div>
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Wrong</p>
-                                    <p class="mt-0.5 text-2xl font-bold tabular-nums text-orange-700">{{ $wrongCount }}</p>
-                                </div>
+                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Obtained Score</p>
+                                <p class="mt-1 text-2xl font-bold tabular-nums text-logo-blue">{{ $correctCount }}/{{ $totalQuestions }}</p>
+                            </div>
+                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Duration</p>
+                                <p class="mt-1 text-2xl font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</p>
                             </div>
                         </div>
-
+ 
                         {{-- Score Chart & Visuals --}}
-                        <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-gradient-to-b from-white to-slate-50/90 p-6 shadow-inner shadow-slate-200/30 ring-1 ring-slate-100 sm:p-8">
-                            <div class="flex flex-col gap-2 border-b border-slate-200/60 pb-5 sm:flex-row sm:items-end sm:justify-between">
-                                <div>
-                                    <h2 class="font-serif text-xl font-bold text-slate-900 sm:text-2xl">
-                                        Result Chart
-                                    </h2>
-                                    <p class="mt-1 text-sm text-slate-500">Correct vs incorrect share</p>
-                                </div>
-                                <div class="rounded-xl border border-slate-200/80 bg-white px-4 py-2 text-right shadow-sm">
-                                    <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Overall score</p>
-                                    <p class="text-2xl font-bold tabular-nums text-brand-900">{{ number_format((float) $scorePercent, 1) }}<span class="text-lg text-slate-500">%</span></p>
-                                </div>
+                        <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-8">
+                            <div class="flex flex-col gap-2 border-b border-slate-100 pb-5">
+                                <h2 class="font-serif text-xl font-bold text-slate-900 sm:text-2xl">
+                                    Result chart (Require Pie chart)
+                                </h2>
+                                <p class="text-sm text-slate-500">Visual breakdown of your performance</p>
                             </div>
-
-                            <div class="relative mx-auto mt-10 flex max-w-lg flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-14">
-                                <div class="relative size-44 shrink-0 sm:size-52">
-                                    <div
-                                        class="absolute inset-0 rounded-full shadow-[inset_0_2px_12px_rgba(15,23,42,0.06)] ring-[10px] ring-slate-100/90 ring-offset-2 ring-offset-white"
-                                        style="background: conic-gradient(from -90deg, rgb(52 211 153) 0% {{ $pctCorrect }}%, rgb(251 146 60) {{ $pctCorrect }}% 100%)"
-                                    ></div>
-                                    <div class="absolute inset-[22%] flex flex-col items-center justify-center rounded-full bg-gradient-to-b from-white to-slate-50 shadow-md ring-1 ring-slate-200/80">
-                                        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</span>
-                                        <span class="font-serif text-2xl font-bold tabular-nums text-brand-900 sm:text-3xl">{{ number_format((float) $scorePercent, 1) }}%</span>
+ 
+                            <div class="mt-10 flex flex-col items-center justify-center gap-10 lg:flex-row lg:gap-16">
+                                <div class="relative size-56 shrink-0 sm:size-64">
+                                    {{-- Modern Pie Chart using SVG for better control --}}
+                                    <svg class="size-full -rotate-90 transform" viewBox="0 0 100 100">
+                                        {{-- Wrong Percentage (Orange) --}}
+                                        <circle
+                                            cx="50" cy="50" r="40"
+                                            fill="transparent"
+                                            stroke="rgb(249 115 22)"
+                                            stroke-width="20"
+                                            stroke-dasharray="251.32"
+                                            stroke-dashoffset="0"
+                                        />
+                                        {{-- Correct Percentage (Green) --}}
+                                        <circle
+                                            cx="50" cy="50" r="40"
+                                            fill="transparent"
+                                            stroke="rgb(16 185 129)"
+                                            stroke-width="20"
+                                            stroke-dasharray="251.32"
+                                            stroke-dashoffset="{{ 251.32 * (1 - $pctCorrect / 100) }}"
+                                            class="transition-all duration-1000 ease-out"
+                                        />
+                                    </svg>
+                                    <div class="absolute inset-0 flex flex-col items-center justify-center rounded-full">
+                                        <div class="flex flex-col items-center justify-center size-32 rounded-full bg-white shadow-lg ring-1 ring-slate-100">
+                                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</span>
+                                            <span class="font-serif text-3xl font-bold tabular-nums text-slate-900">{{ number_format((float) $scorePercent, 1) }}%</span>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="flex w-full max-w-xs flex-col justify-center gap-3">
-                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-emerald-100 bg-emerald-50/50 px-4 py-3 shadow-sm">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="size-3 shrink-0 rounded-full bg-emerald-500 shadow-sm ring-2 ring-emerald-200"></span>
-                                            <span class="text-sm font-bold text-emerald-900">Correct</span>
+ 
+                                <div class="flex w-full max-w-xs flex-col gap-4">
+                                    <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition hover:bg-slate-50">
+                                        <div class="flex items-center gap-3">
+                                            <span class="size-4 shrink-0 rounded-full bg-emerald-500 shadow-sm ring-2 ring-white"></span>
+                                            <span class="text-base font-bold text-slate-700">Correct percentage</span>
                                         </div>
-                                        <span class="text-sm font-bold tabular-nums text-emerald-800">{{ number_format($pctCorrect, 1) }}%</span>
+                                        <span class="text-lg font-bold tabular-nums text-emerald-600">{{ number_format($pctCorrect, 1) }}%</span>
                                     </div>
-                                    <div class="flex items-center justify-between gap-3 rounded-2xl border border-orange-100 bg-orange-50/50 px-4 py-3 shadow-sm">
-                                        <div class="flex items-center gap-2.5">
-                                            <span class="size-3 shrink-0 rounded-full bg-orange-500 shadow-sm ring-2 ring-orange-200"></span>
-                                            <span class="text-sm font-bold text-orange-900">Wrong</span>
+                                    <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition hover:bg-slate-50">
+                                        <div class="flex items-center gap-3">
+                                            <span class="size-4 shrink-0 rounded-full bg-orange-500 shadow-sm ring-2 ring-white"></span>
+                                            <span class="text-base font-bold text-slate-700">Wrong percentage</span>
                                         </div>
-                                        <span class="text-sm font-bold tabular-nums text-orange-800">{{ number_format($pctWrong, 1) }}%</span>
+                                        <span class="text-lg font-bold tabular-nums text-orange-600">{{ number_format($pctWrong, 1) }}%</span>
                                     </div>
                                 </div>
                             </div>
