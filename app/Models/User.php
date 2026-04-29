@@ -56,7 +56,9 @@ class User extends Authenticatable
         'qualification',
         'academic_state',
         'institution_name',
+        'university_board',
         'completed_year',
+        'rnm_number',
         'total_years_experience',
         'organization_name',
         'organization_type',
@@ -66,6 +68,7 @@ class User extends Authenticatable
         'professional_city',
         'professional_district',
         'professional_state',
+        'professional_zip_code',
     ];
 
     /**
@@ -113,7 +116,9 @@ class User extends Authenticatable
             'qualification' => 'encrypted',
             'academic_state' => 'encrypted',
             'institution_name' => 'encrypted',
+            'university_board' => 'encrypted',
             'completed_year' => 'encrypted',
+            'rnm_number' => 'encrypted',
             'total_years_experience' => 'encrypted',
             'organization_name' => 'encrypted',
             'organization_type' => 'encrypted',
@@ -123,6 +128,7 @@ class User extends Authenticatable
             'professional_city' => 'encrypted',
             'professional_district' => 'encrypted',
             'professional_state' => 'encrypted',
+            'professional_zip_code' => 'encrypted',
         ];
     }
 

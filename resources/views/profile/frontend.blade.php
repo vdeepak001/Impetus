@@ -20,9 +20,6 @@
                 @method('PATCH')
                 <div class="grid gap-4 sm:grid-cols-2">
                     <label class="text-sm font-medium text-slate-700">Name<input name="name" value="{{ old('name', auth()->user()->name) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Email-ID (Username)<input type="email" name="email" value="{{ old('email', auth()->user()->email) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Mobile No<input name="phone" value="{{ old('phone', auth()->user()->phone) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">PAN Number<input name="pan_number" value="{{ old('pan_number', auth()->user()->pan_number) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Gender
                         <select name="gender" class="{{ $inputClass }}">
                             <option value="">Select</option>
@@ -33,12 +30,13 @@
                     </label>
                     <label class="text-sm font-medium text-slate-700">Date of Birth<input type="date" name="date_of_birth" value="{{ old('date_of_birth', optional(auth()->user()->date_of_birth)->format('Y-m-d')) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Aadhar Number<input name="aadhar_number" value="{{ old('aadhar_number', auth()->user()->aadhar_number) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Address Line 1<input name="address_line_1" value="{{ old('address_line_1', auth()->user()->address_line_1) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Address Line 2<input name="address_line_2" value="{{ old('address_line_2', auth()->user()->address_line_2) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Mobile Number<input name="phone" value="{{ old('phone', auth()->user()->phone) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Email ID (Username)<input type="email" name="email" value="{{ old('email', auth()->user()->email) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Residential Address<input name="address_line_1" value="{{ old('address_line_1', auth()->user()->address_line_1) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">City<input name="city" value="{{ old('city', auth()->user()->city) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Pincode<input name="zip_code" value="{{ old('zip_code', auth()->user()->zip_code) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">District<input name="district" value="{{ old('district', auth()->user()->district) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">State<input name="state" value="{{ old('state', auth()->user()->state) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Pincode<input name="zip_code" value="{{ old('zip_code', auth()->user()->zip_code) }}" class="{{ $inputClass }}" /></label>
                 </div>
                 <button type="submit" class="mt-6 inline-flex rounded-full bg-logo-light-green px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600">
                     UPDATE INFORMATION
@@ -49,12 +47,13 @@
                 @csrf
                 @method('PATCH')
                 <div class="grid gap-4 sm:grid-cols-2">
-                    <label class="text-sm font-medium text-slate-700">RN Number<input name="rn_number" value="{{ old('rn_number', auth()->user()->rn_number) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">RM Number<input name="rm_number" value="{{ old('rm_number', auth()->user()->rm_number) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Qualification<input name="qualification" value="{{ old('qualification', auth()->user()->qualification) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">GNM Details (State Council)<input name="academic_state" value="{{ old('academic_state', auth()->user()->academic_state) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Name of Institution<input name="institution_name" value="{{ old('institution_name', auth()->user()->institution_name) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Completed Year<input name="completed_year" value="{{ old('completed_year', auth()->user()->completed_year) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Year of Completion<input name="completed_year" value="{{ old('completed_year', auth()->user()->completed_year) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Name of the Institute<input name="institution_name" value="{{ old('institution_name', auth()->user()->institution_name) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Name of the University/ Board<input name="university_board" value="{{ old('university_board', auth()->user()->university_board) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">RN<input name="rn_number" value="{{ old('rn_number', auth()->user()->rn_number) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">RM<input name="rm_number" value="{{ old('rm_number', auth()->user()->rm_number) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">RNM<input name="rnm_number" value="{{ old('rnm_number', auth()->user()->rnm_number) }}" class="{{ $inputClass }}" /></label>
                 </div>
                 <button type="submit" class="mt-6 inline-flex rounded-full bg-logo-light-green px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-green-600">
                     UPDATE INFORMATION
@@ -65,14 +64,21 @@
                 @csrf
                 @method('PATCH')
                 <div class="grid gap-4 sm:grid-cols-2">
-                    <label class="text-sm font-medium text-slate-700">Total Years of Experience<input name="total_years_experience" value="{{ old('total_years_experience', auth()->user()->total_years_experience) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Name of Organization<input name="organization_name" value="{{ old('organization_name', auth()->user()->organization_name) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Type of Organization<input name="organization_type" value="{{ old('organization_type', auth()->user()->organization_type) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Department<input name="department_name" value="{{ old('department_name', auth()->user()->department_name) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Designation<input name="designation" value="{{ old('designation', auth()->user()->designation) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Address Line 1<input name="professional_address_line_1" value="{{ old('professional_address_line_1', auth()->user()->professional_address_line_1) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">Address Line 2<input name="professional_address_line_2" value="{{ old('professional_address_line_2', auth()->user()->professional_address_line_2) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Type of Organization
+                        <select name="organization_type" class="{{ $inputClass }}">
+                            <option value="">Select</option>
+                            <option value="Clincal" @selected(old('organization_type', auth()->user()->organization_type) === 'Clincal')>Clincal</option>
+                            <option value="Public health" @selected(old('organization_type', auth()->user()->organization_type) === 'Public health')>Public health</option>
+                            <option value="Teaching" @selected(old('organization_type', auth()->user()->organization_type) === 'Teaching')>Teaching</option>
+                            <option value="Others" @selected(old('organization_type', auth()->user()->organization_type) === 'Others')>Others</option>
+                        </select>
+                    </label>
+                    <label class="text-sm font-medium text-slate-700">Name of the Organization<input name="organization_name" value="{{ old('organization_name', auth()->user()->organization_name) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Total Years of Experience<input name="total_years_experience" value="{{ old('total_years_experience', auth()->user()->total_years_experience) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Organization Address<input name="professional_address_line_1" value="{{ old('professional_address_line_1', auth()->user()->professional_address_line_1) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">City<input name="professional_city" value="{{ old('professional_city', auth()->user()->professional_city) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Pincode<input name="professional_zip_code" value="{{ old('professional_zip_code', auth()->user()->professional_zip_code) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">District<input name="professional_district" value="{{ old('professional_district', auth()->user()->professional_district) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">State<input name="professional_state" value="{{ old('professional_state', auth()->user()->professional_state) }}" class="{{ $inputClass }}" /></label>
                 </div>

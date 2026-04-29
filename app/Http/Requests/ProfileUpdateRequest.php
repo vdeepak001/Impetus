@@ -54,7 +54,9 @@ class ProfileUpdateRequest extends FormRequest
             'qualification' => ['nullable', 'string', 'max:255'],
             'academic_state' => ['nullable', 'string', 'max:255'],
             'institution_name' => ['nullable', 'string', 'max:255'],
+            'university_board' => ['nullable', 'string', 'max:255'],
             'completed_year' => ['nullable', 'string', 'max:255'],
+            'rnm_number' => ['nullable', 'string', 'max:255'],
             'total_years_experience' => ['nullable', 'string', 'max:255'],
             'organization_name' => ['nullable', 'string', 'max:255'],
             'organization_type' => ['nullable', 'string', 'max:255'],
@@ -64,6 +66,7 @@ class ProfileUpdateRequest extends FormRequest
             'professional_city' => ['nullable', 'string', 'max:255'],
             'professional_district' => ['nullable', 'string', 'max:255'],
             'professional_state' => ['nullable', 'string', 'max:255'],
+            'professional_zip_code' => ['nullable', 'string', 'max:255'],
         ];
     }
 }
