@@ -187,7 +187,8 @@
             
             document.body.style.overflow = 'hidden';
         }
-
+        
+        function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
             const shield = document.getElementById('viewerShield');
