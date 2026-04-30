@@ -257,6 +257,15 @@
                                 </button>
                             @endif
                         @endif
+                        @auth
+                            @if (auth()->user()?->role_type === 'user')
+                                <div class="mt-4 flex justify-end">
+                                    <div class="inline-flex items-center rounded-lg bg-emerald-600 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-md shadow-emerald-600/20 ring-1 ring-emerald-500/50">
+                                        Credit Point: {{ $creditPoints }}
+                                    </div>
+                                </div>
+                            @endif
+                        @endauth
                     </div>
                 </div>
 
@@ -277,13 +286,6 @@
                         <div class="relative">
                             <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
                             <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white shadow-xl shadow-slate-300/30 ring-1 ring-slate-200/40">
-                                @auth
-                                    @if (auth()->user()?->role_type === 'user')
-                                        <div class="absolute top-4 right-4 z-10 flex items-center rounded-sm bg-green-500 px-2.5 py-1 text-xs font-bold tracking-wide text-white shadow-sm">
-                                            Credit Point: {{ $creditPoints }}
-                                        </div>
-                                    @endif
-                                @endauth
                                 @if ($imgUrl && $isImage)
                                     <img
                                         src="{{ $imgUrl }}"
