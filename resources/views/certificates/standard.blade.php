@@ -20,7 +20,7 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 287mm; /* Reduced slightly to prevent right border cutoff */
+            width: 280mm; /* Further reduced to ensure all borders are visible on all printers/viewers */
             height: 200mm;
             padding: 5mm;
             box-sizing: border-box;
@@ -194,19 +194,20 @@
         $courseNameStr = $course->couse_name;
         
         $qrData = "Name: $userName\nCourse: $courseNameStr";
-        $qrUrl = "http://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=" . urlencode($qrData) . "&choe=UTF-8";
+        $qrUrl = "https://quickchart.io/qr?text=" . urlencode($qrData) . "&size=150";
         
         // Fetch and encode image to ensure it shows in PDF
         try {
             $qrContext = stream_context_create([
-                'http' => ['timeout' => 5]
+                'http' => ['timeout' => 5],
+                'ssl'  => ['verify_peer' => false, 'verify_peer_name' => false] // Bypass SSL issues on local servers
             ]);
             $qrContent = @file_get_contents($qrUrl, false, $qrContext);
             if ($qrContent) {
                 $qrUrl = 'data:image/png;base64,' . base64_encode($qrContent);
             }
         } catch (\Exception $e) {
-            // Keep original URL as fallback
+            // Fallback to original URL
         }
     @endphp
 
