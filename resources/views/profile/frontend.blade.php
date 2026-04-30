@@ -120,12 +120,12 @@
                                                 $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=" . urlencode($qrData);
                                             @endphp
                                             <div class="flex items-center gap-3">
-                                                <div class="group relative">
+                                                {{-- <div class="group relative">
                                                     <img src="{{ $qrUrl }}" alt="QR" class="h-8 w-8 rounded border border-slate-200 shadow-sm transition hover:scale-150 bg-white">
                                                     <div class="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 rounded-lg bg-slate-900 px-2 py-1 text-[10px] text-white group-hover:block whitespace-nowrap">
                                                         Scan to verify
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <a href="{{ route('certificates.download', $courseOrder->id) }}" 
                                                    class="inline-flex items-center gap-1.5 rounded-full bg-logo-blue px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-logo-blue/50">
                                                     <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
