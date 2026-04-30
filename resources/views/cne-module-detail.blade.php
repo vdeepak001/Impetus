@@ -277,7 +277,7 @@
                     </div>
                 </div>
 
-                <div class="mt-12 grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                <div class="mt-4 grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
                     <div class="order-2 min-w-0 lg:order-1">
                         <h2 class="text-2xl font-bold tracking-tight text-slate-900 font-serif sm:text-3xl">
                             What you will learn in {{ $title }}?
