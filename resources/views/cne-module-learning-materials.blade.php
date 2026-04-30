@@ -2,6 +2,26 @@
 
 @section('title', 'Learning Materials – ' . ($course->couse_name ?? 'Module'))
 
+@push('styles')
+<style>
+    /* Prevent printing */
+    @media print {
+        * {
+            display: none !important;
+            visibility: hidden !important;
+        }
+    }
+    
+    /* Disable selection */
+    .select-none {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+</style>
+@endpush
+
 @section('content')
     @php
         $courseName = $course->couse_name ?? 'Module';
@@ -114,6 +134,8 @@
                         </button>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 overflow-hidden relative group">
+                        {{-- Shield overlay to block right-clicks on iframe --}}
+                        <div id="viewerShield" class="absolute inset-0 z-10 hidden" oncontextmenu="return false;" onselectstart="return false;"></div>
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 select-none block" oncontextmenu="return false;"></iframe>
                     </div>
                 </div>
@@ -121,6 +143,7 @@
         </div>
     </div>
 
+@push('scripts')
     <script>
         function openFile(url) {
             const modal = document.getElementById('fileModal');
@@ -140,14 +163,17 @@
 
             viewer.src = finalUrl;
             modal.classList.remove('hidden');
+            document.getElementById('viewerShield').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
+            const shield = document.getElementById('viewerShield');
             
             modal.classList.add('hidden');
+            shield.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
@@ -157,12 +183,30 @@
             if (event.key === 'Escape') {
                 closeModal();
             }
+            
+            // Disable Print (Ctrl+P / Cmd+P)
+            if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
+                event.preventDefault();
+                alert('Printing is disabled for this material.');
+                return false;
+            }
+
+            // Disable Save (Ctrl+S / Cmd+S)
+            if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+                event.preventDefault();
+                return false;
+            }
         });
 
-        // Disable right click on the modal viewer area
-        document.getElementById('fileModal').addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
+        // Disable right click globally when modal is open
+        document.addEventListener('contextmenu', function(e) {
+            const modal = document.getElementById('fileModal');
+            if (modal && !modal.classList.contains('hidden')) {
+                e.preventDefault();
+                return false;
+            }
         });
     </script>
+@endpush
+
 @endsection

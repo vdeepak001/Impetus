@@ -45,6 +45,7 @@
     @endif
 
     {{-- Alpine is bundled with @livewireScripts (Livewire 4). Extra CDN Alpine breaks wire:click / wire:model on Livewire components. --}}
+    @stack('styles')
 </head>
 <body class="antialiased bg-slate-50 text-slate-800">
     @include('welcome.partials.header')
@@ -58,5 +59,6 @@
     @include('welcome.partials.footer')
     <x-ui.toaster />
     @livewireScripts
+    @stack('scripts')
 </body>
 </html>
