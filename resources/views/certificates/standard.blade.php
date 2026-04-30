@@ -193,21 +193,22 @@
         $userName = $user->name ?: ($user->first_name . ' ' . $user->last_name);
         $courseNameStr = $course->couse_name;
         
-        $qrData = "Name: $userName\nCourse: $courseNameStr";
-        $qrUrl = "https://quickchart.io/qr?text=" . urlencode($qrData) . "&size=150";
+        // Use a more compatible format for mobile scanners (single line, no special characters)
+        $qrData = "CERTIFICATE VERIFIED - Name: $userName | Course: $courseNameStr";
+        $qrUrl = "https://quickchart.io/qr?text=" . rawurlencode($qrData) . "&size=200";
         
         // Fetch and encode image to ensure it shows in PDF
         try {
             $qrContext = stream_context_create([
                 'http' => ['timeout' => 5],
-                'ssl'  => ['verify_peer' => false, 'verify_peer_name' => false] // Bypass SSL issues on local servers
+                'ssl'  => ['verify_peer' => false, 'verify_peer_name' => false]
             ]);
             $qrContent = @file_get_contents($qrUrl, false, $qrContext);
             if ($qrContent) {
                 $qrUrl = 'data:image/png;base64,' . base64_encode($qrContent);
             }
         } catch (\Exception $e) {
-            // Fallback to original URL
+            // Fallback
         }
     @endphp
 
