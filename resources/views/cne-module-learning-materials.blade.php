@@ -136,11 +136,11 @@
                         </button>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
-                        {{-- Shield overlay to block right-clicks and all internal viewer buttons (top-right and bottom toolbar) --}}
-                        <div id="viewerShield" class="absolute top-0 left-0 w-full h-full z-20 hidden" oncontextmenu="return false;"></div>
+                        {{-- Shield overlay to block right-clicks and internal buttons, leaving a gap for the scrollbar --}}
+                        <div id="viewerShield" class="absolute top-0 left-0 w-[calc(100%-24px)] h-full z-20 hidden" oncontextmenu="return false;"></div>
                         
-                        {{-- Bottom mask to visually hide the Google Docs Viewer toolbar --}}
-                        <div id="bottomMask" class="absolute bottom-0 left-0 w-full h-14 bg-slate-800 z-10 hidden"></div>
+                        {{-- Targeted mask to visually hide the "pop-out" button in the top right --}}
+                        <div id="topRightMask" class="absolute top-0 right-0 w-14 h-14 bg-slate-800 z-30 hidden"></div>
                         
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
                     </div>
@@ -179,11 +179,11 @@
             viewer.src = finalUrl;
             modal.classList.remove('hidden');
             
-            // Show shield and bottom mask, then enable scroll-through hack
+            // Show shield and top-right mask, then enable scroll-through hack
             const shield = document.getElementById('viewerShield');
-            const bottomMask = document.getElementById('bottomMask');
+            const topRightMask = document.getElementById('topRightMask');
             shield.classList.remove('hidden');
-            bottomMask.classList.remove('hidden');
+            topRightMask.classList.remove('hidden');
             
             document.body.style.overflow = 'hidden';
         }
@@ -192,11 +192,11 @@
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
             const shield = document.getElementById('viewerShield');
-            const bottomMask = document.getElementById('bottomMask');
+            const topRightMask = document.getElementById('topRightMask');
             
             modal.classList.add('hidden');
             shield.classList.add('hidden');
-            bottomMask.classList.add('hidden');
+            topRightMask.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
