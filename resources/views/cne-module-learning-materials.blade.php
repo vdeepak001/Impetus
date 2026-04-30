@@ -133,10 +133,8 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="flex-1 w-full bg-slate-800 overflow-hidden relative group">
-                        {{-- Shield overlay to block right-clicks on iframe --}}
-                        <div id="viewerShield" class="absolute inset-0 z-10 hidden" oncontextmenu="return false;" onselectstart="return false;"></div>
-                        <iframe id="fileViewer" src="" class="w-full h-full border-0 select-none block" oncontextmenu="return false;"></iframe>
+                    <div class="flex-1 w-full bg-slate-800 relative group">
+                        <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
                     </div>
                 </div>
             </div>
@@ -158,22 +156,19 @@
             let finalUrl = url;
             if (url.toLowerCase().endsWith('.pdf')) {
                 // view=FitH fits to width, view=Fit fits to whole page
-                finalUrl += '#toolbar=0&navpanes=0&scrollbar=0&view=FitH';
+                finalUrl += '#toolbar=0&navpanes=0&view=FitH';
             }
 
             viewer.src = finalUrl;
             modal.classList.remove('hidden');
-            document.getElementById('viewerShield').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
-            const shield = document.getElementById('viewerShield');
             
             modal.classList.add('hidden');
-            shield.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
