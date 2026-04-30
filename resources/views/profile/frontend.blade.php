@@ -111,13 +111,29 @@
                                     <td class="px-3 py-3 text-slate-700">{{ $courseOrder->completion ? $courseOrder->completion->completed_at->format('d-m-Y') : '-' }}</td>
                                     <td class="px-3 py-3 text-slate-700">
                                         @if($courseOrder->completion)
-                                            <a href="{{ route('certificates.download', $courseOrder->id) }}" 
-                                               class="inline-flex items-center gap-1.5 rounded-full bg-logo-blue px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-logo-blue/50">
-                                                <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                                </svg>
-                                                <span>Download</span>
-                                            </a>
+                                            @php
+                                                $u = auth()->user();
+                                                $userName = $u->name ?: ($u->first_name . ' ' . $u->last_name);
+                                                $rnNumber = $u->rn_number ?? 'N/A';
+                                                $courseName = $courseOrder->courseDetail?->couse_name ?? 'N/A';
+                                                $qrData = "Name: " . $userName . "\nRN #: " . $rnNumber . "\nCourse: " . $courseName;
+                                                $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=" . urlencode($qrData);
+                                            @endphp
+                                            <div class="flex items-center gap-3">
+                                                <div class="group relative">
+                                                    <img src="{{ $qrUrl }}" alt="QR" class="h-8 w-8 rounded border border-slate-200 shadow-sm transition hover:scale-150 bg-white">
+                                                    <div class="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 rounded-lg bg-slate-900 px-2 py-1 text-[10px] text-white group-hover:block whitespace-nowrap">
+                                                        Scan to verify
+                                                    </div>
+                                                </div>
+                                                <a href="{{ route('certificates.download', $courseOrder->id) }}" 
+                                                   class="inline-flex items-center gap-1.5 rounded-full bg-logo-blue px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-logo-blue/50">
+                                                    <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                    <span>Download</span>
+                                                </a>
+                                            </div>
                                         @else
                                             -
                                         @endif
