@@ -27,6 +27,10 @@
                 font-family: var(--font-sans);
                 background-image: radial-gradient(#83ba2d10 1px, transparent 1px);
                 background-size: 40px 40px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
             }
             h1, h2, h3, .font-serif { font-family: var(--font-serif); }
 
@@ -42,6 +46,14 @@
             .animation-delay-2000 { animation-delay: 2s; }
             .animation-delay-4000 { animation-delay: 4s; }
         </style>
+        <script>
+            document.addEventListener('contextmenu', (e) => e.preventDefault());
+            document.addEventListener('copy', (e) => e.preventDefault());
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) e.preventDefault();
+                if (e.key === 'F12') e.preventDefault();
+            });
+        </script>
     @endif
 
     {{-- Alpine is bundled with @livewireScripts (Livewire 4). Extra CDN Alpine breaks wire:click / wire:model on Livewire components. --}}

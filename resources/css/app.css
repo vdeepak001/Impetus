@@ -196,6 +196,10 @@
   }
   body {
     @apply relative font-normal font-outfit z-1 bg-gray-50;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 }
 

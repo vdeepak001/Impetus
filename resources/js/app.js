@@ -32,4 +32,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.querySelector('#calendar')) {
         import('./components/calendar-init').then(module => module.calendarInit());
     }
+
+    // Global security: Disable right-click and copy
+    document.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        return false;
+    });
+
+    document.addEventListener('copy', (e) => {
+        e.preventDefault();
+        return false;
+    });
+
+    // Disable keyboard shortcuts for copy and developer tools
+    document.addEventListener('keydown', (e) => {
+        // Disable Ctrl+C, Ctrl+U, Ctrl+S
+        if (e.ctrlKey && (e.key === 'c' || e.key === 'C' || e.key === 'u' || e.key === 'U' || e.key === 's' || e.key === 'S')) {
+            e.preventDefault();
+            return false;
+        }
+        // Disable F12
+        if (e.key === 'F12') {
+            e.preventDefault();
+            return false;
+        }
+    });
 });
