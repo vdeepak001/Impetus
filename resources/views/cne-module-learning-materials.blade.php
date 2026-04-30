@@ -137,9 +137,8 @@
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group">
                         {{-- Shield overlay to block right-clicks on iframe while allowing scroll-through --}}
-                        {{-- Shield overlay to block right-clicks on iframe content --}}
-                        {{-- Leaves a gap on the right for the scrollbar and bottom for potential horizontal scroll --}}
-                        <div id="viewerShield" class="absolute top-0 left-0 w-[calc(100%-30px)] h-[calc(100%-30px)] z-10 hidden" oncontextmenu="return false;"></div>
+                        {{-- Shield overlay to block right-clicks and the "pop-out" button on the iframe --}}
+                        <div id="viewerShield" class="absolute top-0 left-0 w-full h-full z-10 hidden" oncontextmenu="return false;"></div>
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
                     </div>
                 </div>
