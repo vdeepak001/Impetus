@@ -20,9 +20,9 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 297mm;
-            height: 210mm;
-            padding: 10mm;
+            width: 287mm; /* Reduced slightly to prevent right border cutoff */
+            height: 200mm;
+            padding: 5mm;
             box-sizing: border-box;
             background-color: #f1f5f9;
         }
@@ -193,10 +193,21 @@
         $userName = $user->name ?: ($user->first_name . ' ' . $user->last_name);
         $courseNameStr = $course->couse_name;
         
-        // QR Data: Text format - Name and Course
         $qrData = "Name: $userName\nCourse: $courseNameStr";
-        // Switching to Google Charts for higher reliability
-        $qrUrl = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=" . urlencode($qrData) . "&choe=UTF-8";
+        $qrUrl = "http://chart.googleapis.com/chart?cht=qr&chs=150x150&chl=" . urlencode($qrData) . "&choe=UTF-8";
+        
+        // Fetch and encode image to ensure it shows in PDF
+        try {
+            $qrContext = stream_context_create([
+                'http' => ['timeout' => 5]
+            ]);
+            $qrContent = @file_get_contents($qrUrl, false, $qrContext);
+            if ($qrContent) {
+                $qrUrl = 'data:image/png;base64,' . base64_encode($qrContent);
+            }
+        } catch (\Exception $e) {
+            // Keep original URL as fallback
+        }
     @endphp
 
     <div class="cert-container">
