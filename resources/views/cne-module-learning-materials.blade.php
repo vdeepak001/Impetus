@@ -158,11 +158,20 @@
             const filename = url.split('/').pop().replace(/^\d+_/, '');
             title.textContent = filename;
 
-            // If it's a PDF, add parameters to hide toolbar and fit width
+            // Handle different file types
             let finalUrl = url;
-            if (url.toLowerCase().endsWith('.pdf')) {
-                // view=FitH fits to width, view=Fit fits to whole page
+            const lowerUrl = url.toLowerCase();
+            
+            if (lowerUrl.endsWith('.pdf')) {
+                // For PDFs: view=FitH fits to width, view=Fit fits to whole page
                 finalUrl += '#toolbar=0&navpanes=0&view=FitH';
+            } else if (
+                lowerUrl.endsWith('.pptx') || lowerUrl.endsWith('.ppt') || 
+                lowerUrl.endsWith('.docx') || lowerUrl.endsWith('.doc') || 
+                lowerUrl.endsWith('.xlsx') || lowerUrl.endsWith('.xls')
+            ) {
+                // For Office documents: Use Google Docs Viewer to render in iframe
+                finalUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(url) + '&embedded=true';
             }
 
             viewer.src = finalUrl;
