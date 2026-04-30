@@ -6,9 +6,11 @@
 <style>
     /* Prevent printing */
     @media print {
-        * {
+        html, body, * {
             display: none !important;
             visibility: hidden !important;
+            height: 0 !important;
+            overflow: hidden !important;
         }
     }
     
@@ -134,6 +136,10 @@
                         </button>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group">
+                        {{-- Shield overlay to block right-clicks on iframe while allowing scroll-through --}}
+                        {{-- Shield overlay to block right-clicks on iframe content --}}
+                        {{-- Leaves a gap on the right for the scrollbar and bottom for potential horizontal scroll --}}
+                        <div id="viewerShield" class="absolute top-0 left-0 w-[calc(100%-30px)] h-[calc(100%-30px)] z-10 hidden" oncontextmenu="return false;"></div>
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
                     </div>
                 </div>
@@ -161,35 +167,75 @@
 
             viewer.src = finalUrl;
             modal.classList.remove('hidden');
+            
+            // Show shield and enable scroll-through hack
+            const shield = document.getElementById('viewerShield');
+            shield.classList.remove('hidden');
+            
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
+            const shield = document.getElementById('viewerShield');
             
             modal.classList.add('hidden');
+            shield.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
 
         // Close on Escape key
-        document.addEventListener('keydown', function(event) {
+        window.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeModal();
             }
             
             // Disable Print (Ctrl+P / Cmd+P)
-            if ((event.ctrlKey || event.metaKey) && event.key === 'p') {
+            if ((event.ctrlKey || event.metaKey) && (event.key === 'p' || event.key === 'P')) {
                 event.preventDefault();
+                event.stopImmediatePropagation();
                 alert('Printing is disabled for this material.');
                 return false;
             }
 
             // Disable Save (Ctrl+S / Cmd+S)
-            if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+            if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'S')) {
                 event.preventDefault();
+                event.stopImmediatePropagation();
                 return false;
+            }
+        }, true); // Use capture to catch events before they reach the iframe if possible
+
+        // Block printing via browser menu/shortcuts more aggressively
+        window.addEventListener('beforeprint', (event) => {
+            closeModal();
+            // Also hide the entire body just in case
+            document.body.style.display = 'none';
+            setTimeout(() => {
+                document.body.style.display = 'block';
+            }, 100);
+            alert('Printing is disabled for this material.');
+        });
+
+        // Smart Shield Scroll-Through Hack
+        // This allows scrolling while the shield is active by temporarily disabling the shield during wheel events
+        const shield = document.getElementById('viewerShield');
+        shield.addEventListener('wheel', (e) => {
+            shield.style.pointerEvents = 'none';
+            
+            // Re-enable shield quickly after scrolling stops
+            clearTimeout(shield._scrollTimer);
+            shield._scrollTimer = setTimeout(() => {
+                shield.style.pointerEvents = 'auto';
+            }, 200); // Reduced to 200ms for better responsiveness
+        }, { passive: true });
+
+        // Ensure shield is active when mouse moves (unless scrolling)
+        shield.addEventListener('mousemove', () => {
+            if (shield.style.pointerEvents === 'none' && !shield._scrollTimer) {
+                shield.style.pointerEvents = 'auto';
             }
         });
 
