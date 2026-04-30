@@ -41,7 +41,9 @@
                 duration: '—',
                 l1: '0/0',
                 l2: '0/0',
-                l3: '0/0'
+                l3: '0/0',
+                obtained: 0,
+                max: 0
             },
             init() {
                 this.$watch('practiceGateOpen', value => {
@@ -132,7 +134,9 @@
                                                     duration: '{{ $tp['pre_duration'] }}',
                                                     l1: '{{ $tp['pre_l1'] }}',
                                                     l2: '{{ $tp['pre_l2'] }}',
-                                                    l3: '{{ $tp['pre_l3'] }}'
+                                                    l3: '{{ $tp['pre_l3'] }}',
+                                                    obtained: '{{ $tp['pre_obtained'] }}',
+                                                    max: '{{ $tp['pre_max'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $preClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -157,7 +161,9 @@
                                                     duration: '{{ $tp['mock_duration'] }}',
                                                     l1: '{{ $tp['mock_l1'] }}',
                                                     l2: '{{ $tp['mock_l2'] }}',
-                                                    l3: '{{ $tp['mock_l3'] }}'
+                                                    l3: '{{ $tp['mock_l3'] }}',
+                                                    obtained: '{{ $tp['mock_obtained'] }}',
+                                                    max: '{{ $tp['mock_max'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $mockClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -182,7 +188,9 @@
                                                     duration: '{{ $tp['final_duration'] }}',
                                                     l1: '{{ $tp['final_l1'] }}',
                                                     l2: '{{ $tp['final_l2'] }}',
-                                                    l3: '{{ $tp['final_l3'] }}'
+                                                    l3: '{{ $tp['final_l3'] }}',
+                                                    obtained: '{{ $tp['final_obtained'] }}',
+                                                    max: '{{ $tp['final_max'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -490,8 +498,8 @@
                     <div class="text-center">
                         <p class="mb-1 text-sm font-bold text-slate-800">{{ $course->couse_name }}</p>
                         <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-logo-blue/80" x-text="scoreCardData.title"></p>
-                        <div class="mt-2 inline-flex items-end gap-1">
-                            <span class="text-4xl font-black tabular-nums tracking-tight text-brand-900" x-text="'(' + scoreCardData.correct + '/' + scoreCardData.total + ')'"></span>
+                        <div class="mt-2 flex flex-col items-center gap-1">
+                            <span class="text-4xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.obtained + '/' + scoreCardData.max"></span>
                         </div>
                     </div>
 

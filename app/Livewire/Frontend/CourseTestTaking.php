@@ -60,6 +60,8 @@ class CourseTestTaking extends Component
     /** @var array<int, array{correct:int, total:int, weight:int, score:int, max:int}> */
     public array $levelStats = [];
 
+    public ?int $orderId = null;
+
     public ?string $fatalError = null;
 
     /** H:mm:ss or m:ss from attempt timestamps after submit. */
@@ -161,6 +163,17 @@ class CourseTestTaking extends Component
 
         if ($this->type !== CourseTestType::Practice) {
             $this->refreshExamTimer();
+        }
+
+        if ($user && $course) {
+            $this->orderId = \App\Models\Order::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $course->id)
+                ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+                ->whereDate('start_date', '<=', now()->toDateString())
+                ->whereDate('end_date', '>=', now()->toDateString())
+                ->latest('id')
+                ->value('id');
         }
     }
 

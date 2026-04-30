@@ -186,12 +186,18 @@
                                             </template>
                                         </div>
 
-                                        {{-- <div class="mt-4">
-                                            <button type="button" class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-8 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-brand-600">
-                                                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 7.5L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                                                Download Certificate
-                                            </button>
-                                        </div> --}}
+                                        @if ($orderId)
+                                            <div class="mt-4">
+                                                <a 
+                                                    href="{{ route('certificates.download', $orderId) }}" 
+                                                    class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-8 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-lg transition hover:bg-brand-600"
+                                                    target="_blank"
+                                                >
+                                                    <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M7.5 7.5L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                                                    Download Certificate
+                                                </a>
+                                            </div>
+                                        @endif
                                     </div>
                                 @else
                                     <div class="space-y-4">

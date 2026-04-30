@@ -150,8 +150,15 @@ class CneModulesController extends Controller
                 return sprintf('%d:%02d', floor($seconds / 60), $seconds % 60);
             };
 
-            $calculateLevelStats = function($attempt) {
-                if (!$attempt) return ['l1' => '0/0', 'l2' => '0/0', 'l3' => '0/0'];
+            $levelWeightsRaw = \App\Models\LevelScore::first();
+            $weights = [
+                1 => (int) ($levelWeightsRaw->level_1 ?? 1),
+                2 => (int) ($levelWeightsRaw->level_2 ?? 2),
+                3 => (int) ($levelWeightsRaw->level_3 ?? 3),
+            ];
+
+            $calculateLevelStats = function($attempt) use ($weights) {
+                if (!$attempt) return ['l1' => '0/0', 'l2' => '0/0', 'l3' => '0/0', 'obtained' => 0, 'max' => 0];
                 
                 $results = \App\Models\CourseTestAnswer::query()
                     ->where('course_test_attempt_id', $attempt->id)
@@ -165,15 +172,21 @@ class CneModulesController extends Controller
                     3 => ['correct' => 0, 'total' => 0],
                 ];
 
+                $obtained = 0;
+                $max = 0;
+
                 foreach ($results as $row) {
                     $levelStr = (string) ($row->question_level ?? 'Level 1');
                     $levelNum = 1;
                     if (str_contains($levelStr, '2')) $levelNum = 2;
                     elseif (str_contains($levelStr, '3')) $levelNum = 3;
 
+                    $weight = $weights[$levelNum] ?? 1;
                     $stats[$levelNum]['total']++;
+                    $max += $weight;
                     if ($row->is_correct) {
                         $stats[$levelNum]['correct']++;
+                        $obtained += $weight;
                     }
                 }
 
@@ -181,6 +194,8 @@ class CneModulesController extends Controller
                     'l1' => $stats[1]['correct'] . '/' . $stats[1]['total'],
                     'l2' => $stats[2]['correct'] . '/' . $stats[2]['total'],
                     'l3' => $stats[3]['correct'] . '/' . $stats[3]['total'],
+                    'obtained' => $obtained,
+                    'max' => $max,
                 ];
             };
 
@@ -200,6 +215,8 @@ class CneModulesController extends Controller
                 'pre_l1' => $preLevelStats['l1'],
                 'pre_l2' => $preLevelStats['l2'],
                 'pre_l3' => $preLevelStats['l3'],
+                'pre_obtained' => $preLevelStats['obtained'],
+                'pre_max' => $preLevelStats['max'],
 
                 'mock_done' => (bool) $mockAttempt,
                 'mock_score' => $mockAttempt?->score_percent,
@@ -212,6 +229,8 @@ class CneModulesController extends Controller
                 'mock_l1' => $mockLevelStats['l1'],
                 'mock_l2' => $mockLevelStats['l2'],
                 'mock_l3' => $mockLevelStats['l3'],
+                'mock_obtained' => $mockLevelStats['obtained'],
+                'mock_max' => $mockLevelStats['max'],
 
                 'final_done' => (bool) $finalAttempt,
                 'final_score' => $finalAttempt?->score_percent,
@@ -224,6 +243,8 @@ class CneModulesController extends Controller
                 'final_l1' => $finalLevelStats['l1'],
                 'final_l2' => $finalLevelStats['l2'],
                 'final_l3' => $finalLevelStats['l3'],
+                'final_obtained' => $finalLevelStats['obtained'],
+                'final_max' => $finalLevelStats['max'],
                 'final_passed' => $finalAttempt?->passed,
                 'final_attempt_count' => $finalAttemptCount,
             ];
