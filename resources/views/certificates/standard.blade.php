@@ -12,6 +12,7 @@
             margin: 0;
             padding: 0;
             width: 100%;
+            height: 100%;
         }
         body {
             font-family: 'serif';
@@ -19,28 +20,27 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 280mm;
-            height: 200mm;
-            margin: 0 auto;
+            width: 297mm;
+            height: 210mm;
             padding: 10mm;
             box-sizing: border-box;
             background-color: #f1f5f9;
         }
         .cert-content {
             border: 10px double #0f172a;
-            height: 175mm;
-            padding: 20px;
+            height: 190mm;
+            padding: 15px;
             box-sizing: border-box;
             background-color: #fff;
             position: relative;
-            text-align: center;
         }
         .inner-frame {
             border: 1px solid #b45309;
             height: 100%;
-            padding: 20px;
+            padding: 30px;
             box-sizing: border-box;
             position: relative;
+            text-align: center;
         }
         
         /* Decorative Corners */
@@ -49,6 +49,7 @@
             width: 60px;
             height: 60px;
             border: 3px solid #b45309;
+            z-index: 10;
         }
         .tl { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
         .tr { top: -5px; right: -5px; border-left: 0; border-bottom: 0; }
@@ -56,138 +57,125 @@
         .br { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
 
         .header {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .logo {
-            height: 65px;
-            margin-bottom: 10px;
+            height: 70px;
         }
         
         .main-title {
-            font-size: 48px;
+            font-size: 54px;
             color: #0f172a;
-            letter-spacing: 8px;
+            letter-spacing: 10px;
             text-transform: uppercase;
-            margin: 5px 0;
+            margin: 10px 0;
             font-weight: bold;
             font-family: 'Times-Bold', serif;
         }
         .sub-title {
-            font-size: 16px;
+            font-size: 18px;
             color: #b45309;
             font-style: italic;
-            margin-bottom: 20px;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
         }
         
         .certify-text {
-            font-size: 18px;
-            margin-bottom: 5px;
+            font-size: 20px;
+            margin-bottom: 10px;
             color: #475569;
         }
         .user-name {
-            font-size: 42px;
+            font-size: 48px;
             color: #0f172a;
             font-weight: bold;
-            margin: 5px 0;
+            margin: 10px 0;
             font-family: 'Times-BoldItalic', serif;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 2px solid #e2e8f0;
             display: inline-block;
-            padding: 0 40px;
+            padding: 0 50px;
         }
         
         .course-label {
-            font-size: 18px;
-            margin: 20px 0 8px;
+            font-size: 20px;
+            margin: 25px 0 10px;
             color: #475569;
         }
         .course-name {
-            font-size: 30px;
+            font-size: 34px;
             color: #0f172a;
             font-weight: bold;
-            margin-bottom: 20px;
-            max-width: 80%;
+            margin-bottom: 30px;
+            max-width: 85%;
             margin-left: auto;
             margin-right: auto;
         }
         
-        .points-badge {
-            display: inline-block;
-            border: 2px solid #0f172a;
-            color: #0f172a;
-            padding: 8px 30px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-        }
-        
         .date-section {
             font-size: 16px;
-            margin-top: 10px;
+            margin-top: 15px;
             color: #64748b;
         }
         
-        .footer {
-            margin-top: 25px;
+        .footer-table {
             width: 100%;
+            margin-top: 40px;
+            border-collapse: collapse;
         }
-        .sig-row {
-            display: block;
-            width: 100%;
-            clear: both;
-        }
-        .sig-col {
-            float: left;
+        .footer-cell {
             width: 33.33%;
+            vertical-align: bottom;
             text-align: center;
         }
         .sig-line {
             width: 180px;
             border-bottom: 1px solid #0f172a;
-            margin: 0 auto 8px;
-            height: 45px;
+            margin: 0 auto 10px;
+            height: 40px;
         }
         .sig-label {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: bold;
             color: #1e293b;
             text-transform: uppercase;
             letter-spacing: 1px;
+        }
+
+        .qr-section {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            text-align: left;
+            z-index: 20;
+        }
+        .qr-box {
+            background: #fff;
+            padding: 5px;
+            border: 1px solid #e2e8f0;
+            display: inline-block;
+        }
+        .qr-img {
+            width: 85px;
+            height: 85px;
+            display: block;
+        }
+        .qr-text {
+            font-size: 9px;
+            color: #94a3b8;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .watermark {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 400px;
-            height: 400px;
-            margin-left: -200px;
-            margin-top: -200px;
+            width: 450px;
+            margin-left: -225px;
+            margin-top: -225px;
             opacity: 0.04;
             z-index: -1;
-        }
-
-        /* QR Code Styling */
-        .qr-container {
-            position: absolute;
-            bottom: 40px;
-            left: 40px;
-            text-align: left;
-        }
-        .qr-code {
-            width: 80px;
-            height: 80px;
-            border: 1px solid #e2e8f0;
-            padding: 4px;
-            background: #fff;
-        }
-        .qr-label {
-            font-size: 10px;
-            color: #64748b;
-            margin-top: 4px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -196,8 +184,8 @@
         $userName = $user->name ?: ($user->first_name . ' ' . $user->last_name);
         $courseNameStr = $course->couse_name;
         
-        // QR Data: Name and Course as requested
-        $qrData = "Name: " . $userName . "\nCourse: " . $courseNameStr;
+        // Simplified QR data for better scanning reliability
+        $qrData = "Name: $userName | Course: $courseNameStr";
         $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" . urlencode($qrData);
     @endphp
 
@@ -222,45 +210,40 @@
                 <div class="course-label">has successfully mastered the CPD module</div>
                 <div class="course-name">{{ $courseNameStr }}</div>
 
-                @if(($points ?? 0) > 0)
-                    <div class="points-badge">
-                        AWARDED {{ $points }} CPD CREDIT {{ $points > 1 ? 'POINTS' : 'POINT' }}
-                    </div>
-                @endif
-
                 <div class="date-section">
                     Issued on this day, {{ $date }}
                 </div>
 
-                <div class="footer">
-                    <div class="sig-row">
-                        <div class="sig-col">
+                <table class="footer-table">
+                    <tr>
+                        <td class="footer-cell">
                             <div class="sig-line"></div>
                             <div class="sig-label">PROGRAM COORDINATOR</div>
-                        </div>
-                        <div class="sig-col">
-                            <div style="height: 45px;">
+                        </td>
+                        <td class="footer-cell">
+                            <div style="height: 40px; margin-bottom: 10px;">
                                 <img src="{{ public_path('images/venture.svg') }}" style="height: 35px; opacity: 0.5;">
                             </div>
                             <div class="sig-label">VENTURE LEARNING</div>
-                        </div>
-                        <div class="sig-col">
+                        </td>
+                        <td class="footer-cell">
                             <div class="sig-line"></div>
                             <div class="sig-label">MEDICAL DIRECTOR</div>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                </table>
 
-                <div class="qr-container">
-                    <div class="qr-code">
-                        <img src="{{ $qrUrl }}" style="width: 100%; height: 100%;">
-                    </div>
-                    <div class="qr-label">Verify Online</div>
-                </div>
-                
                 <div class="watermark">
                     <img src="{{ public_path('images/venture.svg') }}" style="width: 100%;">
                 </div>
+            </div>
+
+            <!-- QR Section moved outside inner-frame to avoid text overlap issues in some rendering engines -->
+            <div class="qr-section">
+                <div class="qr-box">
+                    <img src="{{ $qrUrl }}" class="qr-img">
+                </div>
+                <div class="qr-text">Scan to Verify</div>
             </div>
         </div>
     </div>
