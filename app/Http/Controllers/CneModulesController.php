@@ -150,6 +150,44 @@ class CneModulesController extends Controller
                 return sprintf('%d:%02d', floor($seconds / 60), $seconds % 60);
             };
 
+            $calculateLevelStats = function($attempt) {
+                if (!$attempt) return ['l1' => '0/0', 'l2' => '0/0', 'l3' => '0/0'];
+                
+                $results = \App\Models\CourseTestAnswer::query()
+                    ->where('course_test_attempt_id', $attempt->id)
+                    ->join('course_questions', 'course_test_answers.course_question_id', '=', 'course_questions.id')
+                    ->select('course_questions.question_level', 'course_test_answers.is_correct')
+                    ->get();
+
+                $stats = [
+                    1 => ['correct' => 0, 'total' => 0],
+                    2 => ['correct' => 0, 'total' => 0],
+                    3 => ['correct' => 0, 'total' => 0],
+                ];
+
+                foreach ($results as $row) {
+                    $levelStr = (string) ($row->question_level ?? 'Level 1');
+                    $levelNum = 1;
+                    if (str_contains($levelStr, '2')) $levelNum = 2;
+                    elseif (str_contains($levelStr, '3')) $levelNum = 3;
+
+                    $stats[$levelNum]['total']++;
+                    if ($row->is_correct) {
+                        $stats[$levelNum]['correct']++;
+                    }
+                }
+
+                return [
+                    'l1' => $stats[1]['correct'] . '/' . $stats[1]['total'],
+                    'l2' => $stats[2]['correct'] . '/' . $stats[2]['total'],
+                    'l3' => $stats[3]['correct'] . '/' . $stats[3]['total'],
+                ];
+            };
+
+            $preLevelStats = $calculateLevelStats($preAttempt);
+            $mockLevelStats = $calculateLevelStats($mockAttempt);
+            $finalLevelStats = $calculateLevelStats($finalAttempt);
+
             $courseTestProgress = [
                 'pre_done' => (bool) $preAttempt,
                 'pre_score' => $preAttempt?->score_percent,
@@ -159,6 +197,9 @@ class CneModulesController extends Controller
                 'pre_duration' => $preAttempt && $preAttempt->started_at && $preAttempt->completed_at 
                     ? $formatDuration($preAttempt->started_at->diffInSeconds($preAttempt->completed_at)) 
                     : '—',
+                'pre_l1' => $preLevelStats['l1'],
+                'pre_l2' => $preLevelStats['l2'],
+                'pre_l3' => $preLevelStats['l3'],
 
                 'mock_done' => (bool) $mockAttempt,
                 'mock_score' => $mockAttempt?->score_percent,
@@ -168,6 +209,9 @@ class CneModulesController extends Controller
                 'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at 
                     ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at)) 
                     : '—',
+                'mock_l1' => $mockLevelStats['l1'],
+                'mock_l2' => $mockLevelStats['l2'],
+                'mock_l3' => $mockLevelStats['l3'],
 
                 'final_done' => (bool) $finalAttempt,
                 'final_score' => $finalAttempt?->score_percent,
@@ -177,6 +221,9 @@ class CneModulesController extends Controller
                 'final_duration' => $finalAttempt && $finalAttempt->started_at && $finalAttempt->completed_at 
                     ? $formatDuration($finalAttempt->started_at->diffInSeconds($finalAttempt->completed_at)) 
                     : '—',
+                'final_l1' => $finalLevelStats['l1'],
+                'final_l2' => $finalLevelStats['l2'],
+                'final_l3' => $finalLevelStats['l3'],
                 'final_passed' => $finalAttempt?->passed,
                 'final_attempt_count' => $finalAttemptCount,
             ];

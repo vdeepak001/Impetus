@@ -66,7 +66,7 @@
                                 <p class="mt-1 text-2xl font-bold tabular-nums text-logo-blue">{{ $obtainedScore }}/{{ $maxScore }}</p>
                             </div>
                             <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Duration</p>
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Time taken</p>
                                 <p class="mt-1 text-2xl font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</p>
                             </div>
                         </div>
@@ -81,7 +81,7 @@
                             </div>
 
                             {{-- Level Breakdown --}}
-                            {{-- <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
                                 @foreach($levelStats as $lvl => $stats)
                                     @if($stats['total'] > 0)
                                         <div class="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm ring-1 ring-slate-100/50">
@@ -90,7 +90,7 @@
                                                 <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Level {{ $lvl }}</p>
                                             </div>
                                             <p class="mt-3 text-xs font-medium text-slate-500">
-                                                <span class="font-bold text-slate-700">{{ $stats['correct'] }}</span> answers · {{ $stats['weight'] }} marks each
+                                                <span class="font-bold text-slate-700">{{ $stats['correct'] }}/{{ $stats['total'] }}</span> answers · {{ $stats['weight'] }} marks each
                                             </p>
                                             <div class="mt-2 flex items-baseline gap-1">
                                                 <span class="text-xl font-bold text-logo-blue">{{ $stats['score'] }}</span>
@@ -99,7 +99,7 @@
                                         </div>
                                     @endif
                                 @endforeach
-                            </div> --}}
+                            </div>
  
                             <div class="mt-10 flex flex-col items-center justify-center gap-10 lg:flex-row lg:gap-16">
                                 <div class="relative size-56 shrink-0 sm:size-64">
@@ -128,7 +128,7 @@
                                     <div class="absolute inset-0 flex flex-col items-center justify-center rounded-full">
                                         <div class="flex flex-col items-center justify-center size-32 rounded-full bg-white shadow-lg ring-1 ring-slate-100">
                                             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</span>
-                                            <span class="font-serif text-3xl font-bold tabular-nums text-slate-900">{{ number_format((float) $scorePercent, 1) }}%</span>
+                                            <span class="font-serif text-2xl font-bold tabular-nums text-slate-900">({{ $correctCount }}/{{ $totalQuestions }})</span>
                                         </div>
                                     </div>
                                 </div>

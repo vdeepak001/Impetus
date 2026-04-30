@@ -38,7 +38,10 @@
                 correct: 0,
                 wrong: 0,
                 total: 0,
-                duration: '—'
+                duration: '—',
+                l1: '0/0',
+                l2: '0/0',
+                l3: '0/0'
             },
             init() {
                 this.$watch('practiceGateOpen', value => {
@@ -126,7 +129,10 @@
                                                     correct: '{{ $tp['pre_correct'] }}',
                                                     wrong: '{{ $tp['pre_wrong'] }}',
                                                     total: '{{ $tp['pre_total'] }}',
-                                                    duration: '{{ $tp['pre_duration'] }}'
+                                                    duration: '{{ $tp['pre_duration'] }}',
+                                                    l1: '{{ $tp['pre_l1'] }}',
+                                                    l2: '{{ $tp['pre_l2'] }}',
+                                                    l3: '{{ $tp['pre_l3'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $preClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -148,7 +154,10 @@
                                                     correct: '{{ $tp['mock_correct'] }}',
                                                     wrong: '{{ $tp['mock_wrong'] }}',
                                                     total: '{{ $tp['mock_total'] }}',
-                                                    duration: '{{ $tp['mock_duration'] }}'
+                                                    duration: '{{ $tp['mock_duration'] }}',
+                                                    l1: '{{ $tp['mock_l1'] }}',
+                                                    l2: '{{ $tp['mock_l2'] }}',
+                                                    l3: '{{ $tp['mock_l3'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $mockClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -170,7 +179,10 @@
                                                     correct: '{{ $tp['final_correct'] }}',
                                                     wrong: '{{ $tp['final_wrong'] }}',
                                                     total: '{{ $tp['final_total'] }}',
-                                                    duration: '{{ $tp['final_duration'] }}'
+                                                    duration: '{{ $tp['final_duration'] }}',
+                                                    l1: '{{ $tp['final_l1'] }}',
+                                                    l2: '{{ $tp['final_l2'] }}',
+                                                    l3: '{{ $tp['final_l3'] }}'
                                                 }"
                                                 class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
                                             >
@@ -474,12 +486,11 @@
 
                 <div class="px-6 py-6 sm:px-8">
                     <div class="text-center">
+                        <p class="mb-1 text-sm font-bold text-slate-800">{{ $course->couse_name }}</p>
                         <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-logo-blue/80" x-text="scoreCardData.title"></p>
                         <div class="mt-2 inline-flex items-end gap-1">
-                            <span class="text-5xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.score"></span>
-                            <span class="mb-1 text-2xl font-bold text-slate-400">%</span>
+                            <span class="text-4xl font-black tabular-nums tracking-tight text-brand-900" x-text="'(' + scoreCardData.correct + '/' + scoreCardData.total + ')'"></span>
                         </div>
-                        <p class="mt-2 text-sm font-semibold text-slate-500">{{ $course->couse_name }}</p>
                     </div>
 
                     <div class="mt-8 grid grid-cols-2 gap-3">
@@ -488,16 +499,35 @@
                             <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.total"></p>
                         </div>
                         <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Duration</p>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Time taken</p>
                             <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.duration"></p>
                         </div>
                         <div class="rounded-2xl border border-emerald-100 bg-emerald-50/30 p-4 text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-600/80">Correct</p>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-600/80">Correct Answer</p>
                             <p class="mt-1 text-xl font-bold text-emerald-700" x-text="scoreCardData.correct"></p>
                         </div>
                         <div class="rounded-2xl border border-orange-100 bg-orange-50/30 p-4 text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-wider text-orange-600/80">Wrong</p>
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-orange-600/80">Wrong Answer</p>
                             <p class="mt-1 text-xl font-bold text-orange-700" x-text="scoreCardData.wrong"></p>
+                        </div>
+                    </div>
+
+                    {{-- Level Breakdown --}}
+                    <div class="mt-6 border-t border-slate-100 pt-6">
+                        <p class="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400">Level Breakdown (Correct/Total)</p>
+                        <div class="mt-4 grid grid-cols-3 gap-3">
+                            <div class="rounded-xl bg-slate-50 p-3 text-center">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase">Level 1</p>
+                                <p class="mt-1 text-sm font-bold text-slate-900" x-text="scoreCardData.l1"></p>
+                            </div>
+                            <div class="rounded-xl bg-slate-50 p-3 text-center">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase">Level 2</p>
+                                <p class="mt-1 text-sm font-bold text-slate-900" x-text="scoreCardData.l2"></p>
+                            </div>
+                            <div class="rounded-xl bg-slate-50 p-3 text-center">
+                                <p class="text-[10px] font-bold text-slate-500 uppercase">Level 3</p>
+                                <p class="mt-1 text-sm font-bold text-slate-900" x-text="scoreCardData.l3"></p>
+                            </div>
                         </div>
                     </div>
 
