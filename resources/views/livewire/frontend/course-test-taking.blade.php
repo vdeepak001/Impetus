@@ -80,7 +80,26 @@
                                 <p class="text-sm text-slate-500">Visual breakdown of your performance</p>
                             </div>
 
- 
+                            {{-- Level Breakdown --}}
+                            <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                                @foreach($levelStats as $lvl => $stats)
+                                    @if($stats['total'] > 0)
+                                        <div class="rounded-2xl border border-slate-100 bg-white p-4 shadow-sm ring-1 ring-slate-100/50">
+                                            <div class="flex items-center gap-2">
+                                                <span class="flex h-6 w-6 items-center justify-center rounded-full bg-logo-blue/10 text-[10px] font-bold text-logo-blue">L{{ $lvl }}</span>
+                                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Level {{ $lvl }}</p>
+                                            </div>
+                                            <p class="mt-3 text-xs font-medium text-slate-500">
+                                                <span class="font-bold text-slate-700">{{ $stats['correct'] }}/{{ $stats['total'] }}</span> answers · {{ $stats['weight'] }} marks each
+                                            </p>
+                                            <div class="mt-2 flex items-baseline gap-1">
+                                                <span class="text-xl font-bold text-logo-blue">{{ $stats['score'] }}</span>
+                                                <span class="text-xs font-bold text-slate-400">/ {{ $stats['max'] }}</span>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
                             <div class="mt-10 flex flex-col items-center justify-center gap-10 lg:flex-row lg:gap-16">
                                 <div class="relative size-56 shrink-0 sm:size-64">
                                     {{-- Modern Pie Chart using SVG for better control --}}
