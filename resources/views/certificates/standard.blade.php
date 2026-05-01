@@ -20,14 +20,14 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 280mm; /* Further reduced to ensure all borders are visible on all printers/viewers */
-            height: 200mm;
-            padding: 5mm;
+            width: 297mm;
+            height: 210mm;
+            padding: 10mm;
             box-sizing: border-box;
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
         }
         .cert-content {
-            border: 10px double #0f172a;
+            border: 8px double #0f172a;
             height: 190mm;
             padding: 15px;
             box-sizing: border-box;
@@ -35,112 +35,78 @@
             position: relative;
         }
         .inner-frame {
-            border: 1px solid #b45309;
+            border: 1px solid #94a3b8;
             height: 100%;
-            padding: 20px;
+            padding: 30px;
             box-sizing: border-box;
             position: relative;
             text-align: center;
         }
         
-        .corner {
-            position: absolute;
-            width: 60px;
-            height: 60px;
-            border: 3px solid #b45309;
-            z-index: 100;
-        }
-        .tl { top: -5px; left: -5px; border-right: 0; border-bottom: 0; }
-        .tr { top: -5px; right: -5px; border-left: 0; border-bottom: 0; }
-        .bl { bottom: -5px; left: -5px; border-right: 0; border-top: 0; }
-        .br { bottom: -5px; right: -5px; border-left: 0; border-top: 0; }
-
-        /* Header Table for alignment */
         .header-table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 10px;
         }
         .header-left {
-            width: 20%;
+            width: 30%;
             text-align: left;
             vertical-align: top;
         }
-        .header-middle {
-            width: 60%;
-            text-align: center;
+        .header-right {
+            width: 30%;
+            text-align: right;
             vertical-align: top;
         }
-        .header-right {
-            width: 20%;
-        }
-
-        .qr-box {
-            background: #fff;
-            padding: 4px;
-            border: 1px solid #e2e8f0;
-            display: inline-block;
-            text-align: center;
-        }
-        .qr-img {
-            width: 100px;
-            height: 100px;
-            display: block;
-        }
-        .qr-text {
-            font-size: 8px;
-            color: #94a3b8;
-            margin-top: 3px;
-            text-transform: uppercase;
-        }
-
         .logo {
-            height: 75px;
+            height: 80px;
+            max-width: 200px;
+        }
+        .logo-placeholder {
+            width: 180px;
+            height: 80px;
+            border: 1px dashed #cbd5e1;
+            display: inline-block;
+            line-height: 80px;
+            font-size: 10px;
+            color: #94a3b8;
+            text-align: center;
         }
         
         .main-title {
-            font-size: 54px;
+            font-size: 44px;
             color: #0f172a;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-            margin: 5px 0;
+            text-transform: none;
+            margin: 10px 0;
             font-weight: bold;
             font-family: 'Times-Bold', serif;
         }
-        .sub-title {
-            font-size: 18px;
-            color: #b45309;
-            font-style: italic;
-            margin-bottom: 25px;
-            letter-spacing: 3px;
-        }
         
         .certify-text {
-            font-size: 20px;
-            margin-bottom: 5px;
+            font-size: 22px;
+            margin: 20px 0 10px;
             color: #475569;
         }
         .user-name {
-            font-size: 48px;
-            color: #0f172a;
+            font-size: 40px;
+            color: #dc2626; /* Red-600 */
             font-weight: bold;
             margin: 10px 0;
             font-family: 'Times-BoldItalic', serif;
-            border-bottom: 2px solid #e2e8f0;
             display: inline-block;
-            padding: 0 50px;
+            padding: 0 40px;
         }
         
         .course-label {
             font-size: 20px;
-            margin: 25px 0 8px;
+            margin: 20px 0 5px;
             color: #475569;
         }
         .course-name {
-            font-size: 34px;
-            color: #0f172a;
+            font-size: 32px;
+            color: #dc2626; /* Red-600 */
             font-weight: bold;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             max-width: 85%;
             margin-left: auto;
             margin-right: auto;
@@ -148,8 +114,15 @@
         
         .date-section {
             font-size: 16px;
-            margin-top: 10px;
+            margin: 10px 0;
             color: #64748b;
+        }
+        
+        .points-section {
+            font-size: 22px;
+            font-weight: bold;
+            color: #0f172a;
+            margin: 25px 0;
         }
         
         .footer-table {
@@ -162,28 +135,39 @@
             vertical-align: bottom;
             text-align: center;
         }
-        .sig-line {
-            width: 180px;
-            border-bottom: 1px solid #0f172a;
-            margin: 0 auto 10px;
-            height: 35px;
-        }
         .sig-label {
-            font-size: 11px;
+            font-size: 18px;
             font-weight: bold;
             color: #1e293b;
+            margin-bottom: 2px;
+        }
+        .sig-sub-label {
+            font-size: 12px;
+            color: #64748b;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+        }
+
+        .qr-box {
+            display: inline-block;
+            padding: 5px;
+            border: 1px solid #e2e8f0;
+            background: #fff;
+        }
+        .qr-img {
+            width: 100px;
+            height: 100px;
+            display: block;
         }
 
         .watermark {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 450px;
-            margin-left: -225px;
-            margin-top: -225px;
-            opacity: 0.04;
+            width: 500px;
+            margin-left: -250px;
+            margin-top: -250px;
+            opacity: 0.03;
             z-index: -1;
         }
     </style>
@@ -193,8 +177,8 @@
         $userName = $user->name ?: ($user->first_name . ' ' . $user->last_name);
         $courseNameStr = $course->couse_name;
         
-        // Use a more compatible format for mobile scanners (single line, no special characters)
-        $qrData = "CERTIFICATE VERIFIED - Name: $userName | Course: $courseNameStr";
+        // QR Data
+        $qrData = "VERIFIED - $userName | $courseNameStr | Date: $date";
         $qrUrl = "https://quickchart.io/qr?text=" . rawurlencode($qrData) . "&size=200";
         
         // Fetch and encode image to ensure it shows in PDF
@@ -207,64 +191,57 @@
             if ($qrContent) {
                 $qrUrl = 'data:image/png;base64,' . base64_encode($qrContent);
             }
-        } catch (\Exception $e) {
-            // Fallback
-        }
+        } catch (\Exception $e) {}
+
+        $councilName = $order->stateCouncil ? $order->stateCouncil->council_name : 'State Nursing Council';
     @endphp
 
     <div class="cert-container">
         <div class="cert-content">
             <div class="inner-frame">
-                <div class="corner tl"></div>
-                <div class="corner tr"></div>
-                <div class="corner bl"></div>
-                <div class="corner br"></div>
-
                 <table class="header-table">
                     <tr>
                         <td class="header-left">
-                            <div class="qr-box">
-                                <img src="{{ $qrUrl }}" class="qr-img">
-                                <div class="qr-text">Scan to Verify</div>
-                            </div>
-                        </td>
-                        <td class="header-middle">
-                            <img src="{{ public_path('images/venture.svg') }}" class="logo">
+                            <!-- State Nursing Council Logo -->
+                            <div class="logo-placeholder">State Nursing Council Logo</div>
                         </td>
                         <td class="header-right">
-                            <!-- Empty right side for balance -->
+                            <!-- Ventura Logo -->
+                            <img src="{{ public_path('images/venture.svg') }}" class="logo">
                         </td>
                     </tr>
                 </table>
 
-                <div class="main-title">Certificate</div>
-                <div class="sub-title">OF COMPLETION AND EXCELLENCE</div>
+                <div class="main-title">Certificate of Completion</div>
 
                 <div class="certify-text">This is to certify that</div>
                 <div class="user-name">{{ $userName }}</div>
 
-                <div class="course-label">has successfully mastered the CPD module</div>
+                <div class="course-label">has successfully completed the CPD Module</div>
                 <div class="course-name">{{ $courseNameStr }}</div>
 
                 <div class="date-section">
                     Issued on this day, {{ $date }}
                 </div>
 
+                <div class="points-section">
+                    Credit Points Awarded: {{ $points ?? 0 }}
+                </div>
+
                 <table class="footer-table">
                     <tr>
                         <td class="footer-cell">
-                            <div class="sig-line"></div>
-                            <div class="sig-label">PROGRAM COORDINATOR</div>
+                            <div class="sig-label">Registrar</div>
+                            <div class="sig-sub-label">{{ $councilName }}</div>
                         </td>
                         <td class="footer-cell">
-                            <div style="height: 35px; margin-bottom: 10px;">
-                                <img src="{{ public_path('images/venture.svg') }}" style="height: 30px; opacity: 0.5;">
+                            <div class="qr-box">
+                                <img src="{{ $qrUrl }}" class="qr-img">
                             </div>
-                            <div class="sig-label">VENTURE LEARNING</div>
                         </td>
                         <td class="footer-cell">
-                            <div class="sig-line"></div>
-                            <div class="sig-label">MEDICAL DIRECTOR</div>
+                            <div class="sig-label">Director</div>
+                            <div class="sig-sub-label">Ventura Learning Solutions</div>
                         </td>
                     </tr>
                 </table>
@@ -277,3 +254,4 @@
     </div>
 </body>
 </html>
+
