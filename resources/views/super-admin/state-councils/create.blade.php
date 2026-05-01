@@ -9,7 +9,7 @@
 
     <div>
         <x-common.component-card>
-            <form method="POST" action="{{ route($routePrefix . '.state-councils.store') }}">
+            <form method="POST" action="{{ route($routePrefix . '.state-councils.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="grid grid-cols-1 gap-6">
@@ -31,6 +31,15 @@
                             <input id="council_name" type="text" name="council_name" value="{{ old('council_name') }}"
                                 class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
                             @error('council_name') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="md:col-span-3">
+                            <label for="logo" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Logo</label>
+                            <input id="logo" type="file" name="logo" accept="image/*"
+                                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90" />
+                            @error('logo') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                         </div>
                     </div>
                       <div class="mt-8 pt-8 border-t border-gray-200 dark:border-gray-700">

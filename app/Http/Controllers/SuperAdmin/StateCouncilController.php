@@ -10,6 +10,7 @@ use App\Models\CourseDetail;
 use App\Models\State;
 use App\Models\StateCouncil;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class StateCouncilController extends Controller
@@ -43,7 +44,12 @@ class StateCouncilController extends Controller
     public function store(StoreStateCouncilRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        $data = collect($validated)->except(['courses', 'split_up'])->all();
+        $data = collect($validated)->except(['courses', 'split_up', 'logo'])->all();
+
+        if ($request->hasFile('logo')) {
+            $data['logo'] = $request->file('logo')->store('state-council-logos', 'public');
+        }
+
         $stateCouncil = StateCouncil::create($data);
         
         // Wrap pivot data into arrays [value] for JSON casting in DB
@@ -78,7 +84,15 @@ class StateCouncilController extends Controller
     public function update(UpdateStateCouncilRequest $request, StateCouncil $state_council): RedirectResponse
     {
         $validated = $request->validated();
-        $data = collect($validated)->except(['courses', 'split_up'])->all();
+        $data = collect($validated)->except(['courses', 'split_up', 'logo'])->all();
+
+        if ($request->hasFile('logo')) {
+            if ($state_council->logo) {
+                Storage::disk('public')->delete($state_council->logo);
+            }
+            $data['logo'] = $request->file('logo')->store('state-council-logos', 'public');
+        }
+
         $state_council->update($data);
         
         // Wrap pivot data into arrays [value] for JSON casting in DB

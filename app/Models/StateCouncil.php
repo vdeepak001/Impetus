@@ -18,6 +18,7 @@ class StateCouncil extends Model
         'points',
         'valid_days',
         'active_status',
+        'logo',
     ];
 
     protected function casts(): array

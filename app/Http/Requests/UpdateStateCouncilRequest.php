@@ -56,6 +56,7 @@ class UpdateStateCouncilRequest extends FormRequest
             'active_status' => ['boolean'],
             'split_up' => ['required', 'array'],
             'split_up.*' => ['nullable', 'integer', 'min:0'],
+            'logo' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg,webp', 'max:2048'],
         ];
     }
 }
