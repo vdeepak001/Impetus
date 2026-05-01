@@ -182,7 +182,16 @@
 </head>
 <body>
     @php
-        $userName = $user->name ?: ($user->first_name . ' ' . $user->last_name);
+        $salutation = '';
+        if ($user->gender) {
+            $gender = strtolower($user->gender);
+            if ($gender === 'male') {
+                $salutation = 'Mr. ';
+            } elseif ($gender === 'female') {
+                $salutation = 'Ms. ';
+            }
+        }
+        $userName = $salutation . ($user->name ?: ($user->first_name . ' ' . $user->last_name));
         $courseNameStr = $course->couse_name;
         
         // QR Data
