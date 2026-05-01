@@ -20,25 +20,34 @@
             color: #1e293b;
         }
         .cert-container {
-            width: 100%;
-            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             box-sizing: border-box;
             background-color: #f8fafc;
         }
         .cert-content {
             border: 8px double #0f172a;
-            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             padding: 15px;
             box-sizing: border-box;
             background-color: #fff;
-            position: relative;
         }
         .inner-frame {
             border: 1px solid #94a3b8;
-            height: 100%;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
             padding: 20px;
             box-sizing: border-box;
-            position: relative;
             text-align: center;
         }
         
