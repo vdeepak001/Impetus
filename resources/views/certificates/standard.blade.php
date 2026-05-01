@@ -5,7 +5,7 @@
     <title>Certificate of Completion</title>
     <style>
         @page {
-            margin: 10mm;
+            margin: 8mm;
             size: A4 landscape;
         }
         html, body {
@@ -21,11 +21,13 @@
         }
         .cert-container {
             width: 100%;
+            height: 100%;
             box-sizing: border-box;
             background-color: #f8fafc;
         }
         .cert-content {
             border: 8px double #0f172a;
+            height: 100%;
             padding: 15px;
             box-sizing: border-box;
             background-color: #fff;
@@ -33,6 +35,7 @@
         }
         .inner-frame {
             border: 1px solid #94a3b8;
+            height: 100%;
             padding: 20px;
             box-sizing: border-box;
             position: relative;
