@@ -5,7 +5,7 @@
     <title>Certificate of Completion</title>
     <style>
         @page {
-            margin: 8mm;
+            margin: 10mm;
             size: A4 landscape;
         }
         html, body {
