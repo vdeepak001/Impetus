@@ -192,7 +192,21 @@
             }
         } catch (\Exception $e) {}
 
-        $councilName = $order->stateCouncil ? $order->stateCouncil->council_name : 'State Nursing Council';
+        $stateCouncil = $order->stateCouncil;
+        if (!$stateCouncil && $user->state) {
+            $stateCouncil = \App\Models\StateCouncil::whereHas('state', function($q) use ($user) {
+                $q->where('name', $user->state);
+            })->first();
+        }
+
+        $councilName = $stateCouncil ? $stateCouncil->council_name : 'State Nursing Council';
+        $councilLogo = null;
+        if ($stateCouncil && $stateCouncil->logo) {
+            $logoPath = storage_path('app/public/' . $stateCouncil->logo);
+            if (file_exists($logoPath)) {
+                $councilLogo = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoPath));
+            }
+        }
     @endphp
 
     <div class="cert-container">
@@ -202,7 +216,11 @@
                     <tr>
                         <td class="header-left">
                             <!-- State Nursing Council Logo -->
-                            <div class="logo-placeholder">State Nursing Council Logo</div>
+                            @if($councilLogo)
+                                <img src="{{ $councilLogo }}" class="logo">
+                            @else
+                                <div class="logo-placeholder">State Nursing Council Logo</div>
+                            @endif
                         </td>
                         <td class="header-right">
                             <!-- Ventura Logo -->

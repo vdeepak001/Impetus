@@ -12,7 +12,7 @@ class CertificateController extends Controller
 {
     public function download(Request $request, $orderId)
     {
-        $order = Order::with(['courseDetail', 'user'])->findOrFail($orderId);
+        $order = Order::with(['courseDetail', 'user', 'stateCouncil'])->findOrFail($orderId);
 
         // Ensure the order belongs to the authenticated user
         if ($order->user_id !== Auth::id()) {
