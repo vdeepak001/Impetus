@@ -21,13 +21,11 @@
         }
         .cert-container {
             width: 100%;
-            height: 100%;
             box-sizing: border-box;
             background-color: #f8fafc;
         }
         .cert-content {
             border: 8px double #0f172a;
-            height: 100%;
             padding: 15px;
             box-sizing: border-box;
             background-color: #fff;
@@ -35,8 +33,7 @@
         }
         .inner-frame {
             border: 1px solid #94a3b8;
-            height: 100%;
-            padding: 30px;
+            padding: 20px;
             box-sizing: border-box;
             position: relative;
             text-align: center;
@@ -76,21 +73,21 @@
             font-size: 44px;
             color: #0f172a;
             text-transform: none;
-            margin: 10px 0;
+            margin: 5px 0;
             font-weight: bold;
             font-family: 'Times-Bold', serif;
         }
         
         .certify-text {
             font-size: 22px;
-            margin: 20px 0 10px;
+            margin: 15px 0 10px;
             color: #475569;
         }
         .user-name {
             font-size: 40px;
             color: #dc2626; /* Red-600 */
             font-weight: bold;
-            margin: 10px 0;
+            margin: 5px 0;
             font-family: 'Times-BoldItalic', serif;
             display: inline-block;
             padding: 0 40px;
@@ -98,7 +95,7 @@
         
         .course-label {
             font-size: 20px;
-            margin: 20px 0 5px;
+            margin: 15px 0 5px;
             color: #475569;
         }
         .course-name {
@@ -126,7 +123,7 @@
         
         .footer-table {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
             border-collapse: collapse;
         }
         .footer-cell {
@@ -207,15 +204,12 @@
                 $councilLogo = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoPath));
             }
         }
-    @endphp
-
-    <div class="cert-container">
+    @endphp<div class="cert-container">
         <div class="cert-content">
             <div class="inner-frame">
                 <table class="header-table">
                     <tr>
                         <td class="header-left">
-                            <!-- State Nursing Council Logo -->
                             @if($councilLogo)
                                 <img src="{{ $councilLogo }}" class="logo">
                             @else
@@ -271,4 +265,3 @@
     </div>
 </body>
 </html>
-
