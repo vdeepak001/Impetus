@@ -29,11 +29,9 @@
                         <div class="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/20 via-transparent to-logo-blue/20 blur-2xl"></div>
                         <div class="relative">
                             <img
-                                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
-                                alt="Nursing professional engaged in online continuing education and clinical learning"
-                                class="h-[320px] w-full rounded-3xl object-cover shadow-2xl shadow-slate-300/40 sm:h-[400px] lg:h-[min(480px,52vh)]"
-                                width="1200"
-                                height="800"
+                                src="{{ asset('images/CPD logo.svg') }}"
+                                alt="CPD Certification Logo"
+                                class="h-[320px] w-full rounded-3xl object-contain p-4 shadow-2xl shadow-slate-300/40 sm:h-[400px] lg:h-[min(480px,52vh)]"
                                 loading="eager"
                                 decoding="async"
                             >
