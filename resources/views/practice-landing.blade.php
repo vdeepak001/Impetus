@@ -196,7 +196,7 @@
             </div>
         </section>
 
-        <section class="py-12 sm:py-16 bg-slate-50/50">
+        {{-- <section class="py-12 sm:py-16 bg-slate-50/50">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="max-w-2xl">
                     <h2 class="font-serif text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">
@@ -281,6 +281,6 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
     </main>
 @endsection

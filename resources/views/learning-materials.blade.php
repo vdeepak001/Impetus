@@ -44,48 +44,35 @@
 
         <section class="py-14 sm:py-20">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                    <div class="relative order-2 w-full min-w-0 lg:order-1">
-                        <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
-                        <div class="relative w-full overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
-                            <img
-                                src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80"
-                                alt="Healthcare team collaboration and nursing education"
-                                class="aspect-[4/3] w-full object-cover lg:aspect-auto lg:h-[22rem]"
-                                width="1200"
-                                height="800"
-                                loading="lazy"
-                                decoding="async"
-                            >
-                        </div>
-                    </div>
-                    <div class="order-1 min-w-0 lg:order-2">
-                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">PowerPoint Slide Materials</h2>
-                        <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
+                <div class="grid gap-10 lg:grid-cols-2 lg:gap-12 lg:items-start">
+                    <div>
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
+                            PowerPoint Slide Materials
+                        </h2>
+                        <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
                             Our PowerPoint presentations simplify complex concepts with visually engaging structured content. Each slide highlights key learning points, making it ideal for quick understanding and revision.
                         </p>
-                        <ul class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
-                            <li class="flex gap-3">
-                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Clear and concise bullet-points</span>
-                            </li>
-                            <li class="flex gap-3">
-                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Use of diagrams, flowcharts, and clinical illustrations</span>
-                            </li>
-                            <li class="flex gap-3">
-                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Step-by-step explanations of procedures and protocols</span>
-                            </li>
-                            <li class="flex gap-3">
-                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Case-based scenarios for practical understanding</span>
-                            </li>
-                            <li class="flex gap-3">
-                                <span class="mt-2 h-2 w-2 shrink-0 rounded-full bg-logo-light-green" aria-hidden="true"></span>
-                                <span>Ideal for online sessions, and self-learning</span>
-                            </li>
-                        </ul>
+                        <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
+                            These presentations are designed to support effective learning by combining visual clarity with concise explanations, enabling nurses to retain and apply knowledge effectively.
+                        </p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
+                            <p class="text-lg font-semibold text-logo-light-green">Concise Content</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Clear and concise bullet-points for focused learning and quick revision.</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm">
+                            <p class="text-lg font-semibold text-logo-light-green">Visual Learning</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Use of diagrams, flowcharts, and clinical illustrations for clarity.</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
+                            <p class="text-lg font-semibold text-logo-light-green">Clinical Procedures</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Step-by-step explanations of procedures and protocols for practical application.</p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
+                            <p class="text-lg font-semibold text-logo-light-green">Practical Scenarios</p>
+                            <p class="mt-2 text-lg text-slate-700 text-justify">Case-based scenarios ideal for online sessions, group discussions, and self-learning.</p>
+                        </div>
                     </div>
                 </div>
             </div>
