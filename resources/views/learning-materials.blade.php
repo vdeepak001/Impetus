@@ -69,10 +69,10 @@
                             <p class="text-lg font-semibold text-logo-light-green">Clinical Procedures</p>
                             <p class="mt-2 text-lg text-slate-700 text-justify">Step-by-step explanations of procedures and protocols for practical application.</p>
                         </div>
-                        <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
+                        {{-- <div class="rounded-2xl border border-slate-200/80 bg-slate-50/80 p-5 shadow-sm sm:col-span-2">
                             <p class="text-lg font-semibold text-logo-light-green">Practical Scenarios</p>
                             <p class="mt-2 text-lg text-slate-700 text-justify">Case-based scenarios ideal for online sessions, group discussions, and self-learning.</p>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
