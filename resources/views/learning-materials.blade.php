@@ -28,7 +28,7 @@
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
                         <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
                             <img
-                                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80"
+                                src="{{ asset('images/BCEN-PD-Learn-hero-image-1.png') }}"
                                 alt="Nurse reviewing online learning resources and study materials"
                                 class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
                                 width="1200"
