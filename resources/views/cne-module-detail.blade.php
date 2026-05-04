@@ -523,7 +523,7 @@
                     </div>
 
                     {{-- Level Breakdown --}}
-                    <div class="mt-6 border-t border-slate-100 pt-6">
+                    {{-- <div class="mt-6 border-t border-slate-100 pt-6">
                         <p class="text-center text-[10px] font-bold uppercase tracking-widest text-slate-400">Level Breakdown (Correct/Total)</p>
                         <div class="mt-4 grid grid-cols-3 gap-3">
                             <div class="rounded-xl bg-slate-50 p-3 text-center">
@@ -539,7 +539,7 @@
                                 <p class="mt-1 text-sm font-bold text-slate-900" x-text="scoreCardData.l3"></p>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     <div class="mt-8">
                         <button
