@@ -126,7 +126,7 @@
                     </div>
                     <div class="relative order-1 lg:order-2">
                         <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-500 ring-1 ring-slate-200">
-                            <img src="{{ asset('images/practice_test_hero.png') }}" alt="Nurse taking practice test" class="w-full h-auto object-cover aspect-[4/3]">
+                            <img src="{{ asset('images/Benefits-of-E-Learning-Materials-1024x585.png') }}" alt="Nurse taking practice test" class="w-full h-auto object-cover aspect-[4/3]">
                             <div class="absolute inset-0 bg-gradient-to-tr from-logo-blue/20 to-transparent pointer-events-none"></div>
                         </div>
                         {{-- Decorative elements --}}
