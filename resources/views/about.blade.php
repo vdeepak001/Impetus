@@ -42,7 +42,7 @@
                     </div>
                     <div class="relative">
                         <div class="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/20 via-transparent to-logo-blue/20 blur-2xl"></div>
-                        <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Nursing team" class="relative h-[500px] w-full rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
+                        <img src="{{ asset('images/Certification-Program.jpeg') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Nursing team" class="relative h-[500px] w-full rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                                 </p>
                             </div>
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30">
-                                <img src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80" alt="Nursing education and clinical growth" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/skill-based-education.jpg') }}" alt="Nursing education and clinical growth" class="h-full w-full object-cover">
                             </div>
                         </div>
                     </article>
@@ -95,7 +95,7 @@
                     <article class="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30 lg:order-1">
-                                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="License renewal and continuing education" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/The-Importance-Education-in-Nursing.jpeg')}}" alt="License renewal and continuing education" class="h-full w-full object-cover">
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Skill-Based Training</h3>
@@ -115,7 +115,7 @@
                                 </p>
                             </div>
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30">
-                                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1200&q=80" alt="Online nursing modules and career advancement" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/close-up-friends-studying-book_1421-13433.avif')}}" alt="Online nursing modules and career advancement" class="h-full w-full object-cover">
                             </div>
                         </div>
                     </article>

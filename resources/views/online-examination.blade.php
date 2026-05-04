@@ -10,10 +10,10 @@
             <div class="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-logo-blue/10 blur-3xl"></div>
             <div class="pointer-events-none absolute -bottom-16 -left-16 h-56 w-56 rounded-full bg-logo-light-green/20 blur-3xl"></div>
             <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="grid items-start gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+                <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
                     <div class="min-w-0">
 
-                        <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
+                        <h1 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl font-serif">
                             Online Test
                         </h1>
                         <p class="mt-6 text-lg leading-8 text-slate-600 text-justify">
@@ -28,7 +28,7 @@
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
                         <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
                             <img
-                                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80"
+                                src="{{ asset('images/multiple-choice-750x420.jpg')}}"
                                 alt="Nurse completing an online multiple-choice examination"
                                 class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
                                 width="1200"
