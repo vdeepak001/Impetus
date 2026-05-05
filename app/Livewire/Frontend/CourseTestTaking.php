@@ -224,7 +224,7 @@ class CourseTestTaking extends Component
             $id = (int) $q['id'];
             $v = $this->responses[$id] ?? null;
             if ($v === null || $v === '') {
-                $this->addError('submit', 'Please answer every question before submitting.');
+                $this->addError('submit', 'Please answer all the questions .');
 
                 return;
             }

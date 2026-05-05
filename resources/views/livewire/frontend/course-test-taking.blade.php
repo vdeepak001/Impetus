@@ -28,16 +28,14 @@
                     <div class="border-b border-slate-200/80 bg-gradient-to-br from-slate-50/95 via-white to-brand-50/30 px-6 py-8 sm:px-10">
                         <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
                             <div class="min-w-0">
-                                <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-logo-blue/80">Test complete</p>
+                                <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-logo-blue/80">Test completed</p>
                                 <h1 class="mt-2 font-serif text-xl font-bold tracking-tight text-brand-900 sm:text-[26px]">
                                     Result for {{ $banner }}
                                 </h1>
                                 <p class="mt-1.5 text-lg font-bold text-orange-600">
                                     {{ $course->couse_name }}
                                 </p>
-                                <p class="mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
-                                    Here is a snapshot of how you did. Review your score and timing, then head back to the module when you are ready.
-                                </p>
+                               
                             </div>
                             <div class="hidden shrink-0 lg:block">
                                 <span class="inline-flex rounded-full border border-logo-blue/25 bg-logo-blue/10 px-4 py-1.5 text-sm font-bold text-brand-800">{{ $banner }}</span>
