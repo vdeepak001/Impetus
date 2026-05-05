@@ -46,28 +46,7 @@
                     {{-- Content Section --}}
                     <div class="bg-gradient-to-b from-white via-slate-50/30 to-white px-6 py-10 sm:px-10">
                         {{-- Quick Stats Grid --}}
-                        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 lg:gap-4">
-                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Questions</p>
-                                <p class="mt-1 text-2xl font-bold tabular-nums text-slate-900">{{ $totalQuestions }}</p>
-                            </div>
-                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Correct Answer</p>
-                                <p class="mt-1 text-2xl font-bold tabular-nums text-emerald-600">{{ $correctCount }}</p>
-                            </div>
-                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Wrong Answer</p>
-                                <p class="mt-1 text-2xl font-bold tabular-nums text-orange-600">{{ $wrongCount }}</p>
-                            </div>
-                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Obtained Score</p>
-                                <p class="mt-1 text-2xl font-bold tabular-nums text-logo-blue">{{ $obtainedScore }}/{{ $maxScore }}</p>
-                            </div>
-                            <div class="group flex flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
-                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Time taken</p>
-                                <p class="mt-1 text-2xl font-bold tabular-nums text-slate-900">{{ $formattedDuration ?? '—' }}</p>
-                            </div>
-                        </div>
+
  
                         {{-- Score Chart & Visuals --}}
                         <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-8">
@@ -78,52 +57,62 @@
                             </div>
 
 
-                            <div class="mt-10 flex flex-col items-center justify-center gap-10 lg:flex-row lg:gap-16">
-                                <div class="relative size-56 shrink-0 sm:size-64">
-                                    {{-- Modern Pie Chart using SVG for better control --}}
-                                    <svg class="size-full -rotate-90 transform" viewBox="0 0 100 100">
+                            @php
+                                $correctAngle = ($pctCorrect / 2) * 3.6;
+                                $wrongAngle = ($pctCorrect + ($pctWrong / 2)) * 3.6;
+                                $dist = 25;
+                                $tx_c = 50 + $dist * cos(deg2rad($correctAngle - 90));
+                                $ty_c = 50 + $dist * sin(deg2rad($correctAngle - 90));
+                                $tx_w = 50 + $dist * cos(deg2rad($wrongAngle - 90));
+                                $ty_w = 50 + $dist * sin(deg2rad($wrongAngle - 90));
+                            @endphp
+                            <div class="mt-10 flex flex-col items-center justify-center">
+                                <div class="relative size-64 shrink-0 sm:size-80">
+                                    <svg class="size-full transform" viewBox="0 0 100 100">
                                         {{-- Wrong Percentage (Orange) --}}
                                         <circle
-                                            cx="50" cy="50" r="40"
+                                            cx="50" cy="50" r="25"
                                             fill="transparent"
                                             stroke="rgb(249 115 22)"
-                                            stroke-width="20"
-                                            stroke-dasharray="251.32"
+                                            stroke-width="50"
+                                            stroke-dasharray="157.08"
                                             stroke-dashoffset="0"
+                                            transform="rotate(-90, 50, 50)"
                                         />
                                         {{-- Correct Percentage (Green) --}}
                                         <circle
-                                            cx="50" cy="50" r="40"
+                                            cx="50" cy="50" r="25"
                                             fill="transparent"
                                             stroke="rgb(16 185 129)"
-                                            stroke-width="20"
-                                            stroke-dasharray="251.32"
-                                            stroke-dashoffset="{{ 251.32 * (1 - $pctCorrect / 100) }}"
+                                            stroke-width="50"
+                                            stroke-dasharray="157.08"
+                                            stroke-dashoffset="{{ 157.08 * (1 - $pctCorrect / 100) }}"
+                                            transform="rotate(-90, 50, 50)"
                                             class="transition-all duration-1000 ease-out"
                                         />
+                                        
+                                        {{-- Percentages inside --}}
+                                        @if($pctCorrect > 5)
+                                            <text x="{{ $tx_c }}" y="{{ $ty_c }}" fill="white" font-size="8" font-weight="bold" text-anchor="middle" dominant-baseline="middle">
+                                                {{ round($pctCorrect) }}%
+                                            </text>
+                                        @endif
+                                        @if($pctWrong > 5)
+                                            <text x="{{ $tx_w }}" y="{{ $ty_w }}" fill="white" font-size="8" font-weight="bold" text-anchor="middle" dominant-baseline="middle">
+                                                {{ round($pctWrong) }}%
+                                            </text>
+                                        @endif
                                     </svg>
-                                    <div class="absolute inset-0 flex flex-col items-center justify-center rounded-full">
-                                        <div class="flex flex-col items-center justify-center size-32 rounded-full bg-white shadow-lg ring-1 ring-slate-100">
-                                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</span>
-                                            <span class="font-serif text-2xl font-bold tabular-nums text-slate-900">({{ $correctCount }}/{{ $totalQuestions }})</span>
-                                        </div>
-                                    </div>
                                 </div>
  
-                                <div class="flex w-full max-w-xs flex-col gap-4">
-                                    <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition hover:bg-slate-50">
-                                        <div class="flex items-center gap-3">
-                                            <span class="size-4 shrink-0 rounded-full bg-emerald-500 shadow-sm ring-2 ring-white"></span>
-                                            <span class="text-base font-bold text-slate-700">Correct percentage</span>
-                                        </div>
-                                        <span class="text-lg font-bold tabular-nums text-emerald-600">{{ number_format($pctCorrect, 1) }}%</span>
+                                <div class="mt-8 flex flex-wrap justify-center gap-8">
+                                    <div class="flex items-center gap-3">
+                                        <span class="size-4 shrink-0 bg-emerald-500 shadow-sm"></span>
+                                        <span class="text-base font-bold text-slate-700">Correct Answer</span>
                                     </div>
-                                    <div class="flex items-center justify-between gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition hover:bg-slate-50">
-                                        <div class="flex items-center gap-3">
-                                            <span class="size-4 shrink-0 rounded-full bg-orange-500 shadow-sm ring-2 ring-white"></span>
-                                            <span class="text-base font-bold text-slate-700">Wrong percentage</span>
-                                        </div>
-                                        <span class="text-lg font-bold tabular-nums text-orange-600">{{ number_format($pctWrong, 1) }}%</span>
+                                    <div class="flex items-center gap-3">
+                                        <span class="size-4 shrink-0 bg-orange-500 shadow-sm"></span>
+                                        <span class="text-base font-bold text-slate-700">Wrong Answer</span>
                                     </div>
                                 </div>
                             </div>
