@@ -154,9 +154,7 @@
 
                                         @if ($orderId)
                                             @php
-                                                $userName = auth()->user()->name ?: (auth()->user()->first_name . ' ' . auth()->user()->last_name);
-                                                $rnNumber = auth()->user()->rn_number ?? 'N/A';
-                                                $qrData = "Name: " . $userName . "\nRN #: " . $rnNumber . "\nCourse: " . $course->couse_name;
+                                                $qrData = "Unique ID: " . $orderId . "\nModule: " . $course->couse_name . "\nDate: " . now()->format('d M, Y');
                                                 $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=" . urlencode($qrData);
                                             @endphp
                                             <div class="mt-6 flex flex-col items-center gap-4">
@@ -178,20 +176,21 @@
                                 @else
                                     <div class="space-y-4">
                                         <h3 class="text-2xl font-black tracking-widest text-rose-600 sm:text-3xl">SORRY!</h3>
-                                        <p class="text-lg font-bold text-slate-800">You have not Completed the Exam</p>
+                                        <p class="text-lg font-bold text-slate-800">You have not Successfully Completed the Exam</p>
                                         
                                         @if($finalAttemptCount < 2)
                                             <p class="text-sm font-semibold text-slate-500">You can make ONE more attempt</p>
+                                            <div class="mt-8">
+                                                <a 
+                                                    href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}"
+                                                    class="inline-flex items-center gap-2 rounded-xl border-2 border-rose-600 px-10 py-3 text-sm font-black uppercase tracking-widest text-rose-600 transition hover:bg-rose-600 hover:text-white"
+                                                >
+                                                    TRY AGAIN!
+                                                </a>
+                                            </div>
+                                        @else
+                                            <p class="text-sm font-semibold text-rose-600">Sorry Kindly Purchase the Module Again</p>
                                         @endif
-
-                                        <div class="mt-8">
-                                            <a 
-                                                href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}"
-                                                class="inline-flex items-center gap-2 rounded-xl border-2 border-rose-600 px-10 py-3 text-sm font-black uppercase tracking-widest text-rose-600 transition hover:bg-rose-600 hover:text-white"
-                                            >
-                                                TRY AGAIN!
-                                            </a>
-                                        </div>
                                     </div>
                                 @endif
                             </div>
