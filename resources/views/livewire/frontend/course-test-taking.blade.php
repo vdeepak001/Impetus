@@ -189,7 +189,7 @@
                                                 </a>
                                             </div>
                                         @else
-                                            <p class="text-sm font-semibold text-rose-600">Sorry Kindly Purchase the Module Again</p>
+                                            <p class="text-sm font-semibold text-rose-600">Kindly Purchase the Module Again</p>
                                         @endif
                                     </div>
                                 @endif
