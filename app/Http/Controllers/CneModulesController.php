@@ -107,12 +107,13 @@ class CneModulesController extends Controller
             })
             ->exists();
 
+        $activeOrder = null;
         $isPurchased = false;
-
         $viewer = auth()->user();
 
         if ($viewer && $viewer->role_type === 'user') {
-            $isPurchased = Order::userHasActivePurchaseForCourse($viewer, $course_detail);
+            $activeOrder = Order::activeOrderFor($viewer, $course_detail);
+            $isPurchased = (bool) $activeOrder;
         }
 
         $courseTestProgress = null;
@@ -122,6 +123,7 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Pre->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->first();
 
@@ -130,6 +132,7 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Mock->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->first();
 
@@ -138,6 +141,7 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Final->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->get();
 

@@ -14,14 +14,19 @@ class CourseTestAuthorizer
     {
         abort_unless($user->role_type === 'user', 403);
         abort_unless((int) $course->active_status === 1, 404);
-        abort_unless(Order::userHasActivePurchaseForCourse($user, $course), 403);
+        $activeOrder = Order::activeOrderFor($user, $course);
+        abort_unless($activeOrder !== null, 403);
 
         if ($type === CourseTestType::Practice) {
             abort_unless(filled($course->practice_content), 404);
-            abort_unless(
-                CourseTestAttempt::isTypeCompleted($user->id, $course->id, CourseTestType::Mock),
-                403
-            );
+            $mockDone = CourseTestAttempt::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $course->id)
+                ->where('test_type', CourseTestType::Mock->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->where('started_at', '>=', $activeOrder->created_at)
+                ->exists();
+            abort_unless($mockDone, 403);
 
             return;
         }
@@ -33,6 +38,7 @@ class CourseTestAuthorizer
                 ->where('course_detail_id', $course->id)
                 ->where('test_type', $needs->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->where('started_at', '>=', $activeOrder->created_at)
                 ->exists();
             abort_unless($ok, 403);
         }

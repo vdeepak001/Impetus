@@ -81,4 +81,16 @@ class Order extends Model
             ->whereDate('end_date', '>=', now()->toDateString())
             ->exists();
     }
+
+    public static function activeOrderFor(User $user, CourseDetail $course): ?self
+    {
+        return static::query()
+            ->where('user_id', $user->id)
+            ->where('course_detail_id', $course->id)
+            ->where('payment_status', PaymentStatus::Completed)
+            ->whereDate('start_date', '<=', now()->toDateString())
+            ->whereDate('end_date', '>=', now()->toDateString())
+            ->latest('id')
+            ->first();
+    }
 }

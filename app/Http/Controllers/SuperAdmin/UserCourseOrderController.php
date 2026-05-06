@@ -67,11 +67,19 @@ class UserCourseOrderController extends Controller
                     $validDays = is_array($val) ? ($val[0] ?? 0) : ($val ?? 0);
                 }
 
+                $latestOrder = Order::query()
+                    ->where('user_id', $user->id)
+                    ->where('course_detail_id', $c->id)
+                    ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+                    ->latest('id')
+                    ->first();
+
                 $finalAttempts = CourseTestAttempt::query()
                     ->where('user_id', $user->id)
                     ->where('course_detail_id', $c->id)
                     ->where('test_type', CourseTestType::Final->value)
                     ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                    ->when($latestOrder, fn($q) => $q->where('started_at', '>=', $latestOrder->created_at))
                     ->get();
 
                 $isFailed = $finalAttempts->count() >= 2 && ! $finalAttempts->contains('passed', true);
@@ -119,22 +127,6 @@ class UserCourseOrderController extends Controller
         $paymentStatus = isset($validated['payment_status'])
             ? PaymentStatus::from($validated['payment_status'])
             : PaymentStatus::Completed;
-
-        $finalAttempts = CourseTestAttempt::query()
-            ->where('user_id', $user->id)
-            ->where('course_detail_id', $course->id)
-            ->where('test_type', CourseTestType::Final->value)
-            ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-            ->get();
-
-        $isFailed = $finalAttempts->count() >= 2 && ! $finalAttempts->contains('passed', true);
-
-        if ($isFailed) {
-            CourseTestAttempt::query()
-                ->where('user_id', $user->id)
-                ->where('course_detail_id', $course->id)
-                ->delete();
-        }
 
         Order::query()->create([
             'user_id' => $user->id,

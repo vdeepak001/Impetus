@@ -107,8 +107,33 @@ class ReportsController extends Controller
 
         $attempts = $query->latest('completed_at')->get();
 
-        // Group by user and course to get the best scores for each type
-        $grouped = $attempts->groupBy(fn($a) => $a->user_id . '_' . $a->course_detail_id);
+        // Fetch all relevant orders to match attempts for grouping
+        $userIds = $attempts->pluck('user_id')->unique();
+        $courseIds = $attempts->pluck('course_detail_id')->unique();
+        $orders = \App\Models\Order::whereIn('user_id', $userIds)
+            ->whereIn('course_detail_id', $courseIds)
+            ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+            ->get();
+
+        // Group by user, course, and order period
+        $grouped = $attempts->groupBy(function ($attempt) use ($orders) {
+            $order = $orders->where('user_id', $attempt->user_id)
+                ->where('course_detail_id', $attempt->course_detail_id)
+                ->filter(fn($o) => $attempt->started_at->greaterThanOrEqualTo($o->created_at->subMinutes(5)))
+                ->sortByDesc('created_at')
+                ->first();
+            
+            if (!$order) {
+                $order = $orders->where('user_id', $attempt->user_id)
+                    ->where('course_detail_id', $attempt->course_detail_id)
+                    ->filter(fn($o) => $attempt->started_at->between($o->start_date->startOfDay(), $o->end_date->endOfDay()))
+                    ->sortByDesc('created_at')
+                    ->first();
+            }
+            
+            $orderId = $order ? $order->id : 'no_order';
+            return $attempt->user_id . '_' . $attempt->course_detail_id . '_' . $orderId;
+        });
 
         $userAttempts = $grouped->map(function ($group) {
             $first = $group->first();
@@ -127,7 +152,7 @@ class ReportsController extends Controller
                 'mock_score' => $mock ? number_format($mock->score_percent, 2) : '-',
                 'final_score_1' => $final1 ? number_format($final1->score_percent, 2) : '-',
                 'final_score_2' => $final2 ? number_format($final2->score_percent, 2) : '-',
-                'completed_on' => $first->completed_at->format('d-m-Y'),
+                'completed_on' => $first->completed_at ? $first->completed_at->format('d-m-Y') : '-',
             ];
         });
 
@@ -171,7 +196,25 @@ class ReportsController extends Controller
         }
 
         $attempts = $query->latest('completed_at')->get();
-        $grouped = $attempts->groupBy(fn($a) => $a->user_id . '_' . $a->course_detail_id);
+
+        // Fetch all relevant orders to match attempts for grouping
+        $userIds = $attempts->pluck('user_id')->unique();
+        $courseIds = $attempts->pluck('course_detail_id')->unique();
+        $orders = \App\Models\Order::whereIn('user_id', $userIds)
+            ->whereIn('course_detail_id', $courseIds)
+            ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+            ->get();
+
+        // Group by user, course, and order period
+        $grouped = $attempts->groupBy(function ($attempt) use ($orders) {
+            $order = $orders->where('user_id', $attempt->user_id)
+                ->where('course_detail_id', $attempt->course_detail_id)
+                ->filter(fn($o) => $attempt->started_at->between($o->start_date->startOfDay(), $o->end_date->endOfDay()))
+                ->first();
+            
+            $orderId = $order ? $order->id : 'no_order';
+            return $attempt->user_id . '_' . $attempt->course_detail_id . '_' . $orderId;
+        });
 
         $filename = "user_performance_" . strtolower(str_replace(' ', '_', $selectedState->name)) . "_" . date('Ymd') . ".csv";
         
