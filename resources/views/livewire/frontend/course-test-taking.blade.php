@@ -30,7 +30,7 @@
                             <div class="min-w-0">
                                 <p class="text-[11px] font-bold uppercase tracking-[0.2em] text-logo-blue/80">Test completed</p>
                                 <h1 class="mt-2 font-serif text-xl font-bold tracking-tight text-brand-900 sm:text-[26px]">
-                                    Result for {{ $banner }} Result
+                                    {{ $banner }} Result
                                 </h1>
                                 <p class="mt-1.5 text-lg font-bold text-orange-600">
                                     {{ $course->couse_name }}
