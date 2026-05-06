@@ -382,8 +382,17 @@
                                 @endforeach
                             </div>
 
-                            @if ($errors->has('submit'))
-                                <p class="mt-4 text-sm text-rose-600">{{ $errors->first('submit') }}</p>
+                            @if ($submitError)
+                                <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 shadow-sm">
+                                    <div class="flex items-center gap-3">
+                                        <div class="flex size-6 shrink-0 items-center justify-center rounded-full bg-rose-600 text-white">
+                                            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-sm font-bold text-rose-600">{{ $submitError }}</p>
+                                    </div>
+                                </div>
                             @endif
 
                             <div class="mt-10 flex flex-wrap items-center justify-between gap-3">

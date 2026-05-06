@@ -67,6 +67,8 @@ class CourseTestTaking extends Component
     /** H:mm:ss or m:ss from attempt timestamps after submit. */
     public ?string $formattedDuration = null;
 
+    public ?string $submitError = null;
+
     /** Unix timestamp when the 45-minute exam window ends (from attempt started_at). */
     public ?int $examDeadlineTs = null;
 
@@ -194,12 +196,20 @@ class CourseTestTaking extends Component
         $this->examTimerDisplay = sprintf('%d:%02d', $minutes, $secs);
     }
 
+    public function updatedResponses(): void
+    {
+        $this->submitError = null;
+        $this->resetErrorBag('submit');
+    }
+
     public function gotoQuestion(int $index): void
     {
         if ($index < 0 || $index >= count($this->questions)) {
             return;
         }
         $this->currentIndex = $index;
+        $this->submitError = null;
+        $this->resetErrorBag('submit');
     }
 
     public function nextQuestion(): void
@@ -224,11 +234,13 @@ class CourseTestTaking extends Component
             $id = (int) $q['id'];
             $v = $this->responses[$id] ?? null;
             if ($v === null || $v === '') {
-                $this->addError('submit', 'Please answer all the questions .');
+                $this->submitError = 'Please answer all the questions .';
+                $this->addError('submit', $this->submitError);
 
                 return;
             }
         }
+        $this->submitError = null;
 
         $user = auth()->user();
         abort_unless($user, 403);
