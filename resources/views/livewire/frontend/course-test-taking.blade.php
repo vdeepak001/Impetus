@@ -18,7 +18,7 @@
                 $pctWrong = round(100 - $pctCorrect, 1);
                 $banner = $type->resultBannerLabel();
             @endphp
-            <div class="mx-auto max-w-4xl overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-2xl ring-1 ring-slate-900/5">
+            <div class="mx-auto max-w-5xl overflow-hidden rounded-[2.5rem] border border-slate-200 bg-white shadow-2xl ring-1 ring-slate-900/5">
                 <div class="relative overflow-hidden">
                     {{-- Decorative backgrounds --}}
                     <div class="pointer-events-none absolute -left-20 -top-16 h-72 w-72 rounded-full bg-logo-blue/[0.07] blur-3xl" aria-hidden="true"></div>
@@ -49,31 +49,31 @@
                         <div class="grid grid-cols-5 gap-1.5 md:gap-3">
                             {{-- Total Questions --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
-                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-wider text-slate-400 md:text-[9px]">Questions</p>
+                                <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-wider text-slate-400 md:text-[11px]">Questions</p>
                                 <p class="mt-1 text-xl font-black text-slate-900 md:mt-2 md:text-2xl">{{ $totalQuestions }}</p>
                             </div>
 
                             {{-- Correct Answers --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
-                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Correct Answer</p>
+                                <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-widest text-slate-400 md:text-[11px]">Correct Answer</p>
                                 <p class="mt-1 text-xl font-black text-emerald-600 md:mt-2 md:text-2xl">{{ $correctCount }}</p>
                             </div>
 
                             {{-- Wrong Answers --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
-                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Wrong Answer</p>
+                                <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-widest text-slate-400 md:text-[11px]">Wrong Answer</p>
                                 <p class="mt-1 text-xl font-black text-orange-600 md:mt-2 md:text-2xl">{{ $wrongCount }}</p>
                             </div>
 
                             {{-- Obtained Score --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
-                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Obtained Score</p>
+                                <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-widest text-slate-400 md:text-[11px]">Obtained Score</p>
                                 <p class="mt-1 text-xl font-black text-logo-blue md:mt-2 md:text-2xl">{{ $obtainedScore }}/{{ $maxScore }}</p>
                             </div>
 
                             {{-- Time Taken --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
-                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Time Taken</p>
+                                <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-widest text-slate-400 md:text-[11px]">Time Taken</p>
                                 <p class="mt-1 text-xl font-black text-slate-900 md:mt-2 md:text-2xl">{{ $formattedDuration }}</p>
                             </div>
                         </div>
