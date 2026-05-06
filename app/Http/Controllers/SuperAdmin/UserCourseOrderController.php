@@ -6,6 +6,8 @@ use App\Enums\PaymentMode;
 use App\Enums\PaymentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserCourseOrderRequest;
+use App\Enums\CourseTestType;
+use App\Models\CourseTestAttempt;
 use App\Models\CourseDetail;
 use App\Models\Order;
 use App\Models\User;
@@ -57,17 +59,28 @@ class UserCourseOrderController extends Controller
         ])->values();
 
         return response()->json([
-            'courses' => $courses->map(function (CourseDetail $c) {
+            'courses' => $courses->map(function (CourseDetail $c) use ($user) {
                 $validDays = 0;
                 $sc = $c->stateCouncils->first();
                 if ($sc && $sc->pivot) {
                     $val = $sc->pivot->valid_days;
                     $validDays = is_array($val) ? ($val[0] ?? 0) : ($val ?? 0);
                 }
+
+                $finalAttempts = CourseTestAttempt::query()
+                    ->where('user_id', $user->id)
+                    ->where('course_detail_id', $c->id)
+                    ->where('test_type', CourseTestType::Final->value)
+                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                    ->get();
+
+                $isFailed = $finalAttempts->count() >= 2 && ! $finalAttempts->contains('passed', true);
+
                 return [
                     'id' => $c->id,
                     'name' => $c->couse_name,
                     'valid_days' => (int) $validDays,
+                    'is_failed' => $isFailed,
                 ];
             }),
             'payment_modes' => $modes,
@@ -106,6 +119,22 @@ class UserCourseOrderController extends Controller
         $paymentStatus = isset($validated['payment_status'])
             ? PaymentStatus::from($validated['payment_status'])
             : PaymentStatus::Completed;
+
+        $finalAttempts = CourseTestAttempt::query()
+            ->where('user_id', $user->id)
+            ->where('course_detail_id', $course->id)
+            ->where('test_type', CourseTestType::Final->value)
+            ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+            ->get();
+
+        $isFailed = $finalAttempts->count() >= 2 && ! $finalAttempts->contains('passed', true);
+
+        if ($isFailed) {
+            CourseTestAttempt::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $course->id)
+                ->delete();
+        }
 
         Order::query()->create([
             'user_id' => $user->id,

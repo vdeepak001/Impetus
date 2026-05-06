@@ -252,7 +252,7 @@
                                 class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100">
                                 <option value="" disabled>Select a module</option>
                                 <template x-for="c in paymentCourses" :key="c.id">
-                                    <option :value="String(c.id)" x-text="c.name"></option>
+                                    <option :value="String(c.id)" x-text="c.name + (c.is_failed ? ' (Failed - Will Reset)' : '')"></option>
                                 </template>
                             </select>
                         </div>
