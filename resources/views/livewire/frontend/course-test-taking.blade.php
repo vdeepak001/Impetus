@@ -46,8 +46,37 @@
                     {{-- Content Section --}}
                     <div class="bg-gradient-to-b from-white via-slate-50/30 to-white px-6 py-10 sm:px-10">
                         {{-- Quick Stats Grid --}}
+                        <div class="grid grid-cols-5 gap-1.5 md:gap-3">
+                            {{-- Total Questions --}}
+                            <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
+                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-wider text-slate-400 md:text-[9px]">Questions</p>
+                                <p class="mt-1 text-xl font-black text-slate-900 md:mt-2 md:text-2xl">{{ $totalQuestions }}</p>
+                            </div>
 
- 
+                            {{-- Correct Answers --}}
+                            <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
+                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Correct Answer</p>
+                                <p class="mt-1 text-xl font-black text-emerald-600 md:mt-2 md:text-2xl">{{ $correctCount }}</p>
+                            </div>
+
+                            {{-- Wrong Answers --}}
+                            <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
+                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Wrong Answer</p>
+                                <p class="mt-1 text-xl font-black text-orange-600 md:mt-2 md:text-2xl">{{ $wrongCount }}</p>
+                            </div>
+
+                            {{-- Obtained Score --}}
+                            <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
+                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Obtained Score</p>
+                                <p class="mt-1 text-xl font-black text-logo-blue md:mt-2 md:text-2xl">{{ $obtainedScore }}/{{ $maxScore }}</p>
+                            </div>
+
+                            {{-- Time Taken --}}
+                            <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
+                                <p class="whitespace-nowrap text-center text-[7px] font-bold uppercase tracking-widest text-slate-400 md:text-[9px]">Time Taken</p>
+                                <p class="mt-1 text-xl font-black text-slate-900 md:mt-2 md:text-2xl">{{ $formattedDuration }}</p>
+                            </div>
+                        </div>
                         {{-- Score Chart & Visuals --}}
                         <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-8">
                             <div class="flex flex-col gap-2 border-b border-slate-100 pb-5">
