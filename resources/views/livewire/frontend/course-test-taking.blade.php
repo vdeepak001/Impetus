@@ -334,18 +334,47 @@
                             @endif
                         </p>
                         <div class="mt-4 flex flex-wrap gap-2">
-                            @foreach ($questions as $idx => $q)
+                            @foreach ($questions as $idx => $question_row)
                                 @php
-                                    $qid = $q['id'];
+                                    $qid = $question_row['id'];
                                     $answered = filled($responses[$qid] ?? null);
+                                    $isPractice = $type === \App\Enums\CourseTestType::Practice;
+                                    $isCurrent = $idx === $currentIndex;
+                                    
+                                    $result = $isPractice ? ($practiceResults[$qid] ?? null) : null;
+                                    $isCorrect = ($result === 'correct');
+                                    $isWrong = ($result === 'wrong_second');
+                                    $isFirstWrong = ($result === 'wrong_first');
+
+                                    $btnClasses = 'flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-bold transition ';
+                                    if ($isCurrent) {
+                                        $btnClasses .= 'border-logo-blue bg-logo-blue text-white shadow-md shadow-logo-blue/30';
+                                    } elseif ($isPractice) {
+                                        if ($isCorrect) {
+                                            $btnClasses .= 'border-emerald-300 bg-emerald-500 text-white';
+                                        } elseif ($isWrong) {
+                                            $btnClasses .= 'border-rose-300 bg-rose-500 text-white';
+                                        } elseif ($isFirstWrong) {
+                                            $btnClasses .= 'border-amber-300 bg-amber-100 text-amber-800';
+                                        } elseif ($answered) {
+                                            $btnClasses .= 'border-slate-300 bg-slate-100 text-slate-600';
+                                        } else {
+                                            $btnClasses .= 'border-slate-200 bg-white text-slate-700 hover:border-logo-blue/50';
+                                        }
+                                    } else {
+                                        if ($answered) {
+                                            $btnClasses .= 'border-emerald-300 bg-emerald-50 text-emerald-800';
+                                        } else {
+                                            $btnClasses .= 'border-slate-200 bg-white text-slate-700 hover:border-logo-blue/50';
+                                        }
+                                    }
                                 @endphp
                                 <button
                                     type="button"
                                     wire:click="gotoQuestion({{ $idx }})"
-                                    class="flex h-10 w-10 items-center justify-center rounded-lg border text-sm font-bold transition
-                                        {{ $idx === $currentIndex ? 'border-logo-blue bg-logo-blue text-white shadow-md shadow-logo-blue/30' : ($answered ? 'border-emerald-300 bg-emerald-50 text-emerald-800' : 'border-slate-200 bg-white text-slate-700 hover:border-logo-blue/50') }}"
+                                    class="{{ $btnClasses }}"
                                 >
-                                    {{ $q['num'] }}
+                                    {{ $question_row['num'] }}
                                 </button>
                             @endforeach
                         </div>
@@ -356,31 +385,105 @@
                     @if ($questions === [])
                         <p class="text-slate-600">No questions to display.</p>
                     @else
-                        @php($q = $questions[$currentIndex] ?? null)
+                        @php
+                            $q = $questions[$currentIndex] ?? null;
+                        @endphp
                         @if ($q)
                             <h2 class="mt-4 text-lg font-semibold leading-relaxed !text-logo-blue sm:text-xl">
                                 {{ $currentIndex + 1 }}. {{ $q['text'] }}
                             </h2>
 
                             <div class="mt-8 space-y-4" wire:key="q-{{ $q['id'] }}">
-                                @foreach (['a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D'] as $letter => $label)
-                                    @php($choice = $q['choices'][$letter] ?? null)
+                                @php
+                                    $choiceLabels = ['a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D'];
+                                @endphp
+                                @foreach ($choiceLabels as $letter => $label)
+                                    @php
+                                        $choice = $q['choices'][$letter] ?? null;
+                                        $qid = $q['id'];
+                                        $isPractice = $type === \App\Enums\CourseTestType::Practice;
+                                        $showFeedback = $isPractice && ($practiceShowReasoning[$qid] ?? false);
+                                        $correctLetter = $practiceCorrectAnswers[$qid] ?? null;
+                                        $isSelected = ($responses[$qid] ?? null) === $letter;
+                                        
+                                        $labelClasses = 'flex cursor-pointer gap-3 rounded-xl border p-4 transition ';
+                                        if ($showFeedback) {
+                                            if ($letter === $correctLetter) {
+                                                $labelClasses .= 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500';
+                                            } elseif ($isSelected && $letter !== $correctLetter) {
+                                                $labelClasses .= 'border-rose-500 bg-rose-50 ring-1 ring-rose-500';
+                                            } else {
+                                                $labelClasses .= 'border-slate-200 opacity-60';
+                                            }
+                                        } else {
+                                            $labelClasses .= 'border-slate-200 hover:border-logo-blue/40 hover:bg-slate-50 has-[:checked]:border-logo-blue has-[:checked]:bg-logo-blue/5';
+                                        }
+                                    @endphp
                                     @if (filled($choice))
-                                        <label class="flex cursor-pointer gap-3 rounded-xl border border-slate-200 p-4 transition hover:border-logo-blue/40 hover:bg-slate-50 has-[:checked]:border-logo-blue has-[:checked]:bg-logo-blue/5">
+                                        <label class="{{ $labelClasses }}">
                                             <input
                                                 type="radio"
                                                 class="mt-1 h-4 w-4 border-slate-300 text-logo-blue focus:ring-logo-blue"
                                                 wire:model.live="responses.{{ $q['id'] }}"
                                                 value="{{ $letter }}"
+                                                @disabled($showFeedback)
                                             />
                                             <span class="text-sm leading-relaxed text-slate-800">
                                                 <span class="font-bold text-slate-900">{{ $label }}.</span>
                                                 {{ $choice }}
+                                                @if ($showFeedback && $letter === $correctLetter)
+                                                    <span class="ml-2 inline-flex items-center gap-1 font-bold text-emerald-600">
+                                                        <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                        Correct Answer
+                                                    </span>
+                                                @endif
                                             </span>
                                         </label>
                                     @endif
                                 @endforeach
                             </div>
+
+                            {{-- Practice Feedback and Reasoning --}}
+                            @if ($type === \App\Enums\CourseTestType::Practice)
+                                @php
+                                    $qid = $q['id'];
+                                    $result = $practiceResults[$qid] ?? null;
+                                    $showReasoning = $practiceShowReasoning[$qid] ?? false;
+                                    $attempts = $practiceAttempts[$qid] ?? 0;
+                                @endphp
+
+                                @if ($result === 'wrong_first')
+                                    <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 shadow-sm">
+                                        <div class="flex items-center gap-3 text-amber-800">
+                                            <svg class="size-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+                                            <p class="text-sm font-bold">Incorrect! Please try again. (Attempt 1/2)</p>
+                                        </div>
+                                    </div>
+                                @elseif ($result === 'wrong_second')
+                                    <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 shadow-sm">
+                                        <div class="flex items-center gap-3 text-rose-800">
+                                            <svg class="size-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                                            <p class="text-sm font-bold">Incorrect! Here is the correct answer and reasoning.</p>
+                                        </div>
+                                    </div>
+                                @elseif ($result === 'correct')
+                                    <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 shadow-sm">
+                                        <div class="flex items-center gap-3 text-emerald-800">
+                                            <svg class="size-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            <p class="text-sm font-bold">Correct!</p>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                @if ($showReasoning && filled($practiceReasoning[$qid] ?? null))
+                                    <div class="mt-4 rounded-2xl border border-logo-blue/20 bg-logo-blue/5 p-5">
+                                        <h4 class="text-xs font-bold uppercase tracking-wider text-logo-blue">Reasoning</h4>
+                                        <p class="mt-2 text-sm leading-relaxed text-slate-700 italic">
+                                            {{ $practiceReasoning[$qid] }}
+                                        </p>
+                                    </div>
+                                @endif
+                            @endif
 
                             @if ($submitError)
                                 <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 shadow-sm">
@@ -405,6 +508,21 @@
                                     Previous
                                 </button>
                                 <div class="flex flex-wrap gap-3">
+                                    @if ($type === \App\Enums\CourseTestType::Practice)
+                                        @php
+                                            $qid = $q['id'];
+                                        @endphp
+                                        @if (!($practiceShowReasoning[$qid] ?? false))
+                                            <button
+                                                type="button"
+                                                wire:click="submitPracticeAnswer({{ $qid }})"
+                                                class="rounded-xl bg-orange-600 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-orange-600/25 transition hover:bg-orange-700"
+                                            >
+                                                Submit Answer
+                                            </button>
+                                        @endif
+                                    @endif
+
                                     @if ($currentIndex < $totalQuestions - 1)
                                         <button
                                             type="button"

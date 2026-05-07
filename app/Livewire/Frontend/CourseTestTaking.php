@@ -79,6 +79,21 @@ class CourseTestTaking extends Component
     /** Seconds left in the exam window (for UI states). */
     public int $examSecondsRemaining = 0;
 
+    /** @var array<int, string> question_id => 'correct'|'wrong_first'|'wrong_second'|null */
+    public array $practiceResults = [];
+
+    /** @var array<int, int> question_id => attempt_count */
+    public array $practiceAttempts = [];
+
+    /** @var array<int, bool> question_id => show_reasoning */
+    public array $practiceShowReasoning = [];
+
+    /** @var array<int, string|null> question_id => reasoning text */
+    public array $practiceReasoning = [];
+
+    /** @var array<int, string|null> question_id => correct answer letter */
+    public array $practiceCorrectAnswers = [];
+
     public function mount(int $courseId, string $testType): void
     {
         $this->courseId = $courseId;
@@ -146,6 +161,10 @@ class CourseTestTaking extends Component
             $this->attemptId = $attempt->id;
             $this->hydrateQuestionsPayload($ids);
             $this->initEmptyResponses($ids);
+        }
+
+        if ($this->type === CourseTestType::Practice) {
+            $this->initPracticeStates($ids);
         }
 
         $this->totalQuestions = count($this->questions);
@@ -364,6 +383,41 @@ class CourseTestTaking extends Component
         }
     }
 
+    public function submitPracticeAnswer(int $questionId): void
+    {
+        if ($this->type !== CourseTestType::Practice) {
+            return;
+        }
+
+        $response = $this->responses[$questionId] ?? null;
+        if (! $response) {
+            $this->submitError = 'Please select an answer.';
+
+            return;
+        }
+        $this->submitError = null;
+
+        $question = CourseQuestion::query()->find($questionId);
+        if (! $question) {
+            return;
+        }
+
+        $this->practiceAttempts[$questionId]++;
+        $isCorrect = $this->answerMatches($question, strtolower($response));
+
+        if ($isCorrect) {
+            $this->practiceResults[$questionId] = 'correct';
+            $this->practiceShowReasoning[$questionId] = true;
+        } else {
+            if ($this->practiceAttempts[$questionId] < 2) {
+                $this->practiceResults[$questionId] = 'wrong_first';
+            } else {
+                $this->practiceResults[$questionId] = 'wrong_second';
+                $this->practiceShowReasoning[$questionId] = true;
+            }
+        }
+    }
+
     public function render(): View
     {
         return view('livewire.frontend.course-test-taking', [
@@ -406,6 +460,23 @@ class CourseTestTaking extends Component
     {
         foreach ($ids as $id) {
             $this->responses[(int) $id] = null;
+        }
+    }
+
+    private function initPracticeStates(array $ids): void
+    {
+        $rows = CourseQuestion::query()->whereIn('id', $ids)->get()->keyBy('id');
+        foreach ($ids as $id) {
+            $qid = (int) $id;
+            $this->practiceResults[$qid] = null;
+            $this->practiceAttempts[$qid] = 0;
+            $this->practiceShowReasoning[$qid] = false;
+            
+            $q = $rows->get($id);
+            if ($q) {
+                $this->practiceReasoning[$qid] = $q->reason;
+                $this->practiceCorrectAnswers[$qid] = $this->extractExpectedLetter($q);
+            }
         }
     }
 
@@ -457,6 +528,26 @@ class CourseTestTaking extends Component
         }
 
         return $expectedLetter === $selectedOneLetter && in_array($selectedOneLetter, ['a', 'b', 'c', 'd'], true);
+    }
+
+    private function extractExpectedLetter(CourseQuestion $question): ?string
+    {
+        $raw = strtolower(trim((string) $question->answer));
+        if ($raw === '') {
+            return null;
+        }
+
+        $expectedLetter = $raw[0];
+        if (! in_array($expectedLetter, ['a', 'b', 'c', 'd'], true)) {
+            foreach (['a', 'b', 'c', 'd'] as $letter) {
+                if (str_contains($raw, $letter)) {
+                    $expectedLetter = $letter;
+
+                    break;
+                }
+            }
+        }
+        return in_array($expectedLetter, ['a', 'b', 'c', 'd'], true) ? $expectedLetter : null;
     }
 
     private function isGradableMultipleChoice(CourseQuestion $question): bool
