@@ -381,7 +381,6 @@
             const viewerContainer = viewer.parentElement;
             const title = document.getElementById('modal-title');
             const counter = document.getElementById('modalCounter');
-            const slideCounter = document.getElementById('slideCounter');
             const slideNav = document.getElementById('slideNav');
             const prevBtn = document.getElementById('modalPrev');
             const nextBtn = document.getElementById('modalNext');
@@ -391,7 +390,6 @@
 
             title.textContent = att.name;
             counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
-            slideCounter.textContent = currentSlideIndex;
             
             prevBtn.disabled = currentAttachmentIndex === 0;
             nextBtn.disabled = currentAttachmentIndex === currentAttachments.length - 1;
