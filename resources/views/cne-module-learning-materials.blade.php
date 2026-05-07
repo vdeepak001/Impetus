@@ -97,7 +97,7 @@
                         <aside class="w-full shrink-0 lg:w-80">
                             <div class="sticky top-32">
                                 <div class="mb-6 flex items-center justify-between">
-                                    <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Course Roadmap</h3>
+                                    <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Topics</h3>
                                     <span class="rounded-full bg-slate-200/50 px-2.5 py-0.5 text-[10px] font-bold text-slate-500" x-text="(activeIndex + 1) + '/' + total"></span>
                                 </div>
                                 
@@ -200,7 +200,10 @@
                                                         <div class="mt-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-logo-blue to-logo-light-green"></div>
                                                     </header>
                                                     
+                                                    {{-- Resources Section --}}
                                                     <div>
+
+                                                        
                                                         <div class="grid gap-4 sm:grid-cols-2">
                                                             @php
                                                                 $attachments = array_map(function($path) {
