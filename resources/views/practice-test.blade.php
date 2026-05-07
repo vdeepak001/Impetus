@@ -6,10 +6,6 @@
     <main class="pb-16">
         <div class="h-[100px]" aria-hidden="true"></div>
 
-@section('content')
-    <main class="pb-16">
-        <div class="h-[100px]" aria-hidden="true"></div>
-
         {{-- Breadcrumbs Section --}}
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
@@ -43,7 +39,11 @@
 
                 <div class="mt-16 space-y-20">
                     @php
-                        $hasAnyQuestions = array_sum($levelCounts) > 0;
+                        $totalSets = 0;
+                        foreach($levelCounts as $c) {
+                            $totalSets += floor($c / 20);
+                        }
+                        $hasAnyQuestions = $totalSets > 0;
                     @endphp
 
                     @if(!$hasAnyQuestions)
@@ -66,7 +66,7 @@
                             $levelKey = $isOther ? 'other' : (string)($idx + 1);
                             $levelNum = $isOther ? -1 : (int)$levelKey;
                             $count = $levelCounts[$levelKey] ?? 0;
-                            $setCount = ceil($count / 20);
+                            $setCount = floor($count / 20);
                             $themeColor = [
                                 'Level 1' => ['bg' => 'bg-emerald-600', 'btn' => 'bg-emerald-600', 'text' => 'text-emerald-700', 'border' => 'border-emerald-200', 'light' => 'bg-emerald-50'],
                                 'Level 2' => ['bg' => 'bg-sky-500', 'btn' => 'bg-sky-500', 'text' => 'text-sky-700', 'border' => 'border-sky-200', 'light' => 'bg-sky-50'],
@@ -75,7 +75,7 @@
                             ][$levelLabel];
                         @endphp
 
-                        @if($count > 0)
+                        @if($setCount > 0)
                             <div class="flex flex-col gap-8 lg:flex-row lg:items-start">
                                 {{-- Level Badge --}}
                                 <div class="shrink-0 lg:w-48">
