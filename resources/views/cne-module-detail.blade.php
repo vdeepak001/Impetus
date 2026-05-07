@@ -392,7 +392,7 @@
         @if (filled($course->practice_content))
             <section class="border-t border-slate-200/80 bg-gradient-to-b from-white to-slate-50/80 py-16 sm:py-24">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-start">
+                    <div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                         <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
                             Practice Test
                         </h2>
