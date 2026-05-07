@@ -11,9 +11,18 @@
             ? (\Illuminate\Support\Str::isUrl($course->course_url) ? $course->course_url : url($course->course_url))
             : null;
         $isPurchased = $isPurchased ?? false;
+        $hasCourseMaterials = $hasCourseMaterials ?? false;
+
+        $tp = $courseTestProgress ?? [];
+        $preDone = $tp['pre_done'] ?? false;
+        $mockDone = $tp['mock_done'] ?? false;
+        $finalDone = $tp['final_done'] ?? false;
+
         $canViewLearningMaterials = auth()->check()
             && auth()->user()?->role_type === 'user'
-            && $isPurchased;
+            && $isPurchased
+            && $preDone;
+
         $creditPoints = 'N/A';
         if (isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
             $rawPoints = $course->stateCouncils->first()->pivot->points;
@@ -24,7 +33,6 @@
             }
             $creditPoints = !empty($creditPoints) ? $creditPoints : 'N/A';
         }
-        $hasCourseMaterials = $hasCourseMaterials ?? false;
     @endphp
 
     <main
@@ -90,11 +98,6 @@
                                 @if ($isPurchased)
                                     <div class="flex flex-wrap items-center justify-end gap-3">
                                         @php
-                                            $tp = $courseTestProgress;
-                                            $preDone = $tp['pre_done'] ?? false;
-                                            $mockDone = $tp['mock_done'] ?? false;
-                                            $finalDone = $tp['final_done'] ?? false;
-
                                             $canPre = (bool) $tp;
                                             $canMock = $tp && $preDone;
                                             $canFinal = $tp && $mockDone;
@@ -410,28 +413,14 @@
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>
                             @auth
-                                @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false))
-                                    @php
-                                        $mockDoneForPractice = (bool) ($courseTestProgress['mock_done'] ?? false);
-                                    @endphp
+                                @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
                                     <div class="mt-8">
-                                        @if ($mockDoneForPractice)
-                                            <a
-                                                href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                                class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
-                                            >
-                                                Open practice questions
-                                            </a>
-                                        @else
-                                            <button
-                                                type="button"
-                                                class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
-                                                @click="practiceGateOpen = true"
-                                                aria-haspopup="dialog"
-                                            >
-                                                Open practice questions
-                                            </button>
-                                        @endif
+                                        <a
+                                            href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
+                                            class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                        >
+                                            Open practice questions
+                                        </a>
                                         <p class="mt-3 text-sm text-slate-500">Up to 30 random questions per session, with numbered navigation.</p>
                                     </div>
                                 @endif
