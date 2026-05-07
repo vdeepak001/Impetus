@@ -282,14 +282,15 @@
                     <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50 shrink-0">
                         <div class="flex items-center gap-4 min-w-0">
                             <h3 class="text-lg font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
-                            <div class="flex items-center gap-2">
-                                <button id="modalPrev" onclick="navigateModal(-1)" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Attachment">
+                            <div class="flex items-center gap-2 border-l border-slate-200 pl-4">
+                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Doc:</span>
+                                <button id="modalPrev" onclick="navigateModal(-1)" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Document">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                     </svg>
                                 </button>
                                 <span id="modalCounter" class="text-[11px] font-bold text-slate-400 min-w-[3rem] text-center"></span>
-                                <button id="modalNext" onclick="navigateModal(1)" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Attachment">
+                                <button id="modalNext" onclick="navigateModal(1)" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Document">
                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                                     </svg>
@@ -304,11 +305,9 @@
                         </button>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
-                        {{-- Shield overlay to block right-clicks and internal buttons, leaving a gap for the scrollbar --}}
-                        <div id="viewerShield" class="absolute top-0 left-0 w-[calc(100%-24px)] h-full z-20 hidden" oncontextmenu="return false;"></div>
-                        
-                        {{-- Targeted mask to visually hide the "pop-out" button in the top right --}}
-                        <div id="topRightMask" class="absolute top-0 right-0 w-14 h-14 bg-slate-800 z-30 hidden"></div>
+                        {{-- Targeted masks to visually hide download/pop-out buttons --}}
+                        <div id="topRightMask" class="absolute top-0 right-0 w-20 h-14 bg-slate-800 z-30 hidden"></div>
+                        <div id="bottomRightMask" class="absolute bottom-0 right-0 w-32 h-10 bg-slate-800 z-30 hidden"></div>
                         
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
                     </div>
@@ -330,10 +329,10 @@
             const modal = document.getElementById('fileModal');
             modal.classList.remove('hidden');
             
-            const shield = document.getElementById('viewerShield');
             const topRightMask = document.getElementById('topRightMask');
-            shield.classList.remove('hidden');
+            const bottomRightMask = document.getElementById('bottomRightMask');
             topRightMask.classList.remove('hidden');
+            bottomRightMask.classList.remove('hidden');
             
             document.body.style.overflow = 'hidden';
         }
@@ -360,9 +359,7 @@
             if (extension === 'pdf') {
                 finalUrl += '#toolbar=0&navpanes=0&view=FitH';
             } else if (['pptx', 'ppt', 'docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
-                // Use Microsoft Office Viewer for better "slideshow" feel for PPT and better rendering for Office docs
-                // wdAr=1.7777777777777777 is for 16:9 aspect ratio, common for PPT.
-                // &wdStartOn=1 doesn't work but &wdPrint=0 and &wdEmbedCode=0 are useful.
+                // Use Microsoft Office Viewer for better rendering
                 finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
                 if (extension === 'pptx' || extension === 'ppt') {
                     finalUrl += '&wdAr=1.77';
@@ -383,12 +380,12 @@
         function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
-            const shield = document.getElementById('viewerShield');
             const topRightMask = document.getElementById('topRightMask');
+            const bottomRightMask = document.getElementById('bottomRightMask');
             
             modal.classList.add('hidden');
-            shield.classList.add('hidden');
             topRightMask.classList.add('hidden');
+            bottomRightMask.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
@@ -399,11 +396,11 @@
                 closeModal();
             }
             
-            // Handle arrow keys for navigation if modal is open
             const modal = document.getElementById('fileModal');
             if (modal && !modal.classList.contains('hidden')) {
-                if (event.key === 'ArrowRight') navigateModal(1);
-                if (event.key === 'ArrowLeft') navigateModal(-1);
+                // Handle arrow keys for document navigation
+                if (event.key === 'ArrowRight' && event.ctrlKey) navigateModal(1);
+                if (event.key === 'ArrowLeft' && event.ctrlKey) navigateModal(-1);
             }
 
             // Disable Print (Ctrl+P / Cmd+P)
@@ -413,45 +410,7 @@
                 alert('Printing is disabled for this material.');
                 return false;
             }
-
-            // Disable Save (Ctrl+S / Cmd+S)
-            if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'S')) {
-                event.preventDefault();
-                event.stopImmediatePropagation();
-                return false;
-            }
-        }, true); // Use capture to catch events before they reach the iframe if possible
-
-        // Block printing via browser menu/shortcuts more aggressively
-        window.addEventListener('beforeprint', (event) => {
-            closeModal();
-            // Also hide the entire body just in case
-            document.body.style.display = 'none';
-            setTimeout(() => {
-                document.body.style.display = 'block';
-            }, 100);
-            alert('Printing is disabled for this material.');
-        });
-
-        // Smart Shield Scroll-Through Hack
-        // This allows scrolling while the shield is active by temporarily disabling the shield during wheel events
-        const shield = document.getElementById('viewerShield');
-        shield.addEventListener('wheel', (e) => {
-            shield.style.pointerEvents = 'none';
-            
-            // Re-enable shield quickly after scrolling stops
-            clearTimeout(shield._scrollTimer);
-            shield._scrollTimer = setTimeout(() => {
-                shield.style.pointerEvents = 'auto';
-            }, 200); // Reduced to 200ms for better responsiveness
-        }, { passive: true });
-
-        // Ensure shield is active when mouse moves (unless scrolling)
-        shield.addEventListener('mousemove', () => {
-            if (shield.style.pointerEvents === 'none' && !shield._scrollTimer) {
-                shield.style.pointerEvents = 'auto';
-            }
-        });
+        }, true);
 
         // Disable right click globally when modal is open
         document.addEventListener('contextmenu', function(e) {
