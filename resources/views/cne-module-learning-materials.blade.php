@@ -388,6 +388,7 @@
             const att = currentAttachments[currentAttachmentIndex];
             const viewer = document.getElementById('fileViewer');
             const viewerContainer = viewer.parentElement;
+            const title = document.getElementById('modal-title');
             const counter = document.getElementById('modalCounter');
             const slideCounter = document.getElementById('slideCounter');
             const slideNav = document.getElementById('slideNav');
