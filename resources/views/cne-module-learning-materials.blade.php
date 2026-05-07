@@ -320,12 +320,11 @@
 
                             {{-- Slide Navigation (For PPTs) --}}
                             <div id="slideNav" class="hidden flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 p-1 shadow-sm">
-                                <div class="flex items-center gap-1.5 px-2">
+                                <div class="flex items-center gap-1.5 px-2 border-r border-slate-200 mr-1">
                                     <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400">Slide</span>
-                                    <span id="slideCounter" class="text-[11px] font-bold tabular-nums text-logo-blue min-w-[1rem] text-center border-l border-slate-200 pl-2">1</span>
                                 </div>
                                 <div class="flex items-center gap-1 pr-1">
-                                    <button onclick="navigateSlide(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all disabled:opacity-30">
+                                    <button onclick="navigateSlide(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all">
                                         <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
                                         </svg>
@@ -390,7 +389,6 @@
             const viewerContainer = viewer.parentElement;
             const title = document.getElementById('modal-title');
             const counter = document.getElementById('modalCounter');
-            const slideCounter = document.getElementById('slideCounter');
             const slideNav = document.getElementById('slideNav');
             const prevBtn = document.getElementById('modalPrev');
             const nextBtn = document.getElementById('modalNext');
@@ -400,7 +398,6 @@
 
             title.textContent = att.name;
             counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
-            if (slideCounter) slideCounter.textContent = currentSlideIndex;
             
             prevBtn.disabled = currentAttachmentIndex === 0;
             nextBtn.disabled = currentAttachmentIndex === currentAttachments.length - 1;
