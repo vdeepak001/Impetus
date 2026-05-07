@@ -110,7 +110,7 @@
                                     <td class="px-3 py-3 text-slate-700">{{ optional($courseOrder->end_date)->format('d-m-Y') ?? '-' }}</td>
                                     <td class="px-3 py-3 text-slate-700">{{ $courseOrder->completion ? $courseOrder->completion->completed_at->format('d-m-Y') : '-' }}</td>
                                     <td class="px-3 py-3 text-slate-700">
-                                        @if($courseOrder->completion)
+                                        @if($courseOrder->completion && $courseOrder->completion->passed)
                                             @php
                                                 $u = auth()->user();
                                                 $userName = $u->name ?: ($u->first_name . ' ' . $u->last_name);

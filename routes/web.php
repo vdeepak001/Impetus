@@ -63,7 +63,8 @@ Route::middleware('auth')->group(function () {
                         ->where('course_detail_id', $order->course_detail_id)
                         ->where('test_type', \App\Enums\CourseTestType::Final)
                         ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
-                        ->where('passed', true)
+                        ->where('started_at', '>=', $order->created_at)
+                        ->orderByDesc('passed')
                         ->latest('completed_at')
                         ->first();
 
