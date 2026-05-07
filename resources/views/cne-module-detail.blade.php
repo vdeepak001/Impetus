@@ -390,23 +390,23 @@
         @if (filled($course->practice_content))
             <section class="border-t border-slate-200/80 bg-gradient-to-b from-white to-slate-50/80 py-16 sm:py-24">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
+                    <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                        <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
+                            Practice Test
+                        </h2>
+                        @auth
+                            @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
+                                <a
+                                    href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
+                                    class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                >
+                                    Open practice questions
+                                </a>
+                            @endif
+                        @endauth
+                    </div>
                     <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-20">
                         <div class="order-2 min-w-0 lg:order-1">
-                            <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                                <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
-                                    Practice Test
-                                </h2>
-                                @auth
-                                    @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
-                                        <a
-                                            href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                            class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
-                                        >
-                                            Open practice questions
-                                        </a>
-                                    @endif
-                                @endauth
-                            </div>
                             <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>
