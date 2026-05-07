@@ -377,7 +377,7 @@
                             </div>
                             
                             @if (filled($course->qa_content))
-                                <div class="mt-8 text-lg leading-8 text-slate-800 text-justify">
+                                <div class="mt-4 text-lg leading-8 text-slate-800 text-justify">
                                     {!! nl2br(e($course->qa_content)) !!}
                                 </div>
                             @endif
@@ -392,7 +392,7 @@
         @if (filled($course->practice_content))
             <section class="border-t border-slate-200/80 bg-gradient-to-b from-white to-slate-50/80 py-16 sm:py-24">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="mb-6 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
                         <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
                             Practice Test
                         </h2>
@@ -407,20 +407,21 @@
                             @endif
                         @endauth
                     </div>
-                    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-20">
+                    <div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-14 xl:gap-20">
                         <div class="order-2 min-w-0 lg:order-1">
-                            <div class="mt-8 space-y-4 text-lg leading-8 text-slate-700 text-justify">
+                            <div class="mt-4 space-y-4 text-lg leading-8 text-slate-700 text-justify">
                                 {!! nl2br(e($course->practice_content)) !!}
                             </div>
                             @auth
                                 @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
-                                    <div class="mt-4">
+                                    {{-- <div class="mt-4">
                                         <p class="text-sm text-slate-500 italic">Up to 30 random questions per session, with numbered navigation.</p>
-                                    </div>
+                                    </div> --}}
                                 @endif
                             @endauth
                         </div>
                         <div class="order-1 w-full min-w-0 lg:order-2">
+                            <br>
                             <div class="relative w-full">
                                 <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
                                 <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-100 shadow-xl shadow-slate-300/35 ring-1 ring-slate-200/50">
