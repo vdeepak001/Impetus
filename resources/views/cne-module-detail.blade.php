@@ -405,9 +405,7 @@
                                     <div class="relative flex items-center gap-4">
                                         <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 shadow-inner">
                                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .415.162.791.425 1.066m-2.425-1.73c.065.21.1.433.1.664 0 .415-.162.791-.425 1.066m-1.35-.386a2.25 2.25 0 011.888-2.441 2.266 2.266 0 01.35-.027c1.135 0 2.098.845 2.192 1.976m-1.35.386c.065.21.1.433.1.664 0 .415-.162.791-.425 1.066m1.35-.386a2.25 2.25 0 01-1.888 2.441 2.266 2.266 0 01-.35.027c-1.135 0-2.098-.845-2.192-1.976m1.35.386c.065.21.1.433.1.664 0 .415-.162.791-.425 1.066m-1.35-.386a2.25 2.25 0 011.888-2.441 2.266 2.266 0 01.35-.027c1.135 0 2.098.845 2.192 1.976" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 14.25L9 15.75L12 12.75" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 4.5l-15 0a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 004.5 22.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125" />
                                             </svg>
                                         </span>
                                         <span class="text-sm font-bold uppercase tracking-wider">Take Practice Test</span>
