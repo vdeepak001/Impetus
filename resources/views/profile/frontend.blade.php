@@ -8,11 +8,17 @@
     @endphp
     <section class="mx-auto max-w-6xl px-4 pb-16 pt-32 sm:px-6 lg:px-8" x-data="{ tab: 'personal' }">
         <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            <div class="grid grid-cols-2 gap-3 border-b border-slate-200 pb-5 text-sm font-semibold sm:grid-cols-4">
-                <button type="button" @click="tab = 'personal'" :class="tab === 'personal' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Personal Information</button>
-                <button type="button" @click="tab = 'academic'" :class="tab === 'academic' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Academic Information</button>
-                <button type="button" @click="tab = 'professional'" :class="tab === 'professional' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Professional Information</button>
-                <button type="button" @click="tab = 'course'" :class="tab === 'course' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">My Course</button>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-5 text-sm font-semibold gap-12">
+                <div class="flex flex-wrap gap-x-12 gap-y-4 sm:gap-x-32">
+                    <button type="button" @click="tab = 'personal'" :class="tab === 'personal' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Personal Information</button>
+                    <button type="button" @click="tab = 'academic'" :class="tab === 'academic' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Academic Information</button>
+                    <button type="button" @click="tab = 'professional'" :class="tab === 'professional' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Professional Information</button>
+                    <button type="button" @click="tab = 'course'" :class="tab === 'course' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">My Course</button>
+                </div>
+                <div class="flex items-center gap-2 rounded-lg bg-logo-blue px-3 py-1.5 text-white shadow-sm">
+                    <span class="opacity-80">User ID:</span>
+                    <span class="font-bold">{{ auth()->user()->unique_sequence_number ?? 'N/A' }}</span>
+                </div>
             </div>
 
             <form x-show="tab === 'personal'" method="POST" action="{{ route('profile.update') }}" class="mt-6">
@@ -115,8 +121,9 @@
                                                 $u = auth()->user();
                                                 $userName = $u->name ?: ($u->first_name . ' ' . $u->last_name);
                                                 $rnNumber = $u->rn_number ?? 'N/A';
+                                                $userId = $u->unique_sequence_number ?? 'N/A';
                                                 $courseName = $courseOrder->courseDetail?->couse_name ?? 'N/A';
-                                                $qrData = "Name: " . $userName . "\nRN #: " . $rnNumber . "\nCourse: " . $courseName;
+                                                $qrData = "User ID: " . $userId . "\nName: " . $userName . "\nRN #: " . $rnNumber . "\nCourse: " . $courseName;
                                                 $qrUrl = "https://api.qrserver.com/v1/create-qr-code/?size=50x50&data=" . urlencode($qrData);
                                             @endphp
                                             <div class="flex items-center gap-3">

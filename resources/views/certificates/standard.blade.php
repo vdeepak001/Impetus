@@ -195,7 +195,7 @@
         $courseNameStr = $course->couse_name;
         
         // QR Data
-        $qrData = "Unique ID: " . $order->id . "\nModule: " . $courseNameStr . "\nDate: " . $date;
+        $qrData = "User ID: " . ($user->unique_sequence_number ?? 'N/A') . "\nModule: " . $courseNameStr . "\nDate: " . $date;
         $qrUrl = "https://quickchart.io/qr?text=" . rawurlencode($qrData) . "&size=200";
         
         // Fetch and encode image to ensure it shows in PDF

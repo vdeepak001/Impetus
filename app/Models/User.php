@@ -15,6 +15,15 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, HasRoles, Notifiable, SoftDeletes;
 
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            if (!$user->unique_sequence_number) {
+                $user->unique_sequence_number = self::generateNextSequenceNumber();
+            }
+        });
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -69,6 +78,7 @@ class User extends Authenticatable
         'professional_district',
         'professional_state',
         'professional_zip_code',
+        'unique_sequence_number',
     ];
 
     /**
@@ -129,6 +139,7 @@ class User extends Authenticatable
             'professional_district' => 'encrypted',
             'professional_state' => 'encrypted',
             'professional_zip_code' => 'encrypted',
+            'unique_sequence_number' => 'encrypted',
         ];
     }
 
@@ -138,5 +149,27 @@ class User extends Authenticatable
     public function orders(): HasMany
     {
         return $this->hasMany(Order::class);
+    }
+
+    /**
+     * Generate the next unique sequence number (YYMMXXXXXX).
+     */
+    public static function generateNextSequenceNumber(): string
+    {
+        $prefix = date('ym'); // YYMM format
+        
+        // Fetch all users with sequence numbers and find the max for current month
+        $maxSequence = self::query()
+            ->whereNotNull('unique_sequence_number')
+            ->get()
+            ->filter(function ($user) use ($prefix) {
+                return str_starts_with($user->unique_sequence_number, $prefix);
+            })
+            ->map(function ($user) {
+                return (int) substr($user->unique_sequence_number, 4);
+            })
+            ->max() ?? 0;
+
+        return $prefix . str_pad($maxSequence + 1, 6, '0', STR_PAD_LEFT);
     }
 }
