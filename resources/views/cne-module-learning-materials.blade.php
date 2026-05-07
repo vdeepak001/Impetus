@@ -141,116 +141,124 @@
                         {{-- Main Slider Content Card --}}
                         <div class="flex-1">
                             <div class="relative">
-                                @foreach ($courseMaterials as $index => $material)
-                                    <article 
-                                        x-show="activeIndex === {{ $index }}"
-                                        x-transition:enter="transition ease-out duration-500"
-                                        x-transition:enter-start="opacity-0 translate-x-8"
-                                        x-transition:enter-end="opacity-100 translate-x-0"
-                                        class="group relative overflow-hidden rounded-[2.5rem] border border-white bg-white/80 p-1 shadow-2xl shadow-slate-200/60 backdrop-blur-xl ring-1 ring-slate-200/50"
-                                    >
-                                        <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-logo-blue/5 transition-transform duration-700 group-hover:scale-110"></div>
-                                        
-                                        <div class="relative flex h-full flex-col rounded-[2.25rem] bg-white p-8 sm:p-12">
-                                            {{-- Card Header --}}
-                                            <header class="mb-10">
-                                                <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-logo-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-logo-blue">
-                                                    <span class="relative flex h-2 w-2">
-                                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-logo-blue opacity-75"></span>
-                                                        <span class="relative inline-flex h-2 w-2 rounded-full bg-logo-blue"></span>
-                                                    </span>
-                                                    Curriculum Module {{ $index + 1 }}
-                                                </div>
-                                                <h2 class="font-serif text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-                                                    {{ $material['subtitle'] }}
-                                                </h2>
-                                                <div class="mt-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-logo-blue to-logo-light-green"></div>
-                                            </header>
-                                            
-                                            {{-- Content Section --}}
-                                            <div class="flex-1">
-                                                <h3 class="mb-6 text-sm font-bold tracking-wider text-slate-400">Available Learning Resources</h3>
-                                                
-                                                <div class="grid gap-4 sm:grid-cols-2">
-                                                    @php
-                                                        $attachments = array_map(function($path) {
-                                                            return [
-                                                                'url' => asset('storage/' . $path),
-                                                                'name' => preg_replace('/^\d+_/', '', basename($path)),
-                                                                'extension' => strtolower(pathinfo($path, PATHINFO_EXTENSION))
-                                                            ];
-                                                        }, $material['attachments']);
-                                                        $attachmentsJson = htmlspecialchars(json_encode($attachments), ENT_QUOTES, 'UTF-8');
-                                                    @endphp
-                                                    @foreach ($attachments as $attIndex => $att)
-                                                        @php
-                                                            $typeColor = match($att['extension']) {
-                                                                'pdf' => 'text-red-500 bg-red-50 border-red-100',
-                                                                'doc', 'docx' => 'text-blue-500 bg-blue-50 border-blue-100',
-                                                                'ppt', 'pptx' => 'text-orange-500 bg-orange-50 border-orange-100',
-                                                                default => 'text-slate-500 bg-slate-50 border-slate-100'
-                                                            };
-                                                        @endphp
-                                                        <button
-                                                            onclick="openFile({!! $attachmentsJson !!}, {{ $attIndex }})"
-                                                            class="group relative flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition-all hover:border-logo-blue hover:bg-white hover:shadow-xl hover:shadow-logo-blue/10"
-                                                        >
-                                                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border {{ $typeColor }} transition-transform duration-300 group-hover:scale-110">
-                                                                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                                                                </svg>
-                                                            </div>
-                                                            <div class="min-w-0 flex-1 text-left">
-                                                                <p class="truncate text-sm font-bold text-slate-800 group-hover:text-logo-blue">{{ $att['name'] }}</p>
-                                                                <p class="mt-0.5 text-[10px] font-bold uppercase tracking-tight text-slate-400 group-hover:text-slate-500">{{ strtoupper($att['extension']) }} Document</p>
-                                                            </div>
-                                                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:shadow-sm">
-                                                                <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                                                </svg>
-                                                            </div>
-                                                        </button>
-                                                    @endforeach
-                                                </div>
+                                <article class="group relative overflow-hidden rounded-[2.5rem] border border-white bg-white/80 p-1 shadow-2xl shadow-slate-200/60 backdrop-blur-xl ring-1 ring-slate-200/50">
+                                    <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-logo-blue/5 transition-transform duration-700 group-hover:scale-110"></div>
+                                    
+                                    <div class="relative flex h-full flex-col overflow-hidden rounded-[2.25rem] bg-white">
+                                        {{-- Persistent Top Navigation Stripe --}}
+                                        <nav class="flex items-center justify-between border-b border-slate-100 bg-slate-50/50 px-8 py-4 sm:px-12">
+                                            <button 
+                                                type="button"
+                                                @click="prev()"
+                                                :disabled="activeIndex === 0"
+                                                class="group flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold text-slate-600 transition-all disabled:opacity-30 hover:border-logo-blue hover:text-logo-blue"
+                                            >
+                                                <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5" />
+                                                </svg>
+                                                Prev
+                                            </button>
+
+                                            <div class="hidden items-center gap-2 sm:flex">
+                                                @foreach ($courseMaterials as $dotIndex => $dotMaterial)
+                                                    <button 
+                                                        type="button"
+                                                        @click="activeIndex = {{ $dotIndex }}"
+                                                        class="h-1.5 rounded-full transition-all duration-500"
+                                                        :class="activeIndex === {{ $dotIndex }} ? 'w-6 bg-logo-blue' : 'w-1.5 bg-slate-200 hover:bg-slate-300'"
+                                                    ></button>
+                                                @endforeach
                                             </div>
 
-                                            {{-- Enhanced Footer Navigation --}}
-                                            <footer class="mt-12 flex items-center justify-between border-t border-slate-100 pt-8">
-                                                <button 
-                                                    @click="prev()"
-                                                    :disabled="activeIndex === 0"
-                                                    class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-600 transition-all disabled:opacity-30 hover:border-logo-blue hover:text-logo-blue"
-                                                >
-                                                    <svg class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5" />
-                                                    </svg>
-                                                    Previous
-                                                </button>
+                                            <button 
+                                                type="button"
+                                                @click="next()"
+                                                :disabled="activeIndex === total - 1"
+                                                class="group flex items-center gap-2 rounded-xl bg-logo-blue px-5 py-2 text-xs font-bold text-white shadow-lg shadow-logo-blue/20 transition-all disabled:opacity-30 hover:bg-blue-700 hover:shadow-logo-blue/30"
+                                            >
+                                                Next
+                                                <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12l-7.5 7.5" />
+                                                </svg>
+                                            </button>
+                                        </nav>
 
-                                                <div class="hidden items-center gap-2 lg:flex">
-                                                    @foreach ($courseMaterials as $dotIndex => $dotMaterial)
-                                                        <button 
-                                                            @click="activeIndex = {{ $dotIndex }}"
-                                                            class="h-2 rounded-full transition-all duration-500"
-                                                            :class="activeIndex === {{ $dotIndex }} ? 'w-8 bg-logo-blue' : 'w-2 bg-slate-200 hover:bg-slate-300'"
-                                                        ></button>
-                                                    @endforeach
+                                        {{-- Content Area: This transitions, while the card and stripe stay stable --}}
+                                        <div class="flex-1 p-8 sm:p-12">
+                                            @foreach ($courseMaterials as $index => $material)
+                                                <div 
+                                                    x-show="activeIndex === {{ $index }}"
+                                                    x-transition:enter="transition ease-out duration-500"
+                                                    x-transition:enter-start="opacity-0 translate-x-8"
+                                                    x-transition:enter-end="opacity-100 translate-x-0"
+                                                >
+                                                    {{-- Card Header --}}
+                                                    <header class="mb-10">
+                                                        <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-logo-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-logo-blue">
+                                                            <span class="relative flex h-2 w-2">
+                                                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-logo-blue opacity-75"></span>
+                                                                <span class="relative inline-flex h-2 w-2 rounded-full bg-logo-blue"></span>
+                                                            </span>
+                                                            Curriculum Module {{ $index + 1 }}
+                                                        </div>
+                                                        <h2 class="font-serif text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                                                            {{ $material['subtitle'] }}
+                                                        </h2>
+                                                        <div class="mt-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-logo-blue to-logo-light-green"></div>
+                                                    </header>
+                                                    
+                                                    {{-- Resources Section --}}
+                                                    <div>
+                                                        <h3 class="mb-6 text-sm font-bold tracking-wider text-slate-400">Available Learning Resources</h3>
+                                                        
+                                                        <div class="grid gap-4 sm:grid-cols-2">
+                                                            @php
+                                                                $attachments = array_map(function($path) {
+                                                                    return [
+                                                                        'url' => asset('storage/' . $path),
+                                                                        'name' => preg_replace('/^\d+_/', '', basename($path)),
+                                                                        'extension' => strtolower(pathinfo($path, PATHINFO_EXTENSION))
+                                                                    ];
+                                                                }, $material['attachments']);
+                                                                $attachmentsJson = htmlspecialchars(json_encode($attachments), ENT_QUOTES, 'UTF-8');
+                                                            @endphp
+                                                            @foreach ($attachments as $attIndex => $att)
+                                                                @php
+                                                                    $typeColor = match($att['extension']) {
+                                                                        'pdf' => 'text-red-500 bg-red-50 border-red-100',
+                                                                        'doc', 'docx' => 'text-blue-500 bg-blue-50 border-blue-100',
+                                                                        'ppt', 'pptx' => 'text-orange-500 bg-orange-50 border-orange-100',
+                                                                        default => 'text-slate-500 bg-slate-50 border-slate-100'
+                                                                    };
+                                                                @endphp
+                                                                <button
+                                                                    type="button"
+                                                                    onclick="openFile({!! $attachmentsJson !!}, {{ $attIndex }})"
+                                                                    class="group relative flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition-all hover:border-logo-blue hover:bg-white hover:shadow-xl hover:shadow-logo-blue/10"
+                                                                >
+                                                                    <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border {{ $typeColor }} transition-transform duration-300 group-hover:scale-110">
+                                                                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                                                        </svg>
+                                                                    </div>
+                                                                    <div class="min-w-0 flex-1 text-left">
+                                                                        <p class="truncate text-sm font-bold text-slate-800 group-hover:text-logo-blue">{{ $att['name'] }}</p>
+                                                                        <p class="mt-0.5 text-[10px] font-bold uppercase tracking-tight text-slate-400 group-hover:text-slate-500">{{ strtoupper($att['extension']) }} Document</p>
+                                                                    </div>
+                                                                    <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:shadow-sm">
+                                                                        <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                                        </svg>
+                                                                    </div>
+                                                                </button>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
                                                 </div>
-
-                                                <button 
-                                                    @click="next()"
-                                                    :disabled="activeIndex === total - 1"
-                                                    class="group flex items-center gap-3 rounded-2xl bg-logo-blue px-8 py-3 text-sm font-bold text-white shadow-xl shadow-logo-blue/30 transition-all disabled:opacity-30 hover:bg-blue-700 hover:shadow-logo-blue/40"
-                                                >
-                                                    Next Module
-                                                    <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12l-7.5 7.5" />
-                                                    </svg>
-                                                </button>
-                                            </footer>
+                                            @endforeach
                                         </div>
-                                    </article>
-                                @endforeach
+                                    </div>
+                                </article>
                             </div>
                         </div>
                     </div>
@@ -265,8 +273,6 @@
                         <p class="mt-2 text-sm text-slate-500">Resources for this module are currently being prepared.</p>
                     </div>
                 @endif
-            </div>
-        </section>
             </div>
         </section>
     </main>
