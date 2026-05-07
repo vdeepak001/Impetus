@@ -78,144 +78,189 @@
             </div>
         </section>
 
-        <section class="bg-gradient-to-b from-slate-50/80 to-white py-12 sm:py-16" x-data="{ 
+        <section class="relative bg-slate-50/50 py-12 sm:py-20" x-data="{ 
             activeIndex: 0, 
             total: {{ count($courseMaterials) }},
             next() { if (this.activeIndex < this.total - 1) this.activeIndex++ },
             prev() { if (this.activeIndex > 0) this.activeIndex-- }
         }">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            {{-- Abstract Background Elements --}}
+            <div class="pointer-events-none absolute left-0 top-0 h-full w-full overflow-hidden" aria-hidden="true">
+                <div class="absolute -left-24 top-1/4 h-96 w-96 rounded-full bg-logo-blue/5 blur-3xl"></div>
+                <div class="absolute -right-24 bottom-1/4 h-96 w-96 rounded-full bg-logo-light-green/10 blur-3xl"></div>
+            </div>
+
+            <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                 @if(count($courseMaterials) > 0)
-                    <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
-                        {{-- Sidebar Navigation --}}
-                        <aside class="lg:col-span-1">
-                            <nav class="sticky top-32 space-y-2">
-                                <p class="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">Modules</p>
-                                @foreach ($courseMaterials as $index => $material)
-                                    <button 
-                                        @click="activeIndex = {{ $index }}"
-                                        :class="activeIndex === {{ $index }} ? 'bg-logo-blue text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
-                                        class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-all"
-                                    >
-                                        <span 
-                                            :class="activeIndex === {{ $index }} ? 'bg-white/20' : 'bg-slate-100'"
-                                            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px]"
+                    <div class="flex flex-col gap-12 lg:flex-row">
+                        {{-- Sidebar Navigation: "The Step Path" --}}
+                        <aside class="w-full shrink-0 lg:w-80">
+                            <div class="sticky top-32">
+                                <div class="mb-6 flex items-center justify-between">
+                                    <h3 class="text-xs font-bold uppercase tracking-widest text-slate-400">Course Roadmap</h3>
+                                    <span class="rounded-full bg-slate-200/50 px-2.5 py-0.5 text-[10px] font-bold text-slate-500" x-text="(activeIndex + 1) + '/' + total"></span>
+                                </div>
+                                
+                                <nav class="relative space-y-4">
+                                    {{-- The Connecting Line --}}
+                                    <div class="absolute left-6 top-6 h-[calc(100%-48px)] w-0.5 bg-slate-200" aria-hidden="true"></div>
+                                    
+                                    @foreach ($courseMaterials as $index => $material)
+                                        <button 
+                                            @click="activeIndex = {{ $index }}"
+                                            class="group relative flex w-full items-start gap-4 text-left transition-all focus:outline-none"
                                         >
-                                            {{ $index + 1 }}
-                                        </span>
-                                        <span class="truncate">{{ $material['subtitle'] }}</span>
-                                    </button>
-                                @endforeach
-                            </nav>
+                                            {{-- The Indicator Circle --}}
+                                            <div 
+                                                class="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 transition-all duration-300"
+                                                :class="activeIndex === {{ $index }} ? 'bg-logo-blue border-logo-blue shadow-lg shadow-logo-blue/30 scale-110' : 'bg-white border-slate-200 group-hover:border-logo-blue/30'"
+                                            >
+                                                <span 
+                                                    class="text-sm font-bold transition-colors duration-300"
+                                                    :class="activeIndex === {{ $index }} ? 'text-white' : 'text-slate-400 group-hover:text-logo-blue'"
+                                                >
+                                                    {{ $index + 1 }}
+                                                </span>
+                                            </div>
+                                            
+                                            <div class="pt-1.5">
+                                                <p 
+                                                    class="text-sm font-bold leading-tight transition-colors duration-300"
+                                                    :class="activeIndex === {{ $index }} ? 'text-logo-blue' : 'text-slate-500 group-hover:text-slate-800'"
+                                                >
+                                                    {{ $material['subtitle'] }}
+                                                </p>
+                                                <p class="mt-1 text-[11px] text-slate-400" x-show="activeIndex === {{ $index }}">Currently viewing</p>
+                                            </div>
+                                        </button>
+                                    @endforeach
+                                </nav>
+                            </div>
                         </aside>
 
-                        {{-- Main Slider Content --}}
-                        <div class="lg:col-span-3">
-                            <div class="relative min-h-[400px]">
+                        {{-- Main Slider Content Card --}}
+                        <div class="flex-1">
+                            <div class="relative">
                                 @foreach ($courseMaterials as $index => $material)
                                     <article 
                                         x-show="activeIndex === {{ $index }}"
-                                        x-transition:enter="transition ease-out duration-300"
-                                        x-transition:enter-start="opacity-0 translate-y-4"
-                                        x-transition:enter-end="opacity-100 translate-y-0"
-                                        class="overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-100"
+                                        x-transition:enter="transition ease-out duration-500"
+                                        x-transition:enter-start="opacity-0 translate-x-8"
+                                        x-transition:enter-end="opacity-100 translate-x-0"
+                                        class="group relative overflow-hidden rounded-[2.5rem] border border-white bg-white/80 p-1 shadow-2xl shadow-slate-200/60 backdrop-blur-xl ring-1 ring-slate-200/50"
                                     >
-                                        <header class="border-b border-slate-100 bg-slate-50/50 px-6 py-6 sm:px-8">
-                                            <div class="flex items-center justify-between gap-4">
-                                                <div>
-                                                    <p class="text-[10px] font-bold uppercase tracking-widest text-logo-blue">Module {{ $index + 1 }} of {{ count($courseMaterials) }}</p>
-                                                    <h2 class="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl font-serif">
-                                                        {{ $material['subtitle'] }}
-                                                    </h2>
-                                                </div>
-                                            </div>
-                                        </header>
+                                        <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-logo-blue/5 transition-transform duration-700 group-hover:scale-110"></div>
                                         
-                                        <div class="px-6 py-8 sm:px-8 sm:py-10">
-                                            <div class="rounded-2xl bg-slate-50 p-6 ring-1 ring-inset ring-slate-200/60">
-                                                <h3 class="mb-4 flex items-center gap-2 text-sm font-bold text-slate-800">
-                                                    <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                                    </svg>
-                                                    Available Files
-                                                </h3>
-                                                <ul class="grid gap-3 sm:grid-cols-2">
+                                        <div class="relative flex h-full flex-col rounded-[2.25rem] bg-white p-8 sm:p-12">
+                                            {{-- Card Header --}}
+                                            <header class="mb-10">
+                                                <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-logo-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-logo-blue">
+                                                    <span class="relative flex h-2 w-2">
+                                                        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-logo-blue opacity-75"></span>
+                                                        <span class="relative inline-flex h-2 w-2 rounded-full bg-logo-blue"></span>
+                                                    </span>
+                                                    Curriculum Module {{ $index + 1 }}
+                                                </div>
+                                                <h2 class="font-serif text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+                                                    {{ $material['subtitle'] }}
+                                                </h2>
+                                                <div class="mt-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-logo-blue to-logo-light-green"></div>
+                                            </header>
+                                            
+                                            {{-- Content Section --}}
+                                            <div class="flex-1">
+                                                <h3 class="mb-6 text-sm font-bold tracking-wider text-slate-400">Available Learning Resources</h3>
+                                                
+                                                <div class="grid gap-4 sm:grid-cols-2">
                                                     @foreach ($material['attachments'] as $path)
                                                         @php
-                                                            $originalFileName = preg_replace('/^\d+_/', '', basename($path));
+                                                            $fileName = basename($path);
+                                                            $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+                                                            $originalFileName = preg_replace('/^\d+_/', '', $fileName);
+                                                            
+                                                            $typeColor = match($extension) {
+                                                                'pdf' => 'text-red-500 bg-red-50 border-red-100',
+                                                                'doc', 'docx' => 'text-blue-500 bg-blue-50 border-blue-100',
+                                                                'ppt', 'pptx' => 'text-orange-500 bg-orange-50 border-orange-100',
+                                                                default => 'text-slate-500 bg-slate-50 border-slate-100'
+                                                            };
                                                         @endphp
-                                                        <li>
-                                                            <a
-                                                                href="javascript:void(0)"
-                                                                onclick="openFile('{{ asset('storage/' . $path) }}')"
-                                                                class="group flex items-center gap-3 rounded-xl border border-white bg-white px-4 py-3 shadow-sm transition-all hover:border-logo-blue hover:shadow-md"
-                                                            >
-                                                                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-logo-blue/10 text-logo-blue transition-colors group-hover:bg-logo-blue group-hover:text-white">
-                                                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                                                                    </svg>
-                                                                </div>
-                                                                <span class="truncate text-sm font-medium text-slate-700 transition-colors group-hover:text-logo-blue">
-                                                                    {{ $originalFileName }}
-                                                                </span>
-                                                            </a>
-                                                        </li>
+                                                        <button
+                                                            onclick="openFile('{{ asset('storage/' . $path) }}')"
+                                                            class="group relative flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition-all hover:border-logo-blue hover:bg-white hover:shadow-xl hover:shadow-logo-blue/10"
+                                                        >
+                                                            <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border {{ $typeColor }} transition-transform duration-300 group-hover:scale-110">
+                                                                <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                                                </svg>
+                                                            </div>
+                                                            <div class="min-w-0 flex-1 text-left">
+                                                                <p class="truncate text-sm font-bold text-slate-800 group-hover:text-logo-blue">{{ $originalFileName }}</p>
+                                                                <p class="mt-0.5 text-[10px] font-bold uppercase tracking-tight text-slate-400 group-hover:text-slate-500">{{ strtoupper($extension) }} Document</p>
+                                                            </div>
+                                                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:shadow-sm">
+                                                                <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                                                </svg>
+                                                            </div>
+                                                        </button>
                                                     @endforeach
-                                                </ul>
+                                                </div>
                                             </div>
+
+                                            {{-- Enhanced Footer Navigation --}}
+                                            <footer class="mt-12 flex items-center justify-between border-t border-slate-100 pt-8">
+                                                <button 
+                                                    @click="prev()"
+                                                    :disabled="activeIndex === 0"
+                                                    class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-600 transition-all disabled:opacity-30 hover:border-logo-blue hover:text-logo-blue"
+                                                >
+                                                    <svg class="h-4 w-4 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5" />
+                                                    </svg>
+                                                    Previous
+                                                </button>
+
+                                                <div class="hidden items-center gap-2 lg:flex">
+                                                    @foreach ($courseMaterials as $dotIndex => $dotMaterial)
+                                                        <button 
+                                                            @click="activeIndex = {{ $dotIndex }}"
+                                                            class="h-2 rounded-full transition-all duration-500"
+                                                            :class="activeIndex === {{ $dotIndex }} ? 'w-8 bg-logo-blue' : 'w-2 bg-slate-200 hover:bg-slate-300'"
+                                                        ></button>
+                                                    @endforeach
+                                                </div>
+
+                                                <button 
+                                                    @click="next()"
+                                                    :disabled="activeIndex === total - 1"
+                                                    class="group flex items-center gap-3 rounded-2xl bg-logo-blue px-8 py-3 text-sm font-bold text-white shadow-xl shadow-logo-blue/30 transition-all disabled:opacity-30 hover:bg-blue-700 hover:shadow-logo-blue/40"
+                                                >
+                                                    Next Module
+                                                    <svg class="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12l-7.5 7.5" />
+                                                    </svg>
+                                                </button>
+                                            </footer>
                                         </div>
-
-                                        {{-- Navigation Footer --}}
-                                        <footer class="flex items-center justify-between border-t border-slate-100 bg-slate-50/30 px-6 py-6 sm:px-8">
-                                            <button 
-                                                @click="prev()"
-                                                :disabled="activeIndex === 0"
-                                                :class="activeIndex === 0 ? 'opacity-50 cursor-not-allowed text-slate-400' : 'text-slate-600 hover:text-logo-blue hover:bg-white'"
-                                                class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold shadow-sm transition-all"
-                                            >
-                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5" />
-                                                </svg>
-                                                Previous
-                                            </button>
-
-                                            <div class="hidden sm:flex items-center gap-1.5">
-                                                @foreach ($courseMaterials as $dotIndex => $dotMaterial)
-                                                    <div 
-                                                        class="h-1.5 rounded-full transition-all duration-300"
-                                                        :class="activeIndex === {{ $dotIndex }} ? 'w-6 bg-logo-blue' : 'w-1.5 bg-slate-300'"
-                                                    ></div>
-                                                @endforeach
-                                            </div>
-
-                                            <button 
-                                                @click="next()"
-                                                :disabled="activeIndex === total - 1"
-                                                :class="activeIndex === total - 1 ? 'opacity-50 cursor-not-allowed text-slate-400' : 'bg-logo-blue text-white hover:bg-blue-700'"
-                                                class="inline-flex items-center gap-2 rounded-xl border border-transparent px-5 py-2.5 text-sm font-bold shadow-sm transition-all"
-                                            >
-                                                Next
-                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12l-7.5 7.5" />
-                                                </svg>
-                                            </button>
-                                        </footer>
                                     </article>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                 @else
-                    <div class="rounded-3xl border border-slate-200 bg-white px-6 py-20 text-center text-sm text-slate-500 shadow-sm">
-                        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-50 text-slate-300">
-                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <div class="rounded-[2.5rem] border border-dashed border-slate-300 bg-white px-6 py-24 text-center shadow-sm">
+                        <div class="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-slate-50 text-slate-200">
+                            <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                             </svg>
                         </div>
-                        No learning materials available for this course yet.
+                        <h3 class="text-lg font-bold text-slate-900">No Learning Materials</h3>
+                        <p class="mt-2 text-sm text-slate-500">Resources for this module are currently being prepared.</p>
                     </div>
                 @endif
             </div>
+        </section>
             </div>
         </section>
     </main>
