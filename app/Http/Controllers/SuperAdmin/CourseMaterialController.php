@@ -37,7 +37,7 @@ class CourseMaterialController extends Controller
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
             'description' => ['required', 'string', 'max:255'],
-            'attachments.*' => ['required', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'], // 10MB max per file
+            'attachments.*' => ['required', 'file', 'mimes:pdf,ppt,pptx,pps,ppsx'], // Removed max limit
         ]);
 
         $paths = [];
@@ -90,7 +90,7 @@ class CourseMaterialController extends Controller
             'course_id' => ['required', 'exists:course_details,id'],
             'course_title_id' => ['required', 'exists:course_title,id'],
             'description' => ['required', 'string', 'max:255'],
-            'attachments.*' => ['nullable', 'file', 'mimes:pdf,ppt,pptx', 'max:10240'],
+            'attachments.*' => ['nullable', 'file', 'mimes:pdf,ppt,pptx,pps,ppsx'],
         ]);
 
         $currentPaths = $title_material->attachment ?? [];

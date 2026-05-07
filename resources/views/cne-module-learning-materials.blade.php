@@ -220,7 +220,7 @@
                                                                     $typeColor = match($att['extension']) {
                                                                         'pdf' => 'text-red-500 bg-red-50 border-red-100',
                                                                         'doc', 'docx' => 'text-blue-500 bg-blue-50 border-blue-100',
-                                                                        'ppt', 'pptx' => 'text-orange-500 bg-orange-50 border-orange-100',
+                                                                        'ppt', 'pptx', 'pps', 'ppsx' => 'text-orange-500 bg-orange-50 border-orange-100',
                                                                         default => 'text-slate-500 bg-slate-50 border-slate-100'
                                                                     };
                                                                 @endphp
@@ -398,7 +398,7 @@
             let finalUrl = att.url;
             const extension = att.extension;
             
-            const isPPT = ['pptx', 'ppt'].includes(extension);
+            const isPPT = ['pptx', 'ppt', 'pps', 'ppsx'].includes(extension);
             slideNav.classList.toggle('hidden', !isPPT);
 
             if (extension === 'pdf') {
