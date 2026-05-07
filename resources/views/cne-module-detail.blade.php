@@ -400,9 +400,9 @@
                             @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
                                 <a
                                     href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                    class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                    class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
                                 >
-                                    Open practice questions
+                                    Take Practice Test
                                 </a>
                             @endif
                         @endauth
