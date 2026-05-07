@@ -361,14 +361,16 @@
                                 @if ($hasCourseMaterials && $canViewLearningMaterials)
                                     <a
                                         href="{{ route('cne.modules.materials', $course->couse_name) }}"
-                                        class="group relative inline-flex overflow-hidden rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-5 py-3 text-center text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue active:translate-y-0"
+                                        class="group relative inline-flex overflow-hidden rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-8 py-3.5 text-center text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue active:translate-y-0"
                                     >
-                                        <div class="relative flex items-center gap-3">
-                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                                            </svg>
+                                        <div class="relative flex items-center gap-4">
+                                            <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/30 bg-white/10 shadow-inner">
+                                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                                </svg>
+                                            </span>
                                             <span class="text-sm font-bold uppercase tracking-wide">View Learning Materials</span>
-                                            <svg class="ml-1 h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                                            <svg class="h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                                         </div>
                                     </a>
                                 @endif
@@ -390,7 +392,7 @@
         @if (filled($course->practice_content))
             <section class="border-t border-slate-200/80 bg-gradient-to-b from-white to-slate-50/80 py-16 sm:py-24">
                 <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div class="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div class="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-start">
                         <h2 class="text-2xl font-bold tracking-tight text-logo-light-green sm:text-3xl font-serif">
                             Practice Test
                         </h2>
@@ -398,7 +400,7 @@
                             @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
                                 <a
                                     href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                    class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
+                                    class="inline-flex items-center justify-center rounded-xl bg-logo-light-green px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-light-green/30 transition hover:brightness-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-light-green focus-visible:ring-offset-2"
                                 >
                                     Open practice questions
                                 </a>
