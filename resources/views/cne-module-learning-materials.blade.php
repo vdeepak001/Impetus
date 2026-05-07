@@ -285,35 +285,45 @@
             <div class="flex min-h-full items-center justify-center p-4 text-center sm:p-6">
                 {{-- Modal Content --}}
                 <div class="relative flex w-full max-w-6xl h-[90vh] transform flex-col overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all">
-                    <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50 shrink-0">
-                        <div class="flex items-center gap-4 min-w-0">
-                            <h3 class="text-lg font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
-                            <div class="flex items-center gap-2 border-l border-slate-200 pl-4">
-                                <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">Doc:</span>
-                                <button id="modalPrev" onclick="navigateModal(-1)" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Document">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                    </svg>
-                                </button>
-                                <span id="modalCounter" class="text-[11px] font-bold text-slate-400 min-w-[3rem] text-center"></span>
-                                <button id="modalNext" onclick="navigateModal(1)" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Document">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                    </svg>
-                                </button>
+                    <div class="flex items-center justify-between border-b border-slate-200 px-6 py-3 bg-slate-50/80 backdrop-blur-md shrink-0">
+                        <div class="flex items-center gap-4 min-w-0 flex-1">
+                            <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-logo-blue/10 text-logo-blue">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                                </svg>
                             </div>
+                            <h3 class="text-sm font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
                         </div>
-                        <button type="button" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-500 transition-colors focus:outline-none shrink-0" onclick="closeModal()">
-                            <span class="sr-only">Close</span>
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
+                        
+                        {{-- Modal Navigation Stripe --}}
+                        <div class="flex items-center gap-3 bg-white rounded-xl border border-slate-200 p-1 shadow-sm">
+                            <button id="modalPrev" onclick="navigateModal(-1)" class="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Document">
+                                <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                </svg>
+                                Prev
+                            </button>
+                            <div class="flex items-center border-l border-r border-slate-100 px-3">
+                                <span id="modalCounter" class="text-[10px] font-bold tabular-nums text-slate-400 min-w-[3rem] text-center"></span>
+                            </div>
+                            <button id="modalNext" onclick="navigateModal(1)" class="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Document">
+                                Next
+                                <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="flex-1 flex justify-end">
+                            <button type="button" class="group flex h-9 w-9 items-center justify-center rounded-xl bg-white border border-slate-200 text-slate-400 hover:border-red-200 hover:text-red-500 hover:bg-red-50 transition-all shadow-sm" onclick="closeModal()">
+                                <span class="sr-only">Close</span>
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
-                        {{-- Smart Shield: Blocks right-click but allows left-click for navigation --}}
-                        <div id="viewerShield" class="absolute inset-0 z-20" oncontextmenu="return false;"></div>
-                        
                         {{-- Targeted masks to visually hide download/pop-out buttons --}}
                         <div id="topRightMask" class="absolute top-0 right-0 w-20 h-14 bg-slate-800 z-30 hidden"></div>
                         <div id="bottomRightMask" class="absolute bottom-0 right-0 w-32 h-10 bg-slate-800 z-30 hidden"></div>
@@ -402,23 +412,6 @@
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
-
-        // Smart Shield Logic: Allow left clicks for slide navigation but block right clicks
-        const shield = document.getElementById('viewerShield');
-        shield.addEventListener('mousedown', (e) => {
-            if (e.button === 0) { // Left Click
-                shield.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    shield.style.pointerEvents = 'auto';
-                }, 400); // 400ms is enough for a standard click/drag start
-            }
-        });
-
-        // Block context menu on shield specifically
-        shield.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-            return false;
-        });
 
         // Close on Escape key
         window.addEventListener('keydown', function(event) {
