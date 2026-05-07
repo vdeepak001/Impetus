@@ -271,8 +271,8 @@
                         @auth
                             @if (auth()->user()?->role_type === 'user')
                                 <div class="mt-4 flex justify-end">
-                                    <div class="inline-flex items-center rounded-lg bg-emerald-600 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-md shadow-emerald-600/20 ring-1 ring-emerald-500/50">
-                                        Credit Point: {{ $creditPoints }}
+                                    <div class="inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-bold uppercase tracking-wider text-white shadow-md shadow-emerald-600/20 ring-1 ring-emerald-500/50">
+                                        CREDIT POINTS: {{ $creditPoints }}
                                     </div>
                                 </div>
                             @endif
