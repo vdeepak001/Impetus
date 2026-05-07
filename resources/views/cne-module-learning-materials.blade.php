@@ -78,42 +78,144 @@
             </div>
         </section>
 
-        <section class="bg-gradient-to-b from-slate-50/80 to-white py-12 sm:py-16">
+        <section class="bg-gradient-to-b from-slate-50/80 to-white py-12 sm:py-16" x-data="{ 
+            activeIndex: 0, 
+            total: {{ count($courseMaterials) }},
+            next() { if (this.activeIndex < this.total - 1) this.activeIndex++ },
+            prev() { if (this.activeIndex > 0) this.activeIndex-- }
+        }">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="space-y-6">
-                    @forelse ($courseMaterials as $material)
-                        <article class="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-lg shadow-slate-200/50 ring-1 ring-slate-100">
-                            <header class="border-b border-slate-200/80 bg-gradient-to-r from-slate-50 via-white to-logo-light-green/5 px-5 py-4 sm:px-6 sm:py-4">
-                                <h2 class="text-lg font-bold tracking-tight text-slate-900 sm:text-xl">
-                                    {{ $loop->iteration }}. {{ $material['subtitle'] }}
-                                </h2>
-                            </header>
-                            <div class="px-5 py-5 sm:px-6 sm:py-6">
-                                <ul class="list-none space-y-2.5 text-slate-700">
-                                    @foreach ($material['attachments'] as $path)
-                                        @php
-                                            $originalFileName = preg_replace('/^\d+_/', '', basename($path));
-                                        @endphp
-                                        <li class="flex gap-3">
-                                            <span class="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-logo-blue" aria-hidden="true"></span>
-                                            <a
-                                                href="javascript:void(0)"
-                                                onclick="openFile('{{ asset('storage/' . $path) }}')"
-                                                class="font-medium text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-600"
+                @if(count($courseMaterials) > 0)
+                    <div class="grid grid-cols-1 gap-8 lg:grid-cols-4">
+                        {{-- Sidebar Navigation --}}
+                        <aside class="lg:col-span-1">
+                            <nav class="sticky top-32 space-y-2">
+                                <p class="mb-4 text-xs font-bold uppercase tracking-wider text-slate-400">Modules</p>
+                                @foreach ($courseMaterials as $index => $material)
+                                    <button 
+                                        @click="activeIndex = {{ $index }}"
+                                        :class="activeIndex === {{ $index }} ? 'bg-logo-blue text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                                        class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left text-sm font-semibold transition-all"
+                                    >
+                                        <span 
+                                            :class="activeIndex === {{ $index }} ? 'bg-white/20' : 'bg-slate-100'"
+                                            class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[10px]"
+                                        >
+                                            {{ $index + 1 }}
+                                        </span>
+                                        <span class="truncate">{{ $material['subtitle'] }}</span>
+                                    </button>
+                                @endforeach
+                            </nav>
+                        </aside>
+
+                        {{-- Main Slider Content --}}
+                        <div class="lg:col-span-3">
+                            <div class="relative min-h-[400px]">
+                                @foreach ($courseMaterials as $index => $material)
+                                    <article 
+                                        x-show="activeIndex === {{ $index }}"
+                                        x-transition:enter="transition ease-out duration-300"
+                                        x-transition:enter-start="opacity-0 translate-y-4"
+                                        x-transition:enter-end="opacity-100 translate-y-0"
+                                        class="overflow-hidden rounded-3xl border border-slate-200/90 bg-white shadow-xl shadow-slate-200/50 ring-1 ring-slate-100"
+                                    >
+                                        <header class="border-b border-slate-100 bg-slate-50/50 px-6 py-6 sm:px-8">
+                                            <div class="flex items-center justify-between gap-4">
+                                                <div>
+                                                    <p class="text-[10px] font-bold uppercase tracking-widest text-logo-blue">Module {{ $index + 1 }} of {{ count($courseMaterials) }}</p>
+                                                    <h2 class="mt-1 text-xl font-bold tracking-tight text-slate-900 sm:text-2xl font-serif">
+                                                        {{ $material['subtitle'] }}
+                                                    </h2>
+                                                </div>
+                                            </div>
+                                        </header>
+                                        
+                                        <div class="px-6 py-8 sm:px-8 sm:py-10">
+                                            <div class="rounded-2xl bg-slate-50 p-6 ring-1 ring-inset ring-slate-200/60">
+                                                <h3 class="mb-4 flex items-center gap-2 text-sm font-bold text-slate-800">
+                                                    <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                                    </svg>
+                                                    Available Files
+                                                </h3>
+                                                <ul class="grid gap-3 sm:grid-cols-2">
+                                                    @foreach ($material['attachments'] as $path)
+                                                        @php
+                                                            $originalFileName = preg_replace('/^\d+_/', '', basename($path));
+                                                        @endphp
+                                                        <li>
+                                                            <a
+                                                                href="javascript:void(0)"
+                                                                onclick="openFile('{{ asset('storage/' . $path) }}')"
+                                                                class="group flex items-center gap-3 rounded-xl border border-white bg-white px-4 py-3 shadow-sm transition-all hover:border-logo-blue hover:shadow-md"
+                                                            >
+                                                                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-logo-blue/10 text-logo-blue transition-colors group-hover:bg-logo-blue group-hover:text-white">
+                                                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                                                    </svg>
+                                                                </div>
+                                                                <span class="truncate text-sm font-medium text-slate-700 transition-colors group-hover:text-logo-blue">
+                                                                    {{ $originalFileName }}
+                                                                </span>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        {{-- Navigation Footer --}}
+                                        <footer class="flex items-center justify-between border-t border-slate-100 bg-slate-50/30 px-6 py-6 sm:px-8">
+                                            <button 
+                                                @click="prev()"
+                                                :disabled="activeIndex === 0"
+                                                :class="activeIndex === 0 ? 'opacity-50 cursor-not-allowed text-slate-400' : 'text-slate-600 hover:text-logo-blue hover:bg-white'"
+                                                class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-bold shadow-sm transition-all"
                                             >
-                                                {{ $originalFileName }}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12l7.5-7.5" />
+                                                </svg>
+                                                Previous
+                                            </button>
+
+                                            <div class="hidden sm:flex items-center gap-1.5">
+                                                @foreach ($courseMaterials as $dotIndex => $dotMaterial)
+                                                    <div 
+                                                        class="h-1.5 rounded-full transition-all duration-300"
+                                                        :class="activeIndex === {{ $dotIndex }} ? 'w-6 bg-logo-blue' : 'w-1.5 bg-slate-300'"
+                                                    ></div>
+                                                @endforeach
+                                            </div>
+
+                                            <button 
+                                                @click="next()"
+                                                :disabled="activeIndex === total - 1"
+                                                :class="activeIndex === total - 1 ? 'opacity-50 cursor-not-allowed text-slate-400' : 'bg-logo-blue text-white hover:bg-blue-700'"
+                                                class="inline-flex items-center gap-2 rounded-xl border border-transparent px-5 py-2.5 text-sm font-bold shadow-sm transition-all"
+                                            >
+                                                Next
+                                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12l-7.5 7.5" />
+                                                </svg>
+                                            </button>
+                                        </footer>
+                                    </article>
+                                @endforeach
                             </div>
-                        </article>
-                    @empty
-                        <div class="rounded-2xl border border-slate-200 bg-white px-6 py-10 text-center text-sm text-slate-500 shadow-sm">
-                            No learning materials available for this course yet.
                         </div>
-                    @endforelse
-                </div>
+                    </div>
+                @else
+                    <div class="rounded-3xl border border-slate-200 bg-white px-6 py-20 text-center text-sm text-slate-500 shadow-sm">
+                        <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-50 text-slate-300">
+                            <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                            </svg>
+                        </div>
+                        No learning materials available for this course yet.
+                    </div>
+                @endif
+            </div>
             </div>
         </section>
     </main>
