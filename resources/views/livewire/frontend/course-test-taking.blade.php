@@ -398,36 +398,42 @@
                                     $choiceLabels = ['a' => 'A', 'b' => 'B', 'c' => 'C', 'd' => 'D'];
                                 @endphp
                                 @foreach ($choiceLabels as $letter => $label)
-                                    @php
-                                        $choice = $q['choices'][$letter] ?? null;
-                                        $qid = $q['id'];
-                                        $isPractice = $type === \App\Enums\CourseTestType::Practice;
-                                        $showFeedback = $isPractice && ($practiceShowReasoning[$qid] ?? false);
-                                        $correctLetter = $practiceCorrectAnswers[$qid] ?? null;
-                                        $isSelected = ($responses[$qid] ?? null) === $letter;
-                                        
-                                        $labelClasses = 'flex cursor-pointer gap-3 rounded-xl border p-4 transition ';
-                                        if ($showFeedback) {
-                                            if ($letter === $correctLetter) {
-                                                $labelClasses .= 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500';
-                                            } elseif ($isSelected && $letter !== $correctLetter) {
-                                                $labelClasses .= 'border-rose-500 bg-rose-50 ring-1 ring-rose-500';
+                                        @php
+                                            $choice = $q['choices'][$letter] ?? null;
+                                            $qid = $q['id'];
+                                            $isPractice = $type === \App\Enums\CourseTestType::Practice;
+                                            $showFeedback = $isPractice && ($practiceShowReasoning[$qid] ?? false);
+                                            $correctLetter = $practiceCorrectAnswers[$qid] ?? null;
+                                            $isSelected = ($responses[$qid] ?? null) === $letter;
+                                            
+                                            // New logic for disabling first wrong choice on 2nd attempt
+                                            $isFirstWrongChoice = $isPractice && ($practiceFirstWrongAnswer[$qid] ?? null) === $letter && ($practiceResults[$qid] ?? null) === 'wrong_first';
+
+                                            $labelClasses = 'flex gap-3 rounded-xl border p-4 transition ';
+                                            if ($showFeedback) {
+                                                $labelClasses .= 'cursor-default ';
+                                                if ($letter === $correctLetter) {
+                                                    $labelClasses .= 'border-emerald-500 bg-emerald-50 ring-1 ring-emerald-500';
+                                                } elseif ($isSelected && $letter !== $correctLetter) {
+                                                    $labelClasses .= 'border-rose-500 bg-rose-50 ring-1 ring-rose-500';
+                                                } else {
+                                                    $labelClasses .= 'border-slate-200 opacity-60';
+                                                }
+                                            } elseif ($isFirstWrongChoice) {
+                                                $labelClasses .= 'cursor-not-allowed border-slate-200 bg-slate-50 opacity-40 grayscale';
                                             } else {
-                                                $labelClasses .= 'border-slate-200 opacity-60';
+                                                $labelClasses .= 'cursor-pointer border-slate-200 hover:border-logo-blue/40 hover:bg-slate-50 has-[:checked]:border-logo-blue has-[:checked]:bg-logo-blue/5';
                                             }
-                                        } else {
-                                            $labelClasses .= 'border-slate-200 hover:border-logo-blue/40 hover:bg-slate-50 has-[:checked]:border-logo-blue has-[:checked]:bg-logo-blue/5';
-                                        }
-                                    @endphp
-                                    @if (filled($choice))
-                                        <label class="{{ $labelClasses }}">
-                                            <input
-                                                type="radio"
-                                                class="mt-1 h-4 w-4 border-slate-300 text-logo-blue focus:ring-logo-blue"
-                                                wire:model.live="responses.{{ $q['id'] }}"
-                                                value="{{ $letter }}"
-                                                @disabled($showFeedback)
-                                            />
+                                        @endphp
+                                        @if (filled($choice))
+                                            <label class="{{ $labelClasses }}">
+                                                <input
+                                                    type="radio"
+                                                    class="mt-1 h-4 w-4 border-slate-300 text-logo-blue focus:ring-logo-blue"
+                                                    wire:model.live="responses.{{ $q['id'] }}"
+                                                    value="{{ $letter }}"
+                                                    @disabled($showFeedback || $isFirstWrongChoice)
+                                                />
                                             <span class="text-sm leading-relaxed text-slate-800">
                                                 <span class="font-bold text-slate-900">{{ $label }}.</span>
                                                 {{ $choice }}

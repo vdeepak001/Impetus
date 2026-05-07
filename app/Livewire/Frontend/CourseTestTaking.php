@@ -94,6 +94,9 @@ class CourseTestTaking extends Component
     /** @var array<int, string|null> question_id => correct answer letter */
     public array $practiceCorrectAnswers = [];
 
+    /** @var array<int, string|null> question_id => choice letter (a|b|c|d) */
+    public array $practiceFirstWrongAnswer = [];
+
     public function mount(int $courseId, string $testType): void
     {
         $this->courseId = $courseId;
@@ -411,6 +414,7 @@ class CourseTestTaking extends Component
         } else {
             if ($this->practiceAttempts[$questionId] < 2) {
                 $this->practiceResults[$questionId] = 'wrong_first';
+                $this->practiceFirstWrongAnswer[$questionId] = $response; // Store the wrong choice
             } else {
                 $this->practiceResults[$questionId] = 'wrong_second';
                 $this->practiceShowReasoning[$questionId] = true;
@@ -477,6 +481,7 @@ class CourseTestTaking extends Component
                 $this->practiceReasoning[$qid] = $q->reason;
                 $this->practiceCorrectAnswers[$qid] = $this->extractExpectedLetter($q);
             }
+            $this->practiceFirstWrongAnswer[$qid] = null;
         }
     }
 

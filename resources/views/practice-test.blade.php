@@ -99,8 +99,9 @@
                                                 @php
                                                     $start = ($s * 20) + 1;
                                                     $end = min(($s + 1) * 20, $count);
-                                                    $attempts = $userAttempts[$levelNum][$s + 1] ?? 0;
-                                                    $isLocked = $attempts >= 2;
+                                                    $setAttempts = $userAttempts[$levelNum][$s + 1] ?? collect();
+                                                    $attemptCount = $setAttempts->count();
+                                                    $isLocked = $attemptCount >= 2;
                                                     $practiceUrl = route('cne.modules.test', [$course->couse_name, 'practice']) . "?level={$levelNum}&set=" . ($s + 1);
                                                 @endphp
                                                 <tr @class(['transition', 'hover:bg-slate-50/80' => !$isLocked, 'bg-slate-50/40 opacity-75' => $isLocked])>
@@ -119,12 +120,58 @@
                                                         @endif
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <button type="button" @disabled($isLocked) @class(['inline-flex rounded-lg p-2 transition', 'text-slate-400 hover:bg-logo-blue/10 hover:text-logo-blue' => !$isLocked, 'text-slate-300' => $isLocked])>
-                                                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
-                                                        </button>
+                                                        <div class="relative flex justify-center" x-data="{ open: false }">
+                                                            <button 
+                                                                type="button" 
+                                                                @click="open = !open" 
+                                                                @click.away="open = false"
+                                                                @disabled($attemptCount === 0) 
+                                                                @class([
+                                                                    'inline-flex rounded-lg p-2 transition', 
+                                                                    'text-logo-blue hover:bg-logo-blue/10' => $attemptCount > 0, 
+                                                                    'text-slate-300 cursor-not-allowed' => $attemptCount === 0
+                                                                ])
+                                                            >
+                                                                <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                                            </button>
+
+                                                            {{-- Progress Popover --}}
+                                                            <div 
+                                                                x-show="open" 
+                                                                x-transition:enter="transition ease-out duration-200"
+                                                                x-transition:enter-start="opacity-0 translate-y-1"
+                                                                x-transition:enter-end="opacity-100 translate-y-0"
+                                                                class="absolute bottom-full left-1/2 z-50 mb-3 w-48 -translate-x-1/2"
+                                                                style="display: none;"
+                                                            >
+                                                                <div class="overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-xl ring-1 ring-black/5">
+                                                                    <p class="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Attempt History</p>
+                                                                    <div class="space-y-2">
+                                                                        @foreach($setAttempts as $idx => $att)
+                                                                            <div class="flex items-center justify-between border-t border-slate-50 pt-2 first:border-0 first:pt-0">
+                                                                                <div class="text-[11px] font-medium text-slate-600">
+                                                                                    #{{ $attemptCount - $idx }}
+                                                                                    <span class="ml-1 text-[9px] text-slate-400 font-normal">{{ $att->completed_at?->format('d M') }}</span>
+                                                                                </div>
+                                                                                <div @class([
+                                                                                    'text-xs font-bold',
+                                                                                    'text-emerald-600' => $att->score_percent >= 80,
+                                                                                    'text-amber-600' => $att->score_percent >= 50 && $att->score_percent < 80,
+                                                                                    'text-rose-600' => $att->score_percent < 50
+                                                                                ])>
+                                                                                    {{ round($att->score_percent) }}%
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    </div>
+                                                                </div>
+                                                                {{-- Arrow --}}
+                                                                <div class="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-slate-200 bg-white"></div>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td class="px-6 py-4 text-center">
-                                                        <span @class(['text-sm font-medium tabular-nums', 'text-slate-500' => !$isLocked, 'text-slate-400' => $isLocked])>{{ $attempts }}/2</span>
+                                                        <span @class(['text-sm font-medium tabular-nums', 'text-slate-500' => !$isLocked, 'text-slate-400' => $isLocked])>{{ $attemptCount }}/2</span>
                                                     </td>
                                                 </tr>
                                             @endfor

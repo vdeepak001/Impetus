@@ -312,11 +312,10 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Practice->value)
                 ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
-                ->selectRaw('practice_level, practice_set, count(*) as count')
-                ->groupBy('practice_level', 'practice_set')
+                ->orderBy('completed_at', 'desc')
                 ->get()
                 ->groupBy('practice_level')
-                ->map(fn($group) => $group->pluck('count', 'practice_set'));
+                ->map(fn($group) => $group->groupBy('practice_set'));
 
             return view('practice-test', [
                 'course' => $course_detail,
