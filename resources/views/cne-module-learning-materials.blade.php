@@ -305,6 +305,9 @@
                         </button>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
+                        {{-- Smart Shield: Blocks right-click but allows left-click for navigation --}}
+                        <div id="viewerShield" class="absolute inset-0 z-20" oncontextmenu="return false;"></div>
+                        
                         {{-- Targeted masks to visually hide download/pop-out buttons --}}
                         <div id="topRightMask" class="absolute top-0 right-0 w-20 h-14 bg-slate-800 z-30 hidden"></div>
                         <div id="bottomRightMask" class="absolute bottom-0 right-0 w-32 h-10 bg-slate-800 z-30 hidden"></div>
@@ -329,7 +332,6 @@
             const modal = document.getElementById('fileModal');
             modal.classList.remove('hidden');
             
-            const topRightMask = document.getElementById('topRightMask');
             document.body.style.overflow = 'hidden';
         }
 
@@ -390,15 +392,27 @@
         function closeModal() {
             const modal = document.getElementById('fileModal');
             const viewer = document.getElementById('fileViewer');
-            const topRightMask = document.getElementById('topRightMask');
-            const bottomRightMask = document.getElementById('bottomRightMask');
-            
             modal.classList.add('hidden');
-            topRightMask.classList.add('hidden');
-            bottomRightMask.classList.add('hidden');
             viewer.src = '';
             document.body.style.overflow = 'auto';
         }
+
+        // Smart Shield Logic: Allow left clicks for slide navigation but block right clicks
+        const shield = document.getElementById('viewerShield');
+        shield.addEventListener('mousedown', (e) => {
+            if (e.button === 0) { // Left Click
+                shield.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    shield.style.pointerEvents = 'auto';
+                }, 400); // 400ms is enough for a standard click/drag start
+            }
+        });
+
+        // Block context menu on shield specifically
+        shield.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
+            return false;
+        });
 
         // Close on Escape key
         window.addEventListener('keydown', function(event) {
@@ -420,9 +434,26 @@
                 alert('Printing is disabled for this material.');
                 return false;
             }
+
+            // Disable Save (Ctrl+S / Cmd+S)
+            if ((event.ctrlKey || event.metaKey) && (event.key === 's' || event.key === 'S')) {
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                alert('Saving is disabled for this material.');
+                return false;
+            }
         }, true);
 
-        // Disable right click globally when modal is open
+        // Block printing via browser menu/shortcuts more aggressively
+        window.addEventListener('beforeprint', (event) => {
+            const modal = document.getElementById('fileModal');
+            if (modal && !modal.classList.contains('hidden')) {
+                closeModal();
+                alert('Printing is disabled for this material.');
+            }
+        });
+
+        // Disable right click globally when modal is open as a fallback
         document.addEventListener('contextmenu', function(e) {
             const modal = document.getElementById('fileModal');
             if (modal && !modal.classList.contains('hidden')) {
