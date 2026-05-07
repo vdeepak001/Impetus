@@ -369,7 +369,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                                                 </svg>
                                             </span>
-                                            <span class="text-sm font-bold uppercase tracking-wide">View Learning Materials</span>
+                                            <span class="text-sm font-bold uppercase tracking-wider">View Learning Materials</span>
                                             <svg class="h-4 w-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                                         </div>
                                     </a>
@@ -400,7 +400,7 @@
                             @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
                                 <a
                                     href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
-                                    class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
+                                    class="inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2"
                                 >
                                     Take Practice Test
                                 </a>
