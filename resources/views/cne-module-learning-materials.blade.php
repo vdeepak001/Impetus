@@ -194,23 +194,13 @@
                                                 >
                                                     {{-- Card Header --}}
                                                     <header class="mb-10">
-                                                        <div class="mb-4 inline-flex items-center gap-2 rounded-full bg-logo-blue/10 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-logo-blue">
-                                                            <span class="relative flex h-2 w-2">
-                                                                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-logo-blue opacity-75"></span>
-                                                                <span class="relative inline-flex h-2 w-2 rounded-full bg-logo-blue"></span>
-                                                            </span>
-                                                            Curriculum Module {{ $index + 1 }}
-                                                        </div>
                                                         <h2 class="font-serif text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
                                                             {{ $material['subtitle'] }}
                                                         </h2>
                                                         <div class="mt-4 h-1.5 w-20 rounded-full bg-gradient-to-r from-logo-blue to-logo-light-green"></div>
                                                     </header>
                                                     
-                                                    {{-- Resources Section --}}
                                                     <div>
-                                                        <h3 class="mb-6 text-sm font-bold tracking-wider text-slate-400">Available Learning Resources</h3>
-                                                        
                                                         <div class="grid gap-4 sm:grid-cols-2">
                                                             @php
                                                                 $attachments = array_map(function($path) {
