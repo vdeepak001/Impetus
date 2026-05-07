@@ -330,10 +330,6 @@
             modal.classList.remove('hidden');
             
             const topRightMask = document.getElementById('topRightMask');
-            const bottomRightMask = document.getElementById('bottomRightMask');
-            topRightMask.classList.remove('hidden');
-            bottomRightMask.classList.remove('hidden');
-            
             document.body.style.overflow = 'hidden';
         }
 
@@ -342,10 +338,13 @@
 
             const att = currentAttachments[currentAttachmentIndex];
             const viewer = document.getElementById('fileViewer');
+            const viewerContainer = viewer.parentElement;
             const title = document.getElementById('modal-title');
             const counter = document.getElementById('modalCounter');
             const prevBtn = document.getElementById('modalPrev');
             const nextBtn = document.getElementById('modalNext');
+            const topRightMask = document.getElementById('topRightMask');
+            const bottomRightMask = document.getElementById('bottomRightMask');
 
             title.textContent = att.name;
             counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
@@ -357,13 +356,24 @@
             const extension = att.extension;
             
             if (extension === 'pdf') {
+                // For PDFs, we hide the masks because toolbar=0 is cleaner and masks look ugly on white pages
                 finalUrl += '#toolbar=0&navpanes=0&view=FitH';
+                topRightMask.classList.add('hidden');
+                bottomRightMask.classList.add('hidden');
+                viewerContainer.classList.replace('bg-slate-800', 'bg-white');
             } else if (['pptx', 'ppt', 'docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
                 // Use Microsoft Office Viewer for better rendering
                 finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
                 if (extension === 'pptx' || extension === 'ppt') {
                     finalUrl += '&wdAr=1.77';
                 }
+                topRightMask.classList.remove('hidden');
+                bottomRightMask.classList.remove('hidden');
+                viewerContainer.classList.replace('bg-white', 'bg-slate-800');
+            } else {
+                topRightMask.classList.add('hidden');
+                bottomRightMask.classList.add('hidden');
+                viewerContainer.classList.replace('bg-white', 'bg-slate-800');
             }
 
             viewer.src = finalUrl;
