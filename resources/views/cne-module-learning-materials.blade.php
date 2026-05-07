@@ -172,13 +172,19 @@
                                                 <h3 class="mb-6 text-sm font-bold tracking-wider text-slate-400">Available Learning Resources</h3>
                                                 
                                                 <div class="grid gap-4 sm:grid-cols-2">
-                                                    @foreach ($material['attachments'] as $path)
+                                                    @php
+                                                        $attachments = array_map(function($path) {
+                                                            return [
+                                                                'url' => asset('storage/' . $path),
+                                                                'name' => preg_replace('/^\d+_/', '', basename($path)),
+                                                                'extension' => strtolower(pathinfo($path, PATHINFO_EXTENSION))
+                                                            ];
+                                                        }, $material['attachments']);
+                                                        $attachmentsJson = htmlspecialchars(json_encode($attachments), ENT_QUOTES, 'UTF-8');
+                                                    @endphp
+                                                    @foreach ($attachments as $attIndex => $att)
                                                         @php
-                                                            $fileName = basename($path);
-                                                            $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-                                                            $originalFileName = preg_replace('/^\d+_/', '', $fileName);
-                                                            
-                                                            $typeColor = match($extension) {
+                                                            $typeColor = match($att['extension']) {
                                                                 'pdf' => 'text-red-500 bg-red-50 border-red-100',
                                                                 'doc', 'docx' => 'text-blue-500 bg-blue-50 border-blue-100',
                                                                 'ppt', 'pptx' => 'text-orange-500 bg-orange-50 border-orange-100',
@@ -186,7 +192,7 @@
                                                             };
                                                         @endphp
                                                         <button
-                                                            onclick="openFile('{{ asset('storage/' . $path) }}')"
+                                                            onclick="openFile({!! $attachmentsJson !!}, {{ $attIndex }})"
                                                             class="group relative flex items-center gap-4 rounded-2xl border border-slate-100 bg-slate-50/50 p-4 transition-all hover:border-logo-blue hover:bg-white hover:shadow-xl hover:shadow-logo-blue/10"
                                                         >
                                                             <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border {{ $typeColor }} transition-transform duration-300 group-hover:scale-110">
@@ -195,8 +201,8 @@
                                                                 </svg>
                                                             </div>
                                                             <div class="min-w-0 flex-1 text-left">
-                                                                <p class="truncate text-sm font-bold text-slate-800 group-hover:text-logo-blue">{{ $originalFileName }}</p>
-                                                                <p class="mt-0.5 text-[10px] font-bold uppercase tracking-tight text-slate-400 group-hover:text-slate-500">{{ strtoupper($extension) }} Document</p>
+                                                                <p class="truncate text-sm font-bold text-slate-800 group-hover:text-logo-blue">{{ $att['name'] }}</p>
+                                                                <p class="mt-0.5 text-[10px] font-bold uppercase tracking-tight text-slate-400 group-hover:text-slate-500">{{ strtoupper($att['extension']) }} Document</p>
                                                             </div>
                                                             <div class="flex h-8 w-8 items-center justify-center rounded-full bg-white opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:shadow-sm">
                                                                 <svg class="h-4 w-4 text-logo-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -274,7 +280,22 @@
                 {{-- Modal Content --}}
                 <div class="relative flex w-full max-w-6xl h-[90vh] transform flex-col overflow-hidden rounded-2xl bg-white text-left shadow-2xl transition-all">
                     <div class="flex items-center justify-between border-b border-slate-200 px-6 py-4 bg-slate-50 shrink-0">
-                        <h3 class="text-lg font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
+                        <div class="flex items-center gap-4 min-w-0">
+                            <h3 class="text-lg font-bold text-slate-900 truncate pr-4" id="modal-title">File Viewer</h3>
+                            <div class="flex items-center gap-2">
+                                <button id="modalPrev" onclick="navigateModal(-1)" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Attachment">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                    </svg>
+                                </button>
+                                <span id="modalCounter" class="text-[11px] font-bold text-slate-400 min-w-[3rem] text-center"></span>
+                                <button id="modalNext" onclick="navigateModal(1)" class="rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Attachment">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                         <button type="button" class="rounded-lg p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-500 transition-colors focus:outline-none shrink-0" onclick="closeModal()">
                             <span class="sr-only">Close</span>
                             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -298,41 +319,65 @@
 
 @push('scripts')
     <script>
-        function openFile(url) {
+        let currentAttachments = [];
+        let currentAttachmentIndex = -1;
+
+        function openFile(attachments, index) {
+            currentAttachments = attachments;
+            currentAttachmentIndex = index;
+            updateModalContent();
+            
             const modal = document.getElementById('fileModal');
-            const viewer = document.getElementById('fileViewer');
-            const title = document.getElementById('modal-title');
-            
-            // Extract filename for the title
-            const filename = url.split('/').pop().replace(/^\d+_/, '');
-            title.textContent = filename;
-
-            // Handle different file types
-            let finalUrl = url;
-            const lowerUrl = url.toLowerCase();
-            
-            if (lowerUrl.endsWith('.pdf')) {
-                // For PDFs: view=FitH fits to width, view=Fit fits to whole page
-                finalUrl += '#toolbar=0&navpanes=0&view=FitH';
-            } else if (
-                lowerUrl.endsWith('.pptx') || lowerUrl.endsWith('.ppt') || 
-                lowerUrl.endsWith('.docx') || lowerUrl.endsWith('.doc') || 
-                lowerUrl.endsWith('.xlsx') || lowerUrl.endsWith('.xls')
-            ) {
-                // For Office documents: Use Google Docs Viewer to render in iframe
-                finalUrl = 'https://docs.google.com/viewer?url=' + encodeURIComponent(url) + '&embedded=true';
-            }
-
-            viewer.src = finalUrl;
             modal.classList.remove('hidden');
             
-            // Show shield and top-right mask, then enable scroll-through hack
             const shield = document.getElementById('viewerShield');
             const topRightMask = document.getElementById('topRightMask');
             shield.classList.remove('hidden');
             topRightMask.classList.remove('hidden');
             
             document.body.style.overflow = 'hidden';
+        }
+
+        function updateModalContent() {
+            if (currentAttachmentIndex < 0 || currentAttachmentIndex >= currentAttachments.length) return;
+
+            const att = currentAttachments[currentAttachmentIndex];
+            const viewer = document.getElementById('fileViewer');
+            const title = document.getElementById('modal-title');
+            const counter = document.getElementById('modalCounter');
+            const prevBtn = document.getElementById('modalPrev');
+            const nextBtn = document.getElementById('modalNext');
+
+            title.textContent = att.name;
+            counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
+            
+            prevBtn.disabled = currentAttachmentIndex === 0;
+            nextBtn.disabled = currentAttachmentIndex === currentAttachments.length - 1;
+
+            let finalUrl = att.url;
+            const extension = att.extension;
+            
+            if (extension === 'pdf') {
+                finalUrl += '#toolbar=0&navpanes=0&view=FitH';
+            } else if (['pptx', 'ppt', 'docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
+                // Use Microsoft Office Viewer for better "slideshow" feel for PPT and better rendering for Office docs
+                // wdAr=1.7777777777777777 is for 16:9 aspect ratio, common for PPT.
+                // &wdStartOn=1 doesn't work but &wdPrint=0 and &wdEmbedCode=0 are useful.
+                finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
+                if (extension === 'pptx' || extension === 'ppt') {
+                    finalUrl += '&wdAr=1.77';
+                }
+            }
+
+            viewer.src = finalUrl;
+        }
+
+        function navigateModal(direction) {
+            const newIndex = currentAttachmentIndex + direction;
+            if (newIndex >= 0 && newIndex < currentAttachments.length) {
+                currentAttachmentIndex = newIndex;
+                updateModalContent();
+            }
         }
         
         function closeModal() {
@@ -354,6 +399,13 @@
                 closeModal();
             }
             
+            // Handle arrow keys for navigation if modal is open
+            const modal = document.getElementById('fileModal');
+            if (modal && !modal.classList.contains('hidden')) {
+                if (event.key === 'ArrowRight') navigateModal(1);
+                if (event.key === 'ArrowLeft') navigateModal(-1);
+            }
+
             // Disable Print (Ctrl+P / Cmd+P)
             if ((event.ctrlKey || event.metaKey) && (event.key === 'p' || event.key === 'P')) {
                 event.preventDefault();
