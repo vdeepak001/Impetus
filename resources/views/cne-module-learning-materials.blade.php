@@ -296,22 +296,40 @@
                         </div>
                         
                         {{-- Modal Navigation Stripe --}}
-                        <div class="flex items-center gap-3 bg-white rounded-xl border border-slate-200 p-1 shadow-sm">
-                            <button id="modalPrev" onclick="navigateModal(-1)" class="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Document">
-                                <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                </svg>
-                                Prev
-                            </button>
-                            <div class="flex items-center border-l border-r border-slate-100 px-3">
-                                <span id="modalCounter" class="text-[10px] font-bold tabular-nums text-slate-400 min-w-[3rem] text-center"></span>
+                        <div class="flex items-center gap-6">
+                            {{-- Slide Navigation (For PPTs) --}}
+                            <div id="slideNav" class="hidden items-center gap-3 bg-white rounded-xl border border-slate-200 p-1 shadow-sm">
+                                <span class="pl-2 text-[9px] font-bold uppercase tracking-widest text-slate-400">Slide</span>
+                                <button onclick="navigateSlide(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20">
+                                    <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                    </svg>
+                                </button>
+                                <span id="slideCounter" class="text-[10px] font-bold tabular-nums text-logo-blue min-w-[2rem] text-center">1</span>
+                                <button onclick="navigateSlide(1)" class="group flex items-center justify-center rounded-lg h-7 w-7 text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all">
+                                    <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </button>
                             </div>
-                            <button id="modalNext" onclick="navigateModal(1)" class="group flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-[11px] font-bold text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Document">
-                                Next
-                                <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                </svg>
-                            </button>
+
+                            {{-- Document Navigation --}}
+                            <div class="flex items-center gap-3 bg-white rounded-xl border border-slate-200 p-1 shadow-sm">
+                                <span class="pl-2 text-[9px] font-bold uppercase tracking-widest text-slate-400">Doc</span>
+                                <button id="modalPrev" onclick="navigateModal(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Previous Document">
+                                    <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                    </svg>
+                                </button>
+                                <div class="flex items-center border-l border-r border-slate-100 px-3">
+                                    <span id="modalCounter" class="text-[10px] font-bold tabular-nums text-slate-400 min-w-[3rem] text-center"></span>
+                                </div>
+                                <button id="modalNext" onclick="navigateModal(1)" class="group flex items-center justify-center rounded-lg h-7 w-7 text-slate-600 hover:bg-slate-50 hover:text-logo-blue transition-all disabled:opacity-20" title="Next Document">
+                                    <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
 
                         <div class="flex-1 flex justify-end">
@@ -339,10 +357,12 @@
     <script>
         let currentAttachments = [];
         let currentAttachmentIndex = -1;
+        let currentSlideIndex = 1;
 
         function openFile(attachments, index) {
             currentAttachments = attachments;
             currentAttachmentIndex = index;
+            currentSlideIndex = 1; // Reset slide index on open
             updateModalContent();
             
             const modal = document.getElementById('fileModal');
@@ -359,6 +379,8 @@
             const viewerContainer = viewer.parentElement;
             const title = document.getElementById('modal-title');
             const counter = document.getElementById('modalCounter');
+            const slideCounter = document.getElementById('slideCounter');
+            const slideNav = document.getElementById('slideNav');
             const prevBtn = document.getElementById('modalPrev');
             const nextBtn = document.getElementById('modalNext');
             const topRightMask = document.getElementById('topRightMask');
@@ -366,6 +388,7 @@
 
             title.textContent = att.name;
             counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
+            slideCounter.textContent = currentSlideIndex;
             
             prevBtn.disabled = currentAttachmentIndex === 0;
             nextBtn.disabled = currentAttachmentIndex === currentAttachments.length - 1;
@@ -373,17 +396,18 @@
             let finalUrl = att.url;
             const extension = att.extension;
             
+            const isPPT = ['pptx', 'ppt'].includes(extension);
+            slideNav.classList.toggle('hidden', !isPPT);
+
             if (extension === 'pdf') {
-                // For PDFs, we hide the masks because toolbar=0 is cleaner and masks look ugly on white pages
                 finalUrl += '#toolbar=0&navpanes=0&view=FitH';
                 topRightMask.classList.add('hidden');
                 bottomRightMask.classList.add('hidden');
                 viewerContainer.classList.replace('bg-slate-800', 'bg-white');
-            } else if (['pptx', 'ppt', 'docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
-                // Use Microsoft Office Viewer for better rendering
+            } else if (isPPT || ['docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
                 finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
-                if (extension === 'pptx' || extension === 'ppt') {
-                    finalUrl += '&wdAr=1.77';
+                if (isPPT) {
+                    finalUrl += '&wdAr=1.77&wdSlideIndex=' + currentSlideIndex;
                 }
                 topRightMask.classList.remove('hidden');
                 bottomRightMask.classList.remove('hidden');
@@ -401,8 +425,14 @@
             const newIndex = currentAttachmentIndex + direction;
             if (newIndex >= 0 && newIndex < currentAttachments.length) {
                 currentAttachmentIndex = newIndex;
+                currentSlideIndex = 1; // Reset slide index on file change
                 updateModalContent();
             }
+        }
+
+        function navigateSlide(direction) {
+            currentSlideIndex = Math.max(1, currentSlideIndex + direction);
+            updateModalContent();
         }
         
         function closeModal() {
