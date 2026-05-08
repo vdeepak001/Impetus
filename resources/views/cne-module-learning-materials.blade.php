@@ -30,7 +30,28 @@
         // One card per material row. Card title matches admin "Sub Title": description (row label, e.g. FSWD1) then course title name.
         $courseMaterials = ($course->materials ?? collect())
             ->filter(fn ($material) => filled($material->course_title_id) && $material->courseTitle)
-            ->sortBy('id')
+            ->map(function ($material) {
+                $desc = trim((string) ($material->description ?? ''));
+                $titleNameRaw = (string) ($material->courseTitle?->title_name ?? '');
+                $titleNames = array_map('trim', explode(' | ', $titleNameRaw));
+                
+                // Find index of this material's sub-topic in the course's sub-titles sequence
+                $index = array_search($desc, $titleNames);
+                // If not found, use a large number to put it at the end
+                $material->admin_order = ($index !== false) ? $index : 9999;
+                
+                return $material;
+            })
+            // Sort by course_title_id first, then by the admin sequence within that record, then by material id
+            ->sort(function ($a, $b) {
+                if ($a->course_title_id !== $b->course_title_id) {
+                    return $a->course_title_id <=> $b->course_title_id;
+                }
+                if ($a->admin_order !== $b->admin_order) {
+                    return $a->admin_order <=> $b->admin_order;
+                }
+                return $a->id <=> $b->id;
+            })
             ->values()
             ->map(function ($material) {
                 $desc = trim((string) ($material->description ?? ''));
