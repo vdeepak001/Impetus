@@ -1,7 +1,7 @@
 @php
     $navDesktopClass = fn (string $routeName): string => request()->routeIs($routeName)
-        ? 'rounded-full px-3 py-2 text-sm font-semibold text-logo-light-green bg-logo-light-green/15 transition-colors'
-        : 'rounded-full px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green';
+        ? 'rounded-full px-2 xl:px-3 py-2 text-sm font-semibold text-logo-light-green bg-logo-light-green/15 transition-colors'
+        : 'rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green';
     $navMobileClass = fn (string $routeName): string => request()->routeIs($routeName)
         ? '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-logo-light-green bg-logo-light-green/10'
         : '-mx-3 block rounded-lg px-3 py-2 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50';
@@ -18,12 +18,12 @@
 >
 <header class="fixed top-4 inset-x-4 z-50 max-w-7xl mx-auto rounded-3xl bg-white/90 backdrop-blur-xl border border-slate-200/70 shadow-2xl py-3 px-6 transition-all duration-500">
     <nav class="mx-auto w-full" aria-label="Global">
-        <div class="flex items-center justify-between gap-4">
+        <div class="flex items-center justify-between gap-2 xl:gap-4">
             <a href="{{ route('home') }}" class="-m-1.5 p-1.5 flex items-center gap-2 group transition-transform hover:scale-105">
                 <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-16 w-auto">
             </a>
 
-            <div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-2 xl:gap-3">
+            <div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-1 xl:gap-2">
                 <a href="{{ route('home') }}" class="{{ $navDesktopClass('home') }}" @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
                 <a href="{{ route('about') }}" class="{{ $navDesktopClass('about') }}" @if (request()->routeIs('about')) aria-current="page" @endif>About Us</a>
                 <a href="{{ route('cne.modules') }}" class="{{ $navDesktopClass('cne.modules') }}" @if (request()->routeIs('cne.modules')) aria-current="page" @endif>CPD Modules</a>
@@ -58,12 +58,12 @@
                                 </a>
                             @endif
 
-                            <div x-data="{ userMenuOpen: false }" class="relative">
+                            <div x-data="{ userMenuOpen: false }" class="relative flex-shrink-0">
                                 <button
                                     type="button"
                                     @click="userMenuOpen = !userMenuOpen"
                                     @click.outside="userMenuOpen = false"
-                                    class="inline-flex max-w-[19rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
+                                    class="inline-flex max-w-[10rem] xl:max-w-[15rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
                                 >
                                     <span class="truncate">Hi, {{ auth()->user()->name }}</span>
                                     <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
