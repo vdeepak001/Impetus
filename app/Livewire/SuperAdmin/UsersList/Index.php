@@ -1,14 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\SuperAdmin;
+namespace App\Livewire\SuperAdmin\UsersList;
 
-use App\Helpers\MenuHelper;
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\View\View;
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
 
-class UsersListController extends Controller
+class Index extends Component
 {
+    use WithPagination;
+
+    #[Url(except: '')]
+    public $search = '';
+
+    public $perPage = 20;
+
     /**
      * Column keys shown in the detail popup (read-only for staff).
      *
@@ -93,10 +100,47 @@ class UsersListController extends Controller
         'email_verified_at' => 'Email verified at',
     ];
 
-    public function index(): View
+    public function updatingSearch()
     {
-        return view('super-admin.users-list.index', [
-            'title' => 'Users List',
+        $this->resetPage();
+    }
+
+    public function render()
+    {
+        // Fetch all learners and filter in memory due to encryption
+        $allUsers = User::query()
+            ->where('role_type', 'user')
+            ->orderByDesc('id')
+            ->get();
+
+        $filteredUsers = $allUsers->when($this->search !== '', function ($collection) {
+            $searchTerm = mb_strtolower($this->search);
+            return $collection->filter(function ($user) use ($searchTerm) {
+                return str_contains(mb_strtolower($user->unique_sequence_number ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->name ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->first_name ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->last_name ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->email ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->phone ?? ''), $searchTerm);
+            });
+        });
+
+        // Paginate the collection manually
+        $page = $this->getPage();
+        $items = $filteredUsers->forPage($page, $this->perPage);
+        
+        $users = new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $filteredUsers->count(),
+            $this->perPage,
+            $page,
+            ['path' => \Illuminate\Pagination\Paginator::resolveCurrentPath()]
+        );
+
+        return view('livewire.super-admin.users-list.index', [
+            'users' => $users,
+            'userProfileKeys' => self::USER_PROFILE_KEYS,
+            'profileLabels' => self::PROFILE_LABELS,
         ]);
     }
 }
