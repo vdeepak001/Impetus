@@ -13,6 +13,7 @@ class CourseTestAnswer extends Model
         'display_index',
         'selected_choice',
         'is_correct',
+        'attempts',
     ];
 
     protected function casts(): array

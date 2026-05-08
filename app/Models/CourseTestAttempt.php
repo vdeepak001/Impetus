@@ -22,6 +22,7 @@ class CourseTestAttempt extends Model
         'practice_set',
         'status',
         'question_ids',
+        'last_index',
         'score_percent',
         'correct_count',
         'total_questions',

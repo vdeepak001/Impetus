@@ -139,6 +139,7 @@ class CourseTestTaking extends Component
             $ids = $inProgress->question_ids;
             $this->hydrateQuestionsPayload($ids);
             $this->hydrateResponsesFromAttempt($inProgress);
+            $this->currentIndex = (int) ($inProgress->last_index ?? 0);
         } else {
             if ($inProgress) {
                 $inProgress->delete();
@@ -232,6 +233,10 @@ class CourseTestTaking extends Component
         $this->currentIndex = $index;
         $this->submitError = null;
         $this->resetErrorBag('submit');
+
+        if ($this->attemptId) {
+            CourseTestAttempt::query()->whereKey($this->attemptId)->update(['last_index' => $index]);
+        }
     }
 
     public function nextQuestion(): void
@@ -420,6 +425,25 @@ class CourseTestTaking extends Component
                 $this->practiceShowReasoning[$questionId] = true;
             }
         }
+
+        if ($this->attemptId) {
+            $attempt = CourseTestAttempt::query()->find($this->attemptId);
+            if ($attempt) {
+                $displayIndex = array_search($questionId, $attempt->question_ids) + 1;
+                CourseTestAnswer::query()->updateOrCreate(
+                    [
+                        'course_test_attempt_id' => $this->attemptId,
+                        'course_question_id' => $questionId,
+                    ],
+                    [
+                        'display_index' => $displayIndex,
+                        'selected_choice' => $response,
+                        'is_correct' => $isCorrect,
+                        'attempts' => $this->practiceAttempts[$questionId],
+                    ]
+                );
+            }
+        }
     }
 
     public function render(): View
@@ -500,12 +524,30 @@ class CourseTestTaking extends Component
     private function hydrateResponsesFromAttempt(CourseTestAttempt $attempt): void
     {
         $this->initEmptyResponses($attempt->question_ids);
-        $saved = CourseTestAnswer::query()
+        $savedAnswers = CourseTestAnswer::query()
             ->where('course_test_attempt_id', $attempt->id)
-            ->pluck('selected_choice', 'course_question_id');
-        foreach ($saved as $qid => $letter) {
-            if ($letter !== null && $letter !== '') {
-                $this->responses[(int) $qid] = strtolower((string) $letter);
+            ->get();
+
+        foreach ($savedAnswers as $ans) {
+            $qid = (int) $ans->course_question_id;
+            if ($ans->selected_choice !== null && $ans->selected_choice !== '') {
+                $this->responses[$qid] = strtolower((string) $ans->selected_choice);
+            }
+
+            if ($this->type === CourseTestType::Practice) {
+                $this->practiceAttempts[$qid] = (int) $ans->attempts;
+                if ($ans->is_correct) {
+                    $this->practiceResults[$qid] = 'correct';
+                    $this->practiceShowReasoning[$qid] = true;
+                } else {
+                    if ($ans->attempts >= 2) {
+                        $this->practiceResults[$qid] = 'wrong_second';
+                        $this->practiceShowReasoning[$qid] = true;
+                    } elseif ($ans->attempts === 1) {
+                        $this->practiceResults[$qid] = 'wrong_first';
+                        $this->practiceFirstWrongAnswer[$qid] = $ans->selected_choice;
+                    }
+                }
             }
         }
     }
@@ -617,6 +659,10 @@ class CourseTestTaking extends Component
      */
     private function shouldResumeInProgressAttempt(?string $referer): bool
     {
+        if ($this->type === CourseTestType::Practice) {
+            return true;
+        }
+
         if ($referer === null || $referer === '') {
             return true;
         }
