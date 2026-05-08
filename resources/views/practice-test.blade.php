@@ -85,13 +85,13 @@
                                 </div>
 
                                 {{-- Level Table --}}
-                                <div class="w-full overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
+                                <div class="w-full rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/50">
                                     <table class="w-full text-left">
                                         <thead class="{{ $themeColor['bg'] }} text-xs font-bold uppercase tracking-[0.15em] text-white">
                                             <tr>
-                                                <th class="px-6 py-4">Questions</th>
+                                                <th class="rounded-tl-2xl px-6 py-4">Questions</th>
                                                 <th class="px-6 py-4 text-center">View Progress</th>
-                                                <th class="px-6 py-4 text-center">Attempts</th>
+                                                <th class="rounded-tr-2xl px-6 py-4 text-center">Attempts</th>
                                             </tr>
                                         </thead>
                                         <tbody class="divide-y divide-slate-100">
@@ -105,7 +105,7 @@
                                                     $practiceUrl = route('cne.modules.test', [$course->couse_name, 'practice']) . "?level={$levelNum}&set=" . ($s + 1);
                                                 @endphp
                                                 <tr @class(['transition', 'hover:bg-slate-50/80' => !$isLocked, 'bg-slate-50/40 opacity-75' => $isLocked])>
-                                                    <td class="px-6 py-4">
+                                                    <td @class(['px-6 py-4', 'rounded-bl-2xl' => $s === $setCount - 1])>
                                                         @if ($isLocked)
                                                             <div class="flex items-center gap-2 font-semibold text-slate-400">
                                                                 <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] text-slate-300">SET {{ $s + 1 }}</span>
@@ -141,10 +141,10 @@
                                                                 x-transition:enter="transition ease-out duration-200"
                                                                 x-transition:enter-start="opacity-0 translate-y-1"
                                                                 x-transition:enter-end="opacity-100 translate-y-0"
-                                                                class="absolute bottom-full left-1/2 z-50 mb-3 w-48 -translate-x-1/2"
+                                                                class="absolute top-full left-1/2 z-[60] mt-3 w-56 -translate-x-1/2"
                                                                 style="display: none;"
                                                             >
-                                                                <div class="overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-xl ring-1 ring-black/5">
+                                                                <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-2xl ring-1 ring-black/5">
                                                                     <p class="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Attempt History</p>
                                                                     <div class="space-y-2">
                                                                         @foreach($setAttempts as $idx => $att)
@@ -166,11 +166,11 @@
                                                                     </div>
                                                                 </div>
                                                                 {{-- Arrow --}}
-                                                                <div class="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-b border-r border-slate-200 bg-white"></div>
+                                                                <div class="absolute -top-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 border-l border-t border-slate-200 bg-white"></div>
                                                             </div>
                                                         </div>
                                                     </td>
-                                                    <td class="px-6 py-4 text-center">
+                                                    <td @class(['px-6 py-4 text-center', 'rounded-br-2xl' => $s === $setCount - 1])>
                                                         <span @class(['text-sm font-medium tabular-nums', 'text-slate-500' => !$isLocked, 'text-slate-400' => $isLocked])>{{ $attemptCount }}/2</span>
                                                     </td>
                                                 </tr>
