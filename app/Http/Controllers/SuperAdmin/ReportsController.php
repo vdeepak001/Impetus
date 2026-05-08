@@ -226,9 +226,18 @@ class ReportsController extends Controller
             "Expires"             => "0"
         ];
 
-        $callback = function() use ($grouped) {
+        $callback = function() use ($grouped, $examType) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['Name', 'IHS ID', 'Module Name', 'Pre Test', 'Mock Test', 'Final 1', 'Final 2', 'Completed On']);
+            
+            $header = ['Name', 'IHS ID', 'Module Name'];
+            if (!$examType || $examType === 'pre') $header[] = 'Pre Test';
+            if (!$examType || $examType === 'mock') $header[] = 'Mock Test';
+            if (!$examType || in_array($examType, ['final', 'passed'])) {
+                $header[] = 'Final 1';
+                $header[] = 'Final 2';
+                $header[] = 'Completed On';
+            }
+            fputcsv($file, $header);
 
             foreach ($grouped as $group) {
                 $first = $group->first();
@@ -239,16 +248,25 @@ class ReportsController extends Controller
                 $final1 = $finalAttempts->first();
                 $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
-                fputcsv($file, [
+                $row = [
                     $first->user->name ?? 'Unknown',
                     $first->user->rn_number ?? 'N/A',
                     $first->courseDetail->couse_name ?? 'Unknown',
-                    $pre ? number_format($pre->score_percent, 2) : '-',
-                    $mock ? number_format($mock->score_percent, 2) : '-',
-                    $final1 ? number_format($final1->score_percent, 2) : '-',
-                    $final2 ? number_format($final2->score_percent, 2) : '-',
-                    $first->completed_at->format('d-m-Y'),
-                ]);
+                ];
+                
+                if (!$examType || $examType === 'pre') {
+                    $row[] = $pre ? number_format($pre->score_percent, 2) : '-';
+                }
+                if (!$examType || $examType === 'mock') {
+                    $row[] = $mock ? number_format($mock->score_percent, 2) : '-';
+                }
+                if (!$examType || in_array($examType, ['final', 'passed'])) {
+                    $row[] = $final1 ? number_format($final1->score_percent, 2) : '-';
+                    $row[] = $final2 ? number_format($final2->score_percent, 2) : '-';
+                    $row[] = $first->completed_at ? $first->completed_at->format('d-m-Y') : '-';
+                }
+
+                fputcsv($file, $row);
             }
             fclose($file);
         };
