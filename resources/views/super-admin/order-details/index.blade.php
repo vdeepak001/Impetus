@@ -17,8 +17,28 @@
                     Search
                 </label>
                 <input id="order-search" name="search" type="text" value="{{ $filters['search'] }}"
-                    placeholder="Learner, email, module, remarks"
+                    placeholder="Name, UID, date, email, module..."
                     oninput="window.orderFiltersDebounceSubmit()"
+                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100" />
+            </div>
+
+            <div class="min-w-[150px]">
+                <label for="from-date" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">
+                    From
+                </label>
+                <input id="from-date" name="from_date" type="date" value="{{ $filters['from_date'] }}"
+                    onchange="this.form.submit()"
+                    onclick="this.showPicker()"
+                    class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100" />
+            </div>
+
+            <div class="min-w-[150px]">
+                <label for="to-date" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">
+                    To
+                </label>
+                <input id="to-date" name="to_date" type="date" value="{{ $filters['to_date'] }}"
+                    onchange="this.form.submit()"
+                    onclick="this.showPicker()"
                     class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100" />
             </div>
 
@@ -81,7 +101,7 @@
                         </th>
                         <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 whitespace-nowrap">
-                            State council
+                            State
                         </th>
                         <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 whitespace-nowrap">
@@ -137,7 +157,7 @@
                                 {{ $order->courseDetail?->couse_name ?? '—' }}
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->stateCouncil?->council_name ?? '—' }}
+                                {{ $order->stateCouncil?->state?->name ?? '—' }}
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {{ \App\Enums\PaymentMode::tryFrom($order->payment_mode)?->label() ?? \Illuminate\Support\Str::of($order->payment_mode)->replace('_', ' ')->title() }}
