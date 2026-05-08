@@ -97,14 +97,24 @@
             <div class="w-full md:w-44">
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">From Date</label>
                 <input type="date" name="from_date" value="{{ request('from_date') }}" 
-                    class="block w-full px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    onclick="this.showPicker()"
+                    class="block w-full px-3 py-2.5 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white date-input-picker">
             </div>
 
             <div class="w-full md:w-44">
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">To Date</label>
                 <input type="date" name="to_date" value="{{ request('to_date') }}" 
-                    class="block w-full px-3 py-2 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    onclick="this.showPicker()"
+                    class="block w-full px-3 py-2.5 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white date-input-picker">
             </div>
+
+            <style>
+                .date-input-picker::-webkit-calendar-picker-indicator {
+                    display: block !important;
+                    cursor: pointer;
+                    filter: invert(0.5); /* Makes it visible on light/dark themes */
+                }
+            </style>
 
             <div class="w-full md:w-44">
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Exam Type</label>
