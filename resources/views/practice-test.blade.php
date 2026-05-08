@@ -9,32 +9,26 @@
         {{-- Breadcrumbs Section --}}
         <section class="py-12 sm:py-16">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
-                    <div class="max-w-2xl">
+                <div class="w-full">
+                    <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
                         <h1 class="font-serif text-[32px] font-extrabold tracking-tight text-brand-900 sm:text-[44px]">
                             Practice Test
                         </h1>
-                        <p class="mt-6 text-justify text-lg leading-relaxed text-slate-600">
-                            Practice test is designed for the user to practice the questions in E-Learning platform. Each module has many sets of questions and each set has 20 questions. Each set is allowed to practice for two times for repetitive learning. It is advised to practice the test provided in this section before taking Mock / Final examination to obtain better score in the examination.
-                        </p>
-                    </div>
 
-                    <div class="flex shrink-0 flex-wrap items-center gap-4">
-                        <a 
-                            href="{{ route('cne.modules.show', $course->couse_name) }}"
-                            class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
-                        >
-                            <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-                            Back to Module
-                        </a>
-                        {{-- <button 
-                            type="button" 
-                            class="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 px-6 py-3 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-amber-500/30 transition hover:from-amber-500 hover:to-amber-600"
-                        >
-                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
-                            Instructions for practice test
-                        </button> --}}
+                        <div class="flex shrink-0 flex-wrap items-center gap-4">
+                            <a 
+                                href="{{ route('cne.modules.show', $course->couse_name) }}"
+                                class="inline-flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-6 py-3 text-sm font-bold text-slate-700 shadow-sm transition hover:bg-slate-50"
+                            >
+                                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
+                                Back to Module
+                            </a>
+                        </div>
                     </div>
+                    
+                    <p class="mt-8 text-justify text-lg leading-relaxed text-slate-600">
+                        Practice test is designed for the user to practice the questions in E-Learning platform. Each module has many sets of questions and each set has 20 questions. Each set is allowed to practice for two times for repetitive learning. It is advised to practice the test provided in this section before taking Mock / Final examination to obtain better score in the examination.
+                    </p>
                 </div>
 
                 <div class="mt-16 space-y-20">
