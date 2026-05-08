@@ -469,7 +469,7 @@
                                     <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 p-4 shadow-sm">
                                         <div class="flex items-center gap-3 text-rose-800">
                                             <svg class="size-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-                                            <p class="text-sm font-bold">Incorrect! Here is the correct answer and reasoning.</p>
+                                            <p class="text-sm font-bold">Incorrect! Here is the correct answer and rationale.</p>
                                         </div>
                                     </div>
                                 @elseif ($result === 'correct')
@@ -483,8 +483,8 @@
 
                                 @if ($showReasoning && filled($practiceReasoning[$qid] ?? null))
                                     <div class="mt-4 rounded-2xl border border-logo-blue/20 bg-logo-blue/5 p-5">
-                                        <h4 class="text-xs font-bold uppercase tracking-wider text-logo-blue">Reasoning</h4>
-                                        <p class="mt-2 text-sm leading-relaxed text-slate-700 italic">
+                                        <h4 class="text-xs font-bold uppercase tracking-wider text-logo-blue">Rationale</h4>
+                                        <p class="mt-2 text-base leading-relaxed text-slate-700">
                                             {{ $practiceReasoning[$qid] }}
                                         </p>
                                     </div>
