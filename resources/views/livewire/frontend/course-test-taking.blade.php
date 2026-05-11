@@ -484,7 +484,7 @@
                                 @if ($showReasoning && filled($practiceReasoning[$qid] ?? null))
                                     <div class="mt-4 rounded-2xl border border-logo-blue/20 bg-logo-blue/5 p-5">
                                         <h4 class="text-xs font-bold uppercase tracking-wider text-logo-blue">Rationale</h4>
-                                        <p class="mt-2 text-base leading-relaxed text-slate-700">
+                                        <p class="mt-2 text-justify text-base leading-relaxed text-slate-700">
                                             {{ $practiceReasoning[$qid] }}
                                         </p>
                                     </div>
