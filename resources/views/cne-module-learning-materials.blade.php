@@ -362,8 +362,6 @@
                         </div>
                     </div>
                     <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
-                        {{-- Smart Shield: Blocks right-click and preserves focus for keyboard shortcuts --}}
-                        <div id="viewerShield" class="absolute inset-0 z-[60] cursor-default" oncontextmenu="return false;"></div>
                         
                         {{-- Targeted masks to visually hide download/pop-out buttons --}}
                         <div id="topRightMask" class="absolute top-0 right-0 w-20 h-14 bg-slate-800 z-[70] hidden"></div>
@@ -469,15 +467,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        const shield = document.getElementById('viewerShield');
-        shield.addEventListener('mousedown', (e) => {
-            if (e.button === 0) { // Left Click
-                shield.style.pointerEvents = 'none';
-                setTimeout(() => {
-                    shield.style.pointerEvents = 'auto';
-                }, 100); // Fast 100ms timeout to improve "single click" feel
-            }
-        });
 
         // Close on Escape key
         window.addEventListener('keydown', function(event) {
