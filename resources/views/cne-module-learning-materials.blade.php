@@ -312,25 +312,6 @@
                         
                         {{-- Center: Combined Navigation --}}
                         <div class="flex items-center justify-center gap-4 shrink-0">
-                            {{-- Document Navigation --}}
-                            <div class="flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 p-1 shadow-sm">
-                                <div class="flex items-center gap-1.5 px-2">
-                                    <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400">Doc</span>
-                                    <span id="modalCounter" class="text-[11px] font-bold tabular-nums text-slate-600 min-w-[2.5rem] text-center border-l border-slate-200 pl-2"></span>
-                                </div>
-                                <div class="flex items-center gap-1 pr-1">
-                                    <button id="modalPrev" onclick="navigateModal(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all disabled:opacity-30">
-                                        <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                                        </svg>
-                                    </button>
-                                    <button id="modalNext" onclick="navigateModal(1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all disabled:opacity-30">
-                                        <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
 
                             {{-- Slide Navigation (For PPTs) --}}
                             <div id="slideNav" class="hidden flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 p-1 shadow-sm">
@@ -400,19 +381,12 @@
             const viewer = document.getElementById('fileViewer');
             const viewerContainer = viewer.parentElement;
             const title = document.getElementById('modal-title');
-            const counter = document.getElementById('modalCounter');
             const slideNav = document.getElementById('slideNav');
-            const prevBtn = document.getElementById('modalPrev');
-            const nextBtn = document.getElementById('modalNext');
             const topRightMask = document.getElementById('topRightMask');
             const bottomBarMaskLeft = document.getElementById('bottomBarMaskLeft');
             const bottomBarMaskRight = document.getElementById('bottomBarMaskRight');
 
             title.textContent = att.name;
-            counter.textContent = (currentAttachmentIndex + 1) + ' / ' + currentAttachments.length;
-            
-            prevBtn.disabled = currentAttachmentIndex === 0;
-            nextBtn.disabled = currentAttachmentIndex === currentAttachments.length - 1;
 
             let finalUrl = att.url;
             const extension = att.extension;
@@ -445,14 +419,6 @@
             viewer.src = finalUrl;
         }
 
-        function navigateModal(direction) {
-            const newIndex = currentAttachmentIndex + direction;
-            if (newIndex >= 0 && newIndex < currentAttachments.length) {
-                currentAttachmentIndex = newIndex;
-                currentSlideIndex = 1;
-                updateModalContent();
-            }
-        }
 
         function navigateSlide(direction) {
             currentSlideIndex = Math.max(1, currentSlideIndex + direction);
@@ -475,11 +441,6 @@
             }
             
             const modal = document.getElementById('fileModal');
-            if (modal && !modal.classList.contains('hidden')) {
-                // Handle arrow keys for document navigation
-                if (event.key === 'ArrowRight' && event.ctrlKey) navigateModal(1);
-                if (event.key === 'ArrowLeft' && event.ctrlKey) navigateModal(-1);
-            }
 
             // Disable Print (Ctrl+P / Cmd+P)
             if ((event.ctrlKey || event.metaKey) && (event.key === 'p' || event.key === 'P')) {
