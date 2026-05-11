@@ -146,7 +146,7 @@ class ReportsController extends Controller
 
             return (object)[
                 'user_name' => $first->user->name ?? 'Unknown',
-                'ihs_id' => $first->user->rn_number ?? 'N/A',
+                'sequence_number' => $first->user->unique_sequence_number ?? 'N/A',
                 'course_name' => $first->courseDetail->couse_name ?? 'Unknown',
                 'pre_score' => $pre ? number_format($pre->score_percent, 2) : '-',
                 'mock_score' => $mock ? number_format($mock->score_percent, 2) : '-',
@@ -229,7 +229,7 @@ class ReportsController extends Controller
         $callback = function() use ($grouped, $examType) {
             $file = fopen('php://output', 'w');
             
-            $header = ['Name', 'IHS ID', 'Module Name'];
+            $header = ['Name', 'Unique ID', 'Module Name'];
             if (!$examType || $examType === 'pre') $header[] = 'Pre Test';
             if (!$examType || $examType === 'mock') $header[] = 'Mock Test';
             if (!$examType || in_array($examType, ['final', 'passed'])) {
@@ -250,7 +250,7 @@ class ReportsController extends Controller
 
                 $row = [
                     $first->user->name ?? 'Unknown',
-                    $first->user->rn_number ?? 'N/A',
+                    $first->user->unique_sequence_number ?? 'N/A',
                     $first->courseDetail->couse_name ?? 'Unknown',
                 ];
                 

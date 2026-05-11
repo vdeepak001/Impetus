@@ -14,7 +14,7 @@
             <a href="{{ route($routePrefix . '.reports.export-csv', request()->all()) }}" 
                class="inline-flex items-center px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                Download CSV
+                Download Excel
             </a>
 
             <!-- PDF/Print Button -->
@@ -145,7 +145,7 @@
                 <thead>
                     <tr class="bg-[#0082c8]">
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">IHS ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Unique ID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
@@ -167,7 +167,7 @@
                     @forelse($userAttempts as $attempt)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
                             <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->ihs_id }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->sequence_number }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
                             
                             @if(!request('exam_type') || request('exam_type') === 'pre')
