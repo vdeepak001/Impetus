@@ -71,11 +71,13 @@
                                 <p class="mt-1 text-xl font-black text-logo-blue md:mt-2 md:text-2xl">{{ $obtainedScore }}/{{ $maxScore }}</p>
                             </div>
 
+                            @if($testType !== 'practice')
                             {{-- Time Taken --}}
                             <div class="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white p-2 shadow-sm transition hover:shadow-md md:p-4">
                                 <p class="whitespace-nowrap text-center text-[8px] font-bold uppercase tracking-widest text-slate-400 md:text-[11px]">Time Taken</p>
                                 <p class="mt-1 text-xl font-black text-slate-900 md:mt-2 md:text-2xl">{{ $formattedDuration }}</p>
                             </div>
+                            @endif
                         </div>
                         {{-- Score Chart & Visuals --}}
                         <div class="mt-10 overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-8">
@@ -259,7 +261,7 @@
                     </p>
                 </div>
 
-                @if ($examDeadlineTs)
+                @if ($examDeadlineTs && $testType !== 'practice')
                     @php
                         $timerLow = ! $examTimeExpired && $examSecondsRemaining > 0 && $examSecondsRemaining <= 300;
                     @endphp
