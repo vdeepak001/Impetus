@@ -362,14 +362,19 @@
                             </button>
                         </div>
                     </div>
-                    <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden">
-                        
-                        {{-- Targeted masks to visually hide download/pop-out buttons --}}
+                    <div class="flex-1 w-full bg-slate-800 relative group overflow-hidden flex flex-col">
+                        {{-- Targeted masks to visually hide download/pop-out buttons for Office Viewer --}}
                         <div id="topRightMask" class="absolute top-0 right-0 w-20 h-14 bg-slate-800 z-[70] hidden"></div>
                         <div id="bottomBarMaskLeft" class="absolute bottom-0 left-0 w-[40%] h-10 bg-slate-800 z-[70] hidden"></div>
                         <div id="bottomBarMaskRight" class="absolute bottom-0 right-0 w-[40%] h-10 bg-slate-800 z-[70] hidden"></div>
                         
+                        {{-- Native/Office Viewer Iframe --}}
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
+
+                        {{-- Custom PDF.js Viewer --}}
+                        <div id="pdfViewerContainer" class="hidden absolute inset-0 overflow-auto bg-slate-700/50 flex flex-col items-center gap-6 py-12 scroll-smooth">
+                            {{-- Pages will be injected here --}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -387,6 +392,7 @@
         let currentSlideIndex = 1;
         let currentPdfPage = 1;
         let totalPdfPages = 1;
+        let pdfObserver = null;
 
         function openFile(attachments, index) {
             currentAttachments = attachments;
@@ -419,22 +425,57 @@
             let finalUrl = att.url;
             const extension = att.extension;
             
-            const isPPT = ['pptx', 'ppt', 'pps', 'ppsx'].includes(extension);
             const isPDF = extension === 'pdf';
             slideNav.classList.toggle('hidden', !isPPT);
             pdfNav.classList.toggle('hidden', !isPDF);
 
+            const viewerContainer = viewer.parentElement;
+            const pdfContainer = document.getElementById('pdfViewerContainer');
+
             if (isPDF) {
-                finalUrl += '#toolbar=0&navpanes=0&view=FitH&page=' + currentPdfPage;
+                viewer.classList.add('hidden');
+                pdfContainer.classList.remove('hidden');
+                pdfContainer.innerHTML = '<div class="flex items-center gap-3 text-white/50 animate-pulse"><svg class="h-6 w-6 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg><span>Rendering PDF...</span></div>';
                 
-                // Try to get total pages
                 try {
                     const loadingTask = pdfjsLib.getDocument(att.url);
-                    loadingTask.promise.then(pdf => {
+                    loadingTask.promise.then(async (pdf) => {
                         totalPdfPages = pdf.numPages;
-                        document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
+                        pdfContainer.innerHTML = ''; // Clear loader
+                        
+                        // Setup Observer to track current page
+                        if (pdfObserver) pdfObserver.disconnect();
+                        pdfObserver = new IntersectionObserver((entries) => {
+                            entries.forEach(entry => {
+                                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                                    currentPdfPage = parseInt(entry.target.dataset.page);
+                                    document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
+                                }
+                            });
+                        }, { threshold: [0.5], root: pdfContainer });
+
+                        for (let pageNum = 1; pageNum <= totalPdfPages; pageNum++) {
+                            const page = await pdf.getPage(pageNum);
+                            const canvas = document.createElement('canvas');
+                            canvas.className = 'shadow-2xl bg-white max-w-full';
+                            canvas.dataset.page = pageNum;
+                            pdfContainer.appendChild(canvas);
+                            
+                            const context = canvas.getContext('2d');
+                            const viewport = page.getViewport({ scale: 2 }); // High quality
+                            canvas.height = viewport.height;
+                            canvas.width = viewport.width;
+
+                            const renderContext = {
+                                canvasContext: context,
+                                viewport: viewport
+                            };
+                            await page.render(renderContext).promise;
+                            pdfObserver.observe(canvas);
+                        }
                     }).catch(err => {
                         console.error('PDF.js Error:', err);
+                        pdfContainer.innerHTML = '<div class="text-red-400">Failed to load PDF. Please try again.</div>';
                     });
                 } catch (e) {
                     console.error('Error starting PDF.js task:', e);
@@ -444,23 +485,27 @@
                 bottomBarMaskLeft.classList.add('hidden');
                 bottomBarMaskRight.classList.add('hidden');
                 viewerContainer.classList.replace('bg-slate-800', 'bg-white');
-            } else if (isPPT || ['docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
-                finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
-                if (isPPT) {
-                    finalUrl += '&wdAr=1.77&wdSlideIndex=' + currentSlideIndex;
-                }
-                topRightMask.classList.toggle('hidden', !isPPT && extension !== 'docx' && extension !== 'doc');
-                bottomBarMaskLeft.classList.toggle('hidden', !isPPT);
-                bottomBarMaskRight.classList.toggle('hidden', !isPPT);
-                viewerContainer.classList.replace('bg-white', 'bg-slate-800');
             } else {
-                topRightMask.classList.add('hidden');
-                bottomBarMaskLeft.classList.add('hidden');
-                bottomBarMaskRight.classList.add('hidden');
-                viewerContainer.classList.replace('bg-white', 'bg-slate-800');
+                viewer.classList.remove('hidden');
+                pdfContainer.classList.add('hidden');
+                
+                if (isPPT || ['docx', 'doc', 'xlsx', 'xls'].includes(extension)) {
+                    finalUrl = 'https://view.officeapps.live.com/op/embed.aspx?src=' + encodeURIComponent(att.url);
+                    if (isPPT) {
+                        finalUrl += '&wdAr=1.77&wdSlideIndex=' + currentSlideIndex;
+                    }
+                    topRightMask.classList.toggle('hidden', !isPPT && extension !== 'docx' && extension !== 'doc');
+                    bottomBarMaskLeft.classList.toggle('hidden', !isPPT);
+                    bottomBarMaskRight.classList.toggle('hidden', !isPPT);
+                    viewerContainer.classList.replace('bg-white', 'bg-slate-800');
+                } else {
+                    topRightMask.classList.add('hidden');
+                    bottomBarMaskLeft.classList.add('hidden');
+                    bottomBarMaskRight.classList.add('hidden');
+                    viewerContainer.classList.replace('bg-white', 'bg-slate-800');
+                }
+                viewer.src = finalUrl;
             }
-
-            viewer.src = finalUrl;
         }
 
 
@@ -470,8 +515,11 @@
         }
 
         function navigatePdf(direction) {
-            currentPdfPage = Math.min(totalPdfPages, Math.max(1, currentPdfPage + direction));
-            updateModalContent();
+            const nextPage = Math.min(totalPdfPages, Math.max(1, currentPdfPage + direction));
+            const targetCanvas = document.querySelector(`#pdfViewerContainer canvas[data-page="${nextPage}"]`);
+            if (targetCanvas) {
+                targetCanvas.scrollIntoView({ behavior: 'smooth' });
+            }
         }
         
         function closeModal() {
