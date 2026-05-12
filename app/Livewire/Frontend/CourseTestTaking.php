@@ -138,6 +138,11 @@ class CourseTestTaking extends Component
             $this->attemptId = $inProgress->id;
             $ids = $inProgress->question_ids;
             $this->hydrateQuestionsPayload($ids);
+            
+            if ($this->type === CourseTestType::Practice) {
+                $this->initPracticeStates($ids);
+            }
+            
             $this->hydrateResponsesFromAttempt($inProgress);
             $this->currentIndex = (int) ($inProgress->last_index ?? 0);
         } else {
@@ -165,10 +170,10 @@ class CourseTestTaking extends Component
             $this->attemptId = $attempt->id;
             $this->hydrateQuestionsPayload($ids);
             $this->initEmptyResponses($ids);
-        }
 
-        if ($this->type === CourseTestType::Practice) {
-            $this->initPracticeStates($ids);
+            if ($this->type === CourseTestType::Practice) {
+                $this->initPracticeStates($ids);
+            }
         }
 
         $this->totalQuestions = count($this->questions);
