@@ -441,17 +441,18 @@
                     loadingTask.promise.then(async (pdf) => {
                         totalPdfPages = pdf.numPages;
                         pdfContainer.innerHTML = ''; // Clear loader
+                        document.getElementById('pdfPageDisplay').textContent = '1/' + totalPdfPages;
                         
                         // Setup Observer to track current page
                         if (pdfObserver) pdfObserver.disconnect();
                         pdfObserver = new IntersectionObserver((entries) => {
                             entries.forEach(entry => {
-                                if (entry.isIntersecting && entry.intersectionRatio > 0.5) {
+                                if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
                                     currentPdfPage = parseInt(entry.target.dataset.page);
                                     document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
                                 }
                             });
-                        }, { threshold: [0.5], root: pdfContainer });
+                        }, { threshold: [0.1, 0.5], root: pdfContainer });
 
                         for (let pageNum = 1; pageNum <= totalPdfPages; pageNum++) {
                             const page = await pdf.getPage(pageNum);
