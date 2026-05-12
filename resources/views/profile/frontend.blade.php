@@ -8,12 +8,12 @@
     @endphp
     <section class="mx-auto max-w-6xl px-4 pb-16 pt-32 sm:px-6 lg:px-8" x-data="{ tab: 'personal' }">
         <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-200 pb-5 text-sm font-semibold gap-12">
-                <div class="flex flex-wrap gap-x-12 gap-y-4 sm:gap-x-32">
-                    <button type="button" @click="tab = 'personal'" :class="tab === 'personal' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Personal Information</button>
-                    <button type="button" @click="tab = 'academic'" :class="tab === 'academic' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Academic Information</button>
-                    <button type="button" @click="tab = 'professional'" :class="tab === 'professional' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">Professional Information</button>
-                    <button type="button" @click="tab = 'course'" :class="tab === 'course' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="border-b-2 pb-2 text-left transition">My Course</button>
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b border-slate-200 pb-5 text-sm font-semibold gap-8">
+                <div class="flex flex-nowrap items-center gap-x-8 sm:gap-x-12 lg:gap-x-16 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">
+                    <button type="button" @click="tab = 'personal'" :class="tab === 'personal' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">Personal Information</button>
+                    <button type="button" @click="tab = 'academic'" :class="tab === 'academic' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">Academic Information</button>
+                    <button type="button" @click="tab = 'professional'" :class="tab === 'professional' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">Professional Information</button>
+                    <button type="button" @click="tab = 'course'" :class="tab === 'course' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">My Course</button>
                 </div>
                 <div class="flex items-center gap-2 rounded-lg bg-logo-blue px-3 py-1.5 text-white shadow-sm">
                     <span class="opacity-80">User ID:</span>
