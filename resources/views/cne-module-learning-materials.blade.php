@@ -424,12 +424,11 @@
 
             let finalUrl = att.url;
             const extension = att.extension;
-            
+            const isPPT = ['pptx', 'ppt', 'pps', 'ppsx'].includes(extension);
             const isPDF = extension === 'pdf';
             slideNav.classList.toggle('hidden', !isPPT);
             pdfNav.classList.toggle('hidden', !isPDF);
 
-            const viewerContainer = viewer.parentElement;
             const pdfContainer = document.getElementById('pdfViewerContainer');
 
             if (isPDF) {
