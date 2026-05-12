@@ -372,7 +372,7 @@
                         <iframe id="fileViewer" src="" class="w-full h-full border-0 block" oncontextmenu="return false;"></iframe>
 
                         {{-- Custom PDF.js Viewer --}}
-                        <div id="pdfViewerContainer" class="hidden absolute inset-0 overflow-auto bg-slate-700/50 flex flex-col items-center gap-6 py-12 scroll-smooth">
+                        <div id="pdfViewerContainer" class="hidden absolute inset-0 overflow-y-auto bg-slate-700/60 py-12 scroll-smooth text-center z-10">
                             {{-- Pages will be injected here --}}
                         </div>
                     </div>
@@ -456,7 +456,7 @@
                         for (let pageNum = 1; pageNum <= totalPdfPages; pageNum++) {
                             const page = await pdf.getPage(pageNum);
                             const canvas = document.createElement('canvas');
-                            canvas.className = 'shadow-2xl bg-white max-w-full';
+                            canvas.className = 'shadow-2xl bg-white mx-auto mb-8 block max-w-[95%]';
                             canvas.dataset.page = pageNum;
                             pdfContainer.appendChild(canvas);
                             
