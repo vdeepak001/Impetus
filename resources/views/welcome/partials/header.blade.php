@@ -58,21 +58,21 @@
                                 </a>
                             @endif
 
-                            <div x-data="{ userMenuOpen: false }" class="relative flex-shrink-0">
+                             <div x-data="{ userMenuOpen: false }" class="relative flex-shrink-0 flex flex-col items-center gap-1">
                                 <button
                                     type="button"
                                     @click="userMenuOpen = !userMenuOpen"
                                     @click.outside="userMenuOpen = false"
-                                    class="inline-flex max-w-[12rem] xl:max-w-[18rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-1.5 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
+                                    class="inline-flex w-40 items-center justify-between rounded-lg border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
                                 >
-                                    <div class="flex flex-col text-left overflow-hidden">
-                                        <span class="truncate leading-tight">Hi, {{ auth()->user()->name }}</span>
-                                        <span class="text-[10px] text-slate-500 leading-tight">{{ auth()->user()->unique_sequence_number ?? 'N/A' }}</span>
-                                    </div>
-                                    <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <span class="truncate">Hi, {{ auth()->user()->name }}</span>
+                                    <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
+                                <div class="w-40 rounded-lg bg-logo-blue py-0.5 text-center text-[11px] font-bold text-white shadow-sm">
+                                    UID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
+                                </div>
 
                                 <div
                                     x-show="userMenuOpen"

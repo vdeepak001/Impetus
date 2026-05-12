@@ -15,8 +15,8 @@
                     <button type="button" @click="tab = 'professional'" :class="tab === 'professional' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">Professional Information</button>
                     <button type="button" @click="tab = 'course'" :class="tab === 'course' ? 'text-logo-blue border-logo-blue' : 'text-slate-500 border-transparent'" class="whitespace-nowrap border-b-2 pb-2 text-left transition">My Course</button>
                 </div>
-                <div class="flex items-center gap-2 rounded-lg bg-logo-blue px-3 py-1.5 text-white shadow-sm">
-                    <span class="font-bold">{{ auth()->user()->unique_sequence_number ?? 'N/A' }}</span>
+                <div class="w-40 rounded-lg bg-logo-blue py-1 text-center text-[12px] font-bold text-white shadow-sm">
+                    UID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
                 </div>
             </div>
 
