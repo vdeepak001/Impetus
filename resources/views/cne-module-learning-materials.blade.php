@@ -445,14 +445,33 @@
                         
                         // Setup Observer to track current page
                         if (pdfObserver) pdfObserver.disconnect();
+                        const visiblePages = new Map();
                         pdfObserver = new IntersectionObserver((entries) => {
                             entries.forEach(entry => {
-                                if (entry.isIntersecting && entry.intersectionRatio > 0.2) {
-                                    currentPdfPage = parseInt(entry.target.dataset.page);
-                                    document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
+                                if (entry.isIntersecting) {
+                                    visiblePages.set(entry.target.dataset.page, entry.intersectionRatio);
+                                } else {
+                                    visiblePages.delete(entry.target.dataset.page);
                                 }
                             });
-                        }, { threshold: [0.1, 0.5], root: pdfContainer });
+
+                            let maxRatio = -1;
+                            let bestPage = currentPdfPage;
+                            visiblePages.forEach((ratio, page) => {
+                                if (ratio > maxRatio) {
+                                    maxRatio = ratio;
+                                    bestPage = parseInt(page);
+                                }
+                            });
+
+                            if (bestPage !== currentPdfPage) {
+                                currentPdfPage = bestPage;
+                                document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
+                            }
+                        }, { 
+                            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0], 
+                            root: pdfContainer 
+                        });
 
                         for (let pageNum = 1; pageNum <= totalPdfPages; pageNum++) {
                             const page = await pdf.getPage(pageNum);
