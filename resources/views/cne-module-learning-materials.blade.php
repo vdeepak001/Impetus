@@ -331,6 +331,26 @@
                                     </button>
                                 </div>
                             </div>
+
+                            {{-- PDF Navigation --}}
+                            <div id="pdfNav" class="hidden flex items-center gap-2 bg-slate-50 rounded-xl border border-slate-200 p-1 shadow-sm">
+                                <div class="flex items-center gap-1.5 px-2 border-r border-slate-200 mr-1">
+                                    <span class="text-[9px] font-bold uppercase tracking-widest text-slate-400">Page</span>
+                                    <span id="pdfPageDisplay" class="text-[11px] font-bold text-slate-700 ml-1">1/1</span>
+                                </div>
+                                <div class="flex items-center gap-1 pr-1">
+                                    <button onclick="navigatePdf(-1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all">
+                                        <svg class="h-3.5 w-3.5 transition-transform group-hover:-translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                                        </svg>
+                                    </button>
+                                    <button onclick="navigatePdf(1)" class="group flex items-center justify-center rounded-lg h-7 w-7 bg-white border border-slate-200 text-slate-400 hover:text-logo-blue transition-all">
+                                        <svg class="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
 
                         {{-- Right: Close Button --}}
@@ -357,15 +377,23 @@
     </div>
 
 @push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
         let currentAttachments = [];
         let currentAttachmentIndex = -1;
         let currentSlideIndex = 1;
+        let currentPdfPage = 1;
+        let totalPdfPages = 1;
 
         function openFile(attachments, index) {
             currentAttachments = attachments;
             currentAttachmentIndex = index;
             currentSlideIndex = 1;
+            currentPdfPage = 1;
+            totalPdfPages = 1;
             updateModalContent();
             
             const modal = document.getElementById('fileModal');
@@ -392,10 +420,26 @@
             const extension = att.extension;
             
             const isPPT = ['pptx', 'ppt', 'pps', 'ppsx'].includes(extension);
+            const isPDF = extension === 'pdf';
             slideNav.classList.toggle('hidden', !isPPT);
+            pdfNav.classList.toggle('hidden', !isPDF);
 
-            if (extension === 'pdf') {
-                finalUrl += '#toolbar=0&navpanes=0&view=FitH';
+            if (isPDF) {
+                finalUrl += '#toolbar=0&navpanes=0&view=FitH&page=' + currentPdfPage;
+                
+                // Try to get total pages
+                try {
+                    const loadingTask = pdfjsLib.getDocument(att.url);
+                    loadingTask.promise.then(pdf => {
+                        totalPdfPages = pdf.numPages;
+                        document.getElementById('pdfPageDisplay').textContent = currentPdfPage + '/' + totalPdfPages;
+                    }).catch(err => {
+                        console.error('PDF.js Error:', err);
+                    });
+                } catch (e) {
+                    console.error('Error starting PDF.js task:', e);
+                }
+
                 topRightMask.classList.add('hidden');
                 bottomBarMaskLeft.classList.add('hidden');
                 bottomBarMaskRight.classList.add('hidden');
@@ -422,6 +466,11 @@
 
         function navigateSlide(direction) {
             currentSlideIndex = Math.max(1, currentSlideIndex + direction);
+            updateModalContent();
+        }
+
+        function navigatePdf(direction) {
+            currentPdfPage = Math.min(totalPdfPages, Math.max(1, currentPdfPage + direction));
             updateModalContent();
         }
         
