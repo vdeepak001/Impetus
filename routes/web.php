@@ -217,6 +217,9 @@ foreach ($prefixes as $prefix) {
             Route::get('users-list/{userId}/state-courses', [UserCourseOrderController::class, 'courses'])
                 ->whereNumber('userId')
                 ->name($prefix.'.users-list.state-courses');
+            Route::get('users-list/{userId}/purchased-courses', [UserCourseOrderController::class, 'purchasedCourses'])
+                ->whereNumber('userId')
+                ->name($prefix.'.users-list.purchased-courses');
             Route::post('users-list/{userId}/orders', [UserCourseOrderController::class, 'store'])
                 ->whereNumber('userId')
                 ->name($prefix.'.users-list.orders.store');

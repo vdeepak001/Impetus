@@ -98,6 +98,43 @@ class UserCourseOrderController extends Controller
         ]);
     }
 
+    public function purchasedCourses(int $userId): JsonResponse
+    {
+        $user = User::query()->findOrFail($userId);
+        abort_unless($user->role_type === 'user', 404);
+
+        $orders = Order::query()
+            ->with('courseDetail:id,couse_name')
+            ->where('user_id', $user->id)
+            ->where('payment_status', PaymentStatus::Completed)
+            ->latest('id')
+            ->get()
+            ->map(function ($order) {
+                $completion = CourseTestAttempt::query()
+                    ->where('user_id', $order->user_id)
+                    ->where('course_detail_id', $order->course_detail_id)
+                    ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                    ->where('started_at', '>=', $order->created_at)
+                    ->orderByDesc('passed')
+                    ->latest('completed_at')
+                    ->first();
+
+                return [
+                    'id' => $order->id,
+                    'course_name' => $order->courseDetail?->couse_name ?? 'N/A',
+                    'purchase_date' => $order->start_date ? $order->start_date->format('d-m-Y') : '-',
+                    'expiry_date' => $order->end_date ? $order->end_date->format('d-m-Y') : '-',
+                    'completion_date' => $completion ? $completion->completed_at->format('d-m-Y') : '-',
+                    'passed' => $completion ? (bool) $completion->passed : false,
+                ];
+            });
+
+        return response()->json([
+            'orders' => $orders,
+        ]);
+    }
+
     public function store(StoreUserCourseOrderRequest $request, int $userId): JsonResponse|RedirectResponse
     {
         $user = User::query()->findOrFail($userId);

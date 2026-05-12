@@ -14,6 +14,10 @@
             detailUser: null,
             paymentOpen: false,
             paymentUserId: null,
+            courseOpen: false,
+            courseUserId: null,
+            courseOrders: [],
+            courseLoading: false,
             paymentCourses: [],
             paymentModes: [],
             paymentInfoMessage: '',
@@ -58,7 +62,7 @@
             closeDetail() {
                 this.detailOpen = false;
                 this.detailUser = null;
-                if (! this.paymentOpen) document.body.style.overflow = 'unset';
+                if (! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
             },
             resetPaymentForm() {
                 this.paymentForm = {
@@ -87,7 +91,37 @@
                 this.paymentCourses = [];
                 this.paymentModes = [];
                 this.paymentLoading = false;
-                if (! this.detailOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
+            },
+            async openCourse(userId) {
+                if (this.detailOpen) this.closeDetail();
+                if (this.paymentOpen) this.closePayment();
+                this.courseUserId = userId;
+                this.courseOpen = true;
+                this.courseOrders = [];
+                document.body.style.overflow = 'hidden';
+                this.courseLoading = true;
+                try {
+                    const res = await fetch(this.usersListBaseUrl + '/' + userId + '/purchased-courses', {
+                        headers: {
+                            'Accept': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        credentials: 'same-origin',
+                    });
+                    const data = await res.json();
+                    this.courseOrders = data.orders || [];
+                } catch (e) {
+                    console.error('Failed to load courses', e);
+                } finally {
+                    this.courseLoading = false;
+                }
+            },
+            closeCourse() {
+                this.courseOpen = false;
+                this.courseUserId = null;
+                this.courseOrders = [];
+                if (! this.detailOpen && ! this.paymentOpen) document.body.style.overflow = 'unset';
             },
             async loadPaymentCourses() {
                 this.paymentLoading = true;
