@@ -63,10 +63,13 @@
                                     type="button"
                                     @click="userMenuOpen = !userMenuOpen"
                                     @click.outside="userMenuOpen = false"
-                                    class="inline-flex max-w-[10rem] xl:max-w-[15rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-2 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
+                                    class="inline-flex max-w-[12rem] xl:max-w-[18rem] items-center gap-2 rounded-full border border-slate-300 px-4 py-1.5 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green"
                                 >
-                                    <span class="truncate">Hi, {{ auth()->user()->name }}</span>
-                                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <div class="flex flex-col text-left overflow-hidden">
+                                        <span class="truncate leading-tight">Hi, {{ auth()->user()->name }}</span>
+                                        <span class="text-[10px] text-slate-500 leading-tight">{{ auth()->user()->unique_sequence_number ?? 'N/A' }}</span>
+                                    </div>
+                                    <svg class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
