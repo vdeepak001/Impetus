@@ -24,7 +24,7 @@
                 @csrf
                 @method('PATCH')
                 <div class="grid gap-4 sm:grid-cols-2">
-                    <label class="text-sm font-medium text-slate-700">Name<input name="name" value="{{ old('name', auth()->user()->name) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">Name<input name="name" value="{{ old('name', auth()->user()->name) }}" class="{{ $inputClass }} bg-slate-50 cursor-not-allowed" readonly /></label>
                     <label class="text-sm font-medium text-slate-700">Gender
                         <select name="gender" class="{{ $inputClass }}">
                             <option value="">Select</option>
@@ -56,7 +56,7 @@
                     <label class="text-sm font-medium text-slate-700">Year of Completion<input name="completed_year" value="{{ old('completed_year', auth()->user()->completed_year) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Name of the Institute<input name="institution_name" value="{{ old('institution_name', auth()->user()->institution_name) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">Name of the University/ Board<input name="university_board" value="{{ old('university_board', auth()->user()->university_board) }}" class="{{ $inputClass }}" /></label>
-                    <label class="text-sm font-medium text-slate-700">RN<input name="rn_number" value="{{ old('rn_number', auth()->user()->rn_number) }}" class="{{ $inputClass }}" /></label>
+                    <label class="text-sm font-medium text-slate-700">RN<input name="rn_number" value="{{ old('rn_number', auth()->user()->rn_number) }}" class="{{ $inputClass }} bg-slate-50 cursor-not-allowed" readonly /></label>
                     <label class="text-sm font-medium text-slate-700">RM<input name="rm_number" value="{{ old('rm_number', auth()->user()->rm_number) }}" class="{{ $inputClass }}" /></label>
                     <label class="text-sm font-medium text-slate-700">RNM<input name="rnm_number" value="{{ old('rnm_number', auth()->user()->rnm_number) }}" class="{{ $inputClass }}" /></label>
                 </div>
