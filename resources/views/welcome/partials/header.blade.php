@@ -70,7 +70,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                     </svg>
                                 </button>
-                                <div class="w-40 rounded-lg bg-logo-blue py-0.5 text-center text-[11px] font-bold text-white shadow-sm">
+                                <div class="w-40 rounded-lg bg-logo-blue py-1 text-center text-[13px] font-bold text-white shadow-sm">
                                     UID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
                                 </div>
 
