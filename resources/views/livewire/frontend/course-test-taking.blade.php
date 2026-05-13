@@ -524,7 +524,7 @@
                                             <button
                                                 type="button"
                                                 wire:click="submitPracticeAnswer({{ $qid }})"
-                                                class="rounded-xl bg-orange-600 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-orange-600/25 transition hover:bg-orange-700"
+                                                class="rounded-xl bg-emerald-600 px-6 py-2.5 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-emerald-600/25 transition hover:bg-emerald-700"
                                             >
                                                 Submit Answer
                                             </button>
