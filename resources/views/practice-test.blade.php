@@ -84,7 +84,7 @@
                                         <thead class="{{ $themeColor['bg'] }} text-xs font-bold uppercase tracking-[0.15em] text-white">
                                             <tr>
                                                 <th class="rounded-tl-2xl px-6 py-4">Questions</th>
-                                                <th class="px-6 py-4 text-center">View Progress</th>
+                                                <th class="w-32 px-6 py-4 text-center">View Progress</th>
                                                 <th class="rounded-tr-2xl px-6 py-4 text-center">Attempts</th>
                                             </tr>
                                         </thead>
@@ -113,7 +113,7 @@
                                                             </a>
                                                         @endif
                                                     </td>
-                                                    <td class="px-6 py-4 text-center">
+                                                    <td class="w-32 px-6 py-4 text-center">
                                                         <div class="relative flex justify-center" x-data="{ open: false }">
                                                             <button 
                                                                 type="button" 
@@ -139,13 +139,13 @@
                                                                 style="display: none;"
                                                             >
                                                                 <div class="relative overflow-hidden rounded-xl border border-slate-200 bg-white p-3 shadow-2xl ring-1 ring-black/5">
-                                                                    <p class="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">Attempt History</p>
+                                                                    <p class="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-500">Attempt History</p>
                                                                     <div class="space-y-2">
                                                                         @foreach($setAttempts as $idx => $att)
                                                                             <div class="flex items-center justify-between border-t border-slate-50 pt-2 first:border-0 first:pt-0">
-                                                                                <div class="text-[11px] font-medium text-slate-600">
+                                                                                <div class="text-[11px] font-medium text-slate-700">
                                                                                     #{{ $attemptCount - $idx }}
-                                                                                    <span class="ml-1 text-[9px] text-slate-400 font-normal">{{ $att->completed_at?->format('d M') }}</span>
+                                                                                    <span class="ml-1 text-[9px] text-slate-500 font-normal">{{ $att->completed_at?->format('d M') }}</span>
                                                                                 </div>
                                                                                 <div @class([
                                                                                     'text-xs font-bold',
