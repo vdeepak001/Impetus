@@ -60,6 +60,9 @@ class CourseTestTaking extends Component
     /** @var array<int, array{correct:int, total:int, weight:int, score:int, max:int}> */
     public array $levelStats = [];
 
+    public ?int $practiceLevel = null;
+    public ?int $practiceSet = null;
+    public int $currentAttemptNumber = 1;
     public ?int $orderId = null;
 
     public ?string $fatalError = null;
@@ -114,6 +117,19 @@ class CourseTestTaking extends Component
 
         $level = request()->query('level') ? (int) request()->query('level') : null;
         $set = request()->query('set') ? (int) request()->query('set') : null;
+        $this->practiceLevel = $level;
+        $this->practiceSet = $set;
+
+        if ($this->type === CourseTestType::Practice && $level !== null && $set !== null) {
+            $this->currentAttemptNumber = (int) CourseTestAttempt::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $course->id)
+                ->where('test_type', CourseTestType::Practice->value)
+                ->where('practice_level', $level)
+                ->where('practice_set', $set)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->count() + 1;
+        }
 
         $selector = app(CourseTestQuestionSelector::class);
         $ids = $selector->selectQuestionIds($course, $split, $this->type, $level, $set);

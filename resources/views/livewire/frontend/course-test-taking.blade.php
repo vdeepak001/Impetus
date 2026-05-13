@@ -244,8 +244,8 @@
             </div>
         @else
             {{-- Questions View --}}
-            <div class="mb-6 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-6">
-                <div class="min-w-0 flex-1">
+            <div class="mb-6 flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between lg:gap-6">
+                <div class="min-w-0 lg:flex-1">
                     <a
                         href="{{ $testType === 'practice' ? route('cne.modules.test', [$course->couse_name, 'practice']) : route('cne.modules.show', $course->couse_name) }}"
                         class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-logo-blue hover:text-brand-600"
@@ -260,6 +260,23 @@
                         {{ $course->couse_name }}
                     </p>
                 </div>
+
+                @if($testType === 'practice' && $practiceLevel !== null)
+                    <div class="flex shrink-0 flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-bold uppercase tracking-wider text-slate-500 sm:text-sm lg:flex-1">
+                        <span class="flex items-center gap-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-logo-blue"></span>
+                            Level: {{ $practiceLevel == -1 ? 'Other' : $practiceLevel }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-logo-blue"></span>
+                            Set: {{ $practiceSet }}
+                        </span>
+                        <span class="flex items-center gap-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-logo-blue"></span>
+                            Attempt: {{ $currentAttemptNumber }} / 2
+                        </span>
+                    </div>
+                @endif
 
                 @if ($examDeadlineTs && $testType !== 'practice')
                     @php
@@ -319,7 +336,7 @@
                     </div>
                 @endif
 
-                <div class="shrink-0 text-right text-sm font-medium text-slate-500 sm:text-base">
+                <div class="shrink-0 text-right text-sm font-medium text-slate-500 lg:flex-1 sm:text-base">
                     Question {{ $currentIndex + 1 }} / {{ $totalQuestions }}
                 </div>
             </div>
