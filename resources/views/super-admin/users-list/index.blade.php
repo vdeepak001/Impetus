@@ -84,6 +84,7 @@
                 if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
             },
             openCertificate(url) {
+                console.log('Opening certificate:', url);
                 this.certificateUrl = url;
                 this.certificateOpen = true;
                 document.body.style.overflow = 'hidden';
