@@ -24,6 +24,8 @@
             performanceOpen: false,
             performanceLoading: false,
             performanceChart: null,
+            performanceOrders: [],
+            selectedPerformanceModule: 'all',
 
             paymentCourses: [],
             paymentModes: [],
@@ -41,6 +43,11 @@
             init() {
                 this.$watch('paymentForm.course_detail_id', () => this.updateEndDate());
                 this.$watch('paymentForm.start_date', () => this.updateEndDate());
+                this.$watch('selectedPerformanceModule', () => {
+                    if (this.performanceOrders.length > 0) {
+                        this.renderPerformanceChart(this.performanceOrders);
+                    }
+                });
             },
             todayISO() {
                 return new Date().toISOString().slice(0, 10);
@@ -196,6 +203,8 @@
                     });
                     const data = await res.json();
                     const orders = data.orders || [];
+                    this.performanceOrders = orders;
+                    this.selectedPerformanceModule = 'all';
 
                     this.$nextTick(() => {
                         this.renderPerformanceChart(orders);
@@ -214,9 +223,14 @@
                 }
                 if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
             },
-            renderPerformanceChart(orders) {
+            renderPerformanceChart(allOrders) {
                 const chartEl = document.querySelector('#performanceChart');
                 if (!chartEl) return;
+
+                let orders = allOrders;
+                if (this.selectedPerformanceModule !== 'all') {
+                    orders = allOrders.filter(o => String(o.id) === String(this.selectedPerformanceModule));
+                }
 
                 const categories = orders.map(o => o.course_name);
                 const preScores = orders.map(o => o.scores.pre);

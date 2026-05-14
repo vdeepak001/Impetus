@@ -537,11 +537,35 @@
 
             <div class="p-6 sm:p-10 overflow-y-auto max-h-[90vh]">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1 pr-10">
-                    Performance Analytics
+                    Performance Analysis
                 </h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400 mb-8">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
                     Visual comparison of test scores across all purchased modules.
                 </p>
+
+                {{-- Module Filter Dropdown --}}
+                <div x-show="!performanceLoading && performanceOrders.length > 1" class="mb-8 max-w-xs">
+                    <label for="perf-module-select" class="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
+                        Filter by Module
+                    </label>
+                    <div class="relative">
+                        <select 
+                            id="perf-module-select" 
+                            x-model="selectedPerformanceModule"
+                            class="block w-full appearance-none rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-2.5 pr-10 text-sm font-medium text-gray-700 transition-all hover:border-indigo-300 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:hover:border-indigo-500/50 dark:focus:bg-gray-800"
+                        >
+                            <option value="all">All Purchased Modules</option>
+                            <template x-for="order in performanceOrders" :key="order.id">
+                                <option :value="String(order.id)" x-text="order.course_name"></option>
+                            </template>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
 
                 <div x-show="performanceLoading" class="flex flex-col items-center justify-center py-20">
                     <svg class="animate-spin h-10 w-10 text-indigo-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
