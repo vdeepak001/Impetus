@@ -81,7 +81,7 @@
                 this.detailOpen = false;
                 this.detailUser = null;
                 this.detailForm = {};
-                if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
+                if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
             },
             openCertificate(url) {
                 this.certificateUrl = url;
@@ -158,7 +158,7 @@
                 this.paymentCourses = [];
                 this.paymentModes = [];
                 this.paymentLoading = false;
-                if (! this.detailOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.courseOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
             },
             async openCourse(userId) {
                 if (this.detailOpen) this.closeDetail();
@@ -188,7 +188,7 @@
                 this.courseOpen = false;
                 this.courseUserId = null;
                 this.courseOrders = [];
-                if (! this.detailOpen && ! this.paymentOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.performanceOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
             },
             async openPerformance(userId) {
                 if (this.detailOpen) this.closeDetail();
@@ -222,7 +222,7 @@
                     this.performanceChart.destroy();
                     this.performanceChart = null;
                 }
-                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
             },
             renderPerformanceChart(orders) {
                 const chartEl = document.querySelector('#performanceChart');

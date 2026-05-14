@@ -564,15 +564,18 @@
                 </div>
             </div>
         </div>
-        {{-- Certificate popup --}}
+    </div>
+
+    {{-- Certificate popup --}}
     <div
         x-show="certificateOpen"
-        x-cloak
-        class="fixed inset-0 z-[999999] flex items-center justify-center p-5"
+        class="fixed inset-0 z-[100001] flex items-center justify-center p-5"
+        style="display: none;"
+        x-bind:style="certificateOpen ? 'display: flex' : 'display: none'"
     >
         <div
             @click="closeCertificate()"
-            class="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-sm"
+            class="fixed inset-0 h-full w-full bg-gray-900/60 backdrop-blur-sm"
             x-transition:enter="transition ease-out duration-300"
             x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100"
@@ -611,6 +614,5 @@
                 </template>
             </div>
         </div>
-    </div>
     </div>
 </div>
