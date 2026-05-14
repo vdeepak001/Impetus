@@ -544,9 +544,9 @@
                 </p>
 
                 {{-- Module Filter Dropdown --}}
-                <div x-show="!performanceLoading && performanceOrders.length > 1" class="mb-8 max-w-xs">
+                <div x-show="!performanceLoading && performanceOrders.length > 0" class="mb-8 max-w-xs">
                     <label for="perf-module-select" class="mb-1.5 block text-[10px] font-bold uppercase tracking-wider text-gray-400 dark:text-gray-500">
-                        Filter by Module
+                        Course Module
                     </label>
                     <div class="relative">
                         <select 
@@ -554,7 +554,6 @@
                             x-model="selectedPerformanceModule"
                             class="block w-full appearance-none rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-2.5 pr-10 text-sm font-medium text-gray-700 transition-all hover:border-indigo-300 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:hover:border-indigo-500/50 dark:focus:bg-gray-800"
                         >
-                            <option value="all">All Purchased Modules</option>
                             <template x-for="order in performanceOrders" :key="order.id">
                                 <option :value="String(order.id)" x-text="order.course_name"></option>
                             </template>
@@ -576,7 +575,20 @@
                 </div>
 
                 <div x-show="!performanceLoading">
-                    <div id="performanceChart" class="min-h-[350px]"></div>
+                    <template x-if="performanceOrders.length > 0">
+                        <div id="performanceChart" class="min-h-[350px]"></div>
+                    </template>
+                    <template x-if="performanceOrders.length === 0">
+                        <div class="flex flex-col items-center justify-center py-20 bg-gray-50/50 dark:bg-gray-800/30 rounded-3xl border border-dashed border-gray-200 dark:border-gray-700">
+                            <div class="mb-4 rounded-full bg-gray-100 p-4 dark:bg-gray-800">
+                                <svg class="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                </svg>
+                            </div>
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">No Modules Purchased</p>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">This user has not purchased any modules yet.</p>
+                        </div>
+                    </template>
                 </div>
 
                 <div class="mt-8 flex justify-end">

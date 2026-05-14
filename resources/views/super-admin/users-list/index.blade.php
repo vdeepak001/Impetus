@@ -204,7 +204,13 @@
                     const data = await res.json();
                     const orders = data.orders || [];
                     this.performanceOrders = orders;
-                    this.selectedPerformanceModule = 'all';
+                    
+                    // Default to the first module instead of 'all'
+                    if (orders.length > 0) {
+                        this.selectedPerformanceModule = String(orders[0].id);
+                    } else {
+                        this.selectedPerformanceModule = 'none';
+                    }
 
                     this.$nextTick(() => {
                         this.renderPerformanceChart(orders);
