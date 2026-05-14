@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
         <h2 class="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-            User Performance: {{ $selectedState->name }}
+            Report: {{ $selectedState->name }}
         </h2>
 
         <div class="flex items-center gap-3">

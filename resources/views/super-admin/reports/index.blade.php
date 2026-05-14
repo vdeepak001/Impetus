@@ -49,7 +49,7 @@
                     <thead>
                         <tr class="bg-[#0082c8]">
                             <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest border-b border-blue-400/20">Module Name</th>
-                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-left border-b border-blue-400/20">Number of Nurses Completed</th>
+                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-center border-b border-blue-400/20">Number of Nurses Completed</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -61,9 +61,9 @@
                                         {{ $module->name }}
                                     </a>
                                 </td>
-                                <td class="px-8 py-5 text-base font-bold text-gray-900 dark:text-white text-left font-mono">
+                                <td class="px-8 py-5 text-base font-bold text-gray-900 dark:text-white text-center font-mono">
                                     <a href="{{ route($routePrefix . '.reports.user-performance', ['state_id' => $selectedState->id, 'course_id' => $module->id]) }}" 
-                                       class="inline-flex items-center justify-end text-blue-600 hover:text-blue-700 hover:scale-110 transition-all duration-200">
+                                       class="inline-flex items-center justify-center text-blue-600 hover:text-blue-700 hover:scale-110 transition-all duration-200">
                                         {{ number_format($module->passed_count) }}
                                         <svg class="w-4 h-4 ml-2 opacity-0 group-hover:opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path></svg>
                                     </a>
