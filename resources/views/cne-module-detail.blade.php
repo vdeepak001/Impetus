@@ -356,7 +356,7 @@
                         <div class="min-w-0 flex-1">
                             <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-l-4 border-logo-light-green pl-5 sm:pl-6">
                                 <h2 class="text-2xl font-bold tracking-tight text-emerald-900 font-serif sm:text-3xl">
-                                    Learning Resources
+                                    Learning Materials
                                 </h2>
                                 @if ($hasCourseMaterials && $canViewLearningMaterials)
                                     <a

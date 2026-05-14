@@ -39,8 +39,8 @@
         <!-- Full Width Table Column -->
         <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-12">
             <div class="p-8 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50">
-                <h3 class="text-2xl font-black text-gray-800 dark:text-white text-center tracking-tight">
-                    Module wise number of nurses completed CNE
+                <h3 class="text-2xl font-black text-gray-800 dark:text-white text-right tracking-tight">
+                    Number of Nurses Completed
                 </h3>
             </div>
 
