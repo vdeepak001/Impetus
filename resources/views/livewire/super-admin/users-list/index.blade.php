@@ -8,7 +8,7 @@
         else if (courseOpen) { closeCourse() }
         else if (performanceOpen) { closePerformance() }
     "
-
+>
     {{-- Certificate popup --}}
     <div
         x-show="certificateOpen"
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
->
+
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
             <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
