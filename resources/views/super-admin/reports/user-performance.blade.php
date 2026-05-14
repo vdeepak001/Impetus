@@ -144,8 +144,9 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Unique ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">RN Number</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
@@ -166,27 +167,36 @@
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($userAttempts as $attempt)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
-                            <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->sequence_number }}</td>
+                            <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase">{{ $attempt->rn_number }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
                             
                             @if(!request('exam_type') || request('exam_type') === 'pre')
-                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->pre_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->pre_score }}</td>
+                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->pre_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">
+                                    {{ is_numeric($attempt->pre_score) ? round($attempt->pre_score) . '%' : $attempt->pre_score }}
+                                </td>
                             @endif
 
                             @if(!request('exam_type') || request('exam_type') === 'mock')
-                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->mock_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->mock_score }}</td>
+                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->mock_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">
+                                    {{ is_numeric($attempt->mock_score) ? round($attempt->mock_score) . '%' : $attempt->mock_score }}
+                                </td>
                             @endif
 
                             @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
-                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_1 != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->final_score_1 }}</td>
-                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_2 != '-' ? 'text-blue-600' : 'text-gray-400' }}">{{ $attempt->final_score_2 }}</td>
+                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_1 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
+                                    {{ is_numeric($attempt->final_score_1) ? round($attempt->final_score_1) . '%' : $attempt->final_score_1 }}
+                                </td>
+                                <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_2 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
+                                    {{ is_numeric($attempt->final_score_2) ? round($attempt->final_score_2) . '%' : $attempt->final_score_2 }}
+                                </td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->completed_on }}</td>
                             @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ !request('exam_type') ? 8 : (request('exam_type') === 'pre' || request('exam_type') === 'mock' ? 4 : 6) }}" class="px-8 py-20 text-center">
+                            <td colspan="{{ !request('exam_type') ? 9 : (request('exam_type') === 'pre' || request('exam_type') === 'mock' ? 5 : 7) }}" class="px-8 py-20 text-center">
                                 <p class="text-lg font-semibold text-gray-400 dark:text-gray-500">No user performance data found for the selected filters.</p>
                             </td>
                         </tr>

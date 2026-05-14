@@ -145,13 +145,14 @@ class ReportsController extends Controller
             $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
             return (object)[
-                'user_name' => $first->user->name ?? 'Unknown',
                 'sequence_number' => $first->user->unique_sequence_number ?? 'N/A',
+                'user_name' => $first->user->name ?? 'Unknown',
+                'rn_number' => $first->user->rn_number ?? 'N/A',
                 'course_name' => $first->courseDetail->couse_name ?? 'Unknown',
-                'pre_score' => $pre ? number_format($pre->score_percent, 2) : '-',
-                'mock_score' => $mock ? number_format($mock->score_percent, 2) : '-',
-                'final_score_1' => $final1 ? number_format($final1->score_percent, 2) : '-',
-                'final_score_2' => $final2 ? number_format($final2->score_percent, 2) : '-',
+                'pre_score' => $pre ? $pre->score_percent : '-',
+                'mock_score' => $mock ? $mock->score_percent : '-',
+                'final_score_1' => $final1 ? $final1->score_percent : '-',
+                'final_score_2' => $final2 ? $final2->score_percent : '-',
                 'completed_on' => $first->completed_at ? $first->completed_at->format('d-m-Y') : '-',
             ];
         });
@@ -229,7 +230,7 @@ class ReportsController extends Controller
         $callback = function() use ($grouped, $examType) {
             $file = fopen('php://output', 'w');
             
-            $header = ['Name', 'Unique ID', 'Module Name'];
+            $header = ['Unique ID', 'Name', 'RN Number', 'Module Name'];
             if (!$examType || $examType === 'pre') $header[] = 'Pre Test';
             if (!$examType || $examType === 'mock') $header[] = 'Mock Test';
             if (!$examType || in_array($examType, ['final', 'passed'])) {
@@ -249,8 +250,9 @@ class ReportsController extends Controller
                 $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
                 $row = [
-                    $first->user->name ?? 'Unknown',
                     $first->user->unique_sequence_number ?? 'N/A',
+                    $first->user->name ?? 'Unknown',
+                    $first->user->rn_number ?? 'N/A',
                     $first->courseDetail->couse_name ?? 'Unknown',
                 ];
                 
