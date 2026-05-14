@@ -110,13 +110,19 @@ class UserCourseOrderController extends Controller
             ->latest('id')
             ->get()
             ->map(function ($order) {
-                $completion = CourseTestAttempt::query()
+                $pre = CourseTestAttempt::query()
                     ->where('user_id', $order->user_id)
                     ->where('course_detail_id', $order->course_detail_id)
-                    ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                    ->where('test_type', \App\Enums\CourseTestType::Pre->value)
                     ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                    ->where('started_at', '>=', $order->created_at)
-                    ->orderByDesc('passed')
+                    ->latest('completed_at')
+                    ->first();
+
+                $mock = CourseTestAttempt::query()
+                    ->where('user_id', $order->user_id)
+                    ->where('course_detail_id', $order->course_detail_id)
+                    ->where('test_type', \App\Enums\CourseTestType::Mock->value)
+                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
                     ->latest('completed_at')
                     ->first();
 
@@ -127,6 +133,11 @@ class UserCourseOrderController extends Controller
                     'expiry_date' => $order->end_date ? $order->end_date->format('d-m-Y') : '-',
                     'completion_date' => $completion ? $completion->completed_at->format('d-m-Y') : '-',
                     'passed' => $completion ? (bool) $completion->passed : false,
+                    'scores' => [
+                        'pre' => $pre ? (float) $pre->score_percent : 0,
+                        'mock' => $mock ? (float) $mock->score_percent : 0,
+                        'final' => $completion ? (float) $completion->score_percent : 0,
+                    ]
                 ];
             });
 

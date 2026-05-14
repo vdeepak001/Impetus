@@ -5,6 +5,7 @@
         if (paymentOpen) { closePayment() }
         else if (detailOpen) { closeDetail() }
         else if (courseOpen) { closeCourse() }
+        else if (performanceOpen) { closePerformance() }
     "
 >
     <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
@@ -137,6 +138,19 @@
                                         <span class="sr-only">View courses</span>
                                         <svg class="h-5 w-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                                        </svg>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        @click="openPerformance({{ $user->id }})"
+                                        class="inline-flex items-center justify-center rounded-lg p-2 text-purple-700 transition-colors hover:bg-purple-50 hover:text-purple-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 dark:text-purple-400 dark:hover:bg-gray-700 dark:hover:text-purple-300 dark:focus:ring-offset-gray-800"
+                                        title="View performance chart"
+                                    >
+                                        <span class="sr-only">View performance</span>
+                                        <svg class="h-5 w-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0V12m0 4.5V12m0 0h7.5" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 12h7.5m-7.5 0v3.75m0-3.75l3-3m0 0l3 3m-3-3v8.25m0-8.25L7.5 12" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6.75h3M12 3v3.75" />
                                         </svg>
                                     </button>
                                 </div>
@@ -403,6 +417,7 @@
                                     <th class="px-4 py-3 text-left text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Expiry Date</th>
                                     <th class="px-4 py-3 text-left text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Completion Date</th>
                                     <th class="px-4 py-3 text-left text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Status</th>
+                                    <th class="px-4 py-3 text-center text-xs font-bold uppercase text-gray-500 dark:text-gray-400">Certificate</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-900">
@@ -424,11 +439,25 @@
                                                 <span class="inline-flex rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-bold text-gray-800 dark:bg-gray-800 dark:text-gray-400">Not Completed</span>
                                             </template>
                                         </td>
+                                        <td class="px-4 py-3 text-center">
+                                            <template x-if="order.passed">
+                                                <a :href="`/certificates/${order.id}/download`" 
+                                                   class="inline-flex items-center justify-center rounded-lg p-1.5 text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-blue-400 dark:hover:bg-gray-700"
+                                                   title="Download Certificate">
+                                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                    </svg>
+                                                </a>
+                                            </template>
+                                            <template x-if="!order.passed">
+                                                <span class="text-gray-400">—</span>
+                                            </template>
+                                        </td>
                                     </tr>
                                 </template>
                                 <template x-if="courseOrders.length === 0">
                                     <tr>
-                                        <td colspan="6" class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No modules purchased yet.</td>
+                                        <td colspan="7" class="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">No modules purchased yet.</td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -438,6 +467,76 @@
 
                 <div class="mt-8 flex justify-end">
                     <button type="button" @click="closeCourse()"
+                        class="rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Performance chart popup --}}
+    <div
+        x-show="performanceOpen"
+        x-cloak
+        class="fixed inset-0 z-[99999] flex items-center justify-center overflow-y-auto p-5"
+    >
+        <div
+            @click="closePerformance()"
+            class="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        ></div>
+
+        <div
+            @click.stop
+            class="relative w-full max-w-3xl max-h-[90vh] overflow-hidden rounded-3xl bg-white shadow-xl dark:bg-gray-900"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+        >
+            <button
+                type="button"
+                @click="closePerformance()"
+                class="absolute right-3 top-3 z-10 flex h-9.5 w-9.5 items-center justify-center rounded-full bg-gray-100 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white sm:right-6 sm:top-6 sm:h-11 sm:w-11"
+            >
+                <span class="sr-only">Close</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M6.04289 16.5413C5.65237 16.9318 5.65237 17.565 6.04289 17.9555C6.43342 18.346 7.06658 18.346 7.45711 17.9555L11.9987 13.4139L16.5408 17.956C16.9313 18.3466 17.5645 18.3466 17.955 17.956C18.3455 17.5655 18.3455 16.9323 17.955 16.5418L13.4129 11.9997L17.955 7.4576C18.3455 7.06707 18.3455 6.43391 17.955 6.04338C17.5645 5.65286 16.9313 5.65286 16.5408 6.04338L11.9987 10.5855L7.45711 6.0439C7.06658 5.65338 6.43342 5.65338 6.04289 6.0439C5.65237 6.43442 5.65237 7.06759 6.04289 7.45811L10.5845 11.9997L6.04289 16.5413Z"
+                        fill="currentColor" />
+                </svg>
+            </button>
+
+            <div class="p-6 sm:p-10 overflow-y-auto max-h-[90vh]">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1 pr-10">
+                    Performance Analytics
+                </h3>
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-8">
+                    Visual comparison of test scores across all purchased modules.
+                </p>
+
+                <div x-show="performanceLoading" class="flex flex-col items-center justify-center py-20">
+                    <svg class="animate-spin h-10 w-10 text-indigo-600 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Loading graphical data...</p>
+                </div>
+
+                <div x-show="!performanceLoading">
+                    <div id="performanceChart" class="min-h-[350px]"></div>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button type="button" @click="closePerformance()"
                         class="rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
                         Close
                     </button>

@@ -18,6 +18,9 @@
             courseUserId: null,
             courseOrders: [],
             courseLoading: false,
+            performanceOpen: false,
+            performanceLoading: false,
+            performanceChart: null,
             paymentCourses: [],
             paymentModes: [],
             paymentInfoMessage: '',
@@ -121,7 +124,88 @@
                 this.courseOpen = false;
                 this.courseUserId = null;
                 this.courseOrders = [];
-                if (! this.detailOpen && ! this.paymentOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
+            },
+            async openPerformance(userId) {
+                if (this.detailOpen) this.closeDetail();
+                if (this.paymentOpen) this.closePayment();
+                if (this.courseOpen) this.closeCourse();
+                
+                this.performanceOpen = true;
+                this.performanceLoading = true;
+                document.body.style.overflow = 'hidden';
+
+                try {
+                    const res = await fetch(this.usersListBaseUrl + '/' + userId + '/purchased-courses', {
+                        headers: { 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+                        credentials: 'same-origin',
+                    });
+                    const data = await res.json();
+                    const orders = data.orders || [];
+
+                    this.$nextTick(() => {
+                        this.renderPerformanceChart(orders);
+                    });
+                } catch (e) {
+                    console.error('Failed to load performance data', e);
+                } finally {
+                    this.performanceLoading = false;
+                }
+            },
+            closePerformance() {
+                this.performanceOpen = false;
+                if (this.performanceChart) {
+                    this.performanceChart.destroy();
+                    this.performanceChart = null;
+                }
+                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
+            },
+            renderPerformanceChart(orders) {
+                const chartEl = document.querySelector('#performanceChart');
+                if (!chartEl) return;
+
+                const categories = orders.map(o => o.course_name);
+                const preScores = orders.map(o => o.scores.pre);
+                const mockScores = orders.map(o => o.scores.mock);
+                const finalScores = orders.map(o => o.scores.final);
+
+                const options = {
+                    series: [
+                        { name: 'Pre-Test', data: preScores },
+                        { name: 'Mock Test', data: mockScores },
+                        { name: 'Final Test', data: finalScores }
+                    ],
+                    chart: {
+                        type: 'bar',
+                        height: 350,
+                        toolbar: { show: false },
+                        fontFamily: 'Outfit, sans-serif'
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: '55%',
+                            borderRadius: 4
+                        },
+                    },
+                    dataLabels: { enabled: false },
+                    stroke: { show: true, width: 2, colors: ['transparent'] },
+                    xaxis: { categories: categories },
+                    yaxis: { 
+                        title: { text: 'Score (%)' },
+                        max: 100
+                    },
+                    fill: { opacity: 1 },
+                    colors: ['#465fff', '#10b981', '#f59e0b'],
+                    tooltip: {
+                        y: { formatter: (val) => val + "%" }
+                    },
+                    legend: { position: 'top' }
+                };
+
+                if (this.performanceChart) this.performanceChart.destroy();
+                this.performanceChart = new ApexCharts(chartEl, options);
+                this.performanceChart.render();
             },
             async loadPaymentCourses() {
                 this.paymentLoading = true;
