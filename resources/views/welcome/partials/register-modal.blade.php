@@ -128,7 +128,7 @@
             </div>
 
             <div>
-                <label for="register-phone" class="mb-1.5 block text-sm font-medium text-slate-700">Phone</label>
+                <label for="register-phone" class="mb-1.5 block text-sm font-medium text-slate-700">Mobile Number</label>
                 <input type="text"
                        id="register-phone"
                        name="phone"
