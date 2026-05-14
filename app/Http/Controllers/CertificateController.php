@@ -14,8 +14,9 @@ class CertificateController extends Controller
     {
         $order = Order::with(['courseDetail', 'user', 'stateCouncil'])->findOrFail($orderId);
 
-        // Ensure the order belongs to the authenticated user
-        if ($order->user_id !== Auth::id()) {
+        // Ensure the order belongs to the authenticated user OR user is an admin/staff
+        $authUser = Auth::user();
+        if ($authUser->role_type === 'user' && $order->user_id !== $authUser->id) {
             abort(403);
         }
 
