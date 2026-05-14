@@ -39,7 +39,7 @@ class OrderStatusController extends Controller
                         ->orWhere('id', 'like', '%'.$search.'%');
                 });
             })
-            ->orderBy('id', 'asc')
+            ->latest('id')
             ->paginate(15)
             ->withQueryString();
 
