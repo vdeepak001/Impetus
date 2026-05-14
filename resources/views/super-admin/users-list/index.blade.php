@@ -24,6 +24,8 @@
             performanceOpen: false,
             performanceLoading: false,
             performanceChart: null,
+            certificateOpen: false,
+            certificateUrl: '',
             paymentCourses: [],
             paymentModes: [],
             paymentInfoMessage: '',
@@ -80,6 +82,16 @@
                 this.detailUser = null;
                 this.detailForm = {};
                 if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
+            },
+            openCertificate(url) {
+                this.certificateUrl = url;
+                this.certificateOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
+            closeCertificate() {
+                this.certificateOpen = false;
+                this.certificateUrl = '';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
             },
             async submitDetailUpdate() {
                 if (this.detailSubmitting) return;

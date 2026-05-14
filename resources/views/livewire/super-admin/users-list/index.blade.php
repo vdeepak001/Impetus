@@ -2,7 +2,8 @@
     class="space-y-6"
     x-data="usersList(@js(url(App\Helpers\MenuHelper::getCurrentPrefix() . '/users-list')), @js(csrf_token()))"
     @keydown.escape.window="
-        if (paymentOpen) { closePayment() }
+        if (certificateOpen) { closeCertificate() }
+        else if (paymentOpen) { closePayment() }
         else if (detailOpen) { closeDetail() }
         else if (courseOpen) { closeCourse() }
         else if (performanceOpen) { closePerformance() }
@@ -458,14 +459,16 @@
                                         </td>
                                         <td class="px-4 py-3 text-center">
                                             <template x-if="order.passed">
-                                                <a :href="`/certificates/${order.id}/download`" 
-                                                   target="_blank"
+                                                <button
+                                                   type="button"
+                                                   @click="openCertificate(`/certificates/${order.id}/download`)"
                                                    class="inline-flex items-center justify-center rounded-lg p-1.5 text-blue-600 transition-colors hover:bg-blue-50 hover:text-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:text-blue-400 dark:hover:bg-gray-700"
                                                    title="View Certificate">
                                                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     </svg>
-                                                </a>
+                                                </button>
                                             </template>
                                             <template x-if="!order.passed">
                                                 <span class="text-gray-400">—</span>
@@ -561,5 +564,53 @@
                 </div>
             </div>
         </div>
+        {{-- Certificate popup --}}
+    <div
+        x-show="certificateOpen"
+        x-cloak
+        class="fixed inset-0 z-[999999] flex items-center justify-center p-5"
+    >
+        <div
+            @click="closeCertificate()"
+            class="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-sm"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+        ></div>
+
+        <div
+            @click.stop
+            class="relative w-full max-w-5xl h-[90vh] overflow-hidden rounded-3xl bg-white shadow-2xl dark:bg-gray-900 flex flex-col"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-95"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-95"
+        >
+            <div class="flex items-center justify-between p-4 border-b dark:border-gray-800">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white">Certificate Preview</h3>
+                <button
+                    type="button"
+                    @click="closeCertificate()"
+                    class="flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-400 transition-colors hover:bg-gray-200 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                >
+                    <span class="sr-only">Close</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.04289 16.5413C5.65237 16.9318 5.65237 17.565 6.04289 17.9555C6.43342 18.346 7.06658 18.346 7.45711 17.9555L11.9987 13.4139L16.5408 17.956C16.9313 18.3466 17.5645 18.3466 17.955 17.956C18.3455 17.5655 18.3455 16.9323 17.955 16.5418L13.4129 11.9997L17.955 7.4576C18.3455 7.06707 18.3455 6.43391 17.955 6.04338C17.5645 5.65286 16.9313 5.65286 16.5408 6.04338L11.9987 10.5855L7.45711 6.0439C7.06658 5.65338 6.43342 5.65338 6.04289 6.0439C5.65237 6.43442 5.65237 7.06759 6.04289 7.45811L10.5845 11.9997L6.04289 16.5413Z" fill="currentColor" />
+                    </svg>
+                </button>
+            </div>
+            
+            <div class="flex-1 bg-gray-100 dark:bg-gray-800">
+                <template x-if="certificateOpen">
+                    <iframe :src="certificateUrl" class="w-full h-full border-none"></iframe>
+                </template>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
