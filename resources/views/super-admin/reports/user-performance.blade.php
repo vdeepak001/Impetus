@@ -144,9 +144,9 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Unique ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Unique ID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">RN Number</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">RN Number</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
@@ -160,16 +160,16 @@
                         @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
                             <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Final 1</th>
                             <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Final 2</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-right">Completed on</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Completed on</th>
                         @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($userAttempts as $attempt)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->sequence_number }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 text-center">{{ $attempt->sequence_number }}</td>
                             <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase">{{ $attempt->rn_number }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-center">{{ $attempt->rn_number }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
                             
                             @if(!request('exam_type') || request('exam_type') === 'pre')
@@ -191,7 +191,7 @@
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_2 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
                                     {{ is_numeric($attempt->final_score_2) ? round($attempt->final_score_2) . ' %' : $attempt->final_score_2 }}
                                 </td>
-                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->date_of_completion }}</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-center">{{ $attempt->date_of_completion }}</td>
                             @endif
                         </tr>
                     @empty
@@ -215,29 +215,29 @@
         <table class="w-full text-left border-collapse border border-gray-300">
             <thead>
                 <tr style="background-color: #e5e7eb !important;">
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">UID</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">UID</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Name</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">RN</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Mobile No</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">RN</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Mobile No</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Mail ID</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Module name</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Date of completion</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Time of completion</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: right !important; text-transform: uppercase !important;">Score (%)</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Score (%)</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($userAttempts as $attempt)
                     <tr>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->sequence_number }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px] font-bold uppercase">{{ $attempt->user_name }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px] uppercase">{{ $attempt->rn_number }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->phone }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->email }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->course_name }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->sequence_number }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] font-bold uppercase text-left">{{ $attempt->user_name }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] uppercase text-center">{{ $attempt->rn_number }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->phone }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-left">{{ $attempt->email }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-left">{{ $attempt->course_name }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->date_of_completion }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->time_of_completion }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-right font-bold">
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center font-bold">
                             {{ is_numeric($attempt->score) ? round($attempt->score) . ' %' : $attempt->score }}
                         </td>
                     </tr>

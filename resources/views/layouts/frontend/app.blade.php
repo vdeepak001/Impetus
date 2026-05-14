@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="{{ asset('images/venture.svg') }}">
-    <title>@yield('title', 'Compassionate Care Nursing') | {{ config('app.name', 'Impetus') }}</title>
+    <title>@yield('title', 'Compassionate Care Nursing') | {{ config('app.name', 'Ventura') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700|playfair-display:600,700" rel="stylesheet" />
