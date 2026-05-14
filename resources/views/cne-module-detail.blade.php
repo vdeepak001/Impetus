@@ -492,8 +492,8 @@
                         <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-logo-blue/80" x-text="scoreCardData.title"></p>
                         <div class="mt-2 flex flex-col items-center gap-1">
                             <div class="flex items-center gap-3">
-                                <span class="text-4xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.obtained + ' / ' + scoreCardData.max"></span>
-                                <div class="flex size-12 items-center justify-center rounded-full bg-logo-blue/10 text-[13px] font-black text-logo-blue ring-2 ring-logo-blue/5" x-show="scoreCardData.max > 0">
+                                <span class="text-xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.obtained + ' / ' + scoreCardData.max"></span>
+                                <div class="flex size-24 items-center justify-center rounded-full bg-logo-blue/10 text-3xl font-black text-logo-blue ring-2 ring-logo-blue/5" x-show="scoreCardData.max > 0">
                                     <span x-text="Math.round((scoreCardData.obtained / scoreCardData.max) * 100) + '%'"></span>
                                 </div>
                             </div>
