@@ -126,6 +126,16 @@ class UserCourseOrderController extends Controller
                     ->latest('completed_at')
                     ->first();
 
+                $completion = CourseTestAttempt::query()
+                    ->where('user_id', $order->user_id)
+                    ->where('course_detail_id', $order->course_detail_id)
+                    ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                    ->where('started_at', '>=', $order->created_at)
+                    ->orderByDesc('passed')
+                    ->latest('completed_at')
+                    ->first();
+
                 return [
                     'id' => $order->id,
                     'course_name' => $order->courseDetail?->couse_name ?? 'N/A',
