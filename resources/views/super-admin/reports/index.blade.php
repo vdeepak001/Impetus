@@ -49,7 +49,7 @@
                     <thead>
                         <tr class="bg-[#0082c8]">
                             <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest border-b border-blue-400/20">Module Name</th>
-                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-left border-b border-blue-400/20">No.of passed</th>
+                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-left border-b border-blue-400/20">Number of Nurses Completed</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
