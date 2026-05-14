@@ -22,6 +22,7 @@ class Index extends Component
      * @var list<string>
      */
     private const USER_PROFILE_KEYS = [
+        'id',
         'name',
         'date_of_birth',
         'rn_number',

@@ -220,22 +220,39 @@
                     User profile
                 </h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    Read-only details for this learner account.
+                    Update learner account information.
                 </p>
 
-                <dl class="divide-y divide-gray-200 dark:divide-gray-700">
-                    @foreach ($profileLabels as $key => $label)
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 py-3 sm:items-center">
-                            <dt class="text-xs font-medium text-gray-500 uppercase tracking-wide dark:text-gray-400">
-                                {{ $label }}
-                            </dt>
-                            <dd
-                                class="sm:col-span-2 text-sm text-gray-900 dark:text-gray-100 break-words"
-                                x-text="displayValue('{{ $key }}', detailUser ? detailUser['{{ $key }}'] : null)"
-                            ></dd>
-                        </div>
-                    @endforeach
-                </dl>
+                <form @submit.prevent="submitDetailUpdate">
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        @foreach ($profileLabels as $key => $label)
+                            <div>
+                                <label class="text-xs font-medium text-gray-500 uppercase tracking-wide dark:text-gray-400">
+                                    {{ $label }}
+                                </label>
+                                @if ($key === 'date_of_birth')
+                                    <input type="date" x-model="detailForm['{{ $key }}']"
+                                        class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" />
+                                @else
+                                    <input type="text" x-model="detailForm['{{ $key }}']"
+                                        class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" />
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+
+                    <div class="mt-8 flex justify-end gap-3">
+                        <button type="button" @click="closeDetail()"
+                            class="rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                            Cancel
+                        </button>
+                        <button type="submit" :disabled="detailSubmitting"
+                            class="inline-flex items-center rounded-lg bg-logo-light-green px-6 py-2 text-sm font-bold text-white shadow transition hover:bg-green-600 disabled:opacity-60">
+                            <span x-show="! detailSubmitting">UPDATE INFORMATION</span>
+                            <span x-show="detailSubmitting" x-cloak>Updating…</span>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

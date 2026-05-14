@@ -99,4 +99,22 @@ class UsersListController extends Controller
             'title' => 'Users List',
         ]);
     }
+
+    public function update(\Illuminate\Http\Request $request, User $user): \Illuminate\Http\JsonResponse
+    {
+        $validated = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'date_of_birth' => ['nullable', 'date'],
+            'rn_number' => ['nullable', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:255'],
+            'qualification' => ['nullable', 'string', 'max:255'],
+            'designation' => ['nullable', 'string', 'max:255'],
+            'state' => ['nullable', 'string', 'max:255'],
+        ]);
+
+        $user->update($validated);
+
+        return response()->json(['message' => 'User profile updated successfully.']);
+    }
 }

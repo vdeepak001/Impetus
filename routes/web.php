@@ -214,6 +214,8 @@ foreach ($prefixes as $prefix) {
         if (in_array($prefix, ['super-admin', 'admin', 'support'], true)) {
             Route::get('users-list', [UsersListController::class, 'index'])
                 ->name($prefix.'.users-list.index');
+            Route::patch('users-list/{user}', [UsersListController::class, 'update'])
+                ->name($prefix.'.users-list.update');
             Route::get('users-list/{userId}/state-courses', [UserCourseOrderController::class, 'courses'])
                 ->whereNumber('userId')
                 ->name($prefix.'.users-list.state-courses');

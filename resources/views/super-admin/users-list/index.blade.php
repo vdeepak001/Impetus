@@ -13,6 +13,8 @@
             csrfToken,
             detailOpen: false,
             detailUser: null,
+            detailForm: {},
+            detailSubmitting: false,
             paymentOpen: false,
             paymentUserId: null,
             courseOpen: false,
@@ -60,13 +62,62 @@
             openDetail(user) {
                 if (this.paymentOpen) this.closePayment();
                 this.detailUser = user;
+                this.detailForm = { ...user };
+                
+                // Format date_of_birth to YYYY-MM-DD for the date input
+                if (this.detailForm.date_of_birth) {
+                    const d = new Date(this.detailForm.date_of_birth);
+                    if (!isNaN(d)) {
+                        this.detailForm.date_of_birth = d.toISOString().split('T')[0];
+                    }
+                }
+                
                 this.detailOpen = true;
                 document.body.style.overflow = 'hidden';
             },
             closeDetail() {
                 this.detailOpen = false;
                 this.detailUser = null;
-                if (! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
+                this.detailForm = {};
+                if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
+            },
+            async submitDetailUpdate() {
+                if (this.detailSubmitting) return;
+                this.detailSubmitting = true;
+
+                try {
+                    const res = await fetch(this.usersListBaseUrl + '/' + this.detailUser.id, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': this.csrfToken,
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        body: JSON.stringify(this.detailForm),
+                    });
+
+                    const data = await res.json();
+                    if (! res.ok) throw new Error(data.message || 'Update failed');
+
+                    window.dispatchEvent(new CustomEvent('notify', {
+                        detail: { message: 'User profile updated successfully.', title: 'Success', variant: 'success' }
+                    }));
+
+                    // Refresh Livewire component to show updated data in the table
+                    if (window.Livewire) {
+                        const lw = window.Livewire.find(document.querySelector('[wire\\:id]').getAttribute('wire:id'));
+                        if (lw) lw.$refresh();
+                    }
+                    
+                    this.closeDetail();
+                } catch (e) {
+                    window.dispatchEvent(new CustomEvent('notify', {
+                        detail: { message: e.message, title: 'Error', variant: 'error' }
+                    }));
+                } finally {
+                    this.detailSubmitting = false;
+                }
             },
             resetPaymentForm() {
                 this.paymentForm = {
