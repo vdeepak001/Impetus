@@ -39,7 +39,7 @@
         <!-- Full Width Table Column -->
         <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-12">
             <div class="p-8 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50">
-                <h3 class="text-2xl font-black text-gray-800 dark:text-white text-right tracking-tight">
+                <h3 class="text-2xl font-black text-gray-800 dark:text-white text-left tracking-tight">
                     Number of Nurses Completed
                 </h3>
             </div>
@@ -49,7 +49,7 @@
                     <thead>
                         <tr class="bg-[#0082c8]">
                             <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest border-b border-blue-400/20">Module Name</th>
-                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-right border-b border-blue-400/20">No.of passed</th>
+                            <th class="px-8 py-5 text-sm font-bold text-white uppercase tracking-widest text-left border-b border-blue-400/20">No.of passed</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -61,7 +61,7 @@
                                         {{ $module->name }}
                                     </a>
                                 </td>
-                                <td class="px-8 py-5 text-base font-bold text-gray-900 dark:text-white text-right font-mono">
+                                <td class="px-8 py-5 text-base font-bold text-gray-900 dark:text-white text-left font-mono">
                                     <a href="{{ route($routePrefix . '.reports.user-performance', ['state_id' => $selectedState->id, 'course_id' => $module->id]) }}" 
                                        class="inline-flex items-center justify-end text-blue-600 hover:text-blue-700 hover:scale-110 transition-all duration-200">
                                         {{ number_format($module->passed_count) }}
