@@ -145,15 +145,20 @@ class ReportsController extends Controller
             $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
             return (object)[
+                'id' => $first->user_id,
                 'sequence_number' => $first->user->unique_sequence_number ?? 'N/A',
                 'user_name' => $first->user->name ?? 'Unknown',
                 'rn_number' => $first->user->rn_number ?? 'N/A',
+                'phone' => $first->user->phone ?? '-',
+                'email' => $first->user->email ?? '-',
                 'course_name' => $first->courseDetail->couse_name ?? 'Unknown',
                 'pre_score' => $pre ? $pre->score_percent : '-',
                 'mock_score' => $mock ? $mock->score_percent : '-',
                 'final_score_1' => $final1 ? $final1->score_percent : '-',
                 'final_score_2' => $final2 ? $final2->score_percent : '-',
-                'completed_on' => $first->completed_at ? $first->completed_at->format('d-m-Y') : '-',
+                'date_of_completion' => $first->completed_at ? $first->completed_at->format('d-m-Y') : '-',
+                'time_of_completion' => $first->completed_at ? $first->completed_at->format('h:i A') : '-',
+                'score' => $final1 ? $final1->score_percent : ($mock ? $mock->score_percent : ($pre ? $pre->score_percent : '-')),
             ];
         });
 
@@ -230,14 +235,7 @@ class ReportsController extends Controller
         $callback = function() use ($grouped, $examType) {
             $file = fopen('php://output', 'w');
             
-            $header = ['Unique ID', 'Name', 'RN Number', 'Module Name'];
-            if (!$examType || $examType === 'pre') $header[] = 'Pre Test';
-            if (!$examType || $examType === 'mock') $header[] = 'Mock Test';
-            if (!$examType || in_array($examType, ['final', 'passed'])) {
-                $header[] = 'Final 1';
-                $header[] = 'Final 2';
-                $header[] = 'Completed On';
-            }
+            $header = ['UID', 'Name', 'RN', 'Mobile No', 'Mail ID', 'Module name', 'Date of completion', 'Time of completion', 'Score (%)'];
             fputcsv($file, $header);
 
             foreach ($grouped as $group) {
@@ -249,24 +247,19 @@ class ReportsController extends Controller
                 $final1 = $finalAttempts->first();
                 $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
 
+                $score = $final1 ? $final1->score_percent : ($mock ? $mock->score_percent : ($pre ? $pre->score_percent : 0));
+                
                 $row = [
                     $first->user->unique_sequence_number ?? 'N/A',
                     $first->user->name ?? 'Unknown',
                     $first->user->rn_number ?? 'N/A',
+                    $first->user->phone ?? '-',
+                    $first->user->email ?? '-',
                     $first->courseDetail->couse_name ?? 'Unknown',
+                    $first->completed_at ? $first->completed_at->format('d-m-Y') : '-',
+                    $first->completed_at ? $first->completed_at->format('h:i A') : '-',
+                    is_numeric($score) ? round($score) . '%' : '-',
                 ];
-                
-                if (!$examType || $examType === 'pre') {
-                    $row[] = $pre ? number_format($pre->score_percent, 2) : '-';
-                }
-                if (!$examType || $examType === 'mock') {
-                    $row[] = $mock ? number_format($mock->score_percent, 2) : '-';
-                }
-                if (!$examType || in_array($examType, ['final', 'passed'])) {
-                    $row[] = $final1 ? number_format($final1->score_percent, 2) : '-';
-                    $row[] = $final2 ? number_format($final2->score_percent, 2) : '-';
-                    $row[] = $first->completed_at ? $first->completed_at->format('d-m-Y') : '-';
-                }
 
                 fputcsv($file, $row);
             }

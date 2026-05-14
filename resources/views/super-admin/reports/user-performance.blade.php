@@ -138,8 +138,8 @@
         </form>
     </div>
 
-    <!-- User Performance Report Table -->
-    <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-12">
+    <!-- User Performance Report Table (Dashboard View) -->
+    <div id="dashboard-report-view" class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-12">
         <div class="p-0 overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
@@ -191,7 +191,7 @@
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_2 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
                                     {{ is_numeric($attempt->final_score_2) ? round($attempt->final_score_2) . '%' : $attempt->final_score_2 }}
                                 </td>
-                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->completed_on }}</td>
+                                <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->date_of_completion }}</td>
                             @endif
                         </tr>
                     @empty
@@ -205,4 +205,65 @@
             </table>
         </div>
     </div>
+
+    <!-- Print-Specific Table (Hidden on screen, visible on PDF/Print) -->
+    <div id="print-report-view" class="hidden">
+        <div class="mb-8 text-center">
+            <h1 class="text-2xl font-bold">User Performance Report: {{ $selectedState->name }}</h1>
+            <p class="text-gray-600">Generated on: {{ date('d-m-Y h:i A') }}</p>
+        </div>
+        <table class="w-full text-left border-collapse border border-gray-300">
+            <thead>
+                <tr style="background-color: #e5e7eb !important;">
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">UID</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Name</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">RN</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Mobile No</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Mail ID</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Module name</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Date of completion</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Time of completion</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: right !important; text-transform: uppercase !important;">Score (%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($userAttempts as $attempt)
+                    <tr>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->sequence_number }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] font-bold uppercase">{{ $attempt->user_name }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] uppercase">{{ $attempt->rn_number }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->phone }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->email }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px]">{{ $attempt->course_name }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->date_of_completion }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->time_of_completion }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-right font-bold">
+                            {{ is_numeric($attempt->score) ? round($attempt->score) . '%' : $attempt->score }}
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #print-report-view, #print-report-view * {
+                visibility: visible;
+            }
+            #print-report-view {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                display: block !important;
+            }
+            .print\:hidden, #dashboard-report-view, .xl\:flex-row, form {
+                display: none !important;
+            }
+        }
+    </style>
 @endsection
