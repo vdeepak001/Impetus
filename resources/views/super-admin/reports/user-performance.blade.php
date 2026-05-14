@@ -174,22 +174,22 @@
                             
                             @if(!request('exam_type') || request('exam_type') === 'pre')
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->pre_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">
-                                    {{ is_numeric($attempt->pre_score) ? round($attempt->pre_score) . '%' : $attempt->pre_score }}
+                                    {{ is_numeric($attempt->pre_score) ? round($attempt->pre_score) . ' %' : $attempt->pre_score }}
                                 </td>
                             @endif
 
                             @if(!request('exam_type') || request('exam_type') === 'mock')
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->mock_score != '-' ? 'text-blue-600' : 'text-gray-400' }}">
-                                    {{ is_numeric($attempt->mock_score) ? round($attempt->mock_score) . '%' : $attempt->mock_score }}
+                                    {{ is_numeric($attempt->mock_score) ? round($attempt->mock_score) . ' %' : $attempt->mock_score }}
                                 </td>
                             @endif
 
                             @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_1 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
-                                    {{ is_numeric($attempt->final_score_1) ? round($attempt->final_score_1) . '%' : $attempt->final_score_1 }}
+                                    {{ is_numeric($attempt->final_score_1) ? round($attempt->final_score_1) . ' %' : $attempt->final_score_1 }}
                                 </td>
                                 <td class="px-6 py-4 text-sm font-bold text-center {{ $attempt->final_score_2 != '-' ? 'text-blue-600' : 'text-gray-400' }}">
-                                    {{ is_numeric($attempt->final_score_2) ? round($attempt->final_score_2) . '%' : $attempt->final_score_2 }}
+                                    {{ is_numeric($attempt->final_score_2) ? round($attempt->final_score_2) . ' %' : $attempt->final_score_2 }}
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white text-right">{{ $attempt->date_of_completion }}</td>
                             @endif
@@ -238,7 +238,7 @@
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->date_of_completion }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->time_of_completion }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-right font-bold">
-                            {{ is_numeric($attempt->score) ? round($attempt->score) . '%' : $attempt->score }}
+                            {{ is_numeric($attempt->score) ? round($attempt->score) . ' %' : $attempt->score }}
                         </td>
                     </tr>
                 @endforeach
