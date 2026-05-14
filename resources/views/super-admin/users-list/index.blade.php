@@ -24,8 +24,7 @@
             performanceOpen: false,
             performanceLoading: false,
             performanceChart: null,
-            certificateOpen: false,
-            certificateUrl: '',
+
             paymentCourses: [],
             paymentModes: [],
             paymentInfoMessage: '',
@@ -81,19 +80,9 @@
                 this.detailOpen = false;
                 this.detailUser = null;
                 this.detailForm = {};
-                if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
+                if (! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
             },
-            openCertificate(url) {
-                console.log('Opening certificate:', url);
-                this.certificateUrl = url;
-                this.certificateOpen = true;
-                document.body.style.overflow = 'hidden';
-            },
-            closeCertificate() {
-                this.certificateOpen = false;
-                this.certificateUrl = '';
-                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
-            },
+
             async submitDetailUpdate() {
                 if (this.detailSubmitting) return;
                 this.detailSubmitting = true;
@@ -159,7 +148,7 @@
                 this.paymentCourses = [];
                 this.paymentModes = [];
                 this.paymentLoading = false;
-                if (! this.detailOpen && ! this.courseOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
             },
             async openCourse(userId) {
                 if (this.detailOpen) this.closeDetail();
@@ -189,7 +178,7 @@
                 this.courseOpen = false;
                 this.courseUserId = null;
                 this.courseOrders = [];
-                if (! this.detailOpen && ! this.paymentOpen && ! this.performanceOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.performanceOpen) document.body.style.overflow = 'unset';
             },
             async openPerformance(userId) {
                 if (this.detailOpen) this.closeDetail();
@@ -223,7 +212,7 @@
                     this.performanceChart.destroy();
                     this.performanceChart = null;
                 }
-                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen && ! this.certificateOpen) document.body.style.overflow = 'unset';
+                if (! this.detailOpen && ! this.paymentOpen && ! this.courseOpen) document.body.style.overflow = 'unset';
             },
             renderPerformanceChart(orders) {
                 const chartEl = document.querySelector('#performanceChart');
