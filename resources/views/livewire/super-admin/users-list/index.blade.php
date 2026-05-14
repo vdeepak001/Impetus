@@ -12,9 +12,7 @@
             <h2 class="text-xl font-bold text-gray-800 dark:text-white/90">
                 Users List
             </h2>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                Registered learners (<span class="capitalize">role: user</span>).
-            </p>
+           
         </div>
 
         <div class="w-full max-w-xs">
@@ -120,9 +118,9 @@
                                         type="button"
                                         @click="openPayment({{ $user->id }})"
                                         class="inline-flex items-center justify-center rounded-lg p-2 text-emerald-700 transition-colors hover:bg-emerald-50 hover:text-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-1 dark:text-emerald-400 dark:hover:bg-gray-700 dark:hover:text-emerald-300 dark:focus:ring-offset-gray-800"
-                                        title="Record payment for a module"
+                                        title="Module Activation"
                                     >
-                                        <span class="sr-only">Record payment</span>
+                                        <span class="sr-only">Module Activation</span>
                                         <svg class="h-5 w-5 shrink-0" xmlns="http://www.w3.org/2000/svg" fill="none"
                                             viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                             aria-hidden="true">
@@ -270,7 +268,7 @@
 
             <div class="p-6 sm:p-8 overflow-y-auto max-h-[90vh]">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-1 pr-10">
-                    Record payment
+                     Module Activation
                 </h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
                     Link a completed payment to a module available for this learner’s state. Start date defaults to today; end date is automatically calculated based on the module’s validity period and must be on or after the start date.
@@ -335,8 +333,8 @@
                         </button>
                         <button type="submit" :disabled="paymentSubmitting || paymentLoading"
                             class="inline-flex items-center rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60">
-                            <span x-show="! paymentSubmitting">Save order</span>
-                            <span x-show="paymentSubmitting" x-cloak>Saving…</span>
+                            <span x-show="! paymentSubmitting">Activate</span>
+                            <span x-show="paymentSubmitting" x-cloak>Activating…</span>
                         </button>
                     </div>
                 </form>

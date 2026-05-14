@@ -172,10 +172,10 @@
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->start_date->format('d M Y') }}
+                                {{ $order->start_date->format('d-m-Y') }}
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->end_date->format('d M Y') }}
+                                {{ $order->end_date->format('d-m-Y') }}
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-700 dark:text-gray-300">
                                 @if ($order->recordedBy)
@@ -189,7 +189,7 @@
                                 @endif
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                {{ $order->created_at->format('d M Y, H:i') }}
+                                {{ $order->created_at->format('d-m-Y, H:i') }}
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 max-w-[12rem]">
                                 @if ($order->remarks)

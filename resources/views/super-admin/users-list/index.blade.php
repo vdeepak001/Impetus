@@ -192,6 +192,15 @@
             displayValue(key, value) {
                 if (value === undefined || value === null || value === '') return '—';
                 if (key === 'active_status') return value ? 'Active' : 'Inactive';
+                if (key === 'date_of_birth') {
+                    const date = new Date(value);
+                    if (!isNaN(date)) {
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = String(date.getMonth() + 1).padStart(2, '0');
+                        const year = date.getFullYear();
+                        return `${day}-${month}-${year}`;
+                    }
+                }
                 return value;
             },
         }));
