@@ -91,7 +91,7 @@
             </div>
         </div>
         <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-xs leading-5 text-slate-400 font-medium tracking-wider uppercase">&copy; {{ date('Y') }} Venture Nursing Services. All rights reserved.</p>
+            <p class="text-xs leading-5 text-slate-400 font-medium tracking-wider uppercase">&copy; {{ date('Y') }} Ventura Learning Solutions Private Limited. All rights reserved.</p>
             <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                 <a href="{{ route('faq') }}" class="text-xs text-slate-400 hover:text-white transition-colors">FAQ</a>
                 <a href="{{ route('privacy.policy') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Privacy Policy</a>

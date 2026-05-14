@@ -490,17 +490,17 @@
                     <div class="text-center">
                         <p class="mb-1 text-sm font-bold text-slate-800">{{ $course->couse_name }}</p>
                         <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-logo-blue/80" x-text="scoreCardData.title"></p>
-                        <div class="mt-2 flex flex-col items-center gap-1">
-                            <div class="flex items-center gap-3">
-                                <span class="text-xl font-black tabular-nums tracking-tight text-brand-900" x-text="scoreCardData.obtained + ' / ' + scoreCardData.max"></span>
-                                <div class="flex size-24 items-center justify-center rounded-full bg-logo-blue/10 text-3xl font-black text-logo-blue ring-2 ring-logo-blue/5" x-show="scoreCardData.max > 0">
-                                    <span x-text="Math.round((scoreCardData.obtained / scoreCardData.max) * 100) + '%'"></span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="mt-8 grid grid-cols-2 gap-3">
+                        <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Score</p>
+                            <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.obtained + '/' + scoreCardData.max"></p>
+                        </div>
+                        <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Percentage</p>
+                            <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.max > 0 ? Math.round((scoreCardData.obtained / scoreCardData.max) * 100) + '%' : '0%'"></p>
+                        </div>
                         <div class="rounded-2xl border border-slate-100 bg-slate-50/50 p-4 text-center">
                             <p class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Questions</p>
                             <p class="mt-1 text-xl font-bold text-slate-900" x-text="scoreCardData.total"></p>
@@ -513,9 +513,9 @@
                             <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-600/80">Correct Answer</p>
                             <p class="mt-1 text-xl font-bold text-emerald-700" x-text="scoreCardData.correct"></p>
                         </div>
-                        <div class="rounded-2xl border border-orange-100 bg-orange-50/30 p-4 text-center">
-                            <p class="text-[10px] font-bold uppercase tracking-wider text-orange-600/80">Wrong Answer</p>
-                            <p class="mt-1 text-xl font-bold text-orange-700" x-text="scoreCardData.wrong"></p>
+                        <div class="rounded-2xl border border-rose-100 bg-rose-50/30 p-4 text-center">
+                            <p class="text-[10px] font-bold uppercase tracking-wider text-rose-600/80">Wrong Answer</p>
+                            <p class="mt-1 text-xl font-bold text-rose-700" x-text="scoreCardData.wrong"></p>
                         </div>
                     </div>
 
