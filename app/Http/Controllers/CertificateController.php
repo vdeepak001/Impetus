@@ -58,6 +58,6 @@ class CertificateController extends Controller
         $pdf = app('dompdf.wrapper')->loadView('certificates.standard', $data);
         $pdf->setPaper('A4', 'landscape');
 
-        return $pdf->download('Certificate-' . ($order->courseDetail->course_code ?? 'CNE') . '.pdf');
+        return $pdf->stream('Certificate-' . ($order->courseDetail->course_code ?? 'CNE') . '.pdf');
     }
 }
