@@ -33,7 +33,7 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Order ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Sl.No</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">UID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module name</th>
@@ -45,7 +45,7 @@
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($orders as $order)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">#{{ $order->id }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ ($orders->currentPage() - 1) * $orders->perPage() + $loop->iteration }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->user->unique_sequence_number ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $order->user->name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->courseDetail->couse_name ?? 'N/A' }}</td>

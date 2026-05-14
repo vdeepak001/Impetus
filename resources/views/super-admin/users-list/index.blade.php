@@ -205,9 +205,9 @@
                     const orders = data.orders || [];
                     this.performanceOrders = orders;
                     
-                    // Default to the first module instead of 'all'
+                    // Default to 'all' to show everything
                     if (orders.length > 0) {
-                        this.selectedPerformanceModule = String(orders[0].id);
+                        this.selectedPerformanceModule = 'all';
                     } else {
                         this.selectedPerformanceModule = 'none';
                     }
@@ -238,7 +238,7 @@
                     orders = allOrders.filter(o => String(o.id) === String(this.selectedPerformanceModule));
                 }
 
-                const categories = orders.map(o => o.course_name);
+                const categories = orders.map(o => `${o.course_name} (${o.purchase_date})`);
                 const preScores = orders.map(o => o.scores.pre);
                 const mockScores = orders.map(o => o.scores.mock);
                 const finalScores = orders.map(o => o.scores.final);

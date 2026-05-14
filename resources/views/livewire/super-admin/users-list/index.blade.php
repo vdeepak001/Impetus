@@ -554,8 +554,9 @@
                             x-model="selectedPerformanceModule"
                             class="block w-full appearance-none rounded-xl border border-gray-200 bg-gray-50/50 px-4 py-2.5 pr-10 text-sm font-medium text-gray-700 transition-all hover:border-indigo-300 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10 dark:border-gray-700 dark:bg-gray-800/50 dark:text-gray-200 dark:hover:border-indigo-500/50 dark:focus:bg-gray-800"
                         >
+                            <option value="all">All Modules</option>
                             <template x-for="order in performanceOrders" :key="order.id">
-                                <option :value="String(order.id)" x-text="order.course_name"></option>
+                                <option :value="String(order.id)" x-text="order.course_name + ' (' + order.purchase_date + ')'"></option>
                             </template>
                         </select>
                         <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">

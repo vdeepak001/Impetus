@@ -103,41 +103,47 @@ class UserCourseOrderController extends Controller
         $user = User::query()->findOrFail($userId);
         abort_unless($user->role_type === 'user', 404);
 
-        $orders = Order::query()
+        $allOrders = Order::query()
             ->with('courseDetail:id,couse_name')
             ->where('user_id', $user->id)
             ->where('payment_status', PaymentStatus::Completed)
             ->latest('id')
-            ->get()
-            ->map(function ($order) {
-                $pre = CourseTestAttempt::query()
-                    ->where('user_id', $order->user_id)
-                    ->where('course_detail_id', $order->course_detail_id)
-                    ->where('test_type', \App\Enums\CourseTestType::Pre->value)
-                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                    ->latest('completed_at')
-                    ->first();
+            ->get();
 
-                $mock = CourseTestAttempt::query()
-                    ->where('user_id', $order->user_id)
-                    ->where('course_detail_id', $order->course_detail_id)
-                    ->where('test_type', \App\Enums\CourseTestType::Mock->value)
-                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                    ->latest('completed_at')
-                    ->first();
+        $orders = $allOrders->map(function ($order, $index) use ($allOrders) {
+            // Because we sorted by latest('id'), any order at index < $index is NEWER.
+            // We want to find the "next" order for the same course to set an upper bound.
+            $nextOrder = $allOrders->slice(0, $index)->firstWhere('course_detail_id', $order->course_detail_id);
 
-                $completion = CourseTestAttempt::query()
-                    ->where('user_id', $order->user_id)
-                    ->where('course_detail_id', $order->course_detail_id)
-                    ->where('test_type', \App\Enums\CourseTestType::Final->value)
-                    ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                    ->where('started_at', '>=', $order->created_at)
-                    ->orderByDesc('passed')
-                    ->latest('completed_at')
-                    ->first();
+            $baseQuery = CourseTestAttempt::query()
+                ->where('user_id', $order->user_id)
+                ->where('course_detail_id', $order->course_detail_id)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->where('started_at', '>=', $order->created_at);
+
+            if ($nextOrder) {
+                $baseQuery->where('started_at', '<', $nextOrder->created_at);
+            }
+
+            $pre = (clone $baseQuery)
+                ->where('test_type', \App\Enums\CourseTestType::Pre->value)
+                ->latest('completed_at')
+                ->first();
+
+            $mock = (clone $baseQuery)
+                ->where('test_type', \App\Enums\CourseTestType::Mock->value)
+                ->latest('completed_at')
+                ->first();
+
+            $completion = (clone $baseQuery)
+                ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                ->orderByDesc('passed')
+                ->latest('completed_at')
+                ->first();
 
                 return [
                     'id' => $order->id,
+                    'course_id' => $order->course_detail_id,
                     'course_name' => $order->courseDetail?->couse_name ?? 'N/A',
                     'purchase_date' => $order->start_date ? $order->start_date->format('d-m-Y') : '-',
                     'expiry_date' => $order->end_date ? $order->end_date->format('d-m-Y') : '-',
