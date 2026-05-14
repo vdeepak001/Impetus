@@ -39,7 +39,7 @@
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Date of purchase</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Time of purchase</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Status (S/P/F/A)</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Status</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -53,22 +53,22 @@
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->created_at->format('h:i A') }}</td>
                             <td class="px-6 py-4 text-sm font-bold text-center">
                                 @php
-                                    $statusChar = match($order->payment_status->value) {
-                                        'completed' => 'S',
-                                        'pending' => 'P',
-                                        'failed' => 'F',
-                                        'aborted' => 'A',
-                                        default => '?'
+                                    $statusText = match($order->payment_status->value) {
+                                        'completed' => 'Success',
+                                        'pending' => 'Purchased',
+                                        'failed' => 'Failed',
+                                        'aborted' => 'Aborted',
+                                        default => 'Unknown'
                                     };
-                                    $statusColor = match($statusChar) {
-                                        'S' => 'text-green-600',
-                                        'P' => 'text-blue-600',
-                                        'F' => 'text-red-600',
-                                        'A' => 'text-orange-600',
+                                    $statusColor = match($order->payment_status->value) {
+                                        'completed' => 'text-green-600',
+                                        'pending' => 'text-blue-600',
+                                        'failed' => 'text-red-600',
+                                        'aborted' => 'text-orange-600',
                                         default => 'text-gray-600'
                                     };
                                 @endphp
-                                <span class="{{ $statusColor }}">{{ $statusChar }}</span>
+                                <span class="{{ $statusColor }} uppercase">{{ $statusText }}</span>
                             </td>
                         </tr>
                     @empty
@@ -89,26 +89,7 @@
         </div>
     @endif
 
-    <div class="mt-10 bg-gray-50 dark:bg-gray-900/50 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
-        <div class="flex flex-wrap gap-8 justify-center items-center text-sm font-bold text-gray-600 dark:text-gray-400">
-            <div class="flex items-center gap-2">
-                <span class="text-green-600 text-lg">S</span>
-                <span>- Success</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-blue-600 text-lg">P</span>
-                <span>- Purchased</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-red-600 text-lg">F</span>
-                <span>- Failed</span>
-            </div>
-            <div class="flex items-center gap-2">
-                <span class="text-orange-600 text-lg">A</span>
-                <span>- Aborted</span>
-            </div>
-        </div>
-    </div>
+
 @endsection
 
 @push('scripts')
