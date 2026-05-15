@@ -241,7 +241,7 @@ foreach ($prefixes as $prefix) {
                 ->name($prefix.'.order-details.index');
         }
 
-        if (in_array($prefix, ['super-admin', 'admin'], true)) {
+        if (in_array($prefix, ['super-admin', 'admin', 'support'], true)) {
             Route::get('order-status', [OrderStatusController::class, 'index'])
                 ->name($prefix.'.order-status.index');
         }

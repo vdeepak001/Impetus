@@ -51,6 +51,7 @@
             </span>
             Profile Details
         </div>
+        @if(auth()->user()->role_type !== 'support')
         <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-50 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-400">
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -59,6 +60,8 @@
             </span>
             Module Activation
         </div>
+        @endif
+        @if(auth()->user()->role_type !== 'support')
         <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-sky-50 text-sky-700 dark:bg-sky-900/20 dark:text-sky-400">
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -67,6 +70,7 @@
             </span>
             Purchased Modules
         </div>
+        @endif
         <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
             <span class="inline-flex h-7 w-7 items-center justify-center rounded-lg bg-purple-50 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400">
                 <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -156,6 +160,7 @@
                                                 d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         </svg>
                                     </button>
+                                    @if(auth()->user()->role_type !== 'support')
                                     <button
                                         type="button"
                                         @click="openPayment({{ $user->id }})"
@@ -170,6 +175,8 @@
                                                 d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
                                         </svg>
                                     </button>
+                                    @endif
+                                    @if(auth()->user()->role_type !== 'support')
                                     <button
                                         type="button"
                                         @click="openCourse({{ $user->id }})"
@@ -181,6 +188,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
                                         </svg>
                                     </button>
+                                    @endif
                                     <button
                                         type="button"
                                         @click="openPerformance({{ $user->id }})"
@@ -261,7 +269,7 @@
                     User profile
                 </h3>
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-6">
-                    Update learner account information.
+                    {{ auth()->user()->role_type === 'support' ? 'View learner account information.' : 'Update learner account information.' }}
                 </p>
 
                 <form @submit.prevent="submitDetailUpdate">
@@ -273,9 +281,11 @@
                                 </label>
                                 @if ($key === 'date_of_birth')
                                     <input type="date" x-model="detailForm['{{ $key }}']"
+                                        @if(auth()->user()->role_type === 'support') readonly @endif
                                         class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" />
                                 @else
                                     <input type="text" x-model="detailForm['{{ $key }}']"
+                                        @if(auth()->user()->role_type === 'support') readonly @endif
                                         class="mt-1 block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100" />
                                 @endif
                             </div>
@@ -283,15 +293,22 @@
                     </div>
 
                     <div class="mt-8 flex justify-end gap-3">
-                        <button type="button" @click="closeDetail()"
-                            class="rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
-                            Cancel
-                        </button>
-                        <button type="submit" :disabled="detailSubmitting"
-                            class="inline-flex items-center rounded-lg bg-logo-light-green px-6 py-2 text-sm font-bold text-white shadow transition hover:bg-green-600 disabled:opacity-60">
-                            <span x-show="! detailSubmitting">UPDATE INFORMATION</span>
-                            <span x-show="detailSubmitting" x-cloak>Updating…</span>
-                        </button>
+                        @if(auth()->user()->role_type === 'support')
+                            <button type="button" @click="closeDetail()"
+                                class="rounded-lg border border-gray-300 bg-logo-light-green px-8 py-2 text-sm font-bold text-white shadow transition hover:bg-green-600">
+                                Close
+                            </button>
+                        @else
+                            <button type="button" @click="closeDetail()"
+                                class="rounded-lg border border-gray-300 bg-white px-6 py-2 text-sm font-bold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700">
+                                Cancel
+                            </button>
+                            <button type="submit" :disabled="detailSubmitting"
+                                class="inline-flex items-center rounded-lg bg-logo-light-green px-6 py-2 text-sm font-bold text-white shadow transition hover:bg-green-600 disabled:opacity-60">
+                                <span x-show="! detailSubmitting">UPDATE INFORMATION</span>
+                                <span x-show="detailSubmitting" x-cloak>Updating…</span>
+                            </button>
+                        @endif
                     </div>
                 </form>
             </div>

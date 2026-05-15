@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 md:gap-6">
+        @if(auth()->user()->role_type !== 'support')
         <!-- Total Courses -->
         <x-dashboard.metric-card 
             title="Total Courses" 
@@ -33,6 +34,7 @@
             icon="question-mark-circle"
             color="orange"
         />
+        @endif
 
         <!-- Total Users -->
         <x-dashboard.metric-card 

@@ -53,21 +53,25 @@ class MenuHelper
             ];
         }
 
-        $items[] = [
-            'icon' => 'course',
-            'name' => 'Courses',
-            'subItems' => [
-                ['name' => 'Course Title', 'path' => '/'.$prefix.'/course-titles'],
-                ['name' => 'Course Details', 'path' => '/'.$prefix.'/course-details'],
-                ['name' => 'Course Sub-Title', 'path' => '/'.$prefix.'/course-sub-titles'],
-                ['name' => 'Learning Material', 'path' => '/'.$prefix.'/title-materials'],
-                ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
-                ['name' => 'Level Score', 'path' => '/'.$prefix.'/level-scores'],
-
-            ],
-        ];
-
         $roleType = auth()->user()?->role_type;
+
+        if (in_array($roleType, ['superadmin', 'admin', 'sme'], true)) {
+            $items[] = [
+                'icon' => 'course',
+                'name' => 'Courses',
+                'subItems' => [
+                    ['name' => 'Course Title', 'path' => '/'.$prefix.'/course-titles'],
+                    ['name' => 'Course Details', 'path' => '/'.$prefix.'/course-details'],
+                    ['name' => 'Course Sub-Title', 'path' => '/'.$prefix.'/course-sub-titles'],
+                    ['name' => 'Learning Material', 'path' => '/'.$prefix.'/title-materials'],
+                    ['name' => 'Course Questions', 'path' => '/'.$prefix.'/course-questions'],
+                    ['name' => 'Level Score', 'path' => '/'.$prefix.'/level-scores'],
+
+                ],
+            ];
+        }
+
+        // Removed redundant roleType assignment as it is now moved up
         if (in_array($roleType, ['superadmin', 'admin'], true)) {
             $items[] = [
                 'icon' => 'tables',
@@ -104,7 +108,7 @@ class MenuHelper
             ];
         }
 
-        if (in_array($roleType, ['superadmin', 'admin'], true)) {
+        if (in_array($roleType, ['superadmin', 'admin', 'support'], true)) {
             $items[] = [
                 'icon' => 'task',
                 'name' => 'Order Status',
