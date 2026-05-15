@@ -43,8 +43,6 @@ class OrderDetailsController extends Controller
             ->with([
                 'user:id,name,first_name,last_name,email,unique_sequence_number',
                 'courseDetail:id,couse_name',
-                'stateCouncil.state:id,name',
-                'recordedBy:id,name,first_name,last_name',
             ])
             ->when($search !== '', function ($query) use ($search, $matchedUserIds) {
                 $query->where(function ($subQuery) use ($search, $matchedUserIds) {
@@ -53,24 +51,7 @@ class OrderDetailsController extends Controller
                         ->orWhereHas('courseDetail', function ($courseQuery) use ($search) {
                             $courseQuery->where('couse_name', 'like', '%'.$search.'%');
                         })
-                        ->orWhereHas('stateCouncil', function ($councilQuery) use ($search) {
-                            $councilQuery->where('council_name', 'like', '%'.$search.'%')
-                                ->orWhereHas('state', function ($stateQuery) use ($search) {
-                                    $stateQuery->where('name', 'like', '%'.$search.'%');
-                                });
-                        })
-                        ->orWhere('remarks', 'like', '%'.$search.'%')
-                        ->orWhere('start_date', 'like', '%'.$search.'%')
-                        ->orWhere('created_at', 'like', '%'.$search.'%');
-                    
-                    // Also try to match date specifically if it looks like one
-                    try {
-                        $dateSearch = \Illuminate\Support\Carbon::parse($search)->format('Y-m-d');
-                        $subQuery->orWhereDate('start_date', $dateSearch)
-                                 ->orWhereDate('created_at', $dateSearch);
-                    } catch (\Exception $e) {
-                        // Not a valid date string, ignore
-                    }
+                        ->orWhere('remarks', 'like', '%'.$search.'%');
                 });
             })
             ->when($paymentMode !== '', function ($query) use ($paymentMode) {
