@@ -13,6 +13,16 @@ class ReportsController extends Controller
         $states = \App\Models\State::where('status', 'active')->orderBy('name')->get();
         $selectedStateId = $request->query('state_id');
 
+        // Global Statistics
+        $globalStats = [
+            'registered_users' => \App\Models\User::where('role_type', 'user')->count(),
+            'purchased_modules' => \App\Models\Order::where('payment_status', \App\Enums\PaymentStatus::Completed)->count(),
+            'modules_completed' => \App\Models\CourseTestAttempt::where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
+                ->where('test_type', \App\Enums\CourseTestType::Final)
+                ->where('passed', true)
+                ->count(),
+        ];
+
         $selectedState = null;
         $nursesCount = 0;
         $modulesCompletedCount = 0;
@@ -63,6 +73,7 @@ class ReportsController extends Controller
             'nursesCount' => $nursesCount,
             'modulesCompletedCount' => $modulesCompletedCount,
             'moduleWisePassed' => $moduleWisePassed,
+            'globalStats' => $globalStats,
         ]);
     }
 

@@ -87,7 +87,43 @@
         </div>
 
     @else
-        <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 p-20 text-center">
+        <!-- Global Statistics Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            <!-- Registered Users -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
+                <div class="w-14 h-14 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">Registered Users</span>
+                <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">{{ number_format($globalStats['registered_users']) }}</span>
+            </div>
+
+            <!-- Purchased Modules -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
+                <div class="w-14 h-14 bg-emerald-50 dark:bg-emerald-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-7 h-7 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">Purchased Modules</span>
+                <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">{{ number_format($globalStats['purchased_modules']) }}</span>
+            </div>
+
+            <!-- Modules Completed -->
+            <div class="bg-white dark:bg-gray-800 rounded-3xl p-6 shadow-lg border border-gray-100 dark:border-gray-700 flex flex-col items-center text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 group">
+                <div class="w-14 h-14 bg-purple-50 dark:bg-purple-900/20 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <svg class="w-7 h-7 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <span class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-widest mb-1">Modules Completed</span>
+                <span class="text-3xl font-black text-gray-900 dark:text-white tracking-tight">{{ number_format($globalStats['modules_completed']) }}</span>
+            </div>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-[2.5rem] shadow-2xl border border-gray-100 dark:border-gray-700 p-16 text-center">
             <div class="max-w-md mx-auto">
                 <div class="w-24 h-24 bg-blue-50 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-8">
                     <svg class="w-12 h-12 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -96,8 +132,8 @@
                     </svg>
                 </div>
                 <h3 class="text-3xl font-black text-gray-900 dark:text-white mb-4 tracking-tight">Select a State</h3>
-                <p class="text-lg text-gray-500 dark:text-gray-400 mb-0">
-                    Choose a state from the dropdown above to view detailed registration and completion reports.
+                <p class="text-lg text-gray-500 dark:text-gray-400 mb-0 leading-relaxed">
+                    Choose a state from the dropdown above to view detailed registration and completion reports for that specific region.
                 </p>
             </div>
         </div>
