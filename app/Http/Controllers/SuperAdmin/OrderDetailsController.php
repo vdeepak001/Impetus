@@ -31,9 +31,6 @@ class OrderDetailsController extends Controller
                 ->filter(function ($user) use ($searchTerm) {
                     $searchable = [
                         $user->name,
-                        $user->first_name,
-                        $user->last_name,
-                        $user->email,
                         $user->unique_sequence_number,
                     ];
                     foreach ($searchable as $val) {
