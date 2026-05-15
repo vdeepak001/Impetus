@@ -271,6 +271,10 @@ class CneModulesController extends Controller
         $type = CourseTestType::tryFrom($test);
         abort_unless($type, 404);
 
+        $user = auth()->user();
+        abort_unless($user, 403);
+        app(\App\Services\CourseTestAuthorizer::class)->ensureCanAccess($user, $course_detail, $type);
+
         $title = ($course_detail->couse_name ?? 'Module').' · '.$type->label();
 
         if ($type === CourseTestType::Practice && !request()->has('level')) {

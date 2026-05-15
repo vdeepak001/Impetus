@@ -19,14 +19,14 @@ class CourseTestAuthorizer
 
         if ($type === CourseTestType::Practice) {
             abort_unless(filled($course->practice_content), 404);
-            $mockDone = CourseTestAttempt::query()
+            $preDone = CourseTestAttempt::query()
                 ->where('user_id', $user->id)
                 ->where('course_detail_id', $course->id)
-                ->where('test_type', CourseTestType::Mock->value)
+                ->where('test_type', CourseTestType::Pre->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
                 ->where('started_at', '>=', $activeOrder->created_at)
                 ->exists();
-            abort_unless($mockDone, 403);
+            abort_unless($preDone, 403);
 
             return;
         }
