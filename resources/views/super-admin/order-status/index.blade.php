@@ -47,7 +47,7 @@
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ ($orders->currentPage() - 1) * $orders->perPage() + $loop->iteration }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->user->unique_sequence_number ?? '-' }}</td>
-                            <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $order->user->name ?? 'N/A' }}</td>
+                            <td class="px-6 py-4 text-sm font-normal text-gray-900 dark:text-white uppercase">{{ $order->user->name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->courseDetail->couse_name ?? 'N/A' }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->created_at->format('d-m-Y') }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $order->created_at->format('h:i A') }}</td>

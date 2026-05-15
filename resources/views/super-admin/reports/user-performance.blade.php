@@ -168,7 +168,7 @@
                     @forelse($userAttempts as $attempt)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 text-center">{{ $attempt->sequence_number }}</td>
-                            <td class="px-6 py-4 text-sm font-bold text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
+                            <td class="px-6 py-4 text-sm font-normal text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-center">{{ $attempt->rn_number }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
                             
@@ -230,7 +230,7 @@
                 @foreach($userAttempts as $attempt)
                     <tr>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->sequence_number }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px] font-bold uppercase text-left">{{ $attempt->user_name }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] font-normal uppercase text-left">{{ $attempt->user_name }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] uppercase text-center">{{ $attempt->rn_number }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">{{ $attempt->phone }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-left">{{ $attempt->email }}</td>

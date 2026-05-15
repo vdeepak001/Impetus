@@ -86,7 +86,7 @@ class OrderDetailsController extends Controller
                 $query->whereDate('created_at', '<=', $toDate);
             })
             ->latest('id')
-            ->paginate(15)
+            ->paginate(20)
             ->withQueryString();
 
         return view('super-admin.order-details.index', [

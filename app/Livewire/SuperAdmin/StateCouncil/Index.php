@@ -22,7 +22,7 @@ class Index extends Component
     #[Url(except: 'asc')]
     public $sortDirection = 'asc';
 
-    public $perPage = 10;
+    public $perPage = 20;
 
     public function sortBy(string $field): void
     {

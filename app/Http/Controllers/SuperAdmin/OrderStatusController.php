@@ -40,7 +40,7 @@ class OrderStatusController extends Controller
                 });
             })
             ->latest('id')
-            ->paginate(15)
+            ->paginate(20)
             ->withQueryString();
 
         return view('super-admin.order-status.index', [
