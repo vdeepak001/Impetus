@@ -24,16 +24,24 @@ class OrderDetailsController extends Controller
         // to make them searchable, following the pattern used in the Users List.
         $matchedUserIds = [];
         if ($search !== '') {
-            $searchTerm = mb_strtolower($search);
+            $searchTerm = $search;
             $matchedUserIds = User::query()
-                ->select('id', 'name', 'first_name', 'last_name', 'email', 'unique_sequence_number')
+                ->where('role_type', 'user')
                 ->get()
                 ->filter(function ($user) use ($searchTerm) {
-                    return str_contains(mb_strtolower($user->name ?? ''), $searchTerm)
-                        || str_contains(mb_strtolower($user->first_name ?? ''), $searchTerm)
-                        || str_contains(mb_strtolower($user->last_name ?? ''), $searchTerm)
-                        || str_contains(mb_strtolower($user->email ?? ''), $searchTerm)
-                        || str_contains(mb_strtolower($user->unique_sequence_number ?? ''), $searchTerm);
+                    $searchable = [
+                        $user->name,
+                        $user->first_name,
+                        $user->last_name,
+                        $user->email,
+                        $user->unique_sequence_number,
+                    ];
+                    foreach ($searchable as $val) {
+                        if ($val && stripos((string)$val, $searchTerm) !== false) {
+                            return true;
+                        }
+                    }
+                    return false;
                 })
                 ->pluck('id')
                 ->toArray();
@@ -44,15 +52,8 @@ class OrderDetailsController extends Controller
                 'user:id,name,first_name,last_name,email,unique_sequence_number',
                 'courseDetail:id,couse_name',
             ])
-            ->when($search !== '', function ($query) use ($search, $matchedUserIds) {
-                $query->where(function ($subQuery) use ($search, $matchedUserIds) {
-                    $subQuery
-                        ->whereIn('user_id', $matchedUserIds)
-                        ->orWhereHas('courseDetail', function ($courseQuery) use ($search) {
-                            $courseQuery->where('couse_name', 'like', '%'.$search.'%');
-                        })
-                        ->orWhere('remarks', 'like', '%'.$search.'%');
-                });
+            ->when($search !== '', function ($query) use ($matchedUserIds) {
+                $query->whereIn('user_id', $matchedUserIds);
             })
             ->when($paymentMode !== '', function ($query) use ($paymentMode) {
                 $query->where('payment_mode', $paymentMode);
