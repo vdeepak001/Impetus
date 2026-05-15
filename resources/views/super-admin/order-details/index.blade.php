@@ -167,7 +167,7 @@
                                 {{ $order->created_at->format('d-m-Y') }}
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->created_at->format('H:i A') }}
+                                {{ $order->created_at->format('h:i A') }}
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 max-w-[12rem]">
                                 @if ($order->remarks)
