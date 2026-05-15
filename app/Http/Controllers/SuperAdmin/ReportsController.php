@@ -62,6 +62,10 @@ class ReportsController extends Controller
                 });
 
                 $modulesCompletedCount = $passCounts->sum();
+
+                $purchasedModulesCount = \App\Models\Order::whereIn('state_council_id', $councilIds)
+                    ->where('payment_status', \App\Enums\PaymentStatus::Completed)
+                    ->count();
             }
         }
 
@@ -72,6 +76,7 @@ class ReportsController extends Controller
             'stateCourses' => $stateCourses,
             'nursesCount' => $nursesCount,
             'modulesCompletedCount' => $modulesCompletedCount,
+            'purchasedModulesCount' => $purchasedModulesCount ?? 0,
             'moduleWisePassed' => $moduleWisePassed,
             'globalStats' => $globalStats,
         ]);

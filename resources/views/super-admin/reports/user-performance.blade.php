@@ -85,7 +85,7 @@
             <div class="flex-1 min-w-[200px]">
                 <label class="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Course / Module</label>
                 <select name="course_id" class="block w-full pl-3 pr-10 py-2.5 text-sm border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-                    <option value="">-- Select Module --</option>
+                    <option value="">-- All Courses --</option>
                     @foreach($stateCourses as $course)
                         <option value="{{ $course->id }}" {{ request('course_id') == $course->id ? 'selected' : '' }}>
                             {{ $course->couse_name }}
