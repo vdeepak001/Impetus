@@ -28,12 +28,32 @@
         </div>
     </div>
 
+    {{-- Status Legends --}}
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3 mb-6 px-1">
+        <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400 font-black">S</span>
+            Success
+        </div>
+        <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400 font-black">F</span>
+            Failed
+        </div>
+        <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400 font-black">I</span>
+            Initiated
+        </div>
+        <div class="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            <span class="flex h-6 w-6 items-center justify-center rounded-full bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400 font-black">A</span>
+            Aborted
+        </div>
+    </div>
+
     <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-8">
         <div class="p-0 overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Sl.No</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Order ID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">UID</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module name</th>
@@ -55,7 +75,7 @@
                                 @php
                                     $statusText = match($order->payment_status->value) {
                                         'completed' => 'Success',
-                                        'pending' => 'Purchased',
+                                        'pending' => 'Initiated',
                                         'failed' => 'Failed',
                                         'aborted' => 'Aborted',
                                         default => 'Unknown'

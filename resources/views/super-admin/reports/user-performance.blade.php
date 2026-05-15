@@ -144,23 +144,23 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Unique ID</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">RN Number</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">Module Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-28">Unique ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-44">Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-32">RN Number</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 min-w-[300px]">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Pre Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Pre Test</th>
                         @endif
 
                         @if(!request('exam_type') || request('exam_type') === 'mock')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Mock Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Mock Test</th>
                         @endif
 
                         @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Final 1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Final 2</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center">Completed on</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Final 1</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Final 2</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-36">Completed on</th>
                         @endif
                     </tr>
                 </thead>
@@ -215,15 +215,15 @@
         <table class="w-full text-left border-collapse border border-gray-300">
             <thead>
                 <tr style="background-color: #e5e7eb !important;">
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">UID</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Name</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">RN</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Mobile No</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Mail ID</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 40px !important;">UID</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important; width: 100px !important;">Name</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 70px !important;">RN</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 80px !important;">Mobile No</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important; width: 120px !important;">Mail ID</th>
                     <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important;">Module name</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Date of completion</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Time of completion</th>
-                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important;">Score (%)</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 80px !important;">Date of completion</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 80px !important;">Time of completion</th>
+                    <th style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 60px !important;">Score (%)</th>
                 </tr>
             </thead>
             <tbody>
