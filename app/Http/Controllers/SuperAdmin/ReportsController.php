@@ -36,17 +36,21 @@ class ReportsController extends Controller
                 $councilIds = $stateCouncils->pluck('id')->toArray();
 
                 // Count nurses (Filtered in-memory due to encryption)
-                $nursesCount = \App\Models\User::where('role_type', 'user')
-                    ->get()
-                    ->filter(fn($u) => trim((string)$u->state) === trim($selectedState->name))
-                    ->count();
+                $stateUsers = \App\Models\User::where('role_type', 'user')->get()
+                    ->filter(fn($u) => trim((string)$u->state) === trim($selectedState->name));
+                
+                $nursesCount = $stateUsers->count();
+                $stateUserIds = $stateUsers->pluck('id')->toArray();
 
                 // Module-wise pass counts (Show all courses assigned to this state)
                 $stateCourses = \App\Models\CourseDetail::whereHas('stateCouncils', function($q) use ($councilIds) {
                     $q->whereIn('state_councils.id', $councilIds);
                 })->get();
 
-                $passCounts = \App\Models\CourseTestAttempt::whereIn('state_council_id', $councilIds)
+                $passCounts = \App\Models\CourseTestAttempt::where(function($q) use ($councilIds, $stateUserIds) {
+                        $q->whereIn('state_council_id', $councilIds)
+                          ->orWhereIn('user_id', $stateUserIds);
+                    })
                     ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
                     ->where('passed', true)
                     ->select('course_detail_id', \Illuminate\Support\Facades\DB::raw('count(*) as passed_count'))
@@ -63,7 +67,10 @@ class ReportsController extends Controller
 
                 $modulesCompletedCount = $passCounts->sum();
 
-                $purchasedModulesCount = \App\Models\Order::whereIn('state_council_id', $councilIds)
+                $purchasedModulesCount = \App\Models\Order::where(function($q) use ($councilIds, $stateUserIds) {
+                        $q->whereIn('state_council_id', $councilIds)
+                          ->orWhereIn('user_id', $stateUserIds);
+                    })
                     ->where('payment_status', \App\Enums\PaymentStatus::Completed)
                     ->count();
             }
@@ -98,9 +105,16 @@ class ReportsController extends Controller
             $q->whereIn('state_councils.id', $councilIds);
         })->get();
 
+        $stateUserIds = \App\Models\User::where('role_type', 'user')->get()
+            ->filter(fn($u) => trim((string)$u->state) === trim($selectedState->name))
+            ->pluck('id')->toArray();
+
         // User Performance Report
         $query = \App\Models\CourseTestAttempt::with(['user', 'courseDetail'])
-            ->whereIn('state_council_id', $councilIds)
+            ->where(function($q) use ($councilIds, $stateUserIds) {
+                $q->whereIn('state_council_id', $councilIds)
+                  ->orWhereIn('user_id', $stateUserIds);
+            })
             ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED);
 
         if ($selectedCourseId) {
@@ -198,8 +212,15 @@ class ReportsController extends Controller
         $stateCouncils = \App\Models\StateCouncil::where('state_id', $selectedState->id)->get();
         $councilIds = $stateCouncils->pluck('id')->toArray();
 
+        $stateUserIds = \App\Models\User::where('role_type', 'user')->get()
+            ->filter(fn($u) => trim((string)$u->state) === trim($selectedState->name))
+            ->pluck('id')->toArray();
+
         $query = \App\Models\CourseTestAttempt::with(['user', 'courseDetail'])
-            ->whereIn('state_council_id', $councilIds)
+            ->where(function($q) use ($councilIds, $stateUserIds) {
+                $q->whereIn('state_council_id', $councilIds)
+                  ->orWhereIn('user_id', $stateUserIds);
+            })
             ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED);
 
         if ($selectedCourseId) {
