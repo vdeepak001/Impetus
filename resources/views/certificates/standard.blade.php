@@ -5,7 +5,7 @@
     <title>Certificate of Completion</title>
     <style>
         @page {
-            margin: 10mm;
+            margin: 0px;
             size: A4 landscape;
         }
         html, body {
@@ -16,8 +16,16 @@
         }
         body {
             font-family: 'serif';
-            background-color: #fff;
+            background-color: transparent;
             color: #1e293b;
+        }
+        .cert-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1000;
         }
         .cert-container {
             position: absolute;
@@ -26,27 +34,25 @@
             right: 0;
             bottom: 0;
             box-sizing: border-box;
-            background-color: #f8fafc;
+            background-color: transparent;
         }
         .cert-content {
-            border: 8px double #0f172a;
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            padding: 15px;
+            padding: 30px 45px;
             box-sizing: border-box;
-            background-color: #fff;
+            background-color: transparent;
         }
         .inner-frame {
-            border: 1px solid #94a3b8;
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
-            padding: 20px;
+            top: 30px;
+            left: 45px;
+            right: 45px;
+            bottom: 30px;
+            padding: 20px 30px;
             box-sizing: border-box;
             text-align: center;
         }
@@ -225,24 +231,17 @@
                 $councilLogo = 'data:image/' . pathinfo($logoPath, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($logoPath));
             }
         }
-    @endphp<div class="cert-container">
+    @endphp
+
+    <div class="cert-background">
+        <img src="{{ public_path('images/A4 Certificate.png') }}" style="width: 100%; height: 100%; display: block;" />
+    </div>
+
+    <div class="cert-container">
         <div class="cert-content">
             <div class="inner-frame">
-                <table class="header-table">
-                    <tr>
-                        <td class="header-left">
-                            @if($councilLogo)
-                                <img src="{{ $councilLogo }}" class="logo">
-                            @else
-                                <div class="logo-placeholder">State Nursing Council Logo</div>
-                            @endif
-                        </td>
-                        <td class="header-right">
-                            <!-- Ventura Logo -->
-                            <img src="{{ public_path('images/venture.svg') }}" class="logo">
-                        </td>
-                    </tr>
-                </table>
+                <!-- Spacer to push the title down below the top-left background logo and top curves -->
+                <div style="height: 80px;"></div>
 
                 <div class="main-title">Certificate of Completion</div>
 

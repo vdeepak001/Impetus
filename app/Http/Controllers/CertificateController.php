@@ -12,6 +12,7 @@ class CertificateController extends Controller
 {
     public function download(Request $request, $orderId)
     {
+        ini_set('memory_limit', '256M');
         $order = Order::with(['courseDetail', 'user', 'stateCouncil'])->findOrFail($orderId);
 
         // Ensure the order belongs to the authenticated user OR user is an admin/staff
