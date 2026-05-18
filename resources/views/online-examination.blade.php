@@ -28,7 +28,7 @@
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
                         <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
                             <img
-                                src="{{ asset('images/multiple-choice-750x420.jpg')}}"
+                                src="{{ asset('images/66ccc0d0b5e3701731775c0c_652728a7077ae3384cfda548_Online20Proctoring20To20Cheating.png')}}"
                                 alt="Nurse completing an online multiple-choice examination"
                                 class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
                                 width="1200"
