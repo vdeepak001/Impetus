@@ -67,12 +67,6 @@
             </div>
         </div>
         <div class="bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden mb-12">
-            <div class="p-8 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-900/50">
-                {{-- <h3 class="text-2xl font-black text-gray-800 dark:text-white text-left tracking-tight">
-                    Number of Nurses Completed
-                </h3> --}}
-            </div>
-
             <div class="p-0 overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
