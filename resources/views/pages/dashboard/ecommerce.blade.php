@@ -11,10 +11,10 @@
             color="brand"
         />
 
-        <!-- Course Titles -->
+        <!-- Active Courses -->
         <x-dashboard.metric-card 
-            title="Course Titles" 
-            value="{{ $stats['total_titles'] }}" 
+            title="Active Courses" 
+            value="{{ $stats['active_courses'] }}" 
             icon="tag"
             color="indigo"
         />

@@ -20,7 +20,7 @@ class DashboardController extends Controller
             
             // Course Stats
             'total_courses' => CourseDetail::count(),
-            'total_titles' => CourseTitle::count(),
+            'active_courses' => CourseDetail::where('active_status', 1)->count(),
             'total_materials' => CourseMaterial::count(),
             'total_questions' => CourseQuestion::count(),
         ];
