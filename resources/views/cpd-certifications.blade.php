@@ -171,7 +171,7 @@
                         <div class="mt-12 lg:mt-0">
                             <div class="relative">
                                 <div class="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/20 via-transparent to-logo-blue/20 blur-2xl"></div>
-                                <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80" alt="Program Benefits" class="relative aspect-video w-full rounded-3xl object-cover shadow-xl ring-1 ring-slate-200">
+                                <img src="{{ asset('images/What-can-I-do-after-BSC-nursing.jpg') }}" alt="Program Benefits" class="relative aspect-video w-full rounded-3xl object-cover shadow-xl ring-1 ring-slate-200">
                             </div>
                         </div>
                     </div>
