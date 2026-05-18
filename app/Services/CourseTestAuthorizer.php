@@ -17,6 +17,10 @@ class CourseTestAuthorizer
         $activeOrder = Order::activeOrderFor($user, $course);
         abort_unless($activeOrder !== null, 403);
 
+        if ($type === CourseTestType::Pre) {
+            abort_unless(session()->has('pretest_otp_verified_' . $course->id), 403);
+        }
+
         if ($type === CourseTestType::Practice) {
             abort_unless(filled($course->practice_content), 404);
             $preDone = CourseTestAttempt::query()

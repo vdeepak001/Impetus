@@ -146,7 +146,7 @@
                                                 Pretest <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                                             </button>
                                         @elseif ($canPre)
-                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'pre']) }}" class="{{ $btnBase }} {{ $preClass }}">Pretest</a>
+                                            <livewire:cne.pretest-otp-button :course="$course" :btn-class="$btnBase . ' ' . $preClass" />
                                         @else
                                             <span class="{{ $btnBase }} {{ $lockedClass }}" title="Tests are unavailable">Pretest</span>
                                         @endif
