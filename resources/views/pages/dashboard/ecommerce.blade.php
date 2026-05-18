@@ -21,7 +21,7 @@
 
         <!-- Title Materials -->
         <x-dashboard.metric-card 
-            title="Course Materials" 
+            title="Learning Materials" 
             value="{{ $stats['total_materials'] }}" 
             icon="document-duplicate"
             color="blue"
