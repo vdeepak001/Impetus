@@ -1,4 +1,8 @@
-<div x-data="{ open: {{ ($errors->has('email') || $errors->has('password')) ? 'true' : 'false' }}, showPassword: false }"
+<div x-data="{
+         open: {{ ($errors->has('email') || $errors->has('password') || session('success')) ? 'true' : 'false' }},
+         showPassword: false,
+         mode: '{{ old('form_type') === 'forgot' ? 'forgot' : 'login' }}'
+     }"
      x-show="open"
      x-cloak
      id="login-modal"
@@ -6,7 +10,7 @@
      aria-modal="true"
      aria-labelledby="login-modal-title"
      class="fixed inset-0 z-[9999] grid place-items-center p-4 sm:p-6"
-     @open-login-modal.window="open = true"
+     @open-login-modal.window="open = true; mode = 'login'"
      @keydown.escape.window="open = false">
     <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
          x-transition:enter="ease-out duration-200"
@@ -27,8 +31,8 @@
          @click.stop>
         <div class="mb-6 flex items-start justify-between gap-4">
             <div>
-                <h2 id="login-modal-title" class="font-serif text-xl font-semibold text-slate-900">Log in</h2>
-                <p class="mt-1 text-sm text-slate-600">Enter your email and password to continue.</p>
+                <h2 id="login-modal-title" class="font-serif text-xl font-semibold text-slate-900" x-text="mode === 'login' ? 'Log in' : 'Forgot Password'">Log in</h2>
+                <p class="mt-1 text-sm text-slate-600" x-text="mode === 'login' ? 'Enter your email and password to continue.' : 'Enter your email address and we will send you a new password.'">Enter your email and password to continue.</p>
             </div>
             <button type="button"
                     @click="open = false"
@@ -41,20 +45,22 @@
         </div>
 
         @if (config('services.google.client_id'))
-            <div class="mb-5">
-                @include('welcome.partials.google-sign-in-button', ['asBlock' => true])
-            </div>
-            <div class="relative mb-5">
-                <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                    <div class="w-full border-t border-slate-200"></div>
+            <div x-show="mode === 'login'">
+                <div class="mb-5">
+                    @include('welcome.partials.google-sign-in-button', ['asBlock' => true])
                 </div>
-                <div class="relative flex justify-center text-xs font-medium uppercase tracking-wide">
-                    <span class="bg-white px-2 text-slate-500">Or continue with email</span>
+                <div class="relative mb-5">
+                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="w-full border-t border-slate-200"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs font-medium uppercase tracking-wide">
+                        <span class="bg-white px-2 text-slate-500">Or continue with email</span>
+                    </div>
                 </div>
             </div>
         @endif
 
-        <form method="POST" action="{{ route('frontend.login') }}" class="space-y-4">
+        <form method="POST" action="{{ route('frontend.login') }}" class="space-y-4" x-show="mode === 'login'">
             @csrf
             <div>
                 <label for="login-modal-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email</label>
@@ -98,12 +104,11 @@
                     <input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-logo-light-green focus:ring-logo-light-green" @checked(old('remember')) />
                     <span>Remember me</span>
                 </label>
-                {{-- <button type="submit"
-                        formaction="{{ route('frontend.password.resend') }}"
-                        formmethod="POST"
-                        class="text-sm font-medium text-logo-blue hover:text-brand-900 hover:underline">
-                    Resend login password
-                </button> --}}
+                <button type="button"
+                        @click="mode = 'forgot'"
+                        class="text-sm font-medium text-logo-blue hover:underline">
+                    Forgot password?
+                </button>
             </div>
             <button type="submit"
                     class="w-full rounded-full bg-logo-light-green px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-logo-light-green/90 focus:outline-none focus:ring-2 focus:ring-logo-light-green focus:ring-offset-2">
@@ -111,10 +116,37 @@
             </button>
         </form>
 
-        <p class="mt-5 text-center text-sm text-slate-600">
+        <form method="POST" action="{{ route('frontend.password.resend') }}" class="space-y-4" x-show="mode === 'forgot'" x-cloak>
+            @csrf
+            <input type="hidden" name="form_type" value="forgot">
+            <div>
+                <label for="forgot-modal-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email</label>
+                <input type="email"
+                       name="email"
+                       id="forgot-modal-email"
+                       value="{{ old('email') }}"
+                       required
+                       autocomplete="email"
+                       class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-logo-light-green focus:outline-none focus:ring-2 focus:ring-logo-light-green/25" />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+            <button type="submit"
+                    class="w-full rounded-full bg-logo-light-green px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-logo-light-green/90 focus:outline-none focus:ring-2 focus:ring-logo-light-green focus:ring-offset-2">
+                Send login password
+            </button>
+        </form>
+
+        <p class="mt-5 text-center text-sm text-slate-600" x-show="mode === 'login'">
             Don’t have an account?
             <button type="button" @click="open = false; $dispatch('open-register-modal')" class="font-medium text-logo-blue hover:underline">
                 Register
+            </button>
+        </p>
+
+        <p class="mt-5 text-center text-sm text-slate-600" x-show="mode === 'forgot'" x-cloak>
+            Remembered your password?
+            <button type="button" @click="mode = 'login'" class="font-medium text-logo-blue hover:underline">
+                Back to login
             </button>
         </p>
     </div>
