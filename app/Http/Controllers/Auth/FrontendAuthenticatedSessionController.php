@@ -84,7 +84,7 @@ class FrontendAuthenticatedSessionController extends Controller
             'password_raw' => $generatedPassword,
         ])->save();
 
-        Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword));
+        Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword, 'forgot'));
 
         return back()->with('success', 'A new login password has been sent to your email.');
     }

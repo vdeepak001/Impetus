@@ -3,7 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CPD Module Activated</title>
+    <title>
+        @php
+            $isOnlinePurchase = in_array($order->payment_mode, [
+                \App\Enums\PaymentMode::PaymentGateway->value,
+                \App\Enums\PaymentMode::Paytm->value,
+                \App\Enums\PaymentMode::CreditDebitCard->value
+            ]);
+        @endphp
+        @if($isOnlinePurchase)
+            CPD Module Purchased
+        @else
+            CPD Module Activated
+        @endif
+    </title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: Inter, Arial, sans-serif; color: #1e293b;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f8fafc; padding: 24px 12px;">
@@ -18,10 +31,18 @@
                     <tr>
                         <td style="background: linear-gradient(135deg, #0082c9 0%, #83ba2d 100%); padding: 24px;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 24px; line-height: 1.3; font-weight: 700;">
-                                CPD Module Activated!
+                                @if($isOnlinePurchase)
+                                    CPD Module Purchased!
+                                @else
+                                    CPD Module Activated!
+                                @endif
                             </h1>
                             <p style="margin: 8px 0 0; color: #f8fafc; font-size: 14px; line-height: 1.6;">
-                                Your access to the module has been successfully enabled.
+                                @if($isOnlinePurchase)
+                                    Your purchase has been successfully processed.
+                                @else
+                                    Your access to the module has been successfully enabled.
+                                @endif
                             </p>
                         </td>
                     </tr>
@@ -31,9 +52,15 @@
                             <p style="margin: 0 0 16px; font-size: 15px; line-height: 1.7; color: #334155;">
                                 Hello {{ $user->name }},
                             </p>
-                            <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
-                                We are pleased to inform you that your state-assigned CPD module <strong>{{ $course->couse_name }}</strong> has been activated by the administrator. You can now login to your portal and start learning!
-                            </p>
+                            @if($isOnlinePurchase)
+                                <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
+                                    Dear User, you have successfully purchased online CPD Module. Your package details <strong>{{ $course->couse_name }}</strong>. For any further assistance mail us to <a href="mailto:info@venturacpd.com" style="color: #0082c9; font-weight: 600; text-decoration: underline;">info@venturacpd.com</a>
+                                </p>
+                            @else
+                                <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
+                                    Dear User, your Ventura Learning Solutions CPD module <strong>{{ $course->couse_name }}</strong> has been activated. Kindly check your account for details. For any further assistance mail us to <a href="mailto:info@venturacpd.com" style="color: #0082c9; font-weight: 600; text-decoration: underline;">info@venturacpd.com</a>
+                                </p>
+                            @endif
 
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc; margin-bottom: 24px;">
                                 <tr>
@@ -44,7 +71,13 @@
                                                 <td style="padding-bottom: 8px; font-size: 14px; font-weight: 600; color: #1e293b;">{{ $course->couse_name }}</td>
                                             </tr>
                                             <tr>
-                                                <td style="padding-bottom: 8px; font-size: 13px; color: #64748b;">Activation Date</td>
+                                                <td style="padding-bottom: 8px; font-size: 13px; color: #64748b;">
+                                                    @if($isOnlinePurchase)
+                                                        Purchase Date
+                                                    @else
+                                                        Activation Date
+                                                    @endif
+                                                </td>
                                                 <td style="padding-bottom: 8px; font-size: 14px; font-weight: 600; color: #1e293b;">{{ $order->start_date ? \Carbon\Carbon::parse($order->start_date)->format('d-m-Y') : '-' }}</td>
                                             </tr>
                                             <tr>
@@ -69,10 +102,6 @@
                                     </td>
                                 </tr>
                             </table>
-
-                            <p style="margin: 10px 0 0; font-size: 14px; line-height: 1.7; color: #475569;">
-                                If you have any questions or require assistance, please feel free to contact our support team.
-                            </p>
                         </td>
                     </tr>
 

@@ -15,14 +15,16 @@ class FrontendUserPasswordMail extends Mailable
 
     public function __construct(
         public User $user,
-        public string $generatedPassword
+        public string $generatedPassword,
+        public string $type = 'register'
     ) {
     }
 
     public function envelope(): Envelope
     {
+        $subject = $this->type === 'forgot' ? 'Your Reset Password OTP' : 'Welcome to Ventura Learning Solutions';
         return new Envelope(
-            subject: 'Your login details',
+            subject: $subject,
         );
     }
 

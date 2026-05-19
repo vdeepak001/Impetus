@@ -30,7 +30,7 @@ test('frontend users can register from the signup modal flow', function () {
     $response->assertStatus(302);
     $response->assertSessionHas('success');
 
-    $user = User::query()->where('email', 'frontend.nurse@example.com')->first();
+    $user = User::query()->get()->filter(fn($u) => $u->email === 'frontend.nurse@example.com')->first();
 
     expect($user)->not->toBeNull()
         ->and($user->role_type)->toBe('user')

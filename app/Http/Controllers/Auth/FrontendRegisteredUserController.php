@@ -98,7 +98,7 @@ class FrontendRegisteredUserController extends Controller
             'date_of_birth' => $validated['date_of_birth'],
         ]);
 
-        Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword));
+        Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword, 'register'));
 
         return back()
             ->with('success', 'Your account has been created. We sent a login password to your email.')

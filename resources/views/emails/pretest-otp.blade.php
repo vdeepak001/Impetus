@@ -32,7 +32,7 @@
                                 Hello {{ $user->name }},
                             </p>
                             <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
-                                You have requested to take the {{ strtolower($testLabel) }} for the module <strong>{{ $courseName }}</strong>. Please use the following One-Time Password (OTP) to verify your request:
+                                One Time Code for your Online CPD Test <strong>{{ $otpCode }}</strong>. Unique code will expire in 10 Minutes. For any further assistance mail us to <a href="mailto:info@venturacpd.com" style="color: #0082c9; font-weight: 600; text-decoration: underline;">info@venturacpd.com</a>
                             </p>
 
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc; margin-bottom: 20px;">
@@ -42,14 +42,6 @@
                                     </td>
                                 </tr>
                             </table>
-
-                            <p style="margin: 0 0 20px; font-size: 14px; line-height: 1.7; color: #475569;">
-                                This OTP is valid for <strong>10 minutes</strong>. Do not share this code with anyone.
-                            </p>
-
-                            <p style="margin: 20px 0 0; font-size: 14px; line-height: 1.7; color: #475569;">
-                                If you did not make this request, please ignore this email.
-                            </p>
                         </td>
                     </tr>
 
