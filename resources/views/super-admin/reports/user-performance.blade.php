@@ -144,32 +144,32 @@
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-[#0082c8]">
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-28">Unique ID</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-auto min-w-[176px]">Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-32">RN Number</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-[300px]">Module Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[10%]">Unique ID</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[16%]">Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[10%]">RN Number</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[24%]">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Pre Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Pre Test</th>
                         @endif
 
                         @if(!request('exam_type') || request('exam_type') === 'mock')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Mock Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Mock Test</th>
                         @endif
 
                         @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Final 1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Final 2</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-36">Completed on</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Final 1</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Final 2</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Completed on</th>
                         @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                     @forelse($userAttempts as $attempt)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 text-center">{{ $attempt->sequence_number }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 text-left">{{ $attempt->sequence_number }}</td>
                             <td class="px-6 py-4 text-sm font-normal text-gray-900 dark:text-white uppercase">{{ $attempt->user_name }}</td>
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-center">{{ $attempt->rn_number }}</td>
+                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-left">{{ $attempt->rn_number }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">{{ $attempt->course_name }}</td>
                             
                             @if(!request('exam_type') || request('exam_type') === 'pre')
