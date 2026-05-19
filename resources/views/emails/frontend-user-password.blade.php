@@ -34,9 +34,6 @@
                                 <h1 style="margin: 0; color: #ffffff; font-size: 24px; line-height: 1.3; font-weight: 700;">
                                     Welcome, {{ $user->name }}!
                                 </h1>
-                                <p style="margin: 8px 0 0; color: #f8fafc; font-size: 14px; line-height: 1.6;">
-                                    Your account has been created successfully.
-                                </p>
                             @endif
                         </td>
                     </tr>

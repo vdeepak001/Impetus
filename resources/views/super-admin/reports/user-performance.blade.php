@@ -145,9 +145,9 @@
                 <thead>
                     <tr class="bg-[#0082c8]">
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-28">Unique ID</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-44">Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-auto min-w-[176px]">Name</th>
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-32">RN Number</th>
-                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 min-w-[300px]">Module Name</th>
+                        <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 w-[300px]">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
                             <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-20">Pre Test</th>

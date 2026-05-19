@@ -79,12 +79,12 @@
                             <li>
                                 <a href="{{ route('privacy.policy') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Privacy Policy</a>
                             </li>
-                            <li>
+                            {{-- <li>
                                 <a href="{{ route('terms.conditions') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Terms &amp; Conditions</a>
                             </li>
                             <li>
                                 <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Patient Rights</a>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
                 </div>
