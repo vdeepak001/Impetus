@@ -112,11 +112,7 @@
                         </th>
                         <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 whitespace-nowrap">
-                            Date of Transaction
-                        </th>
-                        <th scope="col"
-                            class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 whitespace-nowrap">
-                            Time of Transaction
+                            Date & Time of Transaction
                         </th>
                         <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 min-w-[8rem]">
@@ -164,10 +160,7 @@
                                 </span>
                             </td>
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->created_at->format('d-m-Y') }}
-                            </td>
-                            <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-700 dark:text-gray-300">
-                                {{ $order->created_at->format('h:i A') }}
+                                {{ $order->created_at->format('d-m-Y h:i A') }}
                             </td>
                             <td class="px-4 py-4 text-sm text-gray-600 dark:text-gray-400 max-w-[12rem]">
                                 @if ($order->remarks)
@@ -188,7 +181,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10"
+                            <td colspan="8"
                                 class="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">
                                 No orders recorded yet.
                             </td>

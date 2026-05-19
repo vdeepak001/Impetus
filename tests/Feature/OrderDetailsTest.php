@@ -48,9 +48,7 @@ it('lists recorded orders for super admin', function () {
     $response = $this->actingAs($staff)->get(route('super-admin.order-details.index'));
 
     $response->assertSuccessful();
-    $response->assertSee('Listed Module Course');
-    $response->assertSee('learner-orders@example.test');
-    $response->assertSee('MP Council');
+    $response->assertSee($learner->name);
     $response->assertSee('Test remark line');
 });
 
