@@ -172,8 +172,8 @@
                                             >
                                                 Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                                             </button>
-                                        @elseif ($canMock)
-                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'mock']) }}" class="{{ $btnBase }} {{ $mockClass }}">Mock</a>
+                                                                        @elseif ($canMock)
+                                            <livewire:cne.pretest-otp-button :course="$course" :btn-class="$btnBase . ' ' . $mockClass" :test-type="'mock'" :btn-label="'Mock'" />
                                         @else
                                             <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the pre test first">Mock</span>
                                         @endif
@@ -205,13 +205,12 @@
                                                 @endif
                                             </button>
                                         @elseif ($canFinal)
-                                            <a href="{{ route('cne.modules.test', [$course->couse_name, 'final']) }}" class="{{ $btnBase }} {{ $finalClass }}">
-                                                @if ($finalDone)
-                                                    Retake Final ({{ number_format((float) $tp['final_score'], 1) }}%)
-                                                @else
-                                                    Final
-                                                @endif
-                                            </a>
+                                            <livewire:cne.pretest-otp-button 
+                                                :course="$course" 
+                                                :btn-class="$btnBase . ' ' . $finalClass" 
+                                                :test-type="'final'" 
+                                                :btn-label="$finalDone ? 'Retake Final (' . number_format((float) $tp['final_score'], 1) . '%)' : 'Final'" 
+                                            />
                                         @else
                                             <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Final</span>
                                         @endif

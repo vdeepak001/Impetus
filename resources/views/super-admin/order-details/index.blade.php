@@ -98,10 +98,10 @@
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                             Name
                         </th>
-                        <th scope="col"
+                        {{-- <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 min-w-[10rem]">
                             Module
-                        </th>
+                        </th> --}}
                         <th scope="col"
                             class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 whitespace-nowrap">
                             Payment mode
@@ -148,9 +148,9 @@
                                     {{ $learnerName }}
                                 </div>
                             </td>
-                            <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">
+                            {{-- <td class="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">
                                 {{ $order->courseDetail?->couse_name ?? '—' }}
-                            </td>
+                            </td> --}}
                             <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {{ \App\Enums\PaymentMode::tryFrom($order->payment_mode)?->label() ?? \Illuminate\Support\Str::of($order->payment_mode)->replace('_', ' ')->title() }}
                             </td>

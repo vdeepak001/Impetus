@@ -151,3 +151,219 @@ it('invalidates the OTP after 3 failed verification attempts to prevent brute-fo
     expect(session()->has('pretest_otp_' . $course->id))->toBeFalse();
 });
 
+it('blocks mock access for users who have not verified Mock OTP', function () {
+    $user = User::factory()->create(['role_type' => 'user']);
+    $course = CourseDetail::create([
+        'couse_name' => 'Mock OTP Protected Course',
+        'active_status' => 1,
+    ]);
+
+    Order::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'payment_mode' => PaymentMode::InternetBanking->value,
+        'payment_status' => PaymentStatus::Completed->value,
+        'start_date' => now()->subDay()->toDateString(),
+        'end_date' => now()->addDay()->toDateString(),
+    ]);
+
+    // Mock has a prerequisite of Pretest completed
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Pre->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(2),
+        'completed_at' => now()->subHours(1),
+        'score_percent' => 80.0,
+    ]);
+
+    $response = $this->actingAs($user)->get(route('cne.modules.test', [$course->couse_name, 'mock']));
+    $response->assertStatus(403);
+});
+
+it('sends Mock OTP, verifies it, and allows mock access', function () {
+    Mail::fake();
+
+    $user = User::factory()->create([
+        'role_type' => 'user',
+        'email' => 'student-mock@example.com',
+    ]);
+    
+    $course = CourseDetail::create([
+        'couse_name' => 'Mock OTP Verified Course',
+        'active_status' => 1,
+    ]);
+
+    Order::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'payment_mode' => PaymentMode::InternetBanking->value,
+        'payment_status' => PaymentStatus::Completed->value,
+        'start_date' => now()->subDay()->toDateString(),
+        'end_date' => now()->addDay()->toDateString(),
+    ]);
+
+    // Prerequisite: completed Pretest
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Pre->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(2),
+        'completed_at' => now()->subHours(1),
+        'score_percent' => 80.0,
+    ]);
+
+    $component = Livewire::actingAs($user)
+        ->test('cne.pretest-otp-button', [
+            'course' => $course,
+            'btnClass' => 'btn-mock',
+            'testType' => 'mock',
+            'btnLabel' => 'Mock',
+        ]);
+
+    $component->call('openModal')
+        ->assertSet('showModal', true);
+
+    $component->call('sendOtp')
+        ->assertSet('otpSent', true);
+
+    Mail::assertSent(PretestOtpMail::class, function ($mail) use ($user, $course) {
+        return $mail->hasTo($user->email) &&
+               $mail->courseName === $course->couse_name &&
+               $mail->testLabel === 'Mock Test';
+    });
+
+    $stored = session()->get('mocktest_otp_' . $course->id);
+    $otp = $stored['code'];
+
+    $component->set('otpInput', $otp)
+        ->call('verifyOtp')
+        ->assertRedirect(route('cne.modules.test', [$course->couse_name, 'mock']));
+
+    expect(session()->has('mocktest_otp_verified_' . $course->id))->toBeTrue();
+});
+
+it('blocks final access for users who have not verified Final OTP', function () {
+    $user = User::factory()->create(['role_type' => 'user']);
+    $course = CourseDetail::create([
+        'couse_name' => 'Final OTP Protected Course',
+        'active_status' => 1,
+    ]);
+
+    Order::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'payment_mode' => PaymentMode::InternetBanking->value,
+        'payment_status' => PaymentStatus::Completed->value,
+        'start_date' => now()->subDay()->toDateString(),
+        'end_date' => now()->addDay()->toDateString(),
+    ]);
+
+    // Prerequisite: completed Pretest
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Pre->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(4),
+        'completed_at' => now()->subHours(3),
+        'score_percent' => 85.0,
+    ]);
+
+    // Prerequisite: completed Mock test
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Mock->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(2),
+        'completed_at' => now()->subHours(1),
+        'score_percent' => 90.0,
+    ]);
+
+    $response = $this->actingAs($user)->get(route('cne.modules.test', [$course->couse_name, 'final']));
+    $response->assertStatus(403);
+});
+
+it('sends Final OTP, verifies it, and allows final access', function () {
+    Mail::fake();
+
+    $user = User::factory()->create([
+        'role_type' => 'user',
+        'email' => 'student-final@example.com',
+    ]);
+    
+    $course = CourseDetail::create([
+        'couse_name' => 'Final OTP Verified Course',
+        'active_status' => 1,
+    ]);
+
+    Order::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'payment_mode' => PaymentMode::InternetBanking->value,
+        'payment_status' => PaymentStatus::Completed->value,
+        'start_date' => now()->subDay()->toDateString(),
+        'end_date' => now()->addDay()->toDateString(),
+    ]);
+
+    // Prerequisite: completed Pretest
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Pre->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(4),
+        'completed_at' => now()->subHours(3),
+        'score_percent' => 85.0,
+    ]);
+
+    // Prerequisite: completed Mock test
+    \App\Models\CourseTestAttempt::create([
+        'user_id' => $user->id,
+        'course_detail_id' => $course->id,
+        'test_type' => \App\Enums\CourseTestType::Mock->value,
+        'status' => \App\Models\CourseTestAttempt::STATUS_COMPLETED,
+        'question_ids' => [1, 2, 3],
+        'started_at' => now()->subHours(2),
+        'completed_at' => now()->subHours(1),
+        'score_percent' => 90.0,
+    ]);
+
+    $component = Livewire::actingAs($user)
+        ->test('cne.pretest-otp-button', [
+            'course' => $course,
+            'btnClass' => 'btn-final',
+            'testType' => 'final',
+            'btnLabel' => 'Final',
+        ]);
+
+    $component->call('openModal')
+        ->assertSet('showModal', true);
+
+    $component->call('sendOtp')
+        ->assertSet('otpSent', true);
+
+    Mail::assertSent(PretestOtpMail::class, function ($mail) use ($user, $course) {
+        return $mail->hasTo($user->email) &&
+               $mail->courseName === $course->couse_name &&
+               $mail->testLabel === 'Final Test';
+    });
+
+    $stored = session()->get('finaltest_otp_' . $course->id);
+    $otp = $stored['code'];
+
+    $component->set('otpInput', $otp)
+        ->call('verifyOtp')
+        ->assertRedirect(route('cne.modules.test', [$course->couse_name, 'final']));
+
+    expect(session()->has('finaltest_otp_verified_' . $course->id))->toBeTrue();
+});
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verification Code - Pretest</title>
+    <title>Verification Code - {{ $testLabel }}</title>
 </head>
 <body style="margin: 0; padding: 0; background-color: #f8fafc; font-family: Inter, Arial, sans-serif; color: #1e293b;">
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background-color: #f8fafc; padding: 24px 12px;">
@@ -18,10 +18,10 @@
                     <tr>
                         <td style="background: linear-gradient(135deg, #0082c9 0%, #83ba2d 100%); padding: 24px;">
                             <h1 style="margin: 0; color: #ffffff; font-size: 24px; line-height: 1.3; font-weight: 700;">
-                                Pretest Verification Code
+                                {{ $testLabel }} Verification Code
                             </h1>
                             <p style="margin: 8px 0 0; color: #f8fafc; font-size: 14px; line-height: 1.6;">
-                                Complete your verification to access the pretest.
+                                Complete your verification to access the {{ strtolower($testLabel) }}.
                             </p>
                         </td>
                     </tr>
@@ -32,7 +32,7 @@
                                 Hello {{ $user->name }},
                             </p>
                             <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
-                                You have requested to take the pretest for the module <strong>{{ $courseName }}</strong>. Please use the following One-Time Password (OTP) to verify your request:
+                                You have requested to take the {{ strtolower($testLabel) }} for the module <strong>{{ $courseName }}</strong>. Please use the following One-Time Password (OTP) to verify your request:
                             </p>
 
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc; margin-bottom: 20px;">

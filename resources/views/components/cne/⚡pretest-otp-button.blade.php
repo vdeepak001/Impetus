@@ -9,6 +9,8 @@ new class extends Component
 {
     public CourseDetail $course;
     public string $btnClass = '';
+    public string $testType = 'pre';
+    public string $btnLabel = 'Pretest';
 
     public bool $showModal = false;
     public string $otpInput = '';
@@ -17,10 +19,12 @@ new class extends Component
     public bool $otpSent = false;
     public bool $isSending = false;
 
-    public function mount(CourseDetail $course, string $btnClass = '')
+    public function mount(CourseDetail $course, string $btnClass = '', string $testType = 'pre', string $btnLabel = 'Pretest')
     {
         $this->course = $course;
         $this->btnClass = $btnClass;
+        $this->testType = $testType;
+        $this->btnLabel = $btnLabel;
     }
 
     public function openModal()
@@ -44,6 +48,30 @@ new class extends Component
         $this->isSending = false;
     }
 
+    public function getSessionOtpKey(): string
+    {
+        return $this->testType . 'test_otp_' . $this->course->id;
+    }
+
+    public function getSessionVerifiedKey(): string
+    {
+        return $this->testType . 'test_otp_verified_' . $this->course->id;
+    }
+
+    public function getTestLabel(): string
+    {
+        return match ($this->testType) {
+            'mock' => 'Mock Test',
+            'final' => 'Final Test',
+            default => 'Pretest',
+        };
+    }
+
+    public function getModalTitle(): string
+    {
+        return $this->getTestLabel() . ' Security Gate';
+    }
+
     public function sendOtp()
     {
         $this->errorMessage = '';
@@ -52,13 +80,13 @@ new class extends Component
 
         try {
             $otp = (string) rand(100000, 999999);
-            session()->put('pretest_otp_' . $this->course->id, [
+            session()->put($this->getSessionOtpKey(), [
                 'code' => $otp,
                 'expires_at' => now()->addMinutes(10),
                 'attempts' => 0,
             ]);
 
-            Mail::to(auth()->user()->email)->send(new PretestOtpMail(auth()->user(), $otp, $this->course->couse_name));
+            Mail::to(auth()->user()->email)->send(new PretestOtpMail(auth()->user(), $otp, $this->course->couse_name, $this->testType));
 
             $this->otpSent = true;
             $this->successMessage = 'Verification code sent successfully to your email.';
@@ -79,7 +107,8 @@ new class extends Component
             return;
         }
 
-        $stored = session()->get('pretest_otp_' . $this->course->id);
+        $sessionKey = $this->getSessionOtpKey();
+        $stored = session()->get($sessionKey);
 
         if (!$stored || now()->greaterThan($stored['expires_at'])) {
             $this->errorMessage = 'The verification code has expired. Please request a new one.';
@@ -88,10 +117,10 @@ new class extends Component
 
         // Increment attempts and update session
         $stored['attempts']++;
-        session()->put('pretest_otp_' . $this->course->id, $stored);
+        session()->put($sessionKey, $stored);
 
         if ($stored['attempts'] > 3) {
-            session()->forget('pretest_otp_' . $this->course->id);
+            session()->forget($sessionKey);
             $this->otpSent = false;
             $this->otpInput = '';
             $this->errorMessage = 'Too many incorrect attempts. This code has been invalidated. Please request a new one.';
@@ -101,7 +130,7 @@ new class extends Component
         if (trim($stored['code']) !== trim($this->otpInput)) {
             $left = 3 - $stored['attempts'];
             if ($left <= 0) {
-                session()->forget('pretest_otp_' . $this->course->id);
+                session()->forget($sessionKey);
                 $this->otpSent = false;
                 $this->otpInput = '';
                 $this->errorMessage = 'Too many incorrect attempts. This code has been invalidated. Please request a new one.';
@@ -112,10 +141,10 @@ new class extends Component
         }
 
         // Successfully verified! Save in session and redirect to test
-        session()->put('pretest_otp_verified_' . $this->course->id, true);
-        session()->forget('pretest_otp_' . $this->course->id);
+        session()->put($this->getSessionVerifiedKey(), true);
+        session()->forget($sessionKey);
 
-        return redirect()->route('cne.modules.test', [$this->course->couse_name, 'pre']);
+        return redirect()->route('cne.modules.test', [$this->course->couse_name, $this->testType]);
     }
 
     public function getMaskedEmail()
@@ -146,7 +175,7 @@ new class extends Component
         wire:click="openModal" 
         class="{{ $btnClass }}"
     >
-        Pretest
+        {{ $btnLabel }}
     </button>
 
     {{-- Modal --}}
@@ -173,7 +202,7 @@ new class extends Component
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <h2 class="font-serif text-lg font-bold text-slate-900">Pretest Security Gate</h2>
+                        <h2 class="font-serif text-lg font-bold text-slate-900">{{ $this->getModalTitle() }}</h2>
                     </div>
                     <button 
                         type="button"
@@ -192,7 +221,7 @@ new class extends Component
                         <p class="text-xs font-bold uppercase tracking-[0.15em] text-logo-blue/80 mb-1">Verification Required</p>
                         <h3 class="text-base font-bold text-slate-800 leading-snug">{{ $course->couse_name }}</h3>
                         <p class="mt-2 text-sm text-slate-500">
-                            For security purposes, we need to verify your identity before you start the pretest. We will send a One-Time Password (OTP) to your registered email:
+                            For security purposes, we need to verify your identity before you start the {{ strtolower($this->getTestLabel()) }}. We will send a One-Time Password (OTP) to your registered email:
                             <span class="block mt-1 font-semibold text-slate-800 text-base tracking-wide">{{ $this->getMaskedEmail() }}</span>
                         </p>
                     </div>

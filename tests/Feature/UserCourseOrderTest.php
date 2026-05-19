@@ -39,6 +39,8 @@ it('returns state-scoped courses as json for staff', function () {
 });
 
 it('stores an order for a learner module payment', function () {
+    \Illuminate\Support\Facades\Mail::fake();
+
     $state = State::query()->create([
         'name' => 'Madhya Pradesh',
         'status' => 'active',
@@ -79,6 +81,12 @@ it('stores an order for a learner module payment', function () {
         ->assertJsonFragment(['message' => 'Order recorded successfully.']);
 
     expect(Order::query()->where('user_id', $learner->id)->where('course_detail_id', $course->id)->exists())->toBeTrue();
+
+    \Illuminate\Support\Facades\Mail::assertSent(\App\Mail\ModuleActivationMail::class, function ($mail) use ($learner, $course) {
+        return $mail->hasTo($learner->email) &&
+               $mail->course->id === $course->id &&
+               $mail->user->id === $learner->id;
+    });
 });
 
 it('rejects an order when the end date is before the start date', function () {

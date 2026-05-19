@@ -192,7 +192,7 @@ class UserCourseOrderController extends Controller
             ? PaymentStatus::from($validated['payment_status'])
             : PaymentStatus::Completed;
 
-        Order::query()->create([
+        $order = Order::query()->create([
             'user_id' => $user->id,
             'course_detail_id' => $course->id,
             'state_council_id' => $stateCouncil?->id,
@@ -203,6 +203,14 @@ class UserCourseOrderController extends Controller
             'payment_status' => $paymentStatus,
             'recorded_by_id' => $request->user()?->id,
         ]);
+
+        if ($paymentStatus === PaymentStatus::Completed) {
+            try {
+                \Illuminate\Support\Facades\Mail::to($user->email)->send(new \App\Mail\ModuleActivationMail($user, $course, $order));
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error('Failed to send module activation mail: ' . $e->getMessage());
+            }
+        }
 
         if ($request->wantsJson()) {
             return response()->json(['message' => 'Order recorded successfully.']);

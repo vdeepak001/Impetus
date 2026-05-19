@@ -2,6 +2,8 @@
 
 namespace App\Mail;
 
+use App\Models\CourseDetail;
+use App\Models\Order;
 use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
@@ -9,36 +11,28 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class PretestOtpMail extends Mailable
+class ModuleActivationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public string $testLabel;
-
     public function __construct(
         public User $user,
-        public string $otpCode,
-        public string $courseName,
-        public string $testType = 'pre'
+        public CourseDetail $course,
+        public Order $order
     ) {
-        $this->testLabel = match ($testType) {
-            'mock' => 'Mock Test',
-            'final' => 'Final Test',
-            default => 'Pretest',
-        };
     }
 
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Verification OTP for ' . $this->courseName . ' ' . $this->testLabel,
+            subject: 'Your CPD Module "' . $this->course->couse_name . '" Has Been Activated!',
         );
     }
 
     public function content(): Content
     {
         return new Content(
-            view: 'emails.pretest-otp',
+            view: 'emails.module-activation',
         );
     }
 
