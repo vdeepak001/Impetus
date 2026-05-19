@@ -150,17 +150,17 @@
                         <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[24%]">Module Name</th>
                         
                         @if(!request('exam_type') || request('exam_type') === 'pre')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Pre Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/25 text-center w-[8%]">Pre Test</th>
                         @endif
 
                         @if(!request('exam_type') || request('exam_type') === 'mock')
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Mock Test</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/25 text-center w-[8%]">Mock Test</th>
                         @endif
 
                         @if(!request('exam_type') || in_array(request('exam_type'), ['final', 'passed']))
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Final 1</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Final 2</th>
-                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-center w-[8%]">Completed on</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/25 text-center w-[8%]">Final 1</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/25 text-center w-[8%]">Final 2</th>
+                            <th class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/25 text-center w-[8%]">Completed on</th>
                         @endif
                     </tr>
                 </thead>
