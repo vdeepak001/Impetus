@@ -32,7 +32,7 @@
                                 Hello {{ $user->name }},
                             </p>
                             <p style="margin: 0 0 20px; font-size: 15px; line-height: 1.7; color: #334155;">
-                                One Time Code for your Online CPD Test <strong>{{ $otpCode }}</strong>. Unique code will expire in 10 Minutes. For any further assistance mail us to <a href="mailto:info@venturacpd.com" style="color: #0082c9; font-weight: 600; text-decoration: underline;">info@venturacpd.com</a>
+                                One Time Code for your Online CPD Test <strong>{{ $otpCode }}</strong>. Unique code will expire in 10 Minutes. For any further assistance mail us to <a href="mailto:support@venturacpd.com" style="color: #0082c9; font-weight: 600; text-decoration: underline;">support@venturacpd.com</a>
                             </p>
 
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="border: 1px solid #e2e8f0; border-radius: 12px; background-color: #f8fafc; margin-bottom: 20px;">
