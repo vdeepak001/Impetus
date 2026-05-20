@@ -79,7 +79,7 @@
                     <tr>
                         <td style="padding: 16px 24px; border-top: 1px solid #f1f5f9; background-color: #fafafa;">
                             <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #64748b;">
-                                If you did not request this account, please contact support immediately.
+                                If you did not request this account, Please contact support@venturacpd.com.
                             </p>
                         </td>
                     </tr>
