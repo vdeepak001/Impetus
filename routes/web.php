@@ -37,6 +37,10 @@ Route::get('/landing2', function () {
     return view('landing-option2');
 })->name('landing2');
 
+Route::get('/landing3', function () {
+    return view('landing-option3');
+})->name('landing3');
+
 Route::view('/about-us', 'about')->name('about');
 Route::get('/cpd-modules', [CneModulesController::class, 'index'])->name('cne.modules');
 Route::get('/cpd-modules/{course_detail:couse_name}', [CneModulesController::class, 'show'])->name('cne.modules.show');
