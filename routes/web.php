@@ -28,6 +28,15 @@ Route::get('/', function () {
 
     return view('welcome', compact('latestCourses'));
 })->name('home');
+
+Route::get('/landing1', function () {
+    return view('landing-option1');
+})->name('landing1');
+
+Route::get('/landing2', function () {
+    return view('landing-option2');
+})->name('landing2');
+
 Route::view('/about-us', 'about')->name('about');
 Route::get('/cpd-modules', [CneModulesController::class, 'index'])->name('cne.modules');
 Route::get('/cpd-modules/{course_detail:couse_name}', [CneModulesController::class, 'show'])->name('cne.modules.show');
