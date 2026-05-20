@@ -83,11 +83,6 @@
 </head>
 <body class="bg-[#F8FAFC] text-slate-800 antialiased font-sans gradient-bg-hero">
 
-    <!-- Top Announcement Bar -->
-    <div class="bg-impetus-navy text-white py-2 px-4 text-center text-xs font-semibold tracking-wider font-outfit uppercase z-50 relative">
-        <span class="bg-impetus-orange text-white text-[9px] px-2 py-0.5 rounded-full mr-2 font-bold animate-pulse">NEW</span>
-        Next-Generation LMS 3.0 Platform is Now Live. <a href="#calculator" class="underline hover:text-impetus-orange transition-colors ml-1">Calculate ROI &rarr;</a>
-    </div>
 
     <!-- Navigation Header -->
     <header class="sticky top-0 z-40 w-full transition-all duration-300 glass-card border-b border-slate-200/50">
@@ -143,13 +138,16 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-8 pb-20 md:py-28 relative overflow-hidden">
+    <section id="home" class="pt-8 pb-20 md:py-28 bg-[#0B0F19] text-white relative overflow-hidden">
+        <!-- Premium Radial Gradient Background for Dark Mode Hero -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(243,110,33,0.08),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(11,132,68,0.08),transparent_50%)] pointer-events-none"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
                 <!-- Left text content -->
                 <div class="lg:col-span-7 text-center lg:text-left">
                     <!-- Brand Badge -->
-                    <div class="inline-flex items-center gap-2 bg-impetus-lightGreen border border-impetus-green/20 px-4 py-1.5 rounded-full text-xs font-bold text-impetus-green uppercase tracking-wider mb-6 font-outfit">
+                    <div class="inline-flex items-center gap-2 bg-impetus-green/10 border border-impetus-green/30 px-4 py-1.5 rounded-full text-xs font-bold text-impetus-green uppercase tracking-wider mb-6 font-outfit">
                         <svg class="w-4 h-4 text-impetus-green animate-spin" style="animation-duration: 3s" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -157,12 +155,12 @@
                         Building Intellectual Capability
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-impetus-navy tracking-tight leading-[1.1] font-outfit">
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] font-outfit">
                         Enterprise eLearning <br>
                         <span class="gradient-text-orange-green">Engineered for Impact.</span>
                     </h1>
                     
-                    <p class="mt-6 text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                    <p class="mt-6 text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto lg:mx-0">
                         Impetus provides custom corporate learning ecosystems, accredited educational courseware, and next-generation LMS tools designed to advance capability, knowledge retention, and institutional growth.
                     </p>
 
@@ -171,18 +169,18 @@
                         <a href="#contact" class="w-full sm:w-auto text-center bg-impetus-orange hover:bg-[#e05d14] text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-impetus-orange/20 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-impetus-orange/30 font-outfit glow-orange">
                             Schedule A Call
                         </a>
-                        <a href="#solutions" class="w-full sm:w-auto text-center bg-white border border-slate-300 hover:border-impetus-green text-slate-700 hover:text-impetus-green px-8 py-4 rounded-full font-bold transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-md font-outfit">
+                        <a href="#solutions" class="w-full sm:w-auto text-center bg-white/10 hover:bg-white/20 border border-white/20 hover:border-white text-white px-8 py-4 rounded-full font-bold transition-all hover:-translate-y-0.5 shadow-sm hover:shadow-md font-outfit backdrop-blur-sm">
                             Explore Solutions
                         </a>
                     </div>
 
                     <!-- Client Logos Microbar -->
-                    <div class="mt-12 pt-8 border-t border-slate-200/85 text-left max-w-lg mx-auto lg:mx-0">
-                        <span class="text-xs font-bold text-slate-500 uppercase tracking-widest block mb-4 text-center lg:text-left font-semibold">Accredited and Trusted by Industry Leaders</span>
+                    <div class="mt-12 pt-8 border-t border-white/10 text-left max-w-lg mx-auto lg:mx-0">
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-4 text-center lg:text-left font-semibold">Accredited and Trusted by Industry Leaders</span>
                         <div class="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 opacity-75">
-                            <span class="font-outfit font-extrabold text-sm text-slate-400 tracking-wider">CPD ACCREDITED</span>
-                            <span class="font-outfit font-extrabold text-sm text-slate-400 tracking-wider">ISO 27001</span>
-                            <span class="font-outfit font-extrabold text-sm text-slate-400 tracking-wider">LEARNING ALLIANCE</span>
+                            <span class="font-outfit font-extrabold text-sm text-slate-300 tracking-wider">CPD ACCREDITED</span>
+                            <span class="font-outfit font-extrabold text-sm text-slate-300 tracking-wider">ISO 27001</span>
+                            <span class="font-outfit font-extrabold text-sm text-slate-300 tracking-wider">LEARNING ALLIANCE</span>
                         </div>
                     </div>
                 </div>
@@ -192,9 +190,9 @@
                     <div class="absolute inset-0 bg-gradient-to-tr from-impetus-orange/10 to-impetus-green/10 rounded-3xl blur-[50px] -z-10"></div>
                     
                     <!-- Main visual panel -->
-                    <div class="relative glass-card border border-white/60 rounded-3xl p-6 sm:p-8 custom-shadow animate-float">
+                    <div class="relative glass-card-dark border border-white/10 rounded-3xl p-6 sm:p-8 custom-shadow animate-float">
                         <!-- Upper frame detail -->
-                        <div class="flex items-center justify-between mb-6 border-b border-slate-200/50 pb-4">
+                        <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
                                 <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
@@ -205,33 +203,33 @@
 
                         <!-- Micro Learning Analytics Widget -->
                         <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-white/80 p-4 rounded-2xl border border-slate-100 shadow-sm">
+                            <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-sm">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Course Completion</span>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <span class="text-2xl font-bold text-impetus-navy font-outfit">94.8%</span>
+                                    <span class="text-2xl font-bold text-white font-outfit">94.8%</span>
                                     <span class="text-xs font-bold text-impetus-green flex items-center">&uarr; 3.2%</span>
                                 </div>
-                                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
                                     <div class="bg-impetus-green h-full rounded-full" style="width: 94%"></div>
                                 </div>
                             </div>
-                            <div class="bg-white/80 p-4 rounded-2xl border border-slate-100 shadow-sm">
+                            <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-sm">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Skill Score</span>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <span class="text-2xl font-bold text-impetus-navy font-outfit">89 / 100</span>
+                                    <span class="text-2xl font-bold text-white font-outfit">89 / 100</span>
                                     <span class="text-xs font-bold text-impetus-orange flex items-center">&uarr; 6%</span>
                                 </div>
-                                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
+                                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
                                     <div class="bg-impetus-orange h-full rounded-full" style="width: 89%"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Live Graph Widget -->
-                        <div class="bg-white/90 p-5 rounded-2xl border border-slate-100 shadow-sm mb-6">
+                        <div class="bg-slate-900/50 p-5 rounded-2xl border border-white/5 shadow-sm mb-6">
                             <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-bold text-slate-500 font-outfit uppercase">Intellectual Growth Curve</span>
-                                <span class="text-[10px] bg-impetus-lightGreen text-impetus-green px-2 py-0.5 rounded-full font-bold">LIVE METRIC</span>
+                                <span class="text-xs font-bold text-slate-300 font-outfit uppercase">Intellectual Growth Curve</span>
+                                <span class="text-[10px] bg-impetus-green/10 text-impetus-green border border-impetus-green/20 px-2 py-0.5 rounded-full font-bold">LIVE METRIC</span>
                             </div>
                             <!-- Mock Graph SVGs -->
                             <div class="relative h-28 w-full flex items-end">
@@ -240,8 +238,8 @@
                                     <path d="M0,25 Q15,10 30,18 T60,8 T90,3 T100,5 L100,30 L0,30 Z" fill="url(#grad)" opacity="0.1"></path>
                                     <defs>
                                         <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stop-color="#0B8444" />
-                                            <stop offset="100%" stop-color="#fff" />
+                                            <stop offset="0%" stop-color="#0B8444" stop-opacity="0.3" />
+                                            <stop offset="100%" stop-color="#0B8444" stop-opacity="0" />
                                         </linearGradient>
                                     </defs>
                                 </svg>
