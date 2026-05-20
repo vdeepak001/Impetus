@@ -138,9 +138,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-8 pb-20 md:py-28 bg-[#0B0F19] text-white relative overflow-hidden">
-        <!-- Premium Radial Gradient Background for Dark Mode Hero -->
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(243,110,33,0.08),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(11,132,68,0.08),transparent_50%)] pointer-events-none"></div>
+    <section id="home" class="pt-8 pb-20 md:py-28 bg-impetus-navy text-white relative overflow-hidden">
+        <!-- Premium Radial Gradient Background for Blue Theme Hero -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(243,110,33,0.1),transparent_50%),radial-gradient(circle_at_80%_70%,rgba(11,132,68,0.1),transparent_50%)] pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -190,9 +190,9 @@
                     <div class="absolute inset-0 bg-gradient-to-tr from-impetus-orange/10 to-impetus-green/10 rounded-3xl blur-[50px] -z-10"></div>
                     
                     <!-- Main visual panel -->
-                    <div class="relative glass-card-dark border border-white/10 rounded-3xl p-6 sm:p-8 custom-shadow animate-float">
+                    <div class="relative glass-card border border-white/60 rounded-3xl p-6 sm:p-8 custom-shadow animate-float">
                         <!-- Upper frame detail -->
-                        <div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+                        <div class="flex items-center justify-between mb-6 border-b border-slate-200/50 pb-4">
                             <div class="flex items-center gap-2">
                                 <span class="w-3 h-3 rounded-full bg-red-400 inline-block"></span>
                                 <span class="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span>
@@ -203,33 +203,33 @@
 
                         <!-- Micro Learning Analytics Widget -->
                         <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-sm">
+                            <div class="bg-white/80 p-4 rounded-2xl border border-slate-100 shadow-sm">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Course Completion</span>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <span class="text-2xl font-bold text-white font-outfit">94.8%</span>
+                                    <span class="text-2xl font-bold text-impetus-navy font-outfit">94.8%</span>
                                     <span class="text-xs font-bold text-impetus-green flex items-center">&uarr; 3.2%</span>
                                 </div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
                                     <div class="bg-impetus-green h-full rounded-full" style="width: 94%"></div>
                                 </div>
                             </div>
-                            <div class="bg-slate-900/50 p-4 rounded-2xl border border-white/5 shadow-sm">
+                            <div class="bg-white/80 p-4 rounded-2xl border border-slate-100 shadow-sm">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Skill Score</span>
                                 <div class="flex items-baseline gap-2 mt-1">
-                                    <span class="text-2xl font-bold text-white font-outfit">89 / 100</span>
+                                    <span class="text-2xl font-bold text-impetus-navy font-outfit">89 / 100</span>
                                     <span class="text-xs font-bold text-impetus-orange flex items-center">&uarr; 6%</span>
                                 </div>
-                                <div class="w-full bg-slate-800 h-1.5 rounded-full mt-3 overflow-hidden">
+                                <div class="w-full bg-slate-100 h-1.5 rounded-full mt-3 overflow-hidden">
                                     <div class="bg-impetus-orange h-full rounded-full" style="width: 89%"></div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Live Graph Widget -->
-                        <div class="bg-slate-900/50 p-5 rounded-2xl border border-white/5 shadow-sm mb-6">
+                        <div class="bg-white/90 p-5 rounded-2xl border border-slate-100 shadow-sm mb-6">
                             <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-bold text-slate-300 font-outfit uppercase">Intellectual Growth Curve</span>
-                                <span class="text-[10px] bg-impetus-green/10 text-impetus-green border border-impetus-green/20 px-2 py-0.5 rounded-full font-bold">LIVE METRIC</span>
+                                <span class="text-xs font-bold text-slate-500 font-outfit uppercase">Intellectual Growth Curve</span>
+                                <span class="text-[10px] bg-impetus-lightGreen text-impetus-green px-2 py-0.5 rounded-full font-bold">LIVE METRIC</span>
                             </div>
                             <!-- Mock Graph SVGs -->
                             <div class="relative h-28 w-full flex items-end">
@@ -238,8 +238,8 @@
                                     <path d="M0,25 Q15,10 30,18 T60,8 T90,3 T100,5 L100,30 L0,30 Z" fill="url(#grad)" opacity="0.1"></path>
                                     <defs>
                                         <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                                            <stop offset="0%" stop-color="#0B8444" stop-opacity="0.3" />
-                                            <stop offset="100%" stop-color="#0B8444" stop-opacity="0" />
+                                            <stop offset="0%" stop-color="#0B8444" />
+                                            <stop offset="100%" stop-color="#fff" />
                                         </linearGradient>
                                     </defs>
                                 </svg>
