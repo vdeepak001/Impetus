@@ -24,7 +24,7 @@ Route::middleware('guest')->group(function () {
     Route::get('admin-login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+    Route::post('admin-login', [AuthenticatedSessionController::class, 'store']);
     Route::post('frontend-login', [FrontendAuthenticatedSessionController::class, 'store'])->name('frontend.login');
     Route::post('frontend-resend-password', [FrontendAuthenticatedSessionController::class, 'resendPassword'])->name('frontend.password.resend');
 
