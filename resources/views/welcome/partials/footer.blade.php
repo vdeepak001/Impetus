@@ -79,12 +79,12 @@
                             <li>
                                 <a href="{{ route('privacy.policy') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Privacy Policy</a>
                             </li>
-                            {{-- <li>
+                            <li>
                                 <a href="{{ route('terms.conditions') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Terms &amp; Conditions</a>
                             </li>
                             <li>
-                                <a href="#" class="text-sm leading-6 text-slate-300 hover:text-white">Patient Rights</a>
-                            </li> --}}
+                                <a href="{{ route('cancellation.refund.policy') }}" class="text-sm leading-6 text-slate-300 hover:text-white">Cancellation &amp; Refund Policy</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -96,6 +96,7 @@
                 <a href="{{ route('faq') }}" class="text-xs text-slate-400 hover:text-white transition-colors">FAQ</a>
                 <a href="{{ route('privacy.policy') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Privacy Policy</a>
                 <a href="{{ route('terms.conditions') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Terms &amp; Conditions</a>
+                <a href="{{ route('cancellation.refund.policy') }}" class="text-xs text-slate-400 hover:text-white transition-colors">Cancellation &amp; Refund Policy</a>
             </div>
         </div>
     </div>

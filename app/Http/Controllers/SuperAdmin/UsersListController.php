@@ -5,6 +5,9 @@ namespace App\Http\Controllers\SuperAdmin;
 use App\Helpers\MenuHelper;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class UsersListController extends Controller
@@ -100,7 +103,7 @@ class UsersListController extends Controller
         ]);
     }
 
-    public function update(\Illuminate\Http\Request $request, User $user): \Illuminate\Http\JsonResponse
+    public function update(Request $request, User $user): JsonResponse
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -116,5 +119,15 @@ class UsersListController extends Controller
         $user->update($validated);
 
         return response()->json(['message' => 'User profile updated successfully.']);
+    }
+
+    public function destroy(User $user): RedirectResponse
+    {
+        abort_if(!in_array(auth()->user()?->role_type, ['superadmin', 'admin'], true), 403);
+        abort_if($user->role_type !== 'user', 403, 'Only learner accounts can be deleted.');
+
+        $user->delete();
+
+        return back()->with('success', 'User deleted successfully.');
     }
 }

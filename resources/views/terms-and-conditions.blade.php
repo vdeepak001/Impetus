@@ -18,13 +18,10 @@
                     Legal
                 </span>
                 <h1 class="mt-6 text-3xl font-bold tracking-tight text-slate-900 sm:text-3xl lg:text-3xl font-serif">
-                    Terms and conditions
+                    Website Terms and Conditions
                 </h1>
                 <p class="mt-4 inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/80 px-4 py-1.5 text-xs font-medium uppercase tracking-wider text-slate-500 shadow-sm backdrop-blur-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 text-logo-blue">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                    Last updated {{ date('F j, Y') }}
+                    Last updated: 29 May 2026
                 </p>
             </div>
 
@@ -33,141 +30,153 @@
                     <nav class="sticky top-28 rounded-2xl border border-slate-200/90 bg-white/90 p-5 shadow-lg shadow-slate-200/40 ring-1 ring-slate-900/5 backdrop-blur-sm" aria-label="Terms sections">
                         <p class="text-xs font-semibold uppercase tracking-wider text-slate-400">On this page</p>
                         <ul class="mt-4 space-y-1 text-sm">
-                            <li><a href="#terms-agreement" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Agreement</a></li>
-                            <li><a href="#terms-eligibility" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Eligibility &amp; accounts</a></li>
-                            <li><a href="#terms-courses" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Courses &amp; content</a></li>
-                            <li><a href="#terms-fees" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Fees &amp; payments</a></li>
-                            <li><a href="#terms-warranty" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Disclaimer</a></li>
-                            <li><a href="#terms-liability" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Limitation of liability</a></li>
-                            <li><a href="#terms-changes" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Changes</a></li>
-                            <li><a href="#terms-contact" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Contact</a></li>
+                            <li><a href="#terms-intro" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">Introduction</a></li>
+                            <li><a href="#terms-modifications" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">1. Modifications</a></li>
+                            <li><a href="#terms-ownership" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">2. Ownership and IP</a></li>
+                            <li><a href="#terms-use" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">3. Permitted Use</a></li>
+                            <li><a href="#terms-submissions" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">4. Submissions</a></li>
+                            <li><a href="#terms-third-party" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">5. Third-Party Links</a></li>
+                            <li><a href="#terms-availability" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">6. Availability</a></li>
+                            <li><a href="#terms-disclaimer" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">7. Disclaimer</a></li>
+                            <li><a href="#terms-liability" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">8. Liability</a></li>
+                            <li><a href="#terms-indemnification" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">9. Indemnification</a></li>
+                            <li><a href="#terms-compliance" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">10. Compliance</a></li>
+                            <li><a href="#terms-law" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">11. Governing Law</a></li>
+                            <li><a href="#terms-contact" class="block rounded-lg px-3 py-2 text-slate-600 transition hover:bg-logo-blue/10 hover:text-brand-900">12. Contact</a></li>
                         </ul>
                     </nav>
                 </aside>
 
                 <div class="lg:col-span-8 xl:col-span-9">
                     <article class="overflow-hidden rounded-3xl border border-slate-200/90 bg-white/95 shadow-2xl shadow-slate-300/30 ring-1 ring-slate-900/5 backdrop-blur-sm">
-                        <div class="border-b border-slate-100 bg-gradient-to-r from-slate-50/80 to-white px-6 py-8 sm:px-10 sm:py-10">
-                            <div class="flex items-start gap-4">
-                                <div class="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-logo-blue/20 to-logo-blue/5 text-logo-blue ring-1 ring-logo-blue/20">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v15.341A8.967 8.967 0 0118 12a8.967 8.967 0 00-6-5.958zM15 6.75a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h2 class="font-serif text-3xl font-bold text-slate-900 sm:text-3xl">Please read carefully</h2>
-                                    <p class="mt-2 text-lg leading-relaxed text-slate-600 text-justify">
-                                        These terms govern your use of our website and services. By continuing to use the platform, you confirm that you understand and accept them.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="divide-y divide-slate-100">
-                            <section id="terms-agreement" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-900 text-xs font-bold text-white">01</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Agreement</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            By accessing or using the website and services operated by Venture Nursing Services (“we,” “us,” or “our”), you agree to these terms and conditions. If you do not agree, do not use the Services.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-intro" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Introduction</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    These Terms and Conditions ("Terms") govern the access to and use of the corporate website of Impetus Healthcare Skills Private Limited located at <a href="https://www.ihsnursing.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.ihsnursing.com</a>, together with all associated websites, web pages, applications, and online services that display or link to these Terms (collectively referred to as the "Website" or "Site").
+                                </p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Throughout these Terms, "Impetus Healthcare Skills Private Limited", "Company", "we", "us", or "our" shall refer to Impetus Healthcare Skills Private Limited and its affiliated entities, as applicable.
+                                </p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    By accessing, browsing, or using the Website, you acknowledge that you have read, understood, and agreed to be bound by these Terms and Conditions, including the Privacy Policy, Cancellation and Refund Policy, and any additional policies, notices, guidelines, or disclaimers published on the Website. If you do not agree with these Terms, you are advised not to access or use the Website.
+                                </p>
                             </section>
 
-                            <section id="terms-eligibility" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">02</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Eligibility and accounts</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            You must provide accurate registration information and keep your credentials confidential. You are responsible for activity under your account. We may suspend or terminate accounts that violate these terms or pose a risk to the Services or other users.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-modifications" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">1. Modifications to Terms</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Impetus Healthcare Skills Private Limited reserves the right to revise, amend, modify, or update these Terms and Conditions at any time without prior notice. Users are encouraged to review these Terms periodically. Continued use of the Website following publication of modifications constitutes acceptance of the revised Terms.
+                                </p>
                             </section>
 
-                            <section id="terms-courses" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">03</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Courses and digital content</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            Access to courses, materials, and assessments is granted according to your purchase or enrollment. Unless expressly stated, content is licensed for your personal, non-commercial educational use and may not be copied, redistributed, or reverse engineered except as allowed by applicable law.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-ownership" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">2. Ownership of Content and Intellectual Property Rights</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    All content available on or accessible through the Website is the exclusive property of Impetus Healthcare Skills Private Limited or its licensors and is protected by applicable intellectual property laws.
+                                </p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">Except as expressly permitted in writing, users shall not:</p>
+                                <ul class="mt-2 list-disc pl-6 text-lg leading-8 text-slate-600">
+                                    <li>Copy, reproduce, republish, distribute, transmit, display, modify, publish, upload, post, translate, or create derivative works from any content</li>
+                                    <li>Sell, lease, license, or commercially exploit any part of the Website or its content</li>
+                                    <li>Reverse engineer, decompile, disassemble, or attempt to derive source code</li>
+                                    <li>Use robots, crawlers, spiders, scrapers, or data-mining tools to access or copy content</li>
+                                    <li>Attempt unauthorized access to any part of the Website, servers, databases, or systems</li>
+                                    <li>Circumvent or interfere with security features or operational integrity</li>
+                                </ul>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Any unauthorized use of the Website or its content may result in legal action.
+                                </p>
                             </section>
 
-                            <section id="terms-fees" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">04</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Fees and payments</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            Prices and payment terms are displayed at checkout. You authorize us and our payment processors to charge applicable fees. Refunds, if any, are handled according to the refund policy stated at the time of purchase.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-use" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">3. Permitted Use of the Website</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    The Website and its content are intended solely for lawful educational, informational, and professional purposes.
+                                </p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">Users agree not to:</p>
+                                <ul class="mt-2 list-disc pl-6 text-lg leading-8 text-slate-600">
+                                    <li>Use the Website for unlawful, fraudulent, harmful, or unauthorized purposes</li>
+                                    <li>Upload or transmit defamatory, obscene, abusive, threatening, misleading, or objectionable content</li>
+                                    <li>Introduce viruses, malware, malicious code, or harmful software</li>
+                                    <li>Use the Website for unauthorized advertising or solicitation</li>
+                                    <li>Disrupt or interfere with Website functioning, accessibility, or security</li>
+                                </ul>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Impetus Healthcare Skills Private Limited reserves the right to suspend, restrict, or terminate access for violations.
+                                </p>
                             </section>
 
-                            <section id="terms-warranty" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">05</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Disclaimer of warranties</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            The Services are provided “as is” and “as available” without warranties of any kind, express or implied, to the fullest extent permitted by law. We do not guarantee uninterrupted or error-free operation or that content will meet every licensing or regulatory requirement in your jurisdiction; you remain responsible for your professional compliance.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-submissions" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">4. User Submissions and Communications</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Any feedback, suggestions, messages, ideas, documents, or other materials submitted through the Website ("Submissions") remain the user's responsibility.
+                                </p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    By submitting content, the user grants Impetus Healthcare Skills Private Limited a perpetual, irrevocable, worldwide, royalty-free, transferable, and non-exclusive right to use, reproduce, modify, adapt, publish, distribute, display, and otherwise utilize such Submissions for operational, educational, promotional, research, or business purposes.
+                                </p>
+                            </section>
+
+                            <section id="terms-third-party" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">5. Third-Party Websites and External Links</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    The Website may contain links to third-party websites or services for user convenience. Such links do not imply endorsement, sponsorship, or approval by Impetus Healthcare Skills Private Limited. We are not responsible for the availability, content, or reliability of external websites or for losses arising from their use.
+                                </p>
+                            </section>
+
+                            <section id="terms-availability" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">6. System Availability and Technical Limitations</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Impetus Healthcare Skills Private Limited endeavors to maintain continuous Website availability. However, uninterrupted access cannot be guaranteed, and the Company is not liable for unavailability, technical failures, delays, data loss, or external factors beyond reasonable control.
+                                </p>
+                            </section>
+
+                            <section id="terms-disclaimer" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">7. Disclaimer of Warranties</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    The Website, its content, products, services, educational materials, and resources are provided on an "as is" and "as available" basis without warranties of any kind. To the fullest extent permitted by law, the Company disclaims all warranties including accuracy, completeness, merchantability, fitness for purpose, non-infringement, and uninterrupted operation.
+                                </p>
                             </section>
 
                             <section id="terms-liability" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">06</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Limitation of liability</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            To the maximum extent permitted by law, we shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or for loss of profits, data, or goodwill, arising from your use of the Services.
-                                        </p>
-                                    </div>
-                                </div>
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">8. Limitation of Liability</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    To the maximum extent permitted by law, Impetus Healthcare Skills Private Limited and associated parties shall not be liable for direct, indirect, incidental, consequential, special, exemplary, or punitive damages arising from access, use, inability to use, technical failures, data loss, or reliance on Website content.
+                                </p>
                             </section>
 
-                            <section id="terms-changes" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xs font-bold text-slate-600">07</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Changes</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            We may update these terms from time to time. Continued use of the Services after changes constitutes acceptance of the revised terms. Material changes will be indicated on this page with an updated date.
-                                        </p>
-                                    </div>
-                                </div>
+                            <section id="terms-indemnification" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">9. Indemnification</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Users agree to indemnify, defend, and hold harmless Impetus Healthcare Skills Private Limited and its affiliates from claims, liabilities, losses, and expenses (including legal fees) arising from violation of these Terms, misuse of the Website, or violation of applicable laws or third-party rights.
+                                </p>
+                            </section>
+
+                            <section id="terms-compliance" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">10. Compliance with Applicable Laws</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    Users agree to comply with all applicable local, state, national, and international laws and regulations while accessing or using the Website and its services.
+                                </p>
+                            </section>
+
+                            <section id="terms-law" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">11. Governing Law and Jurisdiction</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    These Terms and Conditions are governed by the laws of India. Any disputes shall be subject to the exclusive jurisdiction of competent courts in Chennai, Tamil Nadu, India. Any claim arising from use of the Website must be initiated within one (1) year from when the cause of action arose.
+                                </p>
                             </section>
 
                             <section id="terms-contact" class="scroll-mt-28 bg-gradient-to-br from-slate-50/90 to-white px-6 py-8 sm:px-10 sm:py-10">
-                                <div class="flex gap-5">
-                                    <span class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-logo-blue/15 text-xs font-bold text-brand-900">08</span>
-                                    <div>
-                                        <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Contact</h2>
-                                        <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                            Questions about these terms may be sent to <a href="mailto:info@careconnect.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">info@careconnect.com</a>.
-                                        </p>
-                                    </div>
-                                </div>
+                                <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">12. Contact Information</h2>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">For queries, permissions, complaints, or legal communications regarding these Terms and Conditions, users may contact:</p>
+                                <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
+                                    <strong>Impetus Healthcare Skills Private Limited</strong><br>
+                                    Website: <a href="https://www.ihsnursing.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.ihsnursing.com</a><br>
+                                    Email: <a href="mailto:support@ihsnursing.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">support@ihsnursing.com</a>
+                                </p>
                             </section>
                         </div>
                     </article>
-
-                    <p class="mt-8 text-center text-xs text-slate-500">
-                        Related:
-                        <a href="{{ route('privacy.policy') }}" class="font-medium text-logo-blue hover:underline">Privacy Policy</a>
-                        <span class="mx-2 text-slate-300">·</span>
-                        <a href="{{ route('faq') }}" class="font-medium text-logo-blue hover:underline">FAQ</a>
-                    </p>
                 </div>
             </div>
         </div>

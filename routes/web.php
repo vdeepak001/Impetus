@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CneModulesController;
+use App\Http\Controllers\ContactInquiryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SuperAdmin\AdminUserController;
 use App\Http\Controllers\SuperAdmin\CourseDetailController;
@@ -66,6 +67,8 @@ Route::view('/online-examination', 'online-examination')->name('online.examinati
 Route::view('/faq', 'faq')->name('faq');
 Route::view('/privacy-policy', 'privacy-policy')->name('privacy.policy');
 Route::view('/terms-and-conditions', 'terms-and-conditions')->name('terms.conditions');
+Route::view('/cancellation-refund-policy', 'cancellation-refund-policy')->name('cancellation.refund.policy');
+Route::post('/contact-inquiries', [ContactInquiryController::class, 'store'])->name('contact.inquiries.store');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -246,6 +249,11 @@ foreach ($prefixes as $prefix) {
             Route::post('users-list/{userId}/orders', [UserCourseOrderController::class, 'store'])
                 ->whereNumber('userId')
                 ->name($prefix.'.users-list.orders.store');
+        }
+
+        if (in_array($prefix, ['super-admin', 'admin'], true)) {
+            Route::delete('users-list/{user}', [UsersListController::class, 'destroy'])
+                ->name($prefix.'.users-list.destroy');
         }
 
         if (in_array($prefix, ['super-admin', 'admin'], true)) {

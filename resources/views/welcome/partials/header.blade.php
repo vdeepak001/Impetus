@@ -9,10 +9,21 @@
     if (auth()->check() && auth()->user()?->role_type === 'user') {
         $cartCount = \App\Models\CartItem::query()->where('user_id', auth()->id())->count();
     }
+    $contactPrefill = [
+        'name' => auth()->user()?->name ?? '',
+        'email' => auth()->user()?->email ?? '',
+        'phone' => auth()->user()?->phone ?? '',
+        'ihsid' => auth()->user()?->unique_sequence_number ?? '',
+    ];
+    $contactHasErrors = $errors->has('contact_name')
+        || $errors->has('contact_email')
+        || $errors->has('contact_phone')
+        || $errors->has('contact_query_for')
+        || $errors->has('contact_ihsid');
 @endphp
 <!-- Navigation: mobile menu is a sibling of <header> so position:fixed overlays are not trapped by backdrop-blur (containing block). -->
 <div
-    x-data="{ mobileMenuOpen: false, scrolled: true }"
+    x-data="{ mobileMenuOpen: false, scrolled: true, contactModalOpen: {{ $contactHasErrors ? 'true' : 'false' }} }"
     @scroll.window="scrolled = (window.pageYOffset > 50)"
     @keydown.escape.window="mobileMenuOpen = false"
 >
@@ -31,6 +42,9 @@
                 <a href="{{ route('learning.materials') }}" class="{{ $navDesktopClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                 <a href="{{ route('practice.test') }}" class="{{ $navDesktopClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
                 <a href="{{ route('online.examination') }}" class="{{ $navDesktopClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Test</a>
+                <button type="button" @click="contactModalOpen = true" class="rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green">
+                    Contact Us
+                </button>
             </div>
 
             <div class="flex lg:hidden">
@@ -152,6 +166,9 @@
                     <a href="{{ route('learning.materials') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('learning.materials') }}" @if (request()->routeIs('learning.materials')) aria-current="page" @endif>Learning Materials</a>
                     <a href="{{ route('practice.test') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('practice.test') }}" @if (request()->routeIs('practice.test')) aria-current="page" @endif>Practice Test</a>
                     <a href="{{ route('online.examination') }}" @click="mobileMenuOpen = false" class="{{ $navMobileClass('online.examination') }}" @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Test</a>
+                    <button type="button" @click="contactModalOpen = true; mobileMenuOpen = false" class="-mx-3 block w-full rounded-lg px-3 py-2 text-left text-base font-medium leading-7 text-slate-900 hover:bg-slate-50">
+                        Contact Us
+                    </button>
                 </div>
                 @if (Route::has('login'))
                     <div class="mt-8 border-t border-slate-200 pt-6">
@@ -197,6 +214,126 @@
                     </div>
                 @endif
             </nav>
+        </div>
+    </div>
+
+    <div x-show="contactModalOpen" x-cloak class="fixed inset-0 z-[9999] grid place-items-center p-4 sm:p-6" role="dialog" aria-modal="true">
+        <div class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity" @click="contactModalOpen = false"></div>
+
+        <div class="relative z-10 w-full max-w-4xl rounded-3xl border border-slate-200/80 bg-white p-0 shadow-2xl shadow-slate-900/10 overflow-hidden" @click.stop>
+            <div class="grid grid-cols-1 md:grid-cols-5">
+                <div class="md:col-span-3 p-6 sm:p-8 flex flex-col justify-between">
+                    <div class="mb-5 flex items-start justify-between gap-4">
+                        <div>
+                            <h2 class="font-serif text-2xl font-bold text-slate-900 mb-1">Contact Us</h2>
+                            <p class="text-xs sm:text-sm text-slate-600">Send us an inquiry and we'll get back to you shortly.</p>
+                        </div>
+                        <button type="button" @click="contactModalOpen = false" class="shrink-0 rounded-full p-2 text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-800 md:hidden" aria-label="Close contact dialog">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form method="POST" action="{{ route('contact.inquiries.store') }}" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label class="mb-1 block text-xs font-bold text-slate-700 uppercase tracking-wider">Name <span class="text-rose-500 font-bold">*</span></label>
+                            <input type="text" name="contact_name" value="{{ old('contact_name', $contactPrefill['name']) }}" required
+                                class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25" />
+                            @error('contact_name') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="mb-1 block text-xs font-bold text-slate-700 uppercase tracking-wider">Email ID <span class="text-rose-500 font-bold">*</span></label>
+                                <input type="email" name="contact_email" value="{{ old('contact_email', $contactPrefill['email']) }}" required
+                                    class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25" />
+                                @error('contact_email') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+                            </div>
+                            <div>
+                                <label class="mb-1 block text-xs font-bold text-slate-700 uppercase tracking-wider">Mobile # <span class="text-rose-500 font-bold">*</span></label>
+                                <input type="text" name="contact_phone" value="{{ old('contact_phone', $contactPrefill['phone']) }}" required
+                                    class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25" />
+                                @error('contact_phone') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="mb-1 block text-xs font-bold text-slate-700 uppercase tracking-wider">IHSID <span class="text-slate-400 text-xs font-normal">(Optional)</span></label>
+                            <input type="text" name="contact_ihsid" value="{{ old('contact_ihsid', $contactPrefill['ihsid']) }}"
+                                class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25" />
+                            @error('contact_ihsid') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div>
+                            <label class="mb-1 block text-xs font-bold text-slate-700 uppercase tracking-wider">Query for <span class="text-rose-500 font-bold">*</span></label>
+                            <textarea name="contact_query_for" required rows="3" placeholder="Please enter details of your query..."
+                                class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2 text-sm text-slate-900 placeholder:text-slate-400 focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-500/25">{{ old('contact_query_for') }}</textarea>
+                            @error('contact_query_for') <p class="mt-1 text-xs text-rose-600">{{ $message }}</p> @enderror
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" class="w-full rounded-full bg-logo-light-green px-4 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-logo-light-green focus:outline-none focus:ring-2 focus:ring-logo-light-green focus:ring-offset-2">
+                                Submit Query
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="md:col-span-2 bg-gradient-to-br from-logo-blue to-slate-900 text-white p-6 sm:p-8 flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute -right-10 -bottom-10 w-36 h-36 bg-orange-500/15 rounded-full blur-2xl pointer-events-none"></div>
+                    <div class="absolute -left-10 -top-10 w-36 h-36 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                    <div class="relative z-10">
+                        <div class="flex items-start justify-between">
+                            <h3 class="font-serif text-2xl font-bold text-white mb-3">Contact Info</h3>
+                            <button type="button" @click="contactModalOpen = false" class="shrink-0 rounded-full p-1.5 text-slate-400 transition-colors hover:bg-white/10 hover:text-white focus:outline-none hidden md:inline-flex" aria-label="Close contact dialog">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-8">Feel free to reach out to us directly through any of these communication channels.</p>
+
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="p-2.5 bg-white/10 rounded-xl text-orange-400 shrink-0">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mobile</h4>
+                                    <div class="text-sm font-semibold text-slate-200 mt-2 space-y-1.5 leading-relaxed">
+                                        <p><a href="tel:+919445256977" class="hover:text-orange-400 transition-colors">+91 -9445256977</a></p>
+                                        <p><a href="tel:+919445296977" class="hover:text-orange-400 transition-colors">+91 -9445296977</a></p>
+                                        <p><a href="tel:+919019051277" class="hover:text-orange-400 transition-colors">+91 -9019051277</a></p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start gap-4">
+                                <div class="p-2.5 bg-white/10 rounded-xl text-orange-400 shrink-0">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mail ID</h4>
+                                    <p class="text-sm font-semibold text-slate-200 mt-2 leading-relaxed">
+                                        <a href="mailto:support@ihsnursing.com" class="hover:text-orange-400 transition-colors">support@ihsnursing.com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 pt-4 border-t border-white/5 text-[10px] text-slate-400 relative z-10 leading-normal">
+                        IHS Nursing CNE & Continuing Education Portal
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

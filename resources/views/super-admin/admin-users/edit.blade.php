@@ -49,6 +49,19 @@
                         @error('email') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
                     </div>
 
+                    <!-- Mobile Number -->
+                    <div>
+                        <label for="phone" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Mobile Number
+                        </label>
+                        <input id="phone" type="text" name="phone" value="{{ old('phone', $user->phone) }}" required
+                            placeholder="10-digit mobile number"
+                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" />
+                        @error('phone') <span class="text-red-600 text-sm mt-2">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <!-- Role -->
                     <div>
                         <label for="role_type" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -81,8 +94,8 @@
                             <div class="relative">
                                 <input type="checkbox" name="active_status" id="active_status" value="1" class="sr-only" 
                                     x-model="switcherToggle" />
-                                <div class="block h-6 w-11 rounded-full bg-gray-200 dark:bg-white/10"
-                                    :class="switcherToggle ? 'bg-brand-500 dark:bg-brand-500' : 'bg-gray-200 dark:bg-white/10'">
+                                <div class="block h-6 w-11 rounded-full transition-colors duration-200"
+                                    :class="switcherToggle ? 'bg-green-500 dark:bg-green-500' : 'bg-gray-300 dark:bg-white/10'">
                                 </div>
                                 <div class="shadow-theme-sm absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white duration-300 ease-linear"
                                     :class="switcherToggle ? 'translate-x-full' : 'translate-x-0'">

@@ -31,6 +31,7 @@ class AdminUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required', 'string', 'max:20'],
             'role_type' => ['required', 'string', 'in:superadmin,admin,sme,support'],
             'active_status' => ['boolean'],
         ]);
@@ -69,6 +70,7 @@ class AdminUserController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', Rule::unique('users')->ignore($admin_user->id)],
+            'phone' => ['required', 'string', 'max:20'],
             'role_type' => ['required', 'string', 'in:superadmin,admin,sme,support'],
             'active_status' => ['boolean'],
         ]);
