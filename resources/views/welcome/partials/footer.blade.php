@@ -53,20 +53,14 @@
                     </div>
                     <div class="mt-10 md:mt-0">
                         <h3 id="contact" class="text-sm font-semibold leading-6 text-white">Contact Info</h3>
-                        {{-- <ul role="list" class="mt-6 space-y-4">
+                        <ul role="list" class="mt-6 space-y-4">
                             <li>
-                                <span class="text-sm leading-6 text-slate-300">123 Health Avenue</span>
+                                <a href="mailto:support@venturacpd.com" class="text-sm leading-6 text-slate-300 hover:text-white">support@venturacpd.com</a>
                             </li>
                             <li>
-                                <span class="text-sm leading-6 text-slate-300">New York, NY 10001</span>
+                                <a href="tel:+919361737318" class="text-sm leading-6 text-slate-300 hover:text-white">9361737318</a>
                             </li>
-                            <li>
-                                <a href="mailto:info@careconnect.com" class="text-sm leading-6 text-slate-300 hover:text-white">info@careconnect.com</a>
-                            </li>
-                            <li>
-                                <a href="tel:+18001234567" class="text-sm leading-6 text-slate-300 hover:text-white">1-800-123-4567</a>
-                            </li>
-                        </ul> --}}
+                        </ul>
                     </div>
                 </div>
                 <div class="md:grid md:grid-cols-2 md:gap-8">
