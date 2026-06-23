@@ -182,7 +182,7 @@
                         class="border-t border-slate-100 bg-slate-50/80 px-5 pb-5 pt-0 sm:px-6 sm:pb-6"
                     >
                         <p class="text-lg leading-8 text-slate-600 sm:pl-14 text-justify">
-                            Email us at <a href="mailto:info@careconnect.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">info@careconnect.com</a> or call <a href="tel:+18001234567" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">1-800-123-4567</a>. Include your account email and a short description of the issue so we can help faster.
+                            Email us at <a href="mailto:support@venturacpd.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">support@venturacpd.com</a> or call <a href="tel:+919361737318" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition-colors hover:text-brand-900 hover:decoration-brand-900/40">+91 9361737318</a>. Include your account email and a short description of the issue so we can help faster.
                         </p>
                     </div>
                 </div>
@@ -194,11 +194,11 @@
                     Our team is happy to help with account access, course selection, or technical issues.
                 </p>
                 <div class="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
-                    <a href="mailto:info@careconnect.com" class="inline-flex items-center justify-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-bold text-white shadow-lg shadow-logo-light-green/30 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-logo-light-green/40">
+                    <a href="mailto:support@venturacpd.com" class="inline-flex items-center justify-center rounded-full bg-logo-light-green px-6 py-3 text-sm font-bold text-white shadow-lg shadow-logo-light-green/30 transition hover:-translate-y-0.5 hover:shadow-xl hover:shadow-logo-light-green/40">
                         Email support
                     </a>
-                    <a href="tel:+18001234567" class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15">
-                        Call 1-800-123-4567
+                    <a href="tel:+919361737318" class="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/15">
+                        Call +91 9361737318
                     </a>
                 </div>
             </div>

@@ -53,7 +53,7 @@
                             <section id="terms-intro" class="scroll-mt-28 px-6 py-8 sm:px-10 sm:py-10">
                                 <h2 class="text-3xl font-semibold text-slate-900 sm:text-3xl font-serif">Introduction</h2>
                                 <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
-                                    These Terms and Conditions ("Terms") govern the access to and use of the corporate website of Impetus Healthcare Skills Private Limited located at <a href="https://www.ihsnursing.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.ihsnursing.com</a>, together with all associated websites, web pages, applications, and online services that display or link to these Terms (collectively referred to as the "Website" or "Site").
+                                    These Terms and Conditions ("Terms") govern the access to and use of the corporate website of Impetus Healthcare Skills Private Limited located at <a href="https://www.venturacpd.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.venturacpd.com</a>, together with all associated websites, web pages, applications, and online services that display or link to these Terms (collectively referred to as the "Website" or "Site").
                                 </p>
                                 <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                     Throughout these Terms, "Impetus Healthcare Skills Private Limited", "Company", "we", "us", or "our" shall refer to Impetus Healthcare Skills Private Limited and its affiliated entities, as applicable.
@@ -171,8 +171,8 @@
                                 <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">For queries, permissions, complaints, or legal communications regarding these Terms and Conditions, users may contact:</p>
                                 <p class="mt-3 text-lg leading-8 text-slate-600 text-justify">
                                     <strong>Impetus Healthcare Skills Private Limited</strong><br>
-                                    Website: <a href="https://www.ihsnursing.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.ihsnursing.com</a><br>
-                                    Email: <a href="mailto:support@ihsnursing.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">support@ihsnursing.com</a>
+                                    Website: <a href="https://www.venturacpd.com" target="_blank" rel="noopener noreferrer" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">www.venturacpd.com</a><br>
+                                    Email: <a href="mailto:support@venturacpd.com" class="font-semibold text-logo-blue underline decoration-logo-blue/30 underline-offset-2 transition hover:text-brand-900">support@venturacpd.com</a>
                                 </p>
                             </section>
                         </div>

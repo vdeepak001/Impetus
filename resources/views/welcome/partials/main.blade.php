@@ -49,10 +49,10 @@
                     </div>
                 </div>
 
-                <div class="mt-16 lg:mt-0 lg:col-span-6 relative group">
+                <div class="mt-16 lg:mt-0 lg:col-span-6 relative group overflow-hidden">
                     <div class="relative rounded-3xl overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.2)] transform transition-all duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent z-10"></div>
-                        <img src="{{ asset('images/nursing_hero.png') }}" onerror="this.src='https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'" alt="Professional Nurse" class="w-full h-[650px] object-cover">
+                        <img src="{{ asset('images/nursing_hero.png') }}" onerror="this.src='https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'" alt="Professional Nurse" class="w-full h-auto min-h-[320px] max-h-[500px] sm:min-h-[400px] sm:max-h-[580px] lg:max-h-[650px] object-cover object-center">
                         <div class="absolute bottom-8 left-8 right-8 z-20 bg-white/80 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white/40 flex items-center gap-5">
                             <div class="bg-logo-light-green/20 p-4 rounded-full text-logo-light-green shadow-inner">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-8 h-8">
@@ -73,7 +73,7 @@
         </div>
     </section>
 
-    <section id="about" class="overflow-hidden bg-white/50 py-24 sm:py-32">
+    <section id="about" class="overflow-x-hidden bg-white/50 py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
                 <div class="lg:pr-8 lg:pt-4">
@@ -123,9 +123,9 @@
                         </dl>
                     </div>
                 </div>
-                <div class="relative">
-                    <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'" alt="Nursing Team" class="w-full max-w-none rounded-2xl shadow-xl ring-1 ring-slate-400/10 sm:w-[57rem] md:-ml-4 lg:-ml-0 object-cover h-[500px]" />
-                    <div class="absolute -inset-4 rounded-2xl ring-1 ring-inset ring-slate-900/10 -z-10 bg-logo-light-green/10"></div>
+                <div class="relative overflow-hidden">
+                    <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'" alt="Nursing Team" class="w-full max-w-full rounded-2xl shadow-xl ring-1 ring-slate-400/10 object-cover h-[280px] sm:h-[400px] lg:h-[500px]" />
+                    <div class="absolute -inset-4 rounded-2xl ring-1 ring-inset ring-slate-900/10 -z-10 bg-logo-light-green/10 pointer-events-none"></div>
                 </div>
             </div>
         </div>
@@ -291,8 +291,8 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="CPD certification" class="h-[420px] w-full rounded-3xl object-cover shadow-xl ring-1 ring-slate-200">
+            <div class="overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80" alt="CPD certification" class="h-[280px] sm:h-[360px] lg:h-[420px] w-full max-w-full rounded-3xl object-cover shadow-xl ring-1 ring-slate-200">
             </div>
         </div>
     </section>

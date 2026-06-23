@@ -306,9 +306,7 @@
                                 <div>
                                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mobile</h4>
                                     <div class="text-sm font-semibold text-slate-200 mt-2 space-y-1.5 leading-relaxed">
-                                        <p><a href="tel:+919445256977" class="hover:text-orange-400 transition-colors">+91 -9445256977</a></p>
-                                        <p><a href="tel:+919445296977" class="hover:text-orange-400 transition-colors">+91 -9445296977</a></p>
-                                        <p><a href="tel:+919019051277" class="hover:text-orange-400 transition-colors">+91 -9019051277</a></p>
+                                        <p><a href="tel:+919361737318" class="hover:text-orange-400 transition-colors">+91 9361737318</a></p>
                                     </div>
                                 </div>
                             </div>
@@ -322,7 +320,7 @@
                                 <div>
                                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Mail ID</h4>
                                     <p class="text-sm font-semibold text-slate-200 mt-2 leading-relaxed">
-                                        <a href="mailto:support@ihsnursing.com" class="hover:text-orange-400 transition-colors">support@ihsnursing.com</a>
+                                        <a href="mailto:support@venturacpd.com" class="hover:text-orange-400 transition-colors">support@venturacpd.com</a>
                                     </p>
                                 </div>
                             </div>
