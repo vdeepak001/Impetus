@@ -73,6 +73,48 @@
         </div>
     </section>
 
+    <section id="vision-mission" class="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-24 sm:py-28">
+        <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-logo-light-green/10 to-transparent"></div>
+        <div class="mx-auto max-w-7xl px-6 lg:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Our Foundation</h2>
+                <p class="mt-2 text-3xl font-bold tracking-tight text-brand-900 sm:text-3xl font-serif">Vision and mission that guide every learning experience</p>
+                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
+                    Ventura Learning Solutions is committed to creating meaningful continuing education experiences that support lifelong learning, professional excellence, and better healthcare outcomes.
+                </p>
+            </div>
+
+            <div class="mt-14 grid gap-8 lg:grid-cols-2">
+                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(131,186,45,0.14)] sm:p-10">
+                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-light-green/10 blur-3xl transition duration-300 group-hover:bg-logo-light-green/20"></div>
+                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-light-green/10 text-logo-light-green ring-1 ring-logo-light-green/20">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l7.5-7.5 7.5 7.5M5.25 12v7.125c0 .621.504 1.125 1.125 1.125h3.375V16.5c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v3.75h3.375c.621 0 1.125-.504 1.125-1.125V12" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Vision</h3>
+                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
+                        To be a trusted partner in nursing education by fostering lifelong learning and empowering nurses to deliver safe, effective, and compassionate care.
+                    </p>
+                </article>
+
+                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(59,130,246,0.14)] sm:p-10">
+                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-blue/10 blur-3xl transition duration-300 group-hover:bg-logo-blue/20"></div>
+                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-blue/10 text-logo-blue ring-1 ring-logo-blue/20">
+                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-2.844-.813a4.5 4.5 0 01-1.614-7.509l7.636-7.636a3.375 3.375 0 114.773 4.773l-7.636 7.636a4.5 4.5 0 01-.502.435z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 5.25l6 6" />
+                        </svg>
+                    </div>
+                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Mission</h3>
+                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
+                        To provide accessible, innovative, and high-quality continuing education that supports professional excellence and improves healthcare outcomes.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
     <section id="about" class="overflow-x-hidden bg-white/50 py-24 sm:py-32">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
@@ -448,48 +490,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="vision-mission" class="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-24 sm:py-28">
-        <div class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-logo-light-green/10 to-transparent"></div>
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <div class="mx-auto max-w-3xl text-center">
-                <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Our Foundation</h2>
-                <p class="mt-2 text-3xl font-bold tracking-tight text-brand-900 sm:text-3xl font-serif">Vision and mission that guide every learning experience</p>
-                <p class="mt-5 text-lg leading-8 text-slate-600 text-justify">
-                    Ventura Learning Solutions is committed to creating meaningful continuing education experiences that support lifelong learning, professional excellence, and better healthcare outcomes.
-                </p>
-            </div>
-
-            <div class="mt-14 grid gap-8 lg:grid-cols-2">
-                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(131,186,45,0.14)] sm:p-10">
-                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-light-green/10 blur-3xl transition duration-300 group-hover:bg-logo-light-green/20"></div>
-                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-light-green/10 text-logo-light-green ring-1 ring-logo-light-green/20">
-                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l7.5-7.5 7.5 7.5M5.25 12v7.125c0 .621.504 1.125 1.125 1.125h3.375V16.5c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v3.75h3.375c.621 0 1.125-.504 1.125-1.125V12" />
-                        </svg>
-                    </div>
-                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Vision</h3>
-                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
-                        To be a trusted partner in nursing education by fostering lifelong learning and empowering nurses to deliver safe, effective, and compassionate care.
-                    </p>
-                </article>
-
-                <article class="group relative overflow-hidden rounded-[2rem] border border-slate-200/80 bg-white p-8 shadow-[0_20px_60px_rgba(15,23,42,0.08)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(59,130,246,0.14)] sm:p-10">
-                    <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-logo-blue/10 blur-3xl transition duration-300 group-hover:bg-logo-blue/20"></div>
-                    <div class="relative flex h-14 w-14 items-center justify-center rounded-2xl bg-logo-blue/10 text-logo-blue ring-1 ring-logo-blue/20">
-                        <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-2.844-.813a4.5 4.5 0 01-1.614-7.509l7.636-7.636a3.375 3.375 0 114.773 4.773l-7.636 7.636a4.5 4.5 0 01-.502.435z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12.75 5.25l6 6" />
-                        </svg>
-                    </div>
-                    <h3 class="mt-6 text-2xl font-bold text-slate-900 font-serif">Our Mission</h3>
-                    <p class="mt-5 max-w-xl text-lg leading-8 text-slate-600 text-justify">
-                        To provide accessible, innovative, and high-quality continuing education that supports professional excellence and improves healthcare outcomes.
-                    </p>
-                </article>
             </div>
         </div>
     </section>
