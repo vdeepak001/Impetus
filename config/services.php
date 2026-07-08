@@ -41,4 +41,11 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_URI'),
     ],
 
+    'ccavenue' => [
+        'merchant_id' => env('CCAVENUE_MERCHANT_ID', '129371'),
+        'access_code' => env('CCAVENUE_ACCESS_CODE', 'AVCJ43KL95BW39JCWB'),
+        'working_key' => env('CCAVENUE_WORKING_KEY', '2283F104338C03078130AB7032CEAE57'),
+        'sandbox' => (bool) env('CCAVENUE_SANDBOX', true),
+    ],
+
 ];

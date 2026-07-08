@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \App\Http\Middleware\EnsureRolePrefix::class,
             'superadmin' => \App\Http\Middleware\EnsureSuperAdmin::class,
         ]);
+        $middleware->validateCsrfTokens(except: [
+            '/payment/ccavenue/callback',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

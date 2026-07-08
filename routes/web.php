@@ -106,6 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
     Route::post('/cart/items/{course_detail:couse_name}', [CartController::class, 'store'])->name('cart.items.store');
     Route::delete('/cart/items/{course_detail:couse_name}', [CartController::class, 'destroy'])->name('cart.items.destroy');
+    Route::post('/cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 
     Route::get('/change-password', function () {
         return view('profile.change-password');
@@ -115,6 +116,8 @@ Route::middleware('auth')->group(function () {
 
     Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
 });
+
+Route::post('/payment/ccavenue/callback', [CartController::class, 'ccavenueCallback'])->name('payment.ccavenue.callback');
 
 $prefixes = ['super-admin', 'admin', 'sme', 'support'];
 

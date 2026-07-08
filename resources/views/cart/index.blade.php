@@ -106,10 +106,12 @@
                                 <span class="text-lg font-bold text-slate-900">₹{{ $total }}</span>
                             </div>
                             <div class="mt-6">
-                                <button type="button" disabled class="w-full cursor-not-allowed rounded-xl bg-logo-blue/60 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/20">
-                                    Checkout
-                                </button>
-                                <p class="mt-3 text-xs text-slate-500">Checkout will be enabled once payment flow is connected.</p>
+                                <form action="{{ route('cart.checkout') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="w-full rounded-xl bg-logo-blue hover:bg-logo-blue/90 px-5 py-3 text-sm font-bold uppercase tracking-wide text-white shadow-lg shadow-logo-blue/20 transition duration-200">
+                                        Checkout
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </div>

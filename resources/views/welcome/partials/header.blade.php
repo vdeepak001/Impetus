@@ -1,7 +1,7 @@
 @php
     $navDesktopClass = fn(string $routeName): string => request()->routeIs($routeName)
-        ? 'rounded-full px-2 xl:px-3 py-2 text-sm font-semibold text-logo-light-green bg-logo-light-green/15 transition-colors'
-        : 'rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green';
+        ? 'rounded-full px-2 xl:px-3 py-2 text-sm font-semibold text-logo-light-green bg-logo-light-green/15 transition-colors whitespace-nowrap'
+        : 'rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green whitespace-nowrap';
     $navMobileClass = fn(string $routeName): string => request()->routeIs($routeName)
         ? '-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-logo-light-green bg-logo-light-green/10'
         : '-mx-3 block rounded-lg px-3 py-2 text-base font-medium leading-7 text-slate-900 hover:bg-slate-50';
@@ -36,7 +36,7 @@
                     <img src="{{ asset('images/venture.svg') }}" alt="Venture Logo" class="h-16 w-auto">
                 </a>
 
-                <div class="hidden lg:flex lg:items-center lg:justify-center lg:gap-1 xl:gap-2">
+                <div class="hidden xl:flex xl:items-center xl:justify-center xl:gap-1 2xl:gap-2">
                     <a href="{{ route('home') }}" class="{{ $navDesktopClass('home') }}"
                         @if (request()->routeIs('home')) aria-current="page" @endif>Home</a>
                     <a href="{{ route('about') }}" class="{{ $navDesktopClass('about') }}"
@@ -52,12 +52,12 @@
                     <a href="{{ route('online.examination') }}" class="{{ $navDesktopClass('online.examination') }}"
                         @if (request()->routeIs('online.examination')) aria-current="page" @endif>Online Test</a>
                     <button type="button" @click="contactModalOpen = true"
-                        class="rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green">
+                        class="rounded-full px-2 xl:px-3 py-2 text-sm font-medium text-slate-800 transition-colors hover:bg-logo-light-green/10 hover:text-logo-light-green whitespace-nowrap">
                         Contact Us
                     </button>
                 </div>
 
-                <div class="flex lg:hidden">
+                <div class="flex xl:hidden">
                     <button type="button" @click="mobileMenuOpen = true"
                         class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-slate-700">
                         <span class="sr-only">Open main menu</span>
@@ -69,7 +69,7 @@
                     </button>
                 </div>
 
-                <div class="hidden lg:flex items-center">
+                <div class="hidden xl:flex items-center">
                     @if (Route::has('login'))
                         @auth
                             <div class="flex items-center gap-3">
@@ -91,24 +91,24 @@
                                 @endif
 
                                 <div x-data="{ userMenuOpen: false }"
-                                    class="relative flex-shrink-0 flex flex-col items-center gap-1">
+                                    class="relative flex-shrink-0 flex flex-col items-stretch border border-slate-200 rounded-xl bg-white shadow-sm w-40">
                                     <button type="button" @click="userMenuOpen = !userMenuOpen"
                                         @click.outside="userMenuOpen = false"
-                                        class="inline-flex w-40 items-center justify-between rounded-lg border border-slate-300 bg-white px-3 py-1 text-sm font-medium text-slate-900 transition-colors hover:border-logo-light-green hover:text-logo-light-green">
+                                        class="inline-flex items-center justify-between px-3 py-1.5 text-sm font-medium text-slate-800 transition-colors hover:text-logo-light-green rounded-t-xl">
                                         <span class="truncate">Hi, {{ auth()->user()->name }}</span>
-                                        <svg class="h-3.5 w-3.5 shrink-0" fill="none" viewBox="0 0 24 24"
+                                        <svg class="h-3.5 w-3.5 shrink-0 ml-1 text-slate-500" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                         </svg>
                                     </button>
                                     <div
-                                        class="w-40 rounded-lg bg-logo-blue py-1 text-center text-[13px] font-bold text-white shadow-sm">
+                                        class="bg-logo-blue/10 border-t border-slate-100 py-1 text-center text-[11px] font-bold text-logo-blue rounded-b-xl">
                                         UID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
                                     </div>
 
                                     <div x-show="userMenuOpen" x-cloak
-                                        class="absolute right-0 z-50 mt-2 w-48 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
+                                        class="absolute right-0 top-full z-50 mt-2 w-48 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
                                         <a href="{{ route('profile') }}" @click="userMenuOpen = false"
                                             class="block rounded-xl px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 hover:text-logo-light-green">
                                             My Profile
@@ -149,7 +149,7 @@
         </nav>
     </header>
     <!-- Mobile menu: outside header so fixed layers cover the viewport (not clipped by header blur) -->
-    <div x-show="mobileMenuOpen" x-cloak class="lg:hidden" role="dialog" aria-modal="true">
+    <div x-show="mobileMenuOpen" x-cloak class="xl:hidden" role="dialog" aria-modal="true">
         <div class="fixed inset-0 z-[100] bg-black/20 backdrop-blur-sm" @click="mobileMenuOpen = false"></div>
         <div class="fixed inset-y-0 right-0 z-[101] flex w-full max-w-sm flex-col bg-white shadow-2xl ring-1 ring-slate-900/10"
             style="max-height: 100dvh; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);">
