@@ -6,7 +6,7 @@
     @php
         $inputClass = 'mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-700 focus:border-logo-blue focus:outline-none focus:ring-2 focus:ring-logo-blue/20';
     @endphp
-    <section class="mx-auto max-w-6xl px-4 pb-16 pt-32 sm:px-6 lg:px-8" x-data="{ tab: 'personal' }">
+    <section class="mx-auto max-w-6xl px-4 pb-16 pt-32 sm:px-6 lg:px-8" x-data="{ tab: '{{ in_array(request()->query('tab'), ['personal', 'academic', 'professional', 'course']) ? request()->query('tab') : 'personal' }}' }">
         <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between border-b border-slate-200 pb-5 text-sm font-semibold gap-8">
                 <div class="flex flex-nowrap items-center gap-x-8 sm:gap-x-12 lg:gap-x-16 overflow-x-auto pb-2 sm:pb-0 scrollbar-hide">

@@ -258,7 +258,7 @@ class CartController extends Controller
 
             auth()->login($user);
 
-            return redirect()->route('profile')->with('success', 'Thank you! Your payment was successful and your courses have been activated.');
+            return redirect()->route('profile', ['tab' => 'course'])->with('success', 'Thank you! Your payment was successful and your courses have been activated.');
         }
 
         if (strtolower($orderStatus) === 'aborted') {
