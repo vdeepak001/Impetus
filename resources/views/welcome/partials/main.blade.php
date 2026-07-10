@@ -621,7 +621,7 @@
         </div>
     </section>
 
-    <section id="online-exam" class="bg-brand-900 py-24 sm:pt-18">
+    <section id="online-exam" class="bg-brand-900 py-12 sm:pt-18">
         <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
             <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Online Exam</h2>
             <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-3xl font-serif">Secure, proctored, and
