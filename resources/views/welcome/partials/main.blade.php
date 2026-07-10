@@ -104,7 +104,7 @@
     </section>
 
     <section id="vision-mission"
-        class="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-24 sm:py-28">
+        class="relative overflow-hidden bg-gradient-to-b from-white to-slate-50 py-24 sm:pt-18">
         <div
             class="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-logo-light-green/10 to-transparent">
         </div>
@@ -164,7 +164,7 @@
         </div>
     </section>
 
-    <section id="about" class="overflow-x-hidden bg-white/50 py-24 sm:py-32">
+    <section id="about" class="overflow-x-hidden bg-white/50 py-24 sm:pt-18">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div
                 class="mx-auto grid max-w-2xl grid-cols-1 gap-x-16 gap-y-16 lg:mx-0 lg:max-w-none lg:grid-cols-2 items-center">
@@ -275,7 +275,7 @@
         }
     </style>
 
-    <section id="cne-modules" class="py-24 sm:py-28 overflow-hidden bg-white">
+    <section id="cne-modules" class="py-24 sm:pt-18 overflow-hidden bg-white">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">CPD Modules</h2>
@@ -359,7 +359,7 @@
         </div>
     </section>
 
-    <section id="cpd-certification" class="bg-white/50 py-24 sm:py-28">
+    <section id="cpd-certification" class="bg-white/50 py-24 sm:pt-18">
         <div class="mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:px-8">
             <div>
                 <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">CPD Certification</h2>
@@ -435,7 +435,7 @@
         </div>
     </section>
 
-    <section id="learning-materials" class="py-24 sm:py-28 bg-slate-50/50">
+    <section id="learning-materials" class="py-24 sm:pt-18 bg-slate-50/50">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
                 <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Learning Materials
@@ -548,7 +548,7 @@
         </div>
     </section>
 
-    <section id="practice-test" class="bg-white/50 py-24 sm:py-28">
+    <section id="practice-test" class="bg-white/50 py-24 sm:pt-18">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <div class="grid items-center gap-10 lg:grid-cols-2">
                 <div>
@@ -621,7 +621,7 @@
         </div>
     </section>
 
-    <section id="online-exam" class="bg-brand-900 py-24 sm:py-28">
+    <section id="online-exam" class="bg-brand-900 py-24 sm:pt-18">
         <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
             <h2 class="text-lg font-semibold uppercase tracking-wider text-logo-light-green">Online Exam</h2>
             <p class="mt-2 text-3xl font-bold tracking-tight text-white sm:text-3xl font-serif">Secure, proctored, and
