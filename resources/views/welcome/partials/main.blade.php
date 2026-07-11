@@ -259,6 +259,7 @@
             gap: 2rem;
             animation: scroll 60s linear infinite;
             width: max-content;
+            padding-bottom: 8px;
         }
 
         .carousel-track:hover {
