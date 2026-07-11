@@ -250,7 +250,7 @@
             }
 
             100% {
-                transform: translateX(calc(-1 * (350px * {{ count($latestCourses) }} + 2rem * {{ count($latestCourses) }})));
+                transform: translateX(calc(-1 * (280px * {{ count($latestCourses) }} + 2rem * {{ count($latestCourses) }})));
             }
         }
 
@@ -301,34 +301,8 @@
                         {{-- Set 1 --}}
                         @foreach ($latestCourses as $course)
                             <a href="{{ route('cne.modules.show', $course->couse_name) }}"
-                                class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                                <div class="relative h-56 w-full overflow-hidden rounded-2xl bg-slate-100">
-                                    <img src="{{ asset('images/course.jpeg') }}" alt=""
-                                        class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                                        loading="lazy" decoding="async">
-                                    <div class="absolute inset-0 flex items-center justify-center p-4">
-                                        <span
-                                            class="block max-w-full text-balance text-center text-xl font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-3xl">
-                                            {{ $course->couse_name }}
-                                        </span>
-                                    </div>
-                                </div>
-                                {{-- <div class="mt-5 flex items-center justify-end">
-                                    <span class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
-                                        Module
-                                    </span>
-                                </div> --}}
-                                <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
-                                    {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
-                                </p>
-
-                            </a>
-                        @endforeach
-                        {{-- Set 2 --}}
-                        @foreach ($latestCourses as $course)
-                            <a href="{{ route('cne.modules.show', $course->couse_name) }}"
-                                class="group block flex w-[350px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-shadow duration-300 hover:shadow-xl hover:shadow-slate-300/50">
-                                <div class="relative h-56 w-full overflow-hidden rounded-2xl bg-slate-100">
+                                class="group block flex w-[280px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-all duration-300 hover:border-logo-light-green hover:shadow-xl hover:shadow-slate-300/50">
+                                <div class="relative h-44 w-full overflow-hidden rounded-2xl bg-slate-100">
                                     <img src="{{ asset('images/course.jpeg') }}" alt=""
                                         class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                                         loading="lazy" decoding="async">
@@ -339,18 +313,23 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="mt-5 flex items-center justify-end">
-                                    {{-- <span
-                                        class="rounded-full bg-logo-light-green/10 px-2.5 py-1 text-xs font-semibold text-logo-light-green">
-                                        Module
-                                    </span> --}}
+                            </a>
+                        @endforeach
+                        {{-- Set 2 --}}
+                        @foreach ($latestCourses as $course)
+                            <a href="{{ route('cne.modules.show', $course->couse_name) }}"
+                                class="group block flex w-[280px] flex-none flex-col rounded-3xl border border-slate-200/80 bg-white p-6 shadow-md shadow-slate-200/60 transition-all duration-300 hover:border-logo-light-green hover:shadow-xl hover:shadow-slate-300/50">
+                                <div class="relative h-44 w-full overflow-hidden rounded-2xl bg-slate-100">
+                                    <img src="{{ asset('images/course.jpeg') }}" alt=""
+                                        class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                                        loading="lazy" decoding="async">
+                                    <div class="absolute inset-0 flex items-center justify-center p-4">
+                                        <span
+                                            class="block max-w-full text-balance text-center text-xl font-bold uppercase leading-snug tracking-tight text-logo-blue sm:text-2xl">
+                                            {{ $course->couse_name }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <p class="mt-2 text-base leading-6 text-slate-600 text-justify">
-                                    {{ \Illuminate\Support\Str::words(strip_tags($course->description), 15, '...') }}
-                                </p>
-                                {{-- <p class="mt-4 text-xs font-bold uppercase tracking-wider text-slate-500">
-                                    Duration: 4-6 Weeks
-                                </p> --}}
                             </a>
                         @endforeach
                     </div>
