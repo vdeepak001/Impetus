@@ -126,7 +126,7 @@
                     </div>
                     <div class="relative order-1 lg:order-2">
                         <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-500 ring-1 ring-slate-200">
-                            <img src="{{ asset('images/Benefits-of-E-Learning-Materials-1024x585.png') }}" alt="Nurse taking practice test" class="w-full h-auto object-cover aspect-[4/3]">
+                            <img src="{{ asset('images/Practice_test-A.png') }}" alt="Nurse taking practice test" class="w-full h-auto object-cover object-center">
                             <div class="absolute inset-0 bg-gradient-to-tr from-logo-blue/20 to-transparent pointer-events-none"></div>
                         </div>
                         {{-- Decorative elements --}}
@@ -142,7 +142,7 @@
                 <div class="grid grid-cols-1 gap-x-12 gap-y-16 lg:grid-cols-2 lg:items-center">
                     <div class="relative">
                         <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl transition-transform hover:scale-[1.02] duration-500 ring-1 ring-slate-200">
-                            <img src="{{ asset('images/68f7aa_daa23b42261246be952d49b48ba346df~mv2.jpg') }}" alt="Clinical learning" class="w-full h-auto object-cover aspect-[4/3]">
+                            <img src="{{ asset('images/Practice_test_Benefits.png') }}" alt="Clinical learning" class="w-full h-auto object-cover object-center">
                         </div>
                     </div>
                     <div>
