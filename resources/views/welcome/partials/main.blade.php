@@ -71,9 +71,9 @@
                         <div
                             class="absolute inset-0 bg-gradient-to-t from-brand-900/60 via-transparent to-transparent z-10">
                         </div>
-                        <img src="{{ asset('images/nursing_hero.png') }}"
+                        <img src="{{ asset('images/home-nursing_hero.png') }}"
                             onerror="this.src='https://images.unsplash.com/photo-1584515933487-779824d29309?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'"
-                            alt="Professional Nurse"
+                            alt="Nursing Team"
                             class="w-full h-auto min-h-[320px] max-h-[500px] sm:min-h-[400px] sm:max-h-[580px] lg:max-h-[650px] object-cover object-center">
                         <div
                             class="absolute bottom-8 left-8 right-8 z-20 bg-white/80 backdrop-blur-xl p-6 rounded-2xl shadow-2xl border border-white/40 flex items-center gap-5">
@@ -231,7 +231,7 @@
                     </div>
                 </div>
                 <div class="relative overflow-hidden">
-                    <img src="{{ asset('images/nursing_team.png') }}"
+                    <img src="{{ asset('images/home-nursing_team.jpeg') }}"
                         onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'"
                         alt="Nursing Team"
                         class="w-full max-w-full rounded-2xl shadow-xl ring-1 ring-slate-400/10 object-cover h-[280px] sm:h-[400px] lg:h-[500px]" />
@@ -408,7 +408,8 @@
                 </div>
             </div>
             <div class="overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80"
+                <img src="{{ asset('images/home-CPD_points.jpeg') }}"
+                    onerror="this.src='https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1200&q=80'"
                     alt="CPD certification"
                     class="h-[280px] sm:h-[360px] lg:h-[420px] w-full max-w-full rounded-3xl object-cover shadow-xl ring-1 ring-slate-200">
             </div>
