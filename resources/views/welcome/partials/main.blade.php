@@ -230,11 +230,11 @@
                         </dl>
                     </div>
                 </div>
-                <div class="relative overflow-hidden">
+                <div class="relative overflow-hidden flex items-center justify-center">
                     <img src="{{ asset('images/home-nursing_team.jpeg') }}"
                         onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'"
                         alt="Nursing Team"
-                        class="w-full max-w-full rounded-2xl shadow-xl ring-1 ring-slate-400/10 object-cover h-[280px] sm:h-[400px] lg:h-[500px]" />
+                        class="w-full h-auto max-w-full rounded-2xl shadow-xl ring-1 ring-slate-400/10 object-cover object-center" />
                     <div
                         class="absolute -inset-4 rounded-2xl ring-1 ring-inset ring-slate-900/10 -z-10 bg-logo-light-green/10 pointer-events-none">
                     </div>
