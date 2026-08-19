@@ -24,15 +24,13 @@
                         </p>
 
                     </div>
-                    <div class="relative w-full min-w-0">
+                    <div class="relative w-full min-w-0 flex items-center justify-center">
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
-                        <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
+                        <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70 w-full">
                             <img
-                                src="{{ asset('images/66ccc0d0b5e3701731775c0c_652728a7077ae3384cfda548_Online20Proctoring20To20Cheating.png')}}"
+                                src="{{ asset('images/Onlinetest_.jpeg') }}"
                                 alt="Nurse completing an online multiple-choice examination"
-                                class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
-                                width="1200"
-                                height="800"
+                                class="w-full h-auto object-cover object-center"
                                 loading="eager"
                                 decoding="async"
                             >
@@ -45,15 +43,13 @@
         <section class="py-14 sm:py-20">
             <div class="mx-auto max-w-7xl px-6 lg:px-8">
                 <div class="grid items-center gap-10 lg:grid-cols-2 lg:gap-12 xl:gap-16">
-                    <div class="relative order-2 w-full min-w-0 lg:order-1">
+                    <div class="relative order-2 w-full min-w-0 lg:order-1 flex items-center justify-center">
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
                         <div class="relative w-full overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
                             <img
-                                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1200&q=80"
-                                alt="Clinical nursing assessment and continuing education"
-                                class="aspect-[4/3] w-full object-cover lg:aspect-auto lg:h-[22rem]"
-                                width="1200"
-                                height="800"
+                                src="{{ asset('images/Online_test_flexible_online_test.png') }}"
+                                alt="Flexible online nursing assessment"
+                                class="w-full h-auto object-cover object-center"
                                 loading="lazy"
                                 decoding="async"
                             >
