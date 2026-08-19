@@ -24,15 +24,13 @@
                         </p>
                         
                     </div>
-                    <div class="relative w-full min-w-0">
+                    <div class="relative w-full min-w-0 flex items-center justify-center">
                         <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
-                        <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70">
+                        <div class="relative overflow-hidden rounded-3xl shadow-lg shadow-slate-200/70 w-full">
                             <img
-                                src="{{ asset('images/BCEN-PD-Learn-hero-image-1.png') }}"
-                                alt="Nurse reviewing online learning resources and study materials"
-                                class="h-[280px] w-full object-cover sm:h-[340px] lg:h-[min(420px,52vh)]"
-                                width="1200"
-                                height="800"
+                                src="{{ asset('images/Learning_material.png') }}"
+                                alt="CPD Learning Materials"
+                                class="w-full h-auto object-cover object-center"
                                 loading="eager"
                                 decoding="async"
                             >
