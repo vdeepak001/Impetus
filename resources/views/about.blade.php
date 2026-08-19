@@ -40,9 +40,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="relative">
+                    <div class="relative flex items-center justify-center">
                         <div class="pointer-events-none absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/20 via-transparent to-logo-blue/20 blur-2xl"></div>
-                        <img src="{{ asset('images/Certification-Program.jpeg') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Nursing team" class="relative h-[500px] w-full rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
+                        <img src="{{ asset('images/Aboutus_empowering-nurses.png') }}" alt="Empowering Nurses" class="relative w-full h-auto rounded-3xl border border-slate-200/60 object-cover shadow-2xl shadow-slate-300/40">
                     </div>
                 </div>
             </div>
