@@ -102,8 +102,8 @@
                     <article class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm transition-all hover:shadow-md border-t-4 border-t-logo-light-green">
                         <div class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
                             <img
-                                src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?auto=format&fit=crop&w=900&q=80"
-                                alt="Study materials and preparation for a nursing examination"
+                                src="{{ asset('images/Level 1.png') }}"
+                                alt="Level 1 - Factual Knowledge"
                                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                                 width="900"
                                 height="600"
@@ -138,8 +138,8 @@
                     <article class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm transition-all hover:shadow-md border-t-4 border-t-logo-blue">
                         <div class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
                             <img
-                                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=80"
-                                alt="Laptop showing an online multiple-choice examination"
+                                src="{{ asset('images/Level II.png') }}"
+                                alt="Level 2 - Functional Knowledge"
                                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                                 width="900"
                                 height="600"
@@ -174,8 +174,8 @@
                     <article class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm transition-all hover:shadow-md border-t-4 border-t-[#7a5af8]">
                         <div class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
                             <img
-                                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=900&q=80"
-                                alt="Graduates celebrating achievement and certification"
+                                src="{{ asset('images/Level III.png') }}"
+                                alt="Level 3 - Problem Solving Knowledge"
                                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                                 width="900"
                                 height="600"

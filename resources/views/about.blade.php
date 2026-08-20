@@ -95,7 +95,7 @@
                     <article class="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30 lg:order-1">
-                                <img src="{{ asset('images/The-Importance-Education-in-Nursing.jpeg')}}" alt="License renewal and continuing education" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/skill based training.png') }}" alt="Skill-Based Training" class="h-full w-full object-cover">
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Skill-Based Training</h3>
