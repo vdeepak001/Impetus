@@ -87,7 +87,7 @@
                                 </p>
                             </div>
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30">
-                                <img src="{{ asset('images/skill-based-education.jpg') }}" alt="Nursing education and clinical growth" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/short-term.png') }}" alt="Short-Term Certification Programs" class="h-full w-full object-cover">
                             </div>
                         </div>
                     </article>
@@ -95,7 +95,7 @@
                     <article class="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30 lg:order-1">
-                                <img src="{{ asset('images/skill based training.png') }}" alt="Skill-Based Training" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/skill-based.png') }}" alt="Skill-Based Training" class="h-full w-full object-cover">
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Skill-Based Training</h3>
@@ -115,7 +115,7 @@
                                 </p>
                             </div>
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30">
-                                <img src="{{ asset('images/close-up-friends-studying-book_1421-13433.avif')}}" alt="Online nursing modules and career advancement" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/specialized-areas.png') }}" alt="Specialized Learning Areas" class="h-full w-full object-cover">
                             </div>
                         </div>
                     </article>
@@ -123,7 +123,7 @@
                     <article class="rounded-3xl border border-slate-200/70 bg-white p-6 shadow-md shadow-slate-200/60 sm:p-8">
                         <div class="grid items-center gap-8 lg:grid-cols-2">
                             <div class="h-64 w-full overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl shadow-slate-300/30 lg:order-1">
-                                <img src="{{ asset('images/nursing_team.png') }}" onerror="this.src='https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80'" alt="Flexible online nursing learning" class="h-full w-full object-cover">
+                                <img src="{{ asset('images/flexible-learning-approach.png') }}" alt="Flexible Learning Approach" class="h-full w-full object-cover">
                             </div>
                             <div class="lg:order-2">
                                 <h3 class="text-2xl font-bold tracking-tight text-slate-900 font-serif">Flexible Learning Approach</h3>
