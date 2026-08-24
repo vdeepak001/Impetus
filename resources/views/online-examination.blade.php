@@ -138,7 +138,7 @@
                     <article class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm transition-all hover:shadow-md border-t-4 border-t-logo-blue">
                         <div class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
                             <img
-                                src="{{ asset('images/Level II.png') }}"
+                                src="{{ asset('images/Level IIventura.png') }}"
                                 alt="Level 2 - Functional Knowledge"
                                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                                 width="900"
@@ -174,7 +174,7 @@
                     <article class="flex h-full min-h-0 flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm transition-all hover:shadow-md border-t-4 border-t-[#7a5af8]">
                         <div class="relative h-44 w-full shrink-0 overflow-hidden bg-slate-100">
                             <img
-                                src="{{ asset('images/Level III.png') }}"
+                                src="{{ asset('images/Level IIIventura.png') }}"
                                 alt="Level 3 - Problem Solving Knowledge"
                                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
                                 width="900"
