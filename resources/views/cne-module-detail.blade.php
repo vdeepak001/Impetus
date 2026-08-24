@@ -340,14 +340,17 @@
                 <div class="relative mx-auto max-w-7xl px-6 lg:px-8">
                     <div class="flex flex-col gap-10 md:flex-row md:items-center md:gap-12 lg:gap-16 xl:gap-20">
                         {{-- Left Column: Large Visual --}}
-                        <div class="w-full shrink-0 md:w-64 lg:w-72">
-                            <div class="flex justify-center md:justify-start">
-                                <img 
-                                    src="{{ asset('images/Bulb-Learning.png') }}" 
-                                    alt="Learning Illustration" 
-                                    class="h-auto w-full max-h-[32rem] object-contain"
-                                    loading="lazy"
-                                >
+                        <div class="w-full shrink-0 md:w-72 lg:w-80">
+                            <div class="relative">
+                                <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-tr from-logo-light-green/25 via-transparent to-logo-blue/20 blur-2xl"></div>
+                                <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white shadow-xl shadow-slate-300/30 ring-1 ring-slate-200/40">
+                                    <img 
+                                        src="{{ asset('images/module-learning-resources.png') }}" 
+                                        alt="CPD Learning Materials" 
+                                        class="w-full h-auto object-cover"
+                                        loading="lazy"
+                                    >
+                                </div>
                             </div>
                         </div>
 
@@ -433,7 +436,7 @@
                                 <div class="pointer-events-none absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-logo-blue/15 via-transparent to-logo-light-green/20 blur-2xl"></div>
                                 <div class="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-100 shadow-xl shadow-slate-300/35 ring-1 ring-slate-200/50">
                                     <img
-                                        src="{{ asset('images/nursing-next-generation.jpg') }}"
+                                        src="{{ asset('images/module-practice-test.png') }}"
                                         alt="Practice assessment and multiple-choice review"
                                         class="aspect-[4/3] w-full object-cover lg:aspect-auto lg:h-[min(22rem,48vh)]"
                                         width="1400"
