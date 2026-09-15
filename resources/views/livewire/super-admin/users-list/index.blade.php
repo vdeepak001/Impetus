@@ -161,7 +161,7 @@
                             </td>
                             <td
                                 class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                                {{ $user->unique_sequence_number ?? '—' }}
+                                {{ $user->uid ?? '—' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {{ $user->created_at ? $user->created_at->format('d-m-Y') : '—' }}
