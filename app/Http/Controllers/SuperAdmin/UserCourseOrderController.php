@@ -135,27 +135,37 @@ class UserCourseOrderController extends Controller
                 ->latest('completed_at')
                 ->first();
 
+            $finalAttempts = (clone $baseQuery)
+                ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                ->orderBy('completed_at')
+                ->get();
+
+            $final1 = $finalAttempts->first();
+            $final2 = $finalAttempts->count() > 1 ? $finalAttempts->skip(1)->first() : null;
+
             $completion = (clone $baseQuery)
                 ->where('test_type', \App\Enums\CourseTestType::Final->value)
                 ->orderByDesc('passed')
                 ->latest('completed_at')
                 ->first();
 
-                return [
-                    'id' => $order->id,
-                    'course_id' => $order->course_detail_id,
-                    'course_name' => $order->courseDetail?->couse_name ?? 'N/A',
-                    'purchase_date' => $order->start_date ? $order->start_date->format('d-m-Y') : '-',
-                    'expiry_date' => $order->end_date ? $order->end_date->format('d-m-Y') : '-',
-                    'completion_date' => $completion ? $completion->completed_at->format('d-m-Y') : '-',
-                    'passed' => $completion ? (bool) $completion->passed : false,
-                    'scores' => [
-                        'pre' => $pre ? (float) $pre->score_percent : 0,
-                        'mock' => $mock ? (float) $mock->score_percent : 0,
-                        'final' => $completion ? (float) $completion->score_percent : 0,
-                    ]
-                ];
-            });
+            return [
+                'id' => $order->id,
+                'course_id' => $order->course_detail_id,
+                'course_name' => $order->courseDetail?->couse_name ?? 'N/A',
+                'purchase_date' => $order->start_date ? $order->start_date->format('d-m-Y') : '-',
+                'expiry_date' => $order->end_date ? $order->end_date->format('d-m-Y') : '-',
+                'completion_date' => $completion ? $completion->completed_at->format('d-m-Y') : '-',
+                'passed' => $completion ? (bool) $completion->passed : false,
+                'scores' => [
+                    'pre' => $pre ? (float) $pre->score_percent : 0,
+                    'mock' => $mock ? (float) $mock->score_percent : 0,
+                    'final1' => $final1 ? (float) $final1->score_percent : 0,
+                    'final2' => $final2 ? (float) $final2->score_percent : 0,
+                    'final' => $completion ? (float) $completion->score_percent : 0,
+                ]
+            ];
+        });
 
         return response()->json([
             'orders' => $orders,

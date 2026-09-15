@@ -239,15 +239,17 @@
                 }
 
                 const categories = orders.map(o => `${o.course_name} (${o.purchase_date})`);
-                const preScores = orders.map(o => o.scores.pre);
-                const mockScores = orders.map(o => o.scores.mock);
-                const finalScores = orders.map(o => o.scores.final);
+                const preScores = orders.map(o => o.scores.pre || 0);
+                const mockScores = orders.map(o => o.scores.mock || 0);
+                const final1Scores = orders.map(o => o.scores.final1 ?? o.scores.final ?? 0);
+                const final2Scores = orders.map(o => o.scores.final2 || 0);
 
                 const options = {
                     series: [
                         { name: 'Pre-Test', data: preScores },
                         { name: 'Mock Test', data: mockScores },
-                        { name: 'Final Test', data: finalScores }
+                        { name: 'Final Test 1', data: final1Scores },
+                        { name: 'Final Test 2', data: final2Scores }
                     ],
                     chart: {
                         type: 'bar',
@@ -270,7 +272,7 @@
                         max: 100
                     },
                     fill: { opacity: 1 },
-                    colors: ['#465fff', '#10b981', '#f59e0b'],
+                    colors: ['#465fff', '#10b981', '#f59e0b', '#8b5cf6'],
                     tooltip: {
                         y: { formatter: (val) => val + "%" }
                     },
