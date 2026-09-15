@@ -293,10 +293,11 @@
                 <tr style="background-color: #e5e7eb !important;">
                     <th
                         style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 40px !important;">
-                        VLSID</th>
+                        UID</th>
                     <th
                         style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-align: center !important; text-transform: uppercase !important; width: 40px !important;">
-                        UID</th>
+                        VLSID</th>
+
                     <th
                         style="color: #000000 !important; border: 1px solid #d1d5db !important; padding: 8px 12px !important; font-size: 10px !important; font-weight: bold !important; text-transform: uppercase !important; width: 100px !important;">
                         Name</th>
@@ -327,9 +328,10 @@
                 @foreach ($userAttempts as $attempt)
                     <tr>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">
-                            {{ $attempt->sequence_number }}</td>
-                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">
                             {{ $attempt->uid }}</td>
+                        <td class="border border-gray-300 px-3 py-2 text-[10px] text-center">
+                            {{ $attempt->sequence_number }}</td>
+
                         <td class="border border-gray-300 px-3 py-2 text-[10px] font-normal uppercase text-left">
                             {{ $attempt->user_name }}</td>
                         <td class="border border-gray-300 px-3 py-2 text-[10px] uppercase text-center">
