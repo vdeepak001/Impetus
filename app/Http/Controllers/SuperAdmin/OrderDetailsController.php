@@ -32,6 +32,7 @@ class OrderDetailsController extends Controller
                     $searchable = [
                         $user->name,
                         $user->unique_sequence_number,
+                        $user->uid,
                     ];
                     foreach ($searchable as $val) {
                         if ($val && stripos((string)$val, $searchTerm) !== false) {
@@ -46,7 +47,7 @@ class OrderDetailsController extends Controller
 
         $orders = Order::query()
             ->with([
-                'user:id,name,first_name,last_name,email,unique_sequence_number',
+                'user:id,name,first_name,last_name,email,unique_sequence_number,uid',
                 'courseDetail:id,couse_name',
             ])
             ->when($search !== '', function ($query) use ($matchedUserIds) {

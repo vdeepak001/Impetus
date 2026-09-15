@@ -16,14 +16,15 @@ class OrderStatusController extends Controller
         if ($search !== '') {
             $searchTerm = mb_strtolower($search);
             $matchedUserIds = \App\Models\User::query()
-                ->select('id', 'name', 'first_name', 'last_name', 'email', 'unique_sequence_number')
+                ->select('id', 'name', 'first_name', 'last_name', 'email', 'unique_sequence_number', 'uid')
                 ->get()
                 ->filter(function ($user) use ($searchTerm) {
                     return str_contains(mb_strtolower($user->name ?? ''), $searchTerm)
                         || str_contains(mb_strtolower($user->first_name ?? ''), $searchTerm)
                         || str_contains(mb_strtolower($user->last_name ?? ''), $searchTerm)
                         || str_contains(mb_strtolower($user->email ?? ''), $searchTerm)
-                        || str_contains(mb_strtolower($user->unique_sequence_number ?? ''), $searchTerm);
+                        || str_contains(mb_strtolower($user->unique_sequence_number ?? ''), $searchTerm)
+                        || str_contains(mb_strtolower($user->uid ?? ''), $searchTerm);
                 })
                 ->pluck('id')
                 ->toArray();
