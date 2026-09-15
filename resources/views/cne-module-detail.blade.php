@@ -669,18 +669,18 @@
                     <div class="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-logo-blue to-orange-500"></div>
 
                     {{-- Notice Header --}}
-                    <div class="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4 rounded-t-3xl">
-                        <div class="flex items-center gap-3">
-                            <div class="flex size-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200/60 shrink-0">
-                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <div class="border-b border-slate-100 bg-white px-6 py-4 rounded-t-3xl" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div style="display: flex; width: 44px; height: 44px; min-width: 44px; min-height: 44px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 16px; background-color: #ecfdf5; color: #059669; border: 1px solid #a7f3d0;">
+                                <svg style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="font-serif text-lg font-bold text-slate-900 leading-snug">
+                                <h3 class="font-serif text-lg font-bold text-slate-900 leading-snug" style="margin: 0; font-size: 18px; font-weight: 700; color: #0f172a;">
                                     {{ $finalAttemptCount === 1 ? 'Final Test — Second Attempt' : 'Final Test — First Attempt' }}
                                 </h3>
-                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-600">IMPORTANT NOTICE</p>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-600" style="margin-top: 2px; font-size: 11px; font-weight: 700; color: #ea580c; letter-spacing: 0.05em;">IMPORTANT NOTICE</p>
                             </div>
                         </div>
                         <button 
@@ -688,7 +688,7 @@
                             @click="finalNoticeOpen = false"
                             class="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
                         >
-                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg style="width: 20px; height: 20px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
@@ -697,47 +697,50 @@
                     {{-- Notice Body --}}
                     <div class="px-6 py-6 space-y-4">
                         {{-- Attempt Limit Warning Card --}}
-                        <div class="flex items-start gap-3.5 rounded-2xl border border-amber-200/90 bg-amber-50/70 p-4 shadow-sm">
-                            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-black text-white shadow-sm select-none">1</span>
-                            <div class="min-w-0 flex-1 pt-0.5">
-                                <p class="text-xs font-semibold leading-relaxed text-slate-800">
-                                    Only <strong class="font-bold text-orange-600">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
+                        <div class="rounded-2xl border border-amber-200/90 bg-amber-50/70 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                            <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #ea580c; color: #ffffff; font-weight: 900; font-size: 13px; line-height: 1; user-select: none;">
+                                1
+                            </div>
+                            <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                <p class="text-xs font-semibold leading-relaxed text-slate-800" style="margin: 0; font-size: 13px; line-height: 1.5; color: #1e293b;">
+                                    Only <strong class="font-bold text-orange-600" style="color: #ea580c; font-weight: 700;">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
                                 </p>
                             </div>
                         </div>
 
                         {{-- Practice Recommendation Card --}}
-                        <div class="flex items-start gap-3.5 rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm">
-                            <div class="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-sm select-none">
-                                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <div class="rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                            <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #d1fae5; color: #047857; user-select: none;">
+                                <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <div class="min-w-0 flex-1 pt-0.5">
-                                <p class="text-xs font-medium leading-relaxed text-slate-700">
-                                    Practice thoroughly with <strong class="font-bold text-emerald-800">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
+                            <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                <p class="text-xs font-medium leading-relaxed text-slate-700" style="margin: 0; font-size: 13px; line-height: 1.5; color: #334155;">
+                                    Practice thoroughly with <strong class="font-bold text-emerald-800" style="color: #065f46; font-weight: 700;">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     {{-- Notice Footer Actions --}}
-                    <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50/80 border-t border-slate-100">
+                    <div class="px-6 py-4 bg-slate-50/80 border-t border-slate-100" style="display: flex; align-items: center; justify-content: flex-end; gap: 12px;">
                         <button 
                             type="button" 
                             @click="finalNoticeOpen = false" 
                             class="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none"
+                            style="font-size: 13px; font-weight: 700; padding: 10px 20px; border-radius: 12px;"
                         >
                             Practice More
                         </button>
                         <button 
                             type="button" 
                             @click="finalNoticeOpen = false" 
-                            class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-logo-blue/20 transition hover:bg-brand-900 focus:outline-none"
-                            style="background-color: #0082c9; color: #ffffff;"
+                            class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md transition hover:bg-brand-900 focus:outline-none"
+                            style="background-color: #0082c9; color: #ffffff; font-size: 13px; font-weight: 700; padding: 10px 24px; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px;"
                         >
-                            <span class="text-white font-bold">I UNDERSTAND</span>
-                            <svg class="h-4 w-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <span style="color: #ffffff; font-weight: 700;">I UNDERSTAND</span>
+                            <svg style="width: 16px; height: 16px; color: #a7f3d0;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
                         </button>
