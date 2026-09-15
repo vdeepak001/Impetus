@@ -183,10 +183,11 @@
                     <tr class="bg-[#0082c8]">
                         <th
                             class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[10%] whitespace-nowrap">
-                            VLSID</th>
+                            UID</th>
                         <th
                             class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[10%] whitespace-nowrap">
-                            UID</th>
+                            VLSID</th>
+
                         <th
                             class="px-4 py-2 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20 text-left w-[16%] whitespace-nowrap">
                             Name</th>
@@ -227,13 +228,13 @@
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
                             <td
                                 class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 text-left whitespace-nowrap">
-                                {{ $attempt->sequence_number }}</td>
-                            <td
-                                class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 text-left whitespace-nowrap">
                                 {{ $attempt->uid }}</td>
                             <td
-                                class="px-4 py-2 text-sm font-normal text-gray-900 dark:text-white uppercase whitespace-nowrap">
-                                {{ $attempt->user_name }}</td>
+                                class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 text-left whitespace-nowrap">
+                                {{ $attempt->sequence_number }}</td>
+
+                            class="px-4 py-2 text-sm font-normal text-gray-900 dark:text-white uppercase whitespace-nowrap">
+                            {{ $attempt->user_name }}</td>
                             <td
                                 class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-left whitespace-nowrap">
                                 {{ $attempt->rn_number }}</td>
