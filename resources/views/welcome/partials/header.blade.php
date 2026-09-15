@@ -96,15 +96,15 @@
                                         @click.outside="userMenuOpen = false"
                                         class="inline-flex items-center justify-between px-3 py-1.5 text-sm font-medium text-slate-800 transition-colors hover:text-logo-light-green rounded-t-xl">
                                         <span class="truncate">Hi, {{ auth()->user()->name }}</span>
-                                        <svg class="h-3.5 w-3.5 shrink-0 ml-1 text-slate-500" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                                        <svg class="h-3.5 w-3.5 shrink-0 ml-1 text-slate-500" fill="none"
+                                            viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                                             <path stroke-linecap="round" stroke-linejoin="round"
                                                 d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                         </svg>
                                     </button>
                                     <div
                                         class="bg-logo-blue/10 border-t border-slate-100 py-1 text-center text-[11px] font-bold text-logo-blue rounded-b-xl">
-                                        UID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
+                                        VLSID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
                                     </div>
 
                                     <div x-show="userMenuOpen" x-cloak
