@@ -177,6 +177,7 @@ class ReportsController extends Controller
             return (object)[
                 'id' => $first->user_id,
                 'sequence_number' => $first->user->unique_sequence_number ?? 'N/A',
+                'uid' => $first->user->uid ?? 'N/A',
                 'user_name' => $first->user->name ?? 'Unknown',
                 'rn_number' => $first->user->rn_number ?? 'N/A',
                 'phone' => $first->user->phone ?? '-',
@@ -272,7 +273,7 @@ class ReportsController extends Controller
         $callback = function() use ($grouped, $examType) {
             $file = fopen('php://output', 'w');
             
-            $header = ['UID', 'Name', 'RN', 'Mobile No', 'Mail ID', 'Module name', 'Date of completion', 'Time of completion', 'Score (%)'];
+            $header = ['VLSID', 'UID', 'Name', 'RN', 'Mobile No', 'Mail ID', 'Module name', 'Date of completion', 'Time of completion', 'Score (%)'];
             fputcsv($file, $header);
 
             foreach ($grouped as $group) {
@@ -288,6 +289,7 @@ class ReportsController extends Controller
                 
                 $row = [
                     $first->user->unique_sequence_number ?? 'N/A',
+                    $first->user->uid ?? 'N/A',
                     $first->user->name ?? 'Unknown',
                     $first->user->rn_number ?? 'N/A',
                     $first->user->phone ?? '-',
