@@ -20,6 +20,8 @@
         $finalAttemptCount = $tp['final_attempt_count'] ?? 0;
         $finalPassed = $tp['final_passed'] ?? false;
 
+        $isFinalCompletedOrLocked = ($finalDone && $finalPassed) || ($finalAttemptCount >= 2);
+
         $showAutoFinalNotice = auth()->check()
             && auth()->user()?->role_type === 'user'
             && $isPurchased
@@ -29,7 +31,8 @@
         $canViewLearningMaterials = auth()->check()
             && auth()->user()?->role_type === 'user'
             && $isPurchased
-            && $preDone;
+            && $preDone
+            && !$isFinalCompletedOrLocked;
 
         $creditPoints = 'N/A';
         if (isset($course->stateCouncils) && $course->stateCouncils->count() > 0) {
@@ -414,7 +417,7 @@
                             Practice Test
                         </h2>
                         @auth
-                            @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone)
+                            @if (auth()->user()?->role_type === 'user' && ($isPurchased ?? false) && $preDone && !$isFinalCompletedOrLocked)
                                 <a
                                     href="{{ route('cne.modules.test', [$course->couse_name, 'practice']) }}"
                                     class="group relative inline-flex overflow-hidden rounded-xl bg-gradient-to-br from-logo-blue to-brand-600 px-8 py-3.5 text-center text-white shadow-lg shadow-logo-blue/20 ring-2 ring-white/40 transition hover:-translate-y-0.5 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-logo-blue focus-visible:ring-offset-2 active:translate-y-0"
@@ -696,31 +699,59 @@
 
                     {{-- Notice Body --}}
                     <div class="px-6 py-6 space-y-4">
-                        {{-- Attempt Limit Warning Card --}}
-                        <div class="rounded-2xl border border-amber-200/90 bg-amber-50/70 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
-                            <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #ea580c; color: #ffffff; font-weight: 900; font-size: 13px; line-height: 1; user-select: none;">
-                                1
+                        @if ($finalAttemptCount === 1)
+                            {{-- Attempt 2 Limit Warning Card --}}
+                            <div class="rounded-2xl border border-rose-200/90 bg-rose-50/70 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                                <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #dc2626; color: #ffffff; font-weight: 900; font-size: 13px; line-height: 1; user-select: none;">
+                                    2
+                                </div>
+                                <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                    <p class="text-xs font-semibold leading-relaxed text-slate-800" style="margin: 0; font-size: 13px; line-height: 1.5; color: #1e293b;">
+                                        This is your <strong class="font-bold text-rose-600" style="color: #dc2626; font-weight: 700;">LAST CHANCE for FINAL TEST</strong>.
+                                    </p>
+                                </div>
                             </div>
-                            <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
-                                <p class="text-xs font-semibold leading-relaxed text-slate-800" style="margin: 0; font-size: 13px; line-height: 1.5; color: #1e293b;">
-                                    Only <strong class="font-bold text-orange-600" style="color: #ea580c; font-weight: 700;">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
-                                </p>
-                            </div>
-                        </div>
 
-                        {{-- Practice Recommendation Card --}}
-                        <div class="rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
-                            <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #d1fae5; color: #047857; user-select: none;">
-                                <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
+                            {{-- Practice Recommendation Card --}}
+                            <div class="rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                                <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #d1fae5; color: #047857; user-select: none;">
+                                    <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                    <p class="text-xs font-medium leading-relaxed text-slate-700" style="margin: 0; font-size: 13px; line-height: 1.5; color: #334155;">
+                                        Practice thoroughly with <strong class="font-bold text-emerald-800" style="color: #065f46; font-weight: 700;">"Learning Resource and Practice Test"</strong> before taking the Final Test 2nd Attempt.
+                                    </p>
+                                </div>
                             </div>
-                            <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
-                                <p class="text-xs font-medium leading-relaxed text-slate-700" style="margin: 0; font-size: 13px; line-height: 1.5; color: #334155;">
-                                    Practice thoroughly with <strong class="font-bold text-emerald-800" style="color: #065f46; font-weight: 700;">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
-                                </p>
+                        @else
+                            {{-- Attempt 1 Limit Warning Card --}}
+                            <div class="rounded-2xl border border-amber-200/90 bg-amber-50/70 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                                <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #ea580c; color: #ffffff; font-weight: 900; font-size: 13px; line-height: 1; user-select: none;">
+                                    1
+                                </div>
+                                <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                    <p class="text-xs font-semibold leading-relaxed text-slate-800" style="margin: 0; font-size: 13px; line-height: 1.5; color: #1e293b;">
+                                        Only <strong class="font-bold text-orange-600" style="color: #ea580c; font-weight: 700;">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
+
+                            {{-- Practice Recommendation Card --}}
+                            <div class="rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm" style="display: flex; align-items: flex-start; gap: 14px;">
+                                <div style="display: flex; width: 28px; height: 28px; min-width: 28px; min-height: 28px; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 9999px; background-color: #d1fae5; color: #047857; user-select: none;">
+                                    <svg style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                </div>
+                                <div style="flex: 1 1 0%; min-width: 0; padding-top: 2px;">
+                                    <p class="text-xs font-medium leading-relaxed text-slate-700" style="margin: 0; font-size: 13px; line-height: 1.5; color: #334155;">
+                                        Practice thoroughly with <strong class="font-bold text-emerald-800" style="color: #065f46; font-weight: 700;">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
+                                    </p>
+                                </div>
+                            </div>
+                        @endif
                     </div>
 
                     {{-- Notice Footer Actions --}}

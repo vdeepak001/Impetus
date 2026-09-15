@@ -104,7 +104,7 @@
                                     </button>
                                     <div
                                         class="bg-logo-blue/10 border-t border-slate-100 py-1 text-center text-[11px] font-bold text-logo-blue rounded-b-xl">
-                                        VLSID: {{ auth()->user()->unique_sequence_number ?? 'N/A' }}
+                                        VLSID: {{ auth()->user()->uid ?? 'N/A' }}
                                     </div>
 
                                     <div x-show="userMenuOpen" x-cloak

@@ -342,6 +342,36 @@ class CneModulesController extends Controller
             abort(404);
         }
 
+        $user = auth()->user();
+        abort_unless($user && $user->role_type === 'user', 403);
+
+        $activeOrder = Order::activeOrderFor($user, $course_detail);
+        abort_unless($activeOrder !== null, 403);
+
+        $preDone = CourseTestAttempt::query()
+            ->where('user_id', $user->id)
+            ->where('course_detail_id', $course_detail->id)
+            ->where('test_type', CourseTestType::Pre->value)
+            ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+            ->where('started_at', '>=', $activeOrder->created_at)
+            ->exists();
+        abort_unless($preDone, 403);
+
+        $finalAttempts = CourseTestAttempt::query()
+            ->where('user_id', $user->id)
+            ->where('course_detail_id', $course_detail->id)
+            ->where('test_type', CourseTestType::Final->value)
+            ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+            ->where('started_at', '>=', $activeOrder->created_at)
+            ->get();
+
+        $finalDone = $finalAttempts->isNotEmpty();
+        $finalPassed = $finalAttempts->contains('passed', true);
+        $finalAttemptCount = $finalAttempts->count();
+
+        $isFinalCompletedOrLocked = ($finalDone && $finalPassed) || ($finalAttemptCount >= 2);
+        abort_if($isFinalCompletedOrLocked, 403);
+
         $course_detail->load([
             'materials' => function ($query) {
                 $query

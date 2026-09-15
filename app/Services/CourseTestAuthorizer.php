@@ -40,6 +40,21 @@ class CourseTestAuthorizer
                 ->exists();
             abort_unless($preDone, 403);
 
+            $finalAttempts = CourseTestAttempt::query()
+                ->where('user_id', $user->id)
+                ->where('course_detail_id', $course->id)
+                ->where('test_type', CourseTestType::Final->value)
+                ->where('status', CourseTestAttempt::STATUS_COMPLETED)
+                ->where('started_at', '>=', $activeOrder->created_at)
+                ->get();
+
+            $finalDone = $finalAttempts->isNotEmpty();
+            $finalPassed = $finalAttempts->contains('passed', true);
+            $finalAttemptCount = $finalAttempts->count();
+
+            $isFinalCompletedOrLocked = ($finalDone && $finalPassed) || ($finalAttemptCount >= 2);
+            abort_if($isFinalCompletedOrLocked, 403);
+
             return;
         }
 
