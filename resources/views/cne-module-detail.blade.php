@@ -17,6 +17,14 @@
         $preDone = $tp['pre_done'] ?? false;
         $mockDone = $tp['mock_done'] ?? false;
         $finalDone = $tp['final_done'] ?? false;
+        $finalAttemptCount = $tp['final_attempt_count'] ?? 0;
+        $finalPassed = $tp['final_passed'] ?? false;
+
+        $showAutoFinalNotice = auth()->check()
+            && auth()->user()?->role_type === 'user'
+            && $isPurchased
+            && $mockDone
+            && !($finalDone && ($finalPassed || $finalAttemptCount >= 2));
 
         $canViewLearningMaterials = auth()->check()
             && auth()->user()?->role_type === 'user'
@@ -40,6 +48,7 @@
         x-data="{
             practiceGateOpen: false,
             scoreCardOpen: false,
+            finalNoticeOpen: {{ $showAutoFinalNotice ? 'true' : 'false' }},
             scoreCardData: {
                 title: '',
                 score: 0,
@@ -60,9 +69,12 @@
                 this.$watch('scoreCardOpen', value => {
                     document.body.style.overflow = value ? 'hidden' : '';
                 });
+                this.$watch('finalNoticeOpen', value => {
+                    document.body.style.overflow = value ? 'hidden' : '';
+                });
             },
         }"
-        @keydown.escape.window="practiceGateOpen = false; scoreCardOpen = false"
+        @keydown.escape.window="practiceGateOpen = false; scoreCardOpen = false; finalNoticeOpen = false"
     >
         <div class="h-[100px]" aria-hidden="true"></div>
 
@@ -632,6 +644,102 @@
                 </div>
             </div>
         </div>
+
+        {{-- Auto Final Test Notice Modal --}}
+        @if ($showAutoFinalNotice)
+            <div
+                x-show="finalNoticeOpen"
+                x-cloak
+                x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-150"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-[100] flex items-center justify-center p-4"
+                role="dialog"
+                aria-modal="true"
+            >
+                <div class="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" @click="finalNoticeOpen = false"></div>
+                
+                <div 
+                    class="relative z-10 w-full max-w-md transform overflow-hidden rounded-3xl border border-white/20 bg-white shadow-2xl transition-all ring-1 ring-slate-900/10"
+                    @click.stop
+                >
+                    <div class="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-logo-blue to-orange-500"></div>
+
+                    {{-- Notice Header --}}
+                    <div class="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4 rounded-t-3xl">
+                        <div class="flex items-center gap-3">
+                            <div class="flex size-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200/60 shrink-0">
+                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg font-bold text-slate-900 leading-snug">
+                                    {{ $finalAttemptCount === 1 ? 'Final Test — Second Attempt' : 'Final Test — First Attempt' }}
+                                </h3>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-600">IMPORTANT NOTICE</p>
+                            </div>
+                        </div>
+                        <button 
+                            type="button"
+                            @click="finalNoticeOpen = false"
+                            class="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
+                        >
+                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {{-- Notice Body --}}
+                    <div class="px-6 py-6 space-y-4">
+                        {{-- Attempt Limit Warning Card --}}
+                        <div class="flex items-center gap-3.5 rounded-2xl border border-amber-200/80 bg-amber-50/60 p-4">
+                            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-extrabold text-white">1</span>
+                            <p class="text-xs font-medium leading-relaxed text-slate-700">
+                                Only <strong class="font-bold text-orange-600">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
+                            </p>
+                        </div>
+
+                        {{-- Practice Recommendation Card --}}
+                        <div class="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/50 p-4">
+                            <div class="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-medium leading-relaxed text-slate-700">
+                                Practice thoroughly with <strong class="font-bold text-emerald-800">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Notice Footer Actions --}}
+                    <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50/60 border-t border-slate-100">
+                        <button 
+                            type="button" 
+                            @click="finalNoticeOpen = false" 
+                            class="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none"
+                        >
+                            Practice More
+                        </button>
+                        <button 
+                            type="button" 
+                            @click="finalNoticeOpen = false" 
+                            class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-emerald-700/20 transition hover:bg-emerald-800 focus:outline-none"
+                        >
+                            <span>I UNDERSTAND</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <style>
             [x-cloak] {
