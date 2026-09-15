@@ -96,7 +96,7 @@
                         @if (Auth::check())
                             @if (auth()->user()?->role_type === 'user')
                                 @if ($isPurchased)
-                                    <div class="flex flex-wrap items-center justify-end gap-3">
+                                    <div class="flex flex-wrap items-start justify-end gap-3">
                                         @php
                                             $canPre = (bool) $tp;
                                             $canMock = $tp && $preDone;
@@ -172,48 +172,51 @@
                                             >
                                                 Mock <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
                                             </button>
-                                                                        @elseif ($canMock)
+                                        @elseif ($canMock)
                                             <livewire:cne.pretest-otp-button :course="$course" :btn-class="$btnBase . ' ' . $mockClass" :test-type="'mock'" :btn-label="'Mock'" />
                                         @else
                                             <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the pre test first">Mock</span>
                                         @endif
 
                                         {{-- Final Test --}}
-                                        @if ($finalDone && (($tp['final_passed'] ?? false) || ($tp['final_attempt_count'] ?? 0) >= 2))
-                                            <button 
-                                                type="button"
-                                                @click="scoreCardOpen = true; scoreCardData = { 
-                                                    title: 'Final Test Result',
-                                                    score: '{{ number_format((float) $tp['final_score'], 1) }}',
-                                                    correct: '{{ $tp['final_correct'] }}',
-                                                    wrong: '{{ $tp['final_wrong'] }}',
-                                                    total: '{{ $tp['final_total'] }}',
-                                                    duration: '{{ $tp['final_duration'] }}',
-                                                    l1: '{{ $tp['final_l1'] }}',
-                                                    l2: '{{ $tp['final_l2'] }}',
-                                                    l3: '{{ $tp['final_l3'] }}',
-                                                    obtained: '{{ $tp['final_obtained'] }}',
-                                                    max: '{{ $tp['final_max'] }}'
-                                                }"
-                                                class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
-                                            >
-                                                Final 
-                                                @if ($tp['final_passed'] ?? false)
-                                                    <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-                                                @else
-                                                    <span class="ml-2 text-[10px] text-rose-500 font-bold uppercase">(Failed)</span>
-                                                @endif
-                                            </button>
-                                        @elseif ($canFinal)
-                                            <livewire:cne.pretest-otp-button 
-                                                :course="$course" 
-                                                :btn-class="$btnBase . ' ' . $finalClass" 
-                                                :test-type="'final'" 
-                                                :btn-label="$finalDone ? 'Retake Final (' . number_format((float) $tp['final_score'], 1) . '%)' : 'Final'" 
-                                            />
-                                        @else
-                                            <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Final</span>
-                                        @endif
+                                        <div class="flex flex-col items-center">
+                                            @if ($finalDone && (($tp['final_passed'] ?? false) || ($tp['final_attempt_count'] ?? 0) >= 2))
+                                                <button 
+                                                    type="button"
+                                                    @click="scoreCardOpen = true; scoreCardData = { 
+                                                        title: 'Final Test Result',
+                                                        score: '{{ number_format((float) $tp['final_score'], 1) }}',
+                                                        correct: '{{ $tp['final_correct'] }}',
+                                                        wrong: '{{ $tp['final_wrong'] }}',
+                                                        total: '{{ $tp['final_total'] }}',
+                                                        duration: '{{ $tp['final_duration'] }}',
+                                                        l1: '{{ $tp['final_l1'] }}',
+                                                        l2: '{{ $tp['final_l2'] }}',
+                                                        l3: '{{ $tp['final_l3'] }}',
+                                                        obtained: '{{ $tp['final_obtained'] }}',
+                                                        max: '{{ $tp['final_max'] }}'
+                                                    }"
+                                                    class="{{ $btnBase }} {{ $finalClass }} border-logo-blue/30 bg-logo-blue/5"
+                                                >
+                                                    Final 
+                                                    @if ($tp['final_passed'] ?? false)
+                                                        <svg class="ml-2 h-5 w-5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
+                                                    @else
+                                                        <span class="ml-2 text-[10px] text-rose-500 font-bold uppercase">(Failed)</span>
+                                                    @endif
+                                                </button>
+                                            @elseif ($canFinal)
+                                                <livewire:cne.pretest-otp-button 
+                                                    :course="$course" 
+                                                    :btn-class="$btnBase . ' ' . $finalClass" 
+                                                    :test-type="'final'" 
+                                                    :btn-label="$finalDone ? 'Retake Final (' . number_format((float) $tp['final_score'], 1) . '%)' : 'Final'" 
+                                                />
+                                            @else
+                                                <span class="{{ $btnBase }} {{ $lockedClass }}" title="Complete the mock test first">Final</span>
+                                            @endif
+                                            <span class="mt-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">MAX 2 ATTEMPTS</span>
+                                        </div>
                                     </div>
                                 @else
                                     <form method="POST" action="{{ route('cart.items.store', $course->couse_name) }}">

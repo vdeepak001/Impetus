@@ -13,6 +13,8 @@ new class extends Component
     public string $btnLabel = 'Pretest';
 
     public bool $showModal = false;
+    public bool $showNotice = false;
+    public int $finalAttemptCount = 0;
     public string $otpInput = '';
     public string $errorMessage = '';
     public string $successMessage = '';
@@ -30,7 +32,26 @@ new class extends Component
     public function openModal()
     {
         $this->resetState();
+        if ($this->testType === 'final') {
+            $user = auth()->user();
+            if ($user) {
+                $activeOrder = \App\Models\Order::activeOrderFor($user, $this->course);
+                $this->finalAttemptCount = \App\Models\CourseTestAttempt::query()
+                    ->where('user_id', $user->id)
+                    ->where('course_detail_id', $this->course->id)
+                    ->where('test_type', \App\Enums\CourseTestType::Final->value)
+                    ->where('status', \App\Models\CourseTestAttempt::STATUS_COMPLETED)
+                    ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
+                    ->count();
+            }
+            $this->showNotice = true;
+        }
         $this->showModal = true;
+    }
+
+    public function proceedFromNotice()
+    {
+        $this->showNotice = false;
     }
 
     public function closeModal()
@@ -46,6 +67,15 @@ new class extends Component
         $this->successMessage = '';
         $this->otpSent = false;
         $this->isSending = false;
+        $this->showNotice = false;
+    }
+
+    public function getNoticeTitle(): string
+    {
+        if ($this->finalAttemptCount === 1) {
+            return 'Final Test — Second Attempt';
+        }
+        return 'Final Test — First Attempt';
     }
 
     public function getSessionOtpKey(): string
@@ -194,8 +224,80 @@ new class extends Component
             {{-- Content --}}
             <div class="relative w-full max-w-md transform overflow-hidden rounded-3xl border border-white/20 bg-white shadow-2xl transition-all ring-1 ring-slate-900/10">
                 
-                {{-- Header --}}
-                <div class="flex items-center justify-between border-b border-slate-100 bg-white/95 px-6 py-4 rounded-t-3xl">
+                @if($showNotice)
+                    {{-- Important Notice Popup for Final Test --}}
+                    <div class="h-1.5 w-full bg-gradient-to-r from-emerald-500 via-logo-blue to-orange-500"></div>
+
+                    {{-- Notice Header --}}
+                    <div class="flex items-center justify-between border-b border-slate-100 bg-white px-6 py-4 rounded-t-3xl">
+                        <div class="flex items-center gap-3">
+                            <div class="flex size-11 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200/60 shrink-0">
+                                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-serif text-lg font-bold text-slate-900 leading-snug">{{ $this->getNoticeTitle() }}</h3>
+                                <p class="text-[11px] font-bold uppercase tracking-wider text-orange-600">IMPORTANT NOTICE</p>
+                            </div>
+                        </div>
+                        <button 
+                            type="button"
+                            wire:click="closeModal"
+                            class="rounded-xl p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-600 focus:outline-none"
+                        >
+                            <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+
+                    {{-- Notice Body --}}
+                    <div class="px-6 py-6 space-y-4">
+                        {{-- Attempt Limit Warning Card --}}
+                        <div class="flex items-center gap-3.5 rounded-2xl border border-amber-200/80 bg-amber-50/60 p-4">
+                            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-extrabold text-white">1</span>
+                            <p class="text-xs font-medium leading-relaxed text-slate-700">
+                                Only <strong class="font-bold text-orange-600">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
+                            </p>
+                        </div>
+
+                        {{-- Practice Recommendation Card --}}
+                        <div class="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/50 p-4">
+                            <div class="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                                <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <p class="text-xs font-medium leading-relaxed text-slate-700">
+                                Practice thoroughly with <strong class="font-bold text-emerald-800">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
+                            </p>
+                        </div>
+                    </div>
+
+                    {{-- Notice Footer Actions --}}
+                    <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50/60 border-t border-slate-100">
+                        <button 
+                            type="button" 
+                            wire:click="closeModal" 
+                            class="rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-xs font-bold text-slate-700 shadow-sm transition hover:bg-slate-50 focus:outline-none"
+                        >
+                            Practice More
+                        </button>
+                        <button 
+                            type="button" 
+                            wire:click="proceedFromNotice" 
+                            class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-emerald-700/20 transition hover:bg-emerald-800 focus:outline-none"
+                        >
+                            <span>I UNDERSTAND</span>
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                            </svg>
+                        </button>
+                    </div>
+                @else
+                    {{-- Header --}}
+                    <div class="flex items-center justify-between border-b border-slate-100 bg-white/95 px-6 py-4 rounded-t-3xl">
                     <div class="flex items-center gap-2.5">
                         <div class="flex size-9 items-center justify-center rounded-xl bg-logo-blue/10 text-logo-blue animate-pulse">
                             <svg class="size-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -296,6 +398,7 @@ new class extends Component
                         </div>
                     @endif
                 </div>
+                @endif
             </div>
         </div>
     @endif
