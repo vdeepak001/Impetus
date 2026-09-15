@@ -367,3 +367,26 @@ it('sends Final OTP, verifies it, and allows final access', function () {
     expect(session()->has('finaltest_otp_verified_' . $course->id))->toBeTrue();
 });
 
+it('shows important notice modal when final test openModal is called', function () {
+    $user = User::factory()->create(['role_type' => 'user']);
+    $course = CourseDetail::create([
+        'couse_name' => 'Notice Test Course',
+        'active_status' => 1,
+    ]);
+
+    $component = Livewire::actingAs($user)
+        ->test('cne.pretest-otp-button', [
+            'course' => $course,
+            'btnClass' => 'btn-final',
+            'testType' => 'final',
+            'btnLabel' => 'Final',
+        ]);
+
+    $component->call('openModal')
+        ->assertSet('showModal', true)
+        ->assertSet('showNotice', true)
+        ->assertSee('2 FINAL TEST ATTEMPTS')
+        ->assertSee('Final Test — First Attempt');
+});
+
+

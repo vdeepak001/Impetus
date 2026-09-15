@@ -202,7 +202,7 @@ new class extends Component
     {{-- Button --}}
     <button 
         type="button" 
-        wire:click="openModal" 
+        wire:click.prevent="openModal" 
         class="{{ $btnClass }}"
     >
         {{ $btnLabel }}
@@ -222,7 +222,7 @@ new class extends Component
             ></div>
             
             {{-- Content --}}
-            <div class="relative w-full max-w-md transform overflow-hidden rounded-3xl border border-white/20 bg-white shadow-2xl transition-all ring-1 ring-slate-900/10">
+            <div class="relative z-10 w-full max-w-md transform overflow-hidden rounded-3xl border border-white/20 bg-white shadow-2xl transition-all ring-1 ring-slate-900/10">
                 
                 @if($showNotice)
                     {{-- Important Notice Popup for Final Test --}}
