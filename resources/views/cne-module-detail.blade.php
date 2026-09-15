@@ -697,28 +697,32 @@
                     {{-- Notice Body --}}
                     <div class="px-6 py-6 space-y-4">
                         {{-- Attempt Limit Warning Card --}}
-                        <div class="flex items-center gap-3.5 rounded-2xl border border-amber-200/80 bg-amber-50/60 p-4">
-                            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-extrabold text-white">1</span>
-                            <p class="text-xs font-medium leading-relaxed text-slate-700">
-                                Only <strong class="font-bold text-orange-600">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
-                            </p>
+                        <div class="flex items-start gap-3.5 rounded-2xl border border-amber-200/90 bg-amber-50/70 p-4 shadow-sm">
+                            <span class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-black text-white shadow-sm select-none">1</span>
+                            <div class="min-w-0 flex-1 pt-0.5">
+                                <p class="text-xs font-semibold leading-relaxed text-slate-800">
+                                    Only <strong class="font-bold text-orange-600">2 FINAL TEST ATTEMPTS</strong> are allowed in total.
+                                </p>
+                            </div>
                         </div>
 
                         {{-- Practice Recommendation Card --}}
-                        <div class="flex items-start gap-3.5 rounded-2xl border border-emerald-200/80 bg-emerald-50/50 p-4">
-                            <div class="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700">
+                        <div class="flex items-start gap-3.5 rounded-2xl border border-emerald-200/90 bg-emerald-50/60 p-4 shadow-sm">
+                            <div class="flex size-7 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 shadow-sm select-none">
                                 <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <p class="text-xs font-medium leading-relaxed text-slate-700">
-                                Practice thoroughly with <strong class="font-bold text-emerald-800">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
-                            </p>
+                            <div class="min-w-0 flex-1 pt-0.5">
+                                <p class="text-xs font-medium leading-relaxed text-slate-700">
+                                    Practice thoroughly with <strong class="font-bold text-emerald-800">"Learning Resource and Practice Test"</strong> before taking the Final Test. Once you begin, one attempt will be consumed.
+                                </p>
+                            </div>
                         </div>
                     </div>
 
                     {{-- Notice Footer Actions --}}
-                    <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50/60 border-t border-slate-100">
+                    <div class="flex items-center justify-end gap-3 px-6 py-4 bg-slate-50/80 border-t border-slate-100">
                         <button 
                             type="button" 
                             @click="finalNoticeOpen = false" 
@@ -729,10 +733,11 @@
                         <button 
                             type="button" 
                             @click="finalNoticeOpen = false" 
-                            class="inline-flex items-center gap-2 rounded-xl bg-emerald-700 px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-emerald-700/20 transition hover:bg-emerald-800 focus:outline-none"
+                            class="inline-flex items-center gap-2 rounded-xl bg-logo-blue px-6 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-logo-blue/20 transition hover:bg-brand-900 focus:outline-none"
+                            style="background-color: #0082c9; color: #ffffff;"
                         >
-                            <span>I UNDERSTAND</span>
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <span class="text-white font-bold">I UNDERSTAND</span>
+                            <svg class="h-4 w-4 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
                             </svg>
                         </button>
