@@ -108,33 +108,22 @@ class CneModulesController extends Controller
             ->exists();
 
         $activeOrder = null;
-        $latestOrder = null;
         $isPurchased = false;
         $viewer = auth()->user();
 
         if ($viewer && $viewer->role_type === 'user') {
-            $latestOrder = Order::query()
-                ->where('user_id', $viewer->id)
-                ->where('course_detail_id', $course_detail->id)
-                ->where('payment_status', \App\Enums\PaymentStatus::Completed)
-                ->latest('id')
-                ->first();
-
             $activeOrder = Order::activeOrderFor($viewer, $course_detail);
-            $isPurchased = (bool) $latestOrder;
+            $isPurchased = (bool) $activeOrder;
         }
 
         $courseTestProgress = null;
         if ($viewer && $viewer->role_type === 'user' && $isPurchased) {
-            $targetOrder = $activeOrder ?? $latestOrder;
-            $orderExpired = $activeOrder === null || ($targetOrder && now()->toDateString() > $targetOrder->end_date);
-
             $preAttempt = CourseTestAttempt::query()
                 ->where('user_id', $viewer->id)
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Pre->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                ->when($targetOrder, fn ($q) => $q->where('started_at', '>=', $targetOrder->created_at))
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->first();
 
@@ -143,7 +132,7 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Mock->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                ->when($targetOrder, fn ($q) => $q->where('started_at', '>=', $targetOrder->created_at))
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->first();
 
@@ -152,21 +141,16 @@ class CneModulesController extends Controller
                 ->where('course_detail_id', $course_detail->id)
                 ->where('test_type', CourseTestType::Final->value)
                 ->where('status', CourseTestAttempt::STATUS_COMPLETED)
-                ->when($targetOrder, fn ($q) => $q->where('started_at', '>=', $targetOrder->created_at))
+                ->when($activeOrder, fn($q) => $q->where('started_at', '>=', $activeOrder->created_at))
                 ->latest('id')
                 ->get();
 
             $finalAttempt = $finalAttempts->first();
             $finalAttemptCount = $finalAttempts->count();
-            $finalPassed = (bool) ($finalAttempt?->passed);
-            $finalDeactivated = ($finalAttemptCount >= 2) || $finalPassed || $orderExpired;
 
-            $formatDuration = function ($seconds) {
-                if ($seconds === null) {
-                    return '—';
-                }
+            $formatDuration = function($seconds) {
+                if ($seconds === null) return '—';
                 $seconds = (int) $seconds;
-
                 return sprintf('%d:%02d', floor($seconds / 60), $seconds % 60);
             };
 
@@ -177,11 +161,9 @@ class CneModulesController extends Controller
                 3 => (int) ($levelWeightsRaw->level_3 ?? 3),
             ];
 
-            $calculateLevelStats = function ($attempt) use ($weights) {
-                if (! $attempt) {
-                    return ['l1' => '0/0', 'l2' => '0/0', 'l3' => '0/0', 'obtained' => 0, 'max' => 0];
-                }
-
+            $calculateLevelStats = function($attempt) use ($weights) {
+                if (!$attempt) return ['l1' => '0/0', 'l2' => '0/0', 'l3' => '0/0', 'obtained' => 0, 'max' => 0];
+                
                 $results = \App\Models\CourseTestAnswer::query()
                     ->where('course_test_attempt_id', $attempt->id)
                     ->join('course_questions', 'course_test_answers.course_question_id', '=', 'course_questions.id')
@@ -200,11 +182,8 @@ class CneModulesController extends Controller
                 foreach ($results as $row) {
                     $levelStr = (string) ($row->question_level ?? 'Level 1');
                     $levelNum = 1;
-                    if (str_contains($levelStr, '2')) {
-                        $levelNum = 2;
-                    } elseif (str_contains($levelStr, '3')) {
-                        $levelNum = 3;
-                    }
+                    if (str_contains($levelStr, '2')) $levelNum = 2;
+                    elseif (str_contains($levelStr, '3')) $levelNum = 3;
 
                     $weight = $weights[$levelNum] ?? 1;
                     $stats[$levelNum]['total']++;
@@ -216,9 +195,9 @@ class CneModulesController extends Controller
                 }
 
                 return [
-                    'l1' => $stats[1]['correct'].'/'.$stats[1]['total'],
-                    'l2' => $stats[2]['correct'].'/'.$stats[2]['total'],
-                    'l3' => $stats[3]['correct'].'/'.$stats[3]['total'],
+                    'l1' => $stats[1]['correct'] . '/' . $stats[1]['total'],
+                    'l2' => $stats[2]['correct'] . '/' . $stats[2]['total'],
+                    'l3' => $stats[3]['correct'] . '/' . $stats[3]['total'],
                     'obtained' => $obtained,
                     'max' => $max,
                 ];
@@ -234,8 +213,8 @@ class CneModulesController extends Controller
                 'pre_correct' => $preAttempt?->correct_count,
                 'pre_wrong' => $preAttempt ? (max(0, $preAttempt->total_questions - $preAttempt->correct_count)) : 0,
                 'pre_total' => $preAttempt?->total_questions,
-                'pre_duration' => $preAttempt && $preAttempt->started_at && $preAttempt->completed_at
-                    ? $formatDuration($preAttempt->started_at->diffInSeconds($preAttempt->completed_at))
+                'pre_duration' => $preAttempt && $preAttempt->started_at && $preAttempt->completed_at 
+                    ? $formatDuration($preAttempt->started_at->diffInSeconds($preAttempt->completed_at)) 
                     : '—',
                 'pre_l1' => $preLevelStats['l1'],
                 'pre_l2' => $preLevelStats['l2'],
@@ -248,8 +227,8 @@ class CneModulesController extends Controller
                 'mock_correct' => $mockAttempt?->correct_count,
                 'mock_wrong' => $mockAttempt ? (max(0, $mockAttempt->total_questions - $mockAttempt->correct_count)) : 0,
                 'mock_total' => $mockAttempt?->total_questions,
-                'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at
-                    ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at))
+                'mock_duration' => $mockAttempt && $mockAttempt->started_at && $mockAttempt->completed_at 
+                    ? $formatDuration($mockAttempt->started_at->diffInSeconds($mockAttempt->completed_at)) 
                     : '—',
                 'mock_l1' => $mockLevelStats['l1'],
                 'mock_l2' => $mockLevelStats['l2'],
@@ -262,8 +241,8 @@ class CneModulesController extends Controller
                 'final_correct' => $finalAttempt?->correct_count,
                 'final_wrong' => $finalAttempt ? (max(0, $finalAttempt->total_questions - $finalAttempt->correct_count)) : 0,
                 'final_total' => $finalAttempt?->total_questions,
-                'final_duration' => $finalAttempt && $finalAttempt->started_at && $finalAttempt->completed_at
-                    ? $formatDuration($finalAttempt->started_at->diffInSeconds($finalAttempt->completed_at))
+                'final_duration' => $finalAttempt && $finalAttempt->started_at && $finalAttempt->completed_at 
+                    ? $formatDuration($finalAttempt->started_at->diffInSeconds($finalAttempt->completed_at)) 
                     : '—',
                 'final_l1' => $finalLevelStats['l1'],
                 'final_l2' => $finalLevelStats['l2'],
@@ -272,7 +251,6 @@ class CneModulesController extends Controller
                 'final_max' => $finalLevelStats['max'],
                 'final_passed' => $finalAttempt?->passed,
                 'final_attempt_count' => $finalAttemptCount,
-                'final_deactivated' => $finalDeactivated,
             ];
         }
 
