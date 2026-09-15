@@ -26,6 +26,7 @@ class Index extends Component
         'name',
         'date_of_birth',
         'rn_number',
+        'uid',
         'email',
         'phone',
         'qualification',
@@ -42,6 +43,7 @@ class Index extends Component
         'name' => 'Full Name',
         'date_of_birth' => 'Date of Birth',
         'rn_number' => 'RN',
+        'uid' => 'UID',
         'email' => 'Email ID',
         'phone' => 'Mobile number',
         'qualification' => 'Qualification',
@@ -70,7 +72,8 @@ class Index extends Component
                     || str_contains(mb_strtolower($user->first_name ?? ''), $searchTerm)
                     || str_contains(mb_strtolower($user->last_name ?? ''), $searchTerm)
                     || str_contains(mb_strtolower($user->email ?? ''), $searchTerm)
-                    || str_contains(mb_strtolower($user->phone ?? ''), $searchTerm);
+                    || str_contains(mb_strtolower($user->phone ?? ''), $searchTerm)
+                    || str_contains(mb_strtolower($user->uid ?? ''), $searchTerm);
             });
         });
 

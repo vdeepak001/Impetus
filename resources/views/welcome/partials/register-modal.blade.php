@@ -66,7 +66,7 @@
         <form method="POST" action="{{ route('frontend.register') }}" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             @csrf
             <div class="sm:col-span-2">
-                <label for="register-name" class="mb-1.5 block text-sm font-medium text-slate-700">Name</label>
+                <label for="register-name" class="mb-1.5 block text-sm font-medium text-slate-700">Full Name <span class="text-red-500">*</span></label>
                 <input type="text"
                        id="register-name"
                        name="name"
@@ -77,7 +77,7 @@
             </div>
 
             <div>
-                <label for="register-state" class="mb-1.5 block text-sm font-medium text-slate-700">State</label>
+                <label for="register-state" class="mb-1.5 block text-sm font-medium text-slate-700">State <span class="text-red-500">*</span></label>
                 <select id="register-state"
                         name="state"
                         required
@@ -91,7 +91,7 @@
             </div>
 
             <div>
-                <label for="register-qualification" class="mb-1.5 block text-sm font-medium text-slate-700">Qualification</label>
+                <label for="register-qualification" class="mb-1.5 block text-sm font-medium text-slate-700">Qualification <span class="text-red-500">*</span></label>
                 <select id="register-qualification"
                         name="qualification"
                         required
@@ -105,7 +105,7 @@
             </div>
 
             <div>
-                <label for="register-dob" class="mb-1.5 block text-sm font-medium text-slate-700">Date of birth</label>
+                <label for="register-dob" class="mb-1.5 block text-sm font-medium text-slate-700">Date of birth <span class="text-red-500">*</span></label>
                 <input type="date"
                        id="register-dob"
                        name="date_of_birth"
@@ -116,7 +116,7 @@
             </div>
 
             <div>
-                <label for="register-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email</label>
+                <label for="register-email" class="mb-1.5 block text-sm font-medium text-slate-700">Email <span class="text-red-500">*</span></label>
                 <input type="email"
                        id="register-email"
                        name="email"
@@ -128,7 +128,7 @@
             </div>
 
             <div>
-                <label for="register-phone" class="mb-1.5 block text-sm font-medium text-slate-700">Mobile Number</label>
+                <label for="register-phone" class="mb-1.5 block text-sm font-medium text-slate-700">Mobile Number <span class="text-red-500">*</span></label>
                 <input type="text"
                        id="register-phone"
                        name="phone"
@@ -139,7 +139,7 @@
             </div>
 
             <div>
-                <label for="register-rn-number" class="mb-1.5 block text-sm font-medium text-slate-700">RN Number</label>
+                <label for="register-rn-number" class="mb-1.5 block text-sm font-medium text-slate-700">RN Number <span class="text-red-500">*</span></label>
                 <input type="text"
                        id="register-rn-number"
                        name="rn_number"
@@ -147,6 +147,21 @@
                        required
                        class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-logo-light-green focus:outline-none focus:ring-2 focus:ring-logo-light-green/25" />
                 <x-input-error :messages="$frontendRegisterErrors->get('rn_number')" class="mt-2" />
+            </div>
+
+            <div>
+                <label for="register-uid" class="mb-1.5 block text-sm font-medium text-slate-700">UID</label>
+                <input type="text"
+                       id="register-uid"
+                       name="uid"
+                       value="{{ old('uid') }}"
+                       placeholder="Alphanumeric only"
+                       class="block w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-logo-light-green focus:outline-none focus:ring-2 focus:ring-logo-light-green/25" />
+                <x-input-error :messages="$frontendRegisterErrors->get('uid')" class="mt-2" />
+            </div>
+
+            <div class="flex items-center justify-start pt-6 sm:pt-6">
+                <span class="text-sm font-semibold text-red-600">* Fields are Mandatory</span>
             </div>
 
             <div class="sm:col-span-2 mt-1">

@@ -79,6 +79,7 @@ class User extends Authenticatable
         'professional_state',
         'professional_zip_code',
         'unique_sequence_number',
+        'uid',
     ];
 
     /**
@@ -140,6 +141,7 @@ class User extends Authenticatable
             'professional_state' => 'encrypted',
             'professional_zip_code' => 'encrypted',
             'unique_sequence_number' => 'encrypted',
+            'uid' => 'encrypted',
         ];
     }
 

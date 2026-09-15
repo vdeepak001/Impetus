@@ -50,6 +50,7 @@ class ProfileUpdateRequest extends FormRequest
             'pan_number' => ['nullable', 'string', 'max:255'],
             'aadhar_number' => ['nullable', 'string', 'max:255'],
             'rn_number' => ['nullable', 'string', 'max:255'],
+            'uid' => ['nullable', 'string', 'max:255'],
             'rm_number' => ['nullable', 'string', 'max:255'],
             'qualification' => ['nullable', 'string', 'max:255'],
             'academic_state' => ['nullable', 'string', 'max:255'],

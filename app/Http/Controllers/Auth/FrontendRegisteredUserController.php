@@ -49,6 +49,7 @@ class FrontendRegisteredUserController extends Controller
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
             'phone' => ['required', 'numeric', 'digits:10'],
             'rn_number' => ['required', 'string', 'max:100'],
+            'uid' => ['nullable', 'string', 'max:255'],
         ]);
 
         $generatedPassword = Str::random(10);
@@ -96,6 +97,7 @@ class FrontendRegisteredUserController extends Controller
             'phone' => $validated['phone'],
             'rn_number' => $validated['rn_number'],
             'date_of_birth' => $validated['date_of_birth'],
+            'uid' => $validated['uid'] ?? null,
         ]);
 
         Mail::to($user->email)->send(new FrontendUserPasswordMail($user, $generatedPassword, 'register'));
