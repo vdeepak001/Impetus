@@ -232,9 +232,9 @@
                             <td
                                 class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 text-left whitespace-nowrap">
                                 {{ $attempt->sequence_number }}</td>
-
-                            class="px-4 py-2 text-sm font-normal text-gray-900 dark:text-white uppercase whitespace-nowrap">
-                            {{ $attempt->user_name }}</td>
+                            <td
+                                class="px-4 py-2 text-sm font-normal text-gray-900 dark:text-white uppercase whitespace-nowrap">
+                                {{ $attempt->user_name }}</td>
                             <td
                                 class="px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-400 uppercase text-left whitespace-nowrap">
                                 {{ $attempt->rn_number }}</td>
