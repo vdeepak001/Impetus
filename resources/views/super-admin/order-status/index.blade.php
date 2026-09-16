@@ -63,9 +63,6 @@
                             Order ID</th>
                         <th
                             class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">
-                            UID</th>
-                        <th
-                            class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">
                             VLSID</th>
                         <th
                             class="px-6 py-4 text-xs font-bold text-white uppercase tracking-wider border-b border-blue-400/20">
@@ -88,8 +85,6 @@
                     @forelse($orders as $order)
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150">
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400"></td>
-                            <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">
-                                {{ $order->user->uid ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm font-medium text-gray-600 dark:text-gray-400">
                                 {{ $order->user->unique_sequence_number ?? '-' }}</td>
                             <td class="px-6 py-4 text-sm font-normal text-gray-900 dark:text-white uppercase">

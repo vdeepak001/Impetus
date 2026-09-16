@@ -19,7 +19,7 @@
                         Search
                     </label>
                     <input id="order-search" name="search" type="text" value="{{ $filters['search'] }}"
-                        placeholder="Name, UID, email, module..." oninput="window.orderFiltersDebounceSubmit()"
+                        placeholder="Name, VLSID, email, module..." oninput="window.orderFiltersDebounceSubmit()"
                         class="block w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100" />
                 </div>
 
@@ -87,10 +87,6 @@
                                 S. No
                             </th>
                             <th scope="col"
-                                class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300 w-14">
-                                UID
-                            </th>
-                            <th scope="col"
                                 class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider dark:text-gray-300">
                                 VLSID
                             </th>
@@ -129,9 +125,6 @@
                             <tr>
                                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                     {{ ($orders->currentPage() - 1) * $orders->perPage() + $loop->iteration }}
-                                </td>
-                                <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
-                                    {{ $order->user?->uid ?? '—' }}
                                 </td>
                                 <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                     {{ $order->user?->unique_sequence_number ?? '—' }}
